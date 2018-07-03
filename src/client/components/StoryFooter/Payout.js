@@ -13,7 +13,7 @@ const Payout = ({ intl, post }) => {
   const payoutValue = payout.cashoutInTime ? payout.potentialPayout : payout.pastPayouts;
 
   return (
-    payoutValue > 0.01 && (
+    payoutValue >= 0.005 && (
       <span className="Payout">
         <BTooltip title={<PayoutDetail post={post} />}>
           <span
