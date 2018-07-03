@@ -66,8 +66,10 @@ class UserActivityActionsLoader extends React.Component {
     const { loadingMoreUsersAccountHistory } = this.props;
     if (loadingMoreUsersAccountHistory) {
       return (
-        <div className='UserActivityActions__loader'>
-          <Loading />
+        <div>
+          <div className="UserActivityActions__loader">
+            <Loading />
+          </div>
         </div>
       );
     }
