@@ -64,7 +64,7 @@ class Comments extends React.Component {
     super(props);
 
     this.state = {
-      sort: 'BEST',
+      sort: 'AUTHOR_REPUTATION',
       showCommentFormLoading: false,
       commentFormText: '',
       commentSubmitted: false,

@@ -50,6 +50,9 @@ class Topics extends React.Component {
               <li key='ulog'>
                 <Topic name='ulog' favorite={favorite} />
               </li>
+              <li key='surpassinggoogle'>
+                <Topic name='surpassinggoogle' favorite={favorite} />
+              </li>
               <li key='steemgigs'>
                 <Topic name='steemgigs' favorite={favorite} />
               </li>
@@ -59,7 +62,10 @@ class Topics extends React.Component {
               <li key='untalented'>
                 <Topic name='untalented' favorite={favorite} />
               </li>
-
+              <li key='philippines'>
+                <Topic name='philippines' favorite={favorite} />
+              </li>
+              
             {displayedTopics.map(topic => (
               <li key={topic}>
                 <Topic name={topic} favorite={favorite} />

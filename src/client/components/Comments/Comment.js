@@ -51,7 +51,7 @@ class Comment extends React.Component {
   };
 
   static defaultProps = {
-    sort: 'BEST',
+    sort: 'AUTHOR_REPUTATION',
     sliderMode: 'auto',
     rewriteLinks: false,
     rootPostAuthor: undefined,
