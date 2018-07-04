@@ -70,6 +70,7 @@ class Editor extends React.Component {
     };
 
     this.onUpdate = this.onUpdate.bind(this);
+    this.onHashtagUpdate = this.onHashtagUpdate.bind(this)
     this.setValues = this.setValues.bind(this);
     this.setBodyAndRender = this.setBodyAndRender.bind(this);
     this.throttledUpdate = this.throttledUpdate.bind(this);
@@ -79,6 +80,10 @@ class Editor extends React.Component {
 
   componentDidMount() {
     this.setValues(this.props);
+    this.props.form.setFieldsValue({
+      title: 'ULOG: ',
+      topics: ['ulog', 'surpassinggoogle'],
+    });
 
     // eslint-disable-next-line react/no-find-dom-node
     const select = ReactDOM.findDOMNode(this.select);
@@ -107,6 +112,30 @@ class Editor extends React.Component {
 
   onUpdate() {
     _.throttle(this.throttledUpdate, 200, { leading: false, trailing: true })();
+  }
+
+  onHashtagUpdate(value) {
+    console.log(value);
+    if (value === 'ulog' || value === 'surpassinggoogle') {
+      this.props.form.setFieldsValue({
+        title: 'ULOG: ',
+        topics: ['ulog', 'surpassinggoogle'],
+      });
+    } else if (value === 'teardrops') {
+      this.props.form.setFieldsValue({
+        title: 'TEARDROPS: ',
+        topics: ['ulog', 'teardrops'],
+      });
+    } else if (value === 'untalented') {
+      this.props.form.setFieldsValue({
+        title: 'UNTALENTED: ',
+        topics: ['ulog', 'untalented'],
+      });
+    } else if (value === 'philippines') {
+      this.props.form.setFieldsValue({
+        topics: ['ulog', 'philippines'],
+      });
+    }
   }
 
   setValues(post) {
@@ -203,6 +232,16 @@ class Editor extends React.Component {
     const { words, minutes } = readingTime(bodyHTML);
 
     return (
+      <div>
+        <div className="hashtags">
+          <Select defaultValue="ulog" style={{ width: 180 }} onChange={this.onHashtagUpdate}>
+            <Select.Option value="ulog">#ulog</Select.Option>
+            <Select.Option value="teardrops">#teardrops</Select.Option>
+            <Select.Option value="untalented">#untalented</Select.Option>
+            <Select.Option value="surpassinggoogle">#surpassinggoogle</Select.Option>
+            <Select.Option value="philippines">#philippines</Select.Option>
+          </Select>
+        </div>
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
         <Helmet>
           <title>
@@ -254,11 +293,6 @@ class Editor extends React.Component {
               <FormattedMessage id="topics" defaultMessage="Topics" />
             </span>
           }
-          extra={intl.formatMessage({
-            id: 'topics_extra',
-            defaultMessage:
-              'Separate topics with commas. Only lowercase letters, numbers and hyphen character is permitted.',
-          })}
         >
           {getFieldDecorator('topics', {
             initialValue: [],
@@ -290,15 +324,6 @@ class Editor extends React.Component {
             />,
           )}
         </Form.Item>
-        <h4>Note:</h4>
-        <ul>
-          <li className='ant-form-extra'>
-            If your post falls under #teardrops, simply delete 'ULOG:' from Title and replace that with 'TEARDROPS:'. Then, make #teardrops your first hashtag.
-          </li>
-          <li className='ant-form-extra'>
-            If your post falls under #untalented, simply delete 'ULOG:' from Title and replace that with 'UN(dis)TALENTED:'. Then, make #untalented your first hashtag.
-          </li>
-        </ul>
 
         <Form.Item>
           {getFieldDecorator('body', {
@@ -412,6 +437,7 @@ class Editor extends React.Component {
           </div>
         </div>
       </Form>
+      </div>
     );
   }
 }
