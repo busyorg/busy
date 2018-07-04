@@ -193,6 +193,8 @@
   "topics_extra": "If your post is a ULOG, you always do a steemit post right here too. Simply remove the default \"ULOG:\" from Title above and kindly remove the default \"#ulog\" from among the tags in the Topics box. Please help us as we try to reserve #ulog, only for ULOGS. If you are doing a ULOG, it is best done once a day. Try too, to use your location as one of your tags.           ",
   "topics_extra_2": "If your post falls under #teardrops, simply delete 'ULOG:' from Title and replace that with 'TEARDROPS:'. Then, make #teardrops your first hashtag.",
   "topics_extra_3": "If your post falls under #untalented, simply delete 'ULOG:' from Title and replace that with 'UN(dis)TALENTED:'. Then, make #untalented your first hashtag.",
+  "topics_untalented": "UN(dis)TALENTED (#untalented): We don't want any level of talent or potential talent to go amiss without celebrating it. We seek to reward even ¨attempts at out-of-the-boxness¨. If we remove bum, smart or average, ¨we are genius¨. #untalented is a home where ¨flaws are allowed¨. When you write under #untalented, ¨relegate reservations¨. We will sift even the nonsense to find sense there in. Not to confident? Confident? Too confident? Write under #untalented",
+  "topics_teardrops": "topics_teardrops guide",
   "topics_error_empty": "Please enter hashtags",
   "topics_error_count": "You must add 1 to 5 hashtags.",
   "topics_error_invalid_topic": "Hashtag {topic} is invalid.",
