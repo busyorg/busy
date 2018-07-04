@@ -23,7 +23,7 @@ function execGitCmd(args) {
 }
 
 function getChangedFiles() {
-  const mergeBase = execGitCmd(['merge-base', 'HEAD', 'master']);
+  const mergeBase = execGitCmd(['merge-base', 'HEAD', 'develop']);
   return [
     ...execGitCmd(['diff', '--name-only', '--diff-filter=ACMRTUB', mergeBase]),
     ...execGitCmd(['ls-files', '--others', '--exclude-standard']),

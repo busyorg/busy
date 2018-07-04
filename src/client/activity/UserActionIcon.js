@@ -34,6 +34,9 @@ class UserActionIcon extends React.Component {
         const customActionType = actionJSON[0];
         const customActionDetails = actionJSON[1];
 
+        if (!_.includes(accountHistoryConstants.PARSED_CUSTOM_JSON_IDS, actionDetails.id)) {
+          return 'icon-document';
+        }
         if (
           customActionType === accountHistoryConstants.REBLOG &&
           currentUsername === customActionDetails.account

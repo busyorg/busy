@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
 import formatter from '../helpers/steemitFormatter';
 import * as accountHistoryConstants from '../../common/constants/accountHistory';
 import VoteActionMessage from './VoteActionMessage';
@@ -17,6 +18,10 @@ class UserActionMessage extends React.Component {
     totalVestingFundSteem: PropTypes.string.isRequired,
     currentUsername: PropTypes.string.isRequired,
   };
+
+  static renderDefault(actionType) {
+    return <FormattedMessage id={actionType} defaultMessage={actionType} />;
+  }
 
   renderFormattedMessage() {
     const {
@@ -89,6 +94,9 @@ class UserActionMessage extends React.Component {
           />
         );
       case accountHistoryConstants.CUSTOM_JSON:
+        if (!_.includes(accountHistoryConstants.PARSED_CUSTOM_JSON_IDS, actionDetails.id)) {
+          return UserActionMessage.renderDefault(actionType);
+        }
         return <CustomJSONMessage actionDetails={actionDetails} />;
       case accountHistoryConstants.ACCOUNT_UPDATE:
         return <FormattedMessage id="account_updated" defaultMessage="Account Updated" />;
@@ -184,7 +192,7 @@ class UserActionMessage extends React.Component {
           />
         );
       default:
-        return <FormattedMessage id={actionType} defaultMessage={actionType} />;
+        return UserActionMessage.renderDefault(actionType);
     }
   }
   render() {
