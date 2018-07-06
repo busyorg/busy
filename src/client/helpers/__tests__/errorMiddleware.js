@@ -44,6 +44,10 @@ describe('parseBlockChainError', () => {
     expected =
       'Your voting power is too small, please accumulate more voting power or steem power.';
     expect(actual).toEqual(expected);
+
+    actual = parseBlockChainError('Cannot increase payout within last twelve hours before payout.');
+    expected = "You can't increase payout within last twelve hours before payout.";
+    expect(actual).toEqual(expected);
   });
 
   it('should extract message from unknown error', () => {
