@@ -1,0 +1,24 @@
+@import (reference) '../styles/custom.less';
+@import (reference) '../styles/modules/variables.less';
+
+.UserWalletButtons {
+  @media @small {
+    display: none;
+  }
+
+  &__transfer_and_power {
+    padding: @padding-md;
+  }
+
+  &__transfer {
+    width: 100%;
+    margin-bottom: @padding-xs;
+  }
+
+  &__power .Action {
+    width: calc(50% - (@padding-xs / 2));
+    &:last-child {
+      float: right;
+    }
+  }
+}

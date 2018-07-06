@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import UserWalletSummary from '../wallet/UserWalletSummary';
+import UserWalletButtons from '../wallet/UserWalletButtons';
 import { SBD, STEEM } from '../../common/constants/cryptos';
 import { getUserDetailsKey } from '../helpers/stateHelpers';
 import UserWalletTransactions from '../wallet/UserWalletTransactions';
@@ -151,6 +152,7 @@ class Wallet extends Component {
           sbdRate={currentSBDRate}
           steemRateLoading={steemRateLoading}
         />
+        <UserWalletButtons />
         {transactions.length === 0 && usersAccountHistoryLoading ? (
           <Loading style={{ marginTop: '20px' }} />
         ) : (
