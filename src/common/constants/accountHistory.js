@@ -12,6 +12,9 @@ export const AUTHOR_REWARD = 'author_reward';
 export const ACCOUNT_WITNESS_VOTE = 'account_witness_vote';
 export const FILL_VESTING_WITHDRAW = 'fill_vesting_withdraw';
 
+// Supported Custom JSON Type IDs
+export const ID_FOLLOW = 'follow';
+
 // Wallet Action Types
 export const TRANSFER = 'transfer';
 export const TRANSFER_TO_VESTING = 'transfer_to_vesting';
@@ -55,3 +58,5 @@ export const PARSED_PROPERTIES = [
   ACCOUNT_WITNESS_VOTE,
   FILL_VESTING_WITHDRAW,
 ];
+
+export const PARSED_CUSTOM_JSON_IDS = [ID_FOLLOW];
