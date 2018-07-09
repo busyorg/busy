@@ -232,18 +232,10 @@ class Write extends React.Component {
       };
     }
 
-    if (tags.length) {
-      metaData.tags = tags;
-    }
-    if (users.length) {
-      metaData.users = users;
-    }
-    if (links.length) {
-      metaData.links = links.slice(0, 10);
-    }
-    if (images.length) {
-      metaData.image = images;
-    }
+    metaData.tags = tags;
+    metaData.users = users;
+    metaData.links = links.slice(0, 10);
+    metaData.image = images;
 
     data.parentPermlink = tags.length ? tags[0] : 'general';
     data.jsonMetadata = metaData;
