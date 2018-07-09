@@ -1,6 +1,6 @@
 {
   "name": "busy",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "engines": {
     "node": ">=7.10.1",
     "npm": "=5.3.0"
