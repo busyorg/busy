@@ -1,9 +1,8 @@
 import { createAction } from 'redux-actions';
 import { createCommentPermlink, getBodyPatchIfSmaller } from '../vendor/steemitHelpers';
 import { notify } from '../app/Notification/notificationActions';
-import { jsonParse } from '../../client/helpers/formatter';
-
-const version = require('../../../package.json').version;
+import { jsonParse } from '../helpers/formatter';
+import { createPostMetadata } from '../helpers/postHelpers';
 
 export const GET_COMMENTS = 'GET_COMMENTS';
 export const GET_COMMENTS_START = 'GET_COMMENTS_START';
@@ -99,10 +98,11 @@ export const sendComment = (parentPost, body, isUpdating = false, originalCommen
     ? originalComment.permlink
     : createCommentPermlink(parentAuthor, parentPermlink);
 
-  const defaultJsonMetadata = { tags: [category], community: 'busy', app: `busy/${version}` };
-  const jsonMetadata = isUpdating
-    ? jsonParse(originalComment.json_metadata) || defaultJsonMetadata
-    : defaultJsonMetadata;
+  const jsonMetadata = createPostMetadata(
+    body,
+    [category],
+    isUpdating && jsonParse(originalComment.json_metadata),
+  );
 
   const newBody = isUpdating ? getBodyPatchIfSmaller(originalComment.body, body) : body;
 

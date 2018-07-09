@@ -7,10 +7,8 @@ import _ from 'lodash';
 import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
-import { getHtml } from '../../components/Story/Body';
 import improve from '../../helpers/improve';
-import { extractLinks } from '../../helpers/parser';
-import { getContentImages } from '../../helpers/postHelpers';
+import { createPostMetadata } from '../../helpers/postHelpers';
 import { rewardsValues } from '../../../common/constants/rewards';
 import LastDraftsContainer from './LastDraftsContainer';
 import DeleteDraftModal from './DeleteDraftModal';
@@ -27,8 +25,6 @@ import {
 import { createPost, saveDraft, newPost } from './editorActions';
 import Editor from '../../components/Editor/Editor';
 import Affix from '../../components/Utils/Affix';
-
-const version = require('../../../../package.json').version;
 
 @injectIntl
 @withRouter
@@ -190,25 +186,6 @@ class Write extends React.Component {
     data.parentAuthor = '';
     data.author = this.props.user.name || '';
 
-    const tags = form.topics;
-    const users = [];
-    const userRegex = /@([a-zA-Z.0-9-]+)/g;
-    let matches;
-
-    const postBody = data.body;
-
-    // eslint-disable-next-line
-    while ((matches = userRegex.exec(postBody))) {
-      if (users.indexOf(matches[1]) === -1) {
-        users.push(matches[1]);
-      }
-    }
-
-    const parsedBody = getHtml(postBody, {}, 'text');
-
-    const images = getContentImages(parsedBody, true);
-    const links = extractLinks(parsedBody);
-
     if (data.title && !this.permlink) {
       data.permlink = _.kebabCase(data.title);
     } else {
@@ -217,28 +194,11 @@ class Write extends React.Component {
 
     if (this.state.isUpdating) data.isUpdating = this.state.isUpdating;
 
-    let metaData = {
-      community: 'busy',
-      app: `busy/${version}`,
-      format: 'markdown',
-    };
+    const oldMetadata =
+      this.props.draftPosts[this.draftId] && this.props.draftPosts[this.draftId].jsonMetadata;
 
-    // Merging jsonMetadata makes sure that users don't lose any metadata when they edit post using
-    // Busy (like video data from DTube)
-    if (this.props.draftPosts[this.draftId] && this.props.draftPosts[this.draftId].jsonMetadata) {
-      metaData = {
-        ...this.props.draftPosts[this.draftId].jsonMetadata,
-        ...metaData,
-      };
-    }
-
-    metaData.tags = tags;
-    metaData.users = users;
-    metaData.links = links.slice(0, 10);
-    metaData.image = images;
-
-    data.parentPermlink = tags.length ? tags[0] : 'general';
-    data.jsonMetadata = metaData;
+    data.parentPermlink = form.topics.length ? form.topics[0] : 'general';
+    data.jsonMetadata = createPostMetadata(data.body, form.topics, oldMetadata);
 
     if (this.originalBody) {
       data.originalBody = this.originalBody;
