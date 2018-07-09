@@ -59,7 +59,11 @@ export default class PowerUpOrDown extends React.Component {
     const { user, down, totalVestingShares, totalVestingFundSteem } = this.props;
 
     return down
-      ? formatter.vestToSteem(user.vesting_shares, totalVestingShares, totalVestingFundSteem)
+      ? formatter.vestToSteem(
+          parseFloat(user.vesting_shares) - parseFloat(user.delegated_vesting_shares),
+          totalVestingShares,
+          totalVestingFundSteem,
+        )
       : parseFloat(user.balance);
   };
 

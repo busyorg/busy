@@ -1,10 +1,12 @@
 import _ from 'lodash';
 import { getHtml } from '../components/Story/Body';
-import { extractImageTags } from './parser';
+import { extractImageTags, extractLinks } from './parser';
 import { categoryRegex } from './regexHelpers';
 import { jsonParse } from './formatter';
 import DMCA from '../../common/constants/dmca.json';
 import whiteListedApps from './apps';
+
+const appVersion = require('../../../package.json').version;
 
 export const isPostDeleted = post => post.title === 'deleted' && post.body === 'deleted';
 
@@ -60,8 +62,42 @@ export function getContentImages(content, parsed = false) {
   const parsedBody = parsed ? content : getHtml(content, {}, 'text');
 
   return extractImageTags(parsedBody).map(tag =>
-    tag.src.replace('https://steemitimages.com/0x0/', ''),
+    _.unescape(tag.src.replace('https://steemitimages.com/0x0/', '')),
   );
 }
 
-export default null;
+export function createPostMetadata(body, tags, oldMetadata = {}) {
+  let metaData = {
+    community: 'busy',
+    app: `busy/${appVersion}`,
+    format: 'markdown',
+  };
+
+  metaData = {
+    ...oldMetadata,
+    ...metaData,
+  };
+
+  const users = [];
+  const userRegex = /@([a-zA-Z.0-9-]+)/g;
+  let matches;
+
+  // eslint-disable-next-line no-cond-assign
+  while ((matches = userRegex.exec(body))) {
+    if (users.indexOf(matches[1]) === -1) {
+      users.push(matches[1]);
+    }
+  }
+
+  const parsedBody = getHtml(body, {}, 'text');
+
+  const images = getContentImages(parsedBody, true);
+  const links = extractLinks(parsedBody);
+
+  metaData.tags = tags;
+  metaData.users = users;
+  metaData.links = links.slice(0, 10);
+  metaData.image = images;
+
+  return metaData;
+}

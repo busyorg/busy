@@ -4,7 +4,16 @@ import _ from 'lodash';
 import * as accountHistory from '../../common/constants/accountHistory';
 
 const UserActionContents = ({ actionType, actionDetails }) => {
-  if (_.includes(accountHistory.PARSED_PROPERTIES, actionType)) {
+  if (actionType === accountHistory.CUSTOM_JSON) {
+    // Special case: Follow, Unfollow, Reblog, Mute operations are
+    // a part of custom json operations with actionDetails.id as "follow".
+    // We have a parser for these ops, however we cannot parse
+    // every custom json since it's flexible and there is no
+    // standard for the structure of custom_json ops.
+    if (_.includes(accountHistory.PARSED_CUSTOM_JSON_IDS, actionDetails.id)) {
+      return null;
+    }
+  } else if (_.includes(accountHistory.PARSED_PROPERTIES, actionType)) {
     return null;
   }
 
