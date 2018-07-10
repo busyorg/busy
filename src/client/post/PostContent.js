@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import _ from 'lodash';
@@ -34,6 +35,7 @@ import { jsonParse } from '../helpers/formatter';
 import StoryFull from '../components/Story/StoryFull';
 import DMCARemovedMessage from '../components/Story/DMCARemovedMessage';
 
+@injectIntl
 @connect(
   state => ({
     user: getAuthenticatedUser(state),
@@ -63,6 +65,7 @@ import DMCARemovedMessage from '../components/Story/DMCARemovedMessage';
 )
 class PostContent extends React.Component {
   static propTypes = {
+    intl: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
     content: PropTypes.shape().isRequired,
     signature: PropTypes.string,
@@ -151,7 +154,8 @@ class PostContent extends React.Component {
   };
 
   handleEditClick = post => {
-    if (post.depth === 0) return this.props.editPost(post);
+    const { intl } = this.props;
+    if (post.depth === 0) return this.props.editPost(post, intl);
     this.props.push(`${post.url}-edit`);
     return Promise.resolve(null);
   };
