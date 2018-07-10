@@ -156,8 +156,7 @@ class PostContent extends React.Component {
   handleEditClick = post => {
     const { intl } = this.props;
     if (post.depth === 0) return this.props.editPost(post, intl);
-    this.props.push(`${post.url}-edit`);
-    return Promise.resolve(null);
+    return this.props.push(`${post.url}-edit`);
   };
 
   render() {
