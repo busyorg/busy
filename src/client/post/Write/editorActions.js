@@ -33,29 +33,29 @@ export const addEditedPost = createAction(ADD_EDITED_POST);
 export const DELETE_EDITED_POST = '@editor/DELETE_EDITED_POST';
 export const deleteEditedPost = createAction(DELETE_EDITED_POST);
 
-export const saveDraft = (post, redirect, intl) => dispatch => {
-  if (redirect) dispatch(push(`/editor?draft=${post.id}`));
-  return dispatch({
+export const saveDraft = (post, redirect, intl) => dispatch =>
+  dispatch({
     type: SAVE_DRAFT,
     payload: {
-      promise: addDraftMetadata(post).catch(() => {
-        let errorMessage =
-          "Couldn't save this draft. Make sure you are connected to the internet and don't have too much drafts already";
-        if (intl) {
-          errorMessage = intl.formatMessage({
-            id: 'draft_save_error',
-            defaultMessage:
-              "Couldn't save this draft. Make sure you are connected to the internet and don't have too much drafts already",
-          });
-        }
+      promise: addDraftMetadata(post).catch(err => {
+        const isLoggedOut = err.error === 'invalid_grant';
+
+        const errorMessage = intl.formatMessage({
+          id: isLoggedOut ? 'draft_save_auth_error' : 'draft_save_error',
+          defaultMessage: isLoggedOut
+            ? "Couldn't save this draft, because you are logged out. Please backup your post and log in again."
+            : "Couldn't save this draft. Make sure you are connected to the internet and don't have too much drafts already",
+        });
+
         dispatch(notify(errorMessage, 'error'));
 
         throw new Error();
       }),
     },
     meta: { postId: post.id },
+  }).then(() => {
+    if (redirect) dispatch(push(`/editor?draft=${post.id}`));
   });
-};
 
 export const deleteDraft = draftIds => dispatch =>
   dispatch({
@@ -66,7 +66,7 @@ export const deleteDraft = draftIds => dispatch =>
     meta: { ids: draftIds },
   });
 
-export const editPost = post => dispatch => {
+export const editPost = (post, intl) => dispatch => {
   const jsonMetadata = jsonParse(post.json_metadata);
   const draft = {
     ...post,
@@ -75,9 +75,7 @@ export const editPost = post => dispatch => {
     lastUpdated: new Date(),
     isUpdating: true,
   };
-  dispatch(saveDraft({ postData: draft, id: post.id })).then(() =>
-    dispatch(push(`/editor?draft=${post.id}`)),
-  );
+  dispatch(saveDraft({ postData: draft, id: post.id }, true, intl));
 };
 
 const requiredFields = 'parentAuthor,parentPermlink,author,permlink,title,body,jsonMetadata'.split(
