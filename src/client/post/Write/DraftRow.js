@@ -4,13 +4,14 @@ import _ from 'lodash';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Checkbox } from 'antd';
+import { draftType } from '../../types/drafts';
 import DeleteDraftModal from './DeleteDraftModal';
 import './DraftRow.less';
 
 class DraftRow extends React.Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
-    data: PropTypes.shape().isRequired,
+    draft: draftType.isRequired,
     selected: PropTypes.bool,
     onCheck: PropTypes.func,
   };
@@ -46,10 +47,10 @@ class DraftRow extends React.Component {
   }
 
   render() {
-    const { id, data, selected } = this.props;
-    const { lastUpdated } = data;
+    const { id, draft, selected } = this.props;
+    const { lastUpdated } = draft;
     const hasLastUpdated = !_.isUndefined(lastUpdated);
-    let { title = '', body = '' } = data;
+    let { title = '', body = '' } = draft;
     title = title.trim();
     body = body.replace(/\r?\n|\r|[\u200B-\u200D\uFEFF]/g, ' ').substring(0, 50);
     let draftTitle = title.length ? title : body;
