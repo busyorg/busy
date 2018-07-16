@@ -146,7 +146,7 @@ export default class Transfer extends React.Component {
       if (!errors) {
         const transferQuery = {
           to: values.to,
-          amount: `${values.amount} ${values.currency}`,
+          amount: `${parseFloat(values.amount).toFixed(3)} ${values.currency}`,
         };
         if (values.memo) transferQuery.memo = values.memo;
 
