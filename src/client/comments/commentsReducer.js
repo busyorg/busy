@@ -5,6 +5,7 @@ const initialState = {
   comments: {},
   pendingVotes: [],
   isFetching: false,
+  isLoaded: false,
 };
 
 const childrenById = (state = {}, action) => {
@@ -64,6 +65,18 @@ const isFetching = (state = initialState.isFetching, action) => {
   }
 };
 
+const isLoaded = (state = initialState.isLoaded, action) => {
+  switch (action.type) {
+    case commentsTypes.GET_COMMENTS_START:
+      return false;
+    case commentsTypes.GET_COMMENTS_SUCCESS:
+    case commentsTypes.GET_COMMENTS_ERROR:
+      return true;
+    default:
+      return state;
+  }
+};
+
 const comments = (state = initialState, action) => {
   switch (action.type) {
     case commentsTypes.GET_COMMENTS_START:
@@ -74,6 +87,7 @@ const comments = (state = initialState, action) => {
         comments: commentsData(state.comments, action),
         childrenById: childrenById(state.childrenById, action),
         isFetching: isFetching(state.isFetching, action),
+        isLoaded: isLoaded(state.isLoaded, action),
       };
     case commentsTypes.LIKE_COMMENT_START:
       return {
