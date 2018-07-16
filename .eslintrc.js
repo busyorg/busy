@@ -32,5 +32,7 @@ module.exports = {
     ],
     'no-console': OFF,
     'global-require': OFF,
+    // Allow mixed linebreaks locally, but commit only LF.
+    'linebreak-style': process.env.CI ? ['error', 'unix'] : OFF,
   },
 };
