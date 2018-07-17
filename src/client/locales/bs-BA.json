@@ -116,6 +116,8 @@
   "by": "By {username}",
   "memo": "Memo",
   "memo_placeholder": "Additional message to include in this payment (optional)",
+  "memo_exchange_error": "Memo is required when sending to an exchange.",
+  "memo_encryption_error": "Encrypted memos are not supported.",
   "power_up": "Power up",
   "power_down": "Power down",
   "message": "Message",
