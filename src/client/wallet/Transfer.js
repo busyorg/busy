@@ -175,18 +175,28 @@ export default class Transfer extends React.Component {
   validateMemo = (rule, value, callback) => {
     const { intl } = this.props;
     const recipientIsExchange = Transfer.exchangeRegex.test(this.props.form.getFieldValue('to'));
+
     if (recipientIsExchange && (!value || value === '')) {
-      callback([
+      return callback([
         new Error(
           intl.formatMessage({
-            id: 'memo_error_exchange',
+            id: 'memo_exchange_error',
             defaultMessage: 'Memo is required when sending to an exchange.',
           }),
         ),
       ]);
-    } else {
-      callback();
+    } else if (value && value.trim()[0] === '#') {
+      return callback([
+        new Error(
+          intl.formatMessage({
+            id: 'memo_encryption_error',
+            defaultMessage: 'Encrypted memos are not supported.',
+          }),
+        ),
+      ]);
     }
+
+    return callback();
   };
 
   validateUsername = (rule, value, callback) => {
