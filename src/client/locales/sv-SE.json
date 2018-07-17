@@ -116,6 +116,8 @@
   "by": "Av {username}",
   "memo": "Anteckning",
   "memo_placeholder": "Ytterligare meddelande att inkludera i den här betalningen (valfritt)",
+  "memo_exchange_error": "Memo is required when sending to an exchange.",
+  "memo_encryption_error": "Encrypted memos are not supported.",
   "power_up": "Power up",
   "power_down": "Power down",
   "message": "Meddelande",

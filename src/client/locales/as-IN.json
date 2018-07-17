@@ -116,6 +116,8 @@
   "by": "By {username}",
   "memo": "মেমো",
   "memo_placeholder": "পেইমেন্টৰ বাবে অতিৰিক্ত বাৰ্তা অৰ্ন্তভুক্ত কৰক (বাছনি)",
+  "memo_exchange_error": "Memo is required when sending to an exchange.",
+  "memo_encryption_error": "Encrypted memos are not supported.",
   "power_up": "Power up",
   "power_down": "Power down",
   "message": "বাৰ্তা",

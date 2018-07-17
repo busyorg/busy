@@ -116,6 +116,8 @@
   "by": "由 {username}",
   "memo": "备注",
   "memo_placeholder": "为此次付款添加备注（可选）",
+  "memo_exchange_error": "Memo is required when sending to an exchange.",
+  "memo_encryption_error": "Encrypted memos are not supported.",
   "power_up": "Power up",
   "power_down": "Power down",
   "message": "信息",

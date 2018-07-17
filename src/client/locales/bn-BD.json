@@ -116,6 +116,8 @@
   "by": "{username} দ্বারা",
   "memo": "মেমো",
   "memo_placeholder": "Additional message to include in this payment (optional)",
+  "memo_exchange_error": "Memo is required when sending to an exchange.",
+  "memo_encryption_error": "Encrypted memos are not supported.",
   "power_up": "পাওয়ার আপ",
   "power_down": "পাওয়ার ডাউন",
   "message": "বার্তা",

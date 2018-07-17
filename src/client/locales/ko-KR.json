@@ -116,6 +116,8 @@
   "by": "{username} 가 작성한",
   "memo": "메모",
   "memo_placeholder": "이 지불에 포함할 추가 메시지 (선택 사항)",
+  "memo_exchange_error": "Memo is required when sending to an exchange.",
+  "memo_encryption_error": "Encrypted memos are not supported.",
   "power_up": "Power up",
   "power_down": "Power down",
   "message": "메시지",

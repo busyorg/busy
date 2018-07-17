@@ -116,6 +116,8 @@
   "by": "Z {username}",
   "memo": "Obvestilo",
   "memo_placeholder": "Dodatno sporočilo vključeno v to plačilo (neobvezno)",
+  "memo_exchange_error": "Memo is required when sending to an exchange.",
+  "memo_encryption_error": "Encrypted memos are not supported.",
   "power_up": "Power up",
   "power_down": "Power down",
   "message": "Sporočilo",

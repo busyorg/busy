@@ -116,6 +116,8 @@
   "by": "Ne {username}",
   "memo": "Bayyani kula",
   "memo_placeholder": "Ƙarin sako don haɗawa a cikin wannan biyan (na zaɓi)",
+  "memo_exchange_error": "Memo is required when sending to an exchange.",
+  "memo_encryption_error": "Encrypted memos are not supported.",
   "power_up": "Power up",
   "power_down": "Power down",
   "message": "Saƙo",

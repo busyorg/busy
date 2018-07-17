@@ -116,6 +116,8 @@
   "by": "{username} के द्वारा",
   "memo": "ज्ञापन",
   "memo_placeholder": "इस भुगतान में अतिरिक्त संदेश शामिल करने के लिए (वैकल्पिक)",
+  "memo_exchange_error": "Memo is required when sending to an exchange.",
+  "memo_encryption_error": "Encrypted memos are not supported.",
   "power_up": "Power up",
   "power_down": "Power down",
   "message": "संदेश",
