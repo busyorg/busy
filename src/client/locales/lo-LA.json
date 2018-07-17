@@ -116,6 +116,8 @@
   "by": "By {username}",
   "memo": "ເຈ້ຍຈົດບັນທຶກ",
   "memo_placeholder": "ຂໍ້ຄວາມເພີ່ມເຕີມທີ່ຈະລວມເອົາໃນການຊຳລະເງິນນີ້(ທາງເລືອກ)",
+  "memo_exchange_error": "Memo is required when sending to an exchange.",
+  "memo_encryption_error": "Encrypted memos are not supported.",
   "power_up": "Power up",
   "power_down": "Power down",
   "message": "ຂໍ້ຄວາມ",
