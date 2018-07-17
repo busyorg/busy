@@ -185,7 +185,7 @@ export default class Transfer extends React.Component {
           }),
         ),
       ]);
-    } else if (value && value[0] === '#') {
+    } else if (value && value.trim()[0] === '#') {
       return callback([
         new Error(
           intl.formatMessage({
