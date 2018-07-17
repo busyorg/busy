@@ -116,6 +116,8 @@
   "by": "من قبل {username}",
   "memo": "ملحوظة",
   "memo_placeholder": "رسالة إضافية لبتم مرافقتها في هذا الدفع (اختياري)",
+  "memo_exchange_error": "Memo is required when sending to an exchange.",
+  "memo_encryption_error": "Encrypted memos are not supported.",
   "power_up": "Power up",
   "power_down": "Power down",
   "message": "رسالة",
