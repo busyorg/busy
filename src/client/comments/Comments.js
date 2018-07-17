@@ -98,11 +98,7 @@ export default class Comments extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { post, show } = this.props;
 
-    if (
-      nextProps.show &&
-      nextProps.post.children !== 0 &&
-      (nextProps.post.id !== post.id || !show)
-    ) {
+    if (nextProps.show && (nextProps.post.id !== post.id || !show)) {
       this.props.getComments(nextProps.post.id);
     }
   }
@@ -184,6 +180,7 @@ export default class Comments extends React.Component {
           username={this.props.username}
           pendingVotes={pendingVotes}
           loading={comments.isFetching}
+          loaded={comments.isLoaded}
           show={show}
           notify={this.props.notify}
           rewardFund={rewardFund}
