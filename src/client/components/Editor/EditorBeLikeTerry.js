@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import _ from 'lodash';
 import readingTime from 'reading-time';
-import { Checkbox, Form, Input, Select, Button, Collapse, Menu, Dropdown, Icon } from 'antd';
+import { Checkbox, Form, Input, Select, Button, Collapse } from 'antd';
 import { rewardsValues } from '../../../common/constants/rewards';
 import Action from '../Button/Action';
 import requiresLogin from '../../auth/requiresLogin';
@@ -20,7 +20,7 @@ import './Editor.less';
 @requiresLogin
 @Form.create()
 @withEditor
-class Editor extends React.Component {
+class EditorBeLikeTerry extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
     form: PropTypes.shape().isRequired,
@@ -211,21 +211,6 @@ class Editor extends React.Component {
 
     const { words, minutes } = readingTime(bodyHTML);
 
-    const menu = (
-      <Menu>
-        <Menu.Item key="0">
-          <Link to={'/editor'}>ULOG-KnowledgeBank</Link>
-        </Menu.Item>
-        <Menu.Item key="1">
-          <Link to={'/editor-surpassinggoogle'}>SurpassingGoogle</Link>
-        </Menu.Item>
-        <Menu.Divider />
-        <Menu.Item key="3">
-          <Link to={'/editor-be-like-terry'}>BeLikeTerry (Fan Love)</Link>
-        </Menu.Item>
-      </Menu>
-    );
-
     const Panel = Collapse.Panel;
 
 
@@ -247,11 +232,12 @@ In due time, we will celebrate breakthrough with the @teardrops Smart Media Toke
           </Collapse>
         </div>
         <div className="hashtags">
-          <Dropdown overlay={menu} trigger={['click']}>
-            <a className="ant-dropdown-link" href="#">
-              Try More #ulogging? <Icon type="down" />
-            </a>
-          </Dropdown>
+          <Select defaultValue="ulog-knowledgebank" style={{ width: 200 }}
+            onChange={this.onHashtagUpdate}>
+            <Select.Option value="ulog-knowledgebank">ULOG-KnowledgeBank</Select.Option>
+            <Select.Option value="surpassinggoogle">SurpassingGoogle</Select.Option>
+            <Select.Option value="be-like-terry">BeLikeTerry (Fan Love)</Select.Option>
+          </Select>
         </div>
         <div>
           <p>
@@ -464,4 +450,4 @@ Want to "mine the human" some more, you can also try one of our specialized edit
   }
 }
 
-export default Editor;
+export default EditorBeLikeTerry;

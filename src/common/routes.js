@@ -60,6 +60,14 @@ const routes = [
         component: Editor,
       },
       {
+        path: '/editor-surpassinggoogle',
+        component: Editor,
+      },
+      {
+        path: '/editor-be-like-terry',
+        component: Editor,
+      },
+      {
         path: '/settings',
         exact: true,
         component: Settings,
