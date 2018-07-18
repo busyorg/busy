@@ -278,10 +278,10 @@ class Write extends React.Component {
   render() {
     const { initialTitle, initialTopics, initialBody, initialReward, initialUpvote } = this.state;
     const { loading, saving, draftId } = this.props;
-    const current = this.props.location.pathname.split('/')[2];
+    const current = this.props.location.pathname.split('/')[1];
     const isUlog = current === "editor";
-    const isSurpassing = current === "editor-surpassinggoogle";
-    const isBeLikeTerry = current === "editor-be-like-terry";
+    const isSurpassing = current === "surpassinggoogle";
+    const isBeLikeTerry = current === "fanlove";
 
     return (
       <div className="shifted">

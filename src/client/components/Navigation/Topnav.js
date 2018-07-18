@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Menu, Input, AutoComplete } from 'antd';
+import { Menu, Input, AutoComplete, Dropdown, Icon } from 'antd';
 import classNames from 'classnames';
 import { searchAutoComplete } from '../../search/searchActions';
 import { getUpdatedSCUserMetadata } from '../../auth/authActions';
@@ -163,6 +163,21 @@ class Topnav extends React.Component {
         );
     const displayBadge = notificationsCount > 0;
     const notificationsCountDisplay = notificationsCount > 99 ? '99+' : notificationsCount;
+
+    const menu = (
+      <Menu>
+        <Menu.Item key="0">
+          <Link to={'/editor'}>ULOG-KnowledgeBank</Link>
+        </Menu.Item>
+        <Menu.Item key="1">
+          <Link to={'/surpassinggoogle'}>SurpassingGoogle</Link>
+        </Menu.Item>
+        <Menu.Item key="3">
+          <Link to={'/fanlove'}>BeLikeTerry (Fan Love)</Link>
+        </Menu.Item>
+      </Menu>
+    );
+
     return (
       <div
         className={classNames('Topnav__menu-container', {
@@ -170,6 +185,13 @@ class Topnav extends React.Component {
         })}
       >
         <Menu selectedKeys={[]} className="Topnav__menu-container__menu" mode="horizontal">
+          <Menu.Item key="editor">
+            <Dropdown overlay={menu} trigger={['click']}>
+              <a className="ant-dropdown-link" href="#">
+                Try More #ulogging? <Icon type="down" />
+              </a>
+            </Dropdown>
+          </Menu.Item>
           <Menu.Item key="write">
             <BTooltip
               placement="bottom"

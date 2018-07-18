@@ -56,15 +56,7 @@ const routes = [
         component: Wallet,
       },
       {
-        path: '/editor',
-        component: Editor,
-      },
-      {
-        path: '/editor-surpassinggoogle',
-        component: Editor,
-      },
-      {
-        path: '/editor-be-like-terry',
+        path: '/(editor|surpassinggoogle|fanlove)',
         component: Editor,
       },
       {
