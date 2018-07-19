@@ -26,6 +26,8 @@ import {
 
 import { createPost, saveDraft, newPost } from './editorActions';
 import Editor from '../../components/Editor/Editor';
+import EditorBeLikeTerry from '../../components/Editor/EditorBeLikeTerry';
+import EditorSurpassingGoogle from '../../components/Editor/EditorSurpassingGoogle';
 import Affix from '../../components/Utils/Affix';
 
 const version = require('../../../../package.json').version;
@@ -276,6 +278,10 @@ class Write extends React.Component {
   render() {
     const { initialTitle, initialTopics, initialBody, initialReward, initialUpvote } = this.state;
     const { loading, saving, draftId } = this.props;
+    const current = this.props.location.pathname.split('/')[1];
+    const isUlog = current === "editor";
+    const isSurpassing = current === "surpassinggoogle";
+    const isBeLikeTerry = current === "fanlove";
 
     return (
       <div className="shifted">
@@ -286,21 +292,57 @@ class Write extends React.Component {
             </div>
           </Affix>
           <div className="center">
-            <Editor
-              ref={this.setForm}
-              saving={saving}
-              title={initialTitle}
-              topics={initialTopics}
-              body={initialBody}
-              reward={initialReward}
-              upvote={initialUpvote}
-              draftId={draftId}
-              loading={loading}
-              isUpdating={this.state.isUpdating}
-              onUpdate={this.saveDraft}
-              onSubmit={this.onSubmit}
-              onDelete={this.onDelete}
-            />
+            {isUlog && (
+              <Editor
+                ref={this.setForm}
+                saving={saving}
+                title={initialTitle}
+                topics={initialTopics}
+                body={initialBody}
+                reward={initialReward}
+                upvote={initialUpvote}
+                draftId={draftId}
+                loading={loading}
+                isUpdating={this.state.isUpdating}
+                onUpdate={this.saveDraft}
+                onSubmit={this.onSubmit}
+                onDelete={this.onDelete}
+              />
+            )}
+            {isSurpassing && (
+              <EditorSurpassingGoogle
+                ref={this.setForm}
+                saving={saving}
+                title={initialTitle}
+                topics={initialTopics}
+                body={initialBody}
+                reward={initialReward}
+                upvote={initialUpvote}
+                draftId={draftId}
+                loading={loading}
+                isUpdating={this.state.isUpdating}
+                onUpdate={this.saveDraft}
+                onSubmit={this.onSubmit}
+                onDelete={this.onDelete}
+              />
+            )}
+            {isBeLikeTerry && (
+              <EditorBeLikeTerry
+                ref={this.setForm}
+                saving={saving}
+                title={initialTitle}
+                topics={initialTopics}
+                body={initialBody}
+                reward={initialReward}
+                upvote={initialUpvote}
+                draftId={draftId}
+                loading={loading}
+                isUpdating={this.state.isUpdating}
+                onUpdate={this.saveDraft}
+                onSubmit={this.onSubmit}
+                onDelete={this.onDelete}
+              />
+            )}
           </div>
           {this.state.showModalDelete && (
             <DeleteDraftModal

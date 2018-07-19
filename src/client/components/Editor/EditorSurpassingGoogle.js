@@ -21,7 +21,7 @@ import './Editor.less';
 @requiresLogin
 @Form.create()
 @withEditor
-class Editor extends React.Component {
+class EditorSurpassingGoogle extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
     form: PropTypes.shape().isRequired,
@@ -212,6 +212,7 @@ class Editor extends React.Component {
 
     const { words, minutes } = readingTime(bodyHTML);
 
+    const Panel = Collapse.Panel;
     const menu = (
       <Menu>
         <Menu.Item key="0">
@@ -226,22 +227,13 @@ class Editor extends React.Component {
       </Menu>
     );
 
-    const Panel = Collapse.Panel;
-
-
     return (
       <div>
         <div>
           <Collapse defaultActiveKey={['1']}>
-            <Panel header="The art of ULOGGING" key="1">
+            <Panel header="The Art of Surpassing Google" key="1">
               <p>
-              The art of ULOGGING is a conscious effort to "mine the human" into its "awesomest version", while reshaping the entire INTERNET and creating legends, icons, great men and women, brothers and "True Celebrities". <br/>
-              Together ULOGGING, we will remove "all barriers to entry" for content-creation, content-curation and steem-promotion, "making steeming as difficult as 1, 2, 3". <br/>
-              We will own our very cookies; we will re-tap into our shine and recover lost shine. We will fly. <br/>
-              ("True Celebrity-hood" for "everyone" once and for all!) <br/>
-              In the world of crypto-kitties, pokemonGO, superman, Blacky the rich cat etc we will bear forth "True Celebrities" (the awesomest version of human). Beautiful Disruption!!! (positive world adjustment). <br/>
-              In due time, we will celebrate breakthrough with the @teardrops Smart Media Token; "@surpassinggoogle". <br/>
-              "There is now light inside the tunnel". Your Ultimate "True Fan" (your boy terry). Happy ULOGGING!!! <br/>
+              The Art of Surpassing Google
               </p>
             </Panel>
           </Collapse>
@@ -252,15 +244,6 @@ class Editor extends React.Component {
               Try More #ulogging? <Icon type="down" />
             </a>
           </Dropdown>
-        </div>
-        <div>
-          <Collapse defaultActiveKey={['1']}>
-            <Panel header="(This is the main ULOGS.org editor!)" key="1">
-              ULOGS: Each day and "YOU" in it carries its own "freshness". So, not a day aren't we capable of reshaping the entire internet and touching the world with "a piece of freshness".
-              A ULOG can contain all formats of media, whether sound, pictures, art, videos, text or a combination of all as long as it is freshly-made (by YOU). You can be a public or private figure. Regardless, "you are a celebrity and we are your fans".
-            </Panel>
-          </Collapse>
-
         </div>
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
         <Helmet>
@@ -344,11 +327,6 @@ class Editor extends React.Component {
             />,
           )}
         </Form.Item>
-<div>
-Ulogs.org allows you to enjoy the entire steem ecosystem. So, incase you change your mind and want to do a steemit post like normal, that's easy!!! Simply remove the default "ULOG:" from Title above and kindly remove the default "#ulog" from among the tags in the Hashtags box.
-Please help us as we try to reserve #ulog, only for ULOGs. (If your post is a ULOG, you will not have cheetah-worries etc)
-Want to "mine the human" some more, you can also try one of our specialized editors above!!!
-</div>
         <Form.Item>
           {getFieldDecorator('body', {
             rules: [
@@ -466,4 +444,4 @@ Want to "mine the human" some more, you can also try one of our specialized edit
   }
 }
 
-export default Editor;
+export default EditorSurpassingGoogle;
