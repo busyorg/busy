@@ -26,6 +26,7 @@ import {
 
 import { createPost, saveDraft, newPost } from './editorActions';
 import Editor from '../../components/Editor/Editor';
+import EditorMain from '../../components/Editor/EditorMain';
 import EditorBeLikeTerry from '../../components/Editor/EditorBeLikeTerry';
 import EditorSurpassingGoogle from '../../components/Editor/EditorSurpassingGoogle';
 import Affix from '../../components/Utils/Affix';
@@ -280,6 +281,7 @@ class Write extends React.Component {
     const { loading, saving, draftId } = this.props;
     const current = this.props.location.pathname.split('/')[1];
     const isUlog = current === "editor";
+    const isMainEditor = current === "main-editor";
     const isSurpassing = current === "surpassinggoogle";
     const isBeLikeTerry = current === "fanlove";
 
@@ -294,6 +296,23 @@ class Write extends React.Component {
           <div className="center">
             {isUlog && (
               <Editor
+                ref={this.setForm}
+                saving={saving}
+                title={initialTitle}
+                topics={initialTopics}
+                body={initialBody}
+                reward={initialReward}
+                upvote={initialUpvote}
+                draftId={draftId}
+                loading={loading}
+                isUpdating={this.state.isUpdating}
+                onUpdate={this.saveDraft}
+                onSubmit={this.onSubmit}
+                onDelete={this.onDelete}
+              />
+            )}
+            {isMainEditor && (
+              <EditorMain
                 ref={this.setForm}
                 saving={saving}
                 title={initialTitle}
