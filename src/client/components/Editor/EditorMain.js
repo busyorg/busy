@@ -215,13 +215,13 @@ class EditorMain extends React.Component {
     const menu = (
       <Menu>
         <Menu.Item key="0">
-          <Link to={'/editor'}>ULOG-KnowledgeBank</Link>
+          <Link to={'/ulogging#knowledge-bank'}>ULOG-KnowledgeBank</Link>
         </Menu.Item>
         <Menu.Item key="1">
-          <Link to={'/surpassinggoogle'}>SurpassingGoogle</Link>
+          <Link to={'/ulogging#surpassing-google'}>SurpassingGoogle</Link>
         </Menu.Item>
-        <Menu.Item key="3">
-          <Link to={'/fanlove'}>BeLikeTerry (Fan Love)</Link>
+        <Menu.Item key="2">
+          <Link to={'/ulogging#be-like-terry'}>BeLikeTerry (Fan Love)</Link>
         </Menu.Item>
       </Menu>
     );
