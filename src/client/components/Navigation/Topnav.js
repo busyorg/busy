@@ -167,13 +167,19 @@ class Topnav extends React.Component {
     const menu = (
       <Menu>
         <Menu.Item key="0">
-          <Link to={'/editor'}>ULOG-KnowledgeBank</Link>
+          <Link to={'/main-editor'}>Write a ULOG</Link>
         </Menu.Item>
         <Menu.Item key="1">
-          <Link to={'/surpassinggoogle'}>SurpassingGoogle</Link>
+          <Link to={'/ulogging'}>More ULOGGING?</Link>
+        </Menu.Item>
+        <Menu.Item key="2">
+          <Link to={'/editor'}>Write a Post</Link>
         </Menu.Item>
         <Menu.Item key="3">
-          <Link to={'/fanlove'}>BeLikeTerry (Fan Love)</Link>
+          <Link to={'/teardrops'}>Write #teardrops</Link>
+        </Menu.Item>
+        <Menu.Item key="4">
+          <Link to={'/untalented'}>Write #untalented</Link>
         </Menu.Item>
       </Menu>
     );
@@ -186,21 +192,19 @@ class Topnav extends React.Component {
       >
         <Menu selectedKeys={[]} className="Topnav__menu-container__menu" mode="horizontal">
           <Menu.Item key="editor">
-            <Dropdown overlay={menu} trigger={['click']}>
-              <a className="ant-dropdown-link" href="#">
-                Try More #ulogging? <Icon type="down" />
-              </a>
-            </Dropdown>
-          </Menu.Item>
-          <Menu.Item key="write">
             <BTooltip
               placement="bottom"
               title={intl.formatMessage({ id: 'write_post', defaultMessage: 'Write post' })}
               mouseEnterDelay={1}
             >
-              <Link to="/editor" className="Topnav__link Topnav__link--action">
-                <i className="iconfont icon-write" />
-              </Link>
+              <Dropdown
+                overlay={menu}
+                trigger={['click']}
+              >
+                <a className="Topnav__link Topnav__link--action" href="#">
+                  <i className="iconfont icon-write" /><Icon type="down" />
+                </a>
+              </Dropdown>
             </BTooltip>
           </Menu.Item>
           <Menu.Item key="notifications" className="Topnav__item--badge">
