@@ -22,7 +22,7 @@ function ReputationTag({ intl, reputation }) {
 
 ReputationTag.propTypes = {
   intl: PropTypes.shape().isRequired,
-  reputation: PropTypes.string.isRequired,
+  reputation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 export default injectIntl(ReputationTag);
