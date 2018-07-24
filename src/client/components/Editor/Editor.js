@@ -2,12 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import ReactDOM from 'react-dom';
-import { withRouter, Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import _ from 'lodash';
 import readingTime from 'reading-time';
-import { Checkbox, Form, Input, Select, Button, Collapse, Menu, Dropdown, Icon } from 'antd';
+import { Checkbox, Form, Input, Select, Button } from 'antd';
 import { rewardsValues } from '../../../common/constants/rewards';
 import Action from '../Button/Action';
 import requiresLogin from '../../auth/requiresLogin';
@@ -81,6 +80,10 @@ class Editor extends React.Component {
 
   componentDidMount() {
     this.setValues(this.props);
+    this.props.form.setFieldsValue({
+      title: 'ULOG: ',
+      topics: ['ulog', 'surpassinggoogle'],
+    });
 
     // eslint-disable-next-line react/no-find-dom-node
     const select = ReactDOM.findDOMNode(this.select);
@@ -228,41 +231,16 @@ class Editor extends React.Component {
 
     const { words, minutes } = readingTime(bodyHTML);
 
-    const menu = (
-      <Menu>
-        <Menu.Item key="0">
-          <Link to={'/ulogging#knowledge-bank'}>ULOG-KnowledgeBank</Link>
-        </Menu.Item>
-        <Menu.Item key="1">
-          <Link to={'/ulogging#surpassing-google'}>SurpassingGoogle</Link>
-        </Menu.Item>
-        <Menu.Item key="2">
-          <Link to={'/ulogging#be-like-terry'}>BeLikeTerry (Fan Love)</Link>
-        </Menu.Item>
-      </Menu>
-    );
-
-    const Panel = Collapse.Panel;
-
     return (
       <div>
-        <div>
-          <Collapse defaultActiveKey={['1']}>
-            <Panel header="About ULOGS" key="1">
-              <p>
-                Ulogs.org allows you to enjoy the entire steem ecosystem. You can browse and read every post on the steem blockchain, comment, upvote, check your wallet and activities etc and you can also create and publish posts. <br/>
-                Each time you use ulogs.org though, you will be reminded of steem's beauty. You will also be giving back to steem, a negligible sum with "Steemit INC" as beneficiary. <br/>
-                To write a post now, you are all set; "Use the editor below!" <br/>
-              </p>
-            </Panel>
-          </Collapse>
-        </div>
         <div className="hashtags">
-          <Dropdown overlay={menu} trigger={['click']}>
-            <a className="ant-dropdown-link" href="#">
-              Try More #ulogging? <Icon type="down" />
-            </a>
-          </Dropdown>
+          <Select defaultValue="ulog" style={{ width: 180 }} onChange={this.onHashtagUpdate}>
+            <Select.Option value="ulog">#ulog</Select.Option>
+            <Select.Option value="teardrops">#teardrops</Select.Option>
+            <Select.Option value="untalented">#untalented</Select.Option>
+            <Select.Option value="surpassinggoogle">#surpassinggoogle</Select.Option>
+            <Select.Option value="philippines">#philippines</Select.Option>
+          </Select>
         </div>
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
         <Helmet>
@@ -304,7 +282,7 @@ class Editor extends React.Component {
               className="Editor__title"
               placeholder={intl.formatMessage({
                 id: 'title_placeholder',
-                defaultMessage: 'Add title',
+                defaultMessage: 'ULOG: ',
               })}
             />,
           )}
@@ -339,19 +317,13 @@ class Editor extends React.Component {
               mode="tags"
               placeholder={intl.formatMessage({
                 id: 'topics_placeholder',
-                defaultMessage: 'Add hashtags here',
+                defaultMessage: 'Add story topics here',
               })}
               dropdownStyle={{ display: 'none' }}
               tokenSeparators={[' ', ',']}
             />,
           )}
         </Form.Item>
-        <div className="Editor__hashtags">
-          <p>
-            Choose 5 hashtags closely related to your content. These will make your post searchable by readers, rank them better in the search engines and expose your posts to better curation, accruing you a "true-fanbase". <br/>
-            Want to "mine the human" some more? Try one of our #ulogging editors from the drop-down just above. <br/>
-          </p>
-        </div>
 
         <Form.Item>
           {getFieldDecorator('body', {
