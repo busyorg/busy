@@ -164,7 +164,7 @@
   "title_error_empty": "Please enter a title.",
   "title_error_too_long": "Title can't be longer than 255 characters.",
   "topics": "Topics",
-  "topics_placeholder": "Add hashtags here",
+  "topics_placeholder": "ulog, surpassinggoogle",
   "topics_extra": "Separate topics with commas. Only lowercase letters, numbers and hyphen character is permitted.",
   "topics_error_empty": "Please enter topics",
   "topics_error_count": "You have to add 1 to 5 topics.",
