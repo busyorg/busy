@@ -189,7 +189,7 @@
   "title_error_empty": "Please enter a title.",
   "title_error_too_long": "Title can't be longer than 255 characters.",
   "topics": "Topics",
-  "topics_placeholder": "ulog, surpassinggoogle",
+  "topics_placeholder": "Add hashtags here",
   "topics_extra": "If your post is a ULOG, you always do a steemit post right here too. Simply remove the default \"ULOG:\" from Title above and kindly remove the default \"#ulog\" from among the tags in the Topics box. Please help us as we try to reserve #ulog, only for ULOGS. If you are doing a ULOG, it is best done once a day. Try too, to use your location as one of your tags.",
   "topics_error_empty": "Please enter topics",
   "topics_error_count": "You have to add 1 to 5 topics.",
