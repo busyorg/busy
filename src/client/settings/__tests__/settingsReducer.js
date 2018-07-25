@@ -11,6 +11,7 @@ describe('settingsReducer', () => {
     votePercent: 10000,
     loading: false,
     showNSFWPosts: false,
+    nightmode: false,
     rewriteLinks: false,
     upvoteSetting: true,
     exitPageSetting: true,
@@ -63,7 +64,7 @@ describe('settingsReducer', () => {
     expect(settingsReducer(stateBefore, action)).to.eql(stateAfter);
   });
 
-  it('should set locale, voting power, vote percent, loading, showNSFWPosts, and rewriteLinks after saving succeeded', () => {
+  it('should set locale, voting power, vote percent, loading, showNSFWPosts, nightmode and rewriteLinks after saving succeeded', () => {
     const stateBefore = {
       ...initialState,
       loading: true,
@@ -75,6 +76,7 @@ describe('settingsReducer', () => {
       votePercent: 10000,
       votingPower: 'on',
       showNSFWPosts: true,
+      nightmode: true,
       rewriteLinks: true,
     };
     const action = {
@@ -84,6 +86,7 @@ describe('settingsReducer', () => {
         votingPower: 'on',
         votePercent: 10000,
         showNSFWPosts: true,
+        nightmode: true,
         rewriteLinks: true,
         upvoteSetting: true,
         exitPageSetting: true,
