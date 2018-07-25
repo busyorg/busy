@@ -8,7 +8,7 @@ import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
 import { getHtml } from '../../components/Story/Body';
-import VideoEmbed from '../../components/SideBar/VideoEmbed';
+import VideoEmbed from '../../components/Sidebar/VideoEmbed';
 import improve from '../../helpers/improve';
 import { extractLinks } from '../../helpers/parser';
 import { getContentImages } from '../../helpers/postHelpers';
