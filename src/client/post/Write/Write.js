@@ -285,6 +285,7 @@ class Write extends React.Component {
     const isMainEditor = current === "main-editor";
     const isSurpassing = current === "surpassinggoogle";
     const isBeLikeTerry = current === "fanlove";
+    const iframe = `<iframe width="270" height="158" src="https://www.youtube.com/embed/kKZ1CixLG2s?autoplay=1&amp;autohide=1&amp;enablejsapi=0&amp;rel=0&amp;origin=https://steemit.com" frameborder="0" allowfullscreen=""></iframe>`;
 
     return (
       <div className="shifted">
@@ -298,7 +299,7 @@ class Write extends React.Component {
                 embed={{
                   provider_name: 'YouTube',
                   thumbnail: 'https://steemitimages.com/360x203/https://img.youtube.com/vi/kKZ1CixLG2s/0.jpg',
-                  embed: '<iframe width="270" height="158" src="https://www.youtube.com/embed/kKZ1CixLG2s?autoplay=1&amp;autohide=1&amp;enablejsapi=0&amp;rel=0&amp;origin=https://steemit.com" frameborder="0" allowfullscreen=""></iframe>',
+                  embed: iframe,
                 }}
               />
             </div>
