@@ -8,6 +8,7 @@ import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
 import { getHtml } from '../../components/Story/Body';
+import VideoEmbed from '../../components/SideBar/VideoEmbed';
 import improve from '../../helpers/improve';
 import { extractLinks } from '../../helpers/parser';
 import { getContentImages } from '../../helpers/postHelpers';
@@ -291,6 +292,15 @@ class Write extends React.Component {
           <Affix className="rightContainer" stickPosition={77}>
             <div className="right">
               <LastDraftsContainer />
+            </div>
+            <div className="right">
+              <VideoEmbed key="embed"
+                embed={{
+                  provider_name: 'YouTube',
+                  thumbnail: 'https://steemitimages.com/360x203/https://img.youtube.com/vi/kKZ1CixLG2s/0.jpg',
+                  embed: "true",
+                }}
+              />
             </div>
           </Affix>
           <div className="center">

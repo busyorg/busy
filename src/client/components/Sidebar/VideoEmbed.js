@@ -29,8 +29,9 @@ export default class VideoEmbed extends React.Component {
   };
 
   renderWithIframe = embed => (
-    // eslint-disable-next-line react/no-danger
-    <div className="VideoEmbed__container" dangerouslySetInnerHTML={{ __html: embed }} />
+    <div className="VideoEmbed__container">
+      <iframe width="270" height="158" src="https://www.youtube.com/embed/kKZ1CixLG2s?autoplay=1&amp;autohide=1&amp;enablejsapi=0&amp;rel=0&amp;origin=https://steemit.com" frameborder="0" allowfullscreen=""></iframe>
+    </div>
   );
 
   renderThumbFirst(thumb) {
