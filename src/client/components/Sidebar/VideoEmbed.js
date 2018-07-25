@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './VideoEmbed.less';
 
-class VideoEmbed extends React.Component {
+export default class VideoEmbed extends React.Component {
   static propTypes = {
     embed: PropTypes.shape({
       provider_name: PropTypes.string,
@@ -58,5 +58,3 @@ class VideoEmbed extends React.Component {
     return <div />;
   }
 }
-
-export default VideoEmbed;
