@@ -29,6 +29,7 @@ export default class VideoEmbed extends React.Component {
   };
 
   renderWithIframe = embed => (
+    // eslint-disable-next-line react/no-danger
     <div className="VideoEmbed__container" dangerouslySetInnerHTML={{ __html: embed }} />
   );
 
