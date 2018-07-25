@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './VideoEmbed.less';
 
-export default class VideoEmbed extends React.Component {
+class VideoEmbed extends React.Component {
   static propTypes = {
     embed: PropTypes.shape({
       provider_name: PropTypes.string,
@@ -29,9 +29,7 @@ export default class VideoEmbed extends React.Component {
   };
 
   renderWithIframe = embed => (
-    <div className="VideoEmbed__container">
-      <iframe width="270" height="158" src="https://www.youtube.com/embed/kKZ1CixLG2s?autoplay=1&amp;autohide=1&amp;enablejsapi=0&amp;rel=0&amp;origin=https://steemit.com" frameborder="0" allowfullscreen=""></iframe>
-    </div>
+    <div className="VideoEmbed__container" dangerouslySetInnerHTML={{ __html: embed }} />
   );
 
   renderThumbFirst(thumb) {
@@ -60,3 +58,5 @@ export default class VideoEmbed extends React.Component {
     return <div />;
   }
 }
+
+export default VideoEmbed;
