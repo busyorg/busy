@@ -1,20 +1,22 @@
 @import (reference) '../../styles/custom.less';
 
-.Sidenav {
-  & > li {
-    & > a {
-      &:hover {
-        color: @white-smoke;
+.nightmode {
+  .Sidenav {
+    & > li {
+      & > a {
+        &:hover {
+          color: @white-smoke;
+        }
       }
     }
   }
-}
 
-.Sidenav__item--active {
-  background: @grey-nero;
-  border: @border-width-base @border-style-base @normal-grey !important;
-  color: @white-smoke !important;
-  & > i {
-    color: @primary-color;
+  .Sidenav__item--active {
+    background: @grey-nero;
+    border: @border-width-base @border-style-base @normal-grey !important;
+    color: @white-smoke !important;
+    & > i {
+      color: @primary-color;
+    }
   }
 }
