@@ -170,7 +170,7 @@ export default ({ large = true, noImage = false, sanitizeErrors = [], secureLink
       const url = new URL(href);
       const hostname = url.hostname || 'localhost';
 
-      if (!hostname.match(ownUrl)) {
+      if (['https', 'http'].indexOf(url.protocol) || !hostname.match(ownUrl)) {
         attys.target = '_blank';
       }
 
