@@ -1,3 +1,4 @@
+import sanitizeHtml from 'sanitize-html';
 import URL from 'url-parse';
 import { ownUrl } from '../helpers/regexHelpers';
 import { knownDomains } from '../helpers/constants';
@@ -87,6 +88,7 @@ export default ({ large = true, noImage = false, sanitizeErrors = [], secureLink
     img: ['src', 'alt'],
     a: ['href', 'rel', 'target'],
   },
+  allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(['byteball', 'bitcoin']),
   transformTags: {
     iframe: (tagName, attribs) => {
       const srcAtty = decodeURIComponent(attribs.src);
@@ -168,7 +170,7 @@ export default ({ large = true, noImage = false, sanitizeErrors = [], secureLink
       const url = new URL(href);
       const hostname = url.hostname || 'localhost';
 
-      if (!hostname.match(ownUrl)) {
+      if (['https', 'http'].indexOf(url.protocol) || !hostname.match(ownUrl)) {
         attys.target = '_blank';
       }
 
