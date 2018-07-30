@@ -1,0 +1,24 @@
+@import (reference) '../../styles/custom.less';
+@import (reference) '../../styles/modules/variables.less';
+@import (reference) '../../styles/mixins';
+
+.nightmode {
+  .SidebarContentBlock {
+    .content-block();
+    background: @grey-nero;
+    border-color: @normal-grey !important;
+
+    &__title {
+      border-bottom: 1px @border-style-base @normal-grey;
+      color: @blue-baliHai;
+    }
+
+    &__icon {
+      color: @blue-baliHai;
+    }
+
+    &__divider {
+      background-color: @normal-grey;
+    }
+  }
+}
