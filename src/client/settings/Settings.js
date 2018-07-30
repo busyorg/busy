@@ -11,6 +11,7 @@ import {
   getIsSettingsLoading,
   getVotePercent,
   getShowNSFWPosts,
+  getNightmode,
   getRewriteLinks,
   getUseBeta,
   getUpvoteSetting,
@@ -39,6 +40,7 @@ import packageJson from '../../../package.json';
     votingPower: getVotingPower(state),
     votePercent: getVotePercent(state),
     showNSFWPosts: getShowNSFWPosts(state),
+    nightmode: getNightmode(state),
     rewriteLinks: getRewriteLinks(state),
     useBeta: getUseBeta(state),
     loading: getIsSettingsLoading(state),
@@ -56,6 +58,7 @@ export default class Settings extends React.Component {
     votePercent: PropTypes.number,
     loading: PropTypes.bool,
     showNSFWPosts: PropTypes.bool,
+    nightmode: PropTypes.bool,
     rewriteLinks: PropTypes.bool,
     useBeta: PropTypes.bool,
     reload: PropTypes.func,
@@ -72,6 +75,7 @@ export default class Settings extends React.Component {
     votePercent: 10000,
     loading: false,
     showNSFWPosts: false,
+    nightmode: false,
     rewriteLinks: false,
     useBeta: false,
     upvoteSetting: true,
@@ -91,6 +95,7 @@ export default class Settings extends React.Component {
     votingPower: 'auto',
     votePercent: 10000,
     showNSFWPosts: false,
+    nightmode: false,
     rewriteLinks: false,
     exitPageSetting: true,
   };
@@ -101,6 +106,7 @@ export default class Settings extends React.Component {
       votingPower: this.props.votingPower,
       votePercent: this.props.votePercent / 100,
       showNSFWPosts: this.props.showNSFWPosts,
+      nightmode: this.props.nightmode,
       rewriteLinks: this.props.rewriteLinks,
       useBeta: this.props.useBeta,
       upvoteSetting: this.props.upvoteSetting,
@@ -129,6 +135,10 @@ export default class Settings extends React.Component {
       this.setState({ showNSFWPosts: nextProps.showNSFWPosts });
     }
 
+    if (nextProps.nightmode !== this.props.nightmode) {
+      this.setState({ nightmode: nextProps.nightmode });
+    }
+
     if (nextProps.rewriteLinks !== this.props.rewriteLinks) {
       this.setState({ rewriteLinks: nextProps.rewriteLinks });
     }
@@ -153,6 +163,7 @@ export default class Settings extends React.Component {
         votingPower: this.state.votingPower,
         votePercent: this.state.votePercent * 100,
         showNSFWPosts: this.state.showNSFWPosts,
+        nightmode: this.state.nightmode,
         rewriteLinks: this.state.rewriteLinks,
         useBeta: this.state.useBeta,
         upvoteSetting: this.state.upvoteSetting,
@@ -170,6 +181,7 @@ export default class Settings extends React.Component {
   handleVotingPowerChange = event => this.setState({ votingPower: event.target.value });
   handleVotePercentChange = value => this.setState({ votePercent: value });
   handleShowNSFWPosts = event => this.setState({ showNSFWPosts: event.target.checked });
+  handleNightmode = event => this.setState({ nightmode: event.target.checked });
   handleRewriteLinksChange = event => this.setState({ rewriteLinks: event.target.checked });
   handleUseBetaChange = event => this.setState({ useBeta: event.target.checked });
   handleExitPageSettingChange = event => this.setState({ exitPageSetting: event.target.checked });
@@ -185,12 +197,14 @@ export default class Settings extends React.Component {
       locale: initialLocale,
       votingPower: initialVotingPower,
       showNSFWPosts: initialShowNSFWPosts,
+      nightmode: initialNightmode,
       loading,
     } = this.props;
     const {
       votingPower,
       locale,
       showNSFWPosts,
+      nightmode,
       rewriteLinks,
       useBeta,
       upvoteSetting,
@@ -314,6 +328,27 @@ export default class Settings extends React.Component {
                         id="display_nsfw_posts"
                         defaultMessage="Display NSFW Posts"
                       />
+                    </Checkbox>
+                  </div>
+                </div>
+                <div className="Settings__section">
+                  <h3>
+                    <FormattedMessage id="nightmode" defaultMessage="Nightmode" />
+                  </h3>
+                  <p>
+                    <FormattedMessage
+                      id="nightmode_details"
+                      defaultMessage="You can enable this option for a more eye-friendly experience at night."
+                    />
+                  </p>
+                  <div className="Settings__section__checkbox">
+                    <Checkbox
+                      name="nightmode"
+                      defaultChecked={initialNightmode}
+                      checked={nightmode}
+                      onChange={this.handleNightmode}
+                    >
+                      <FormattedMessage id="use_nightmode" defaultMessage="Use Nightmode" />
                     </Checkbox>
                   </div>
                 </div>

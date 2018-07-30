@@ -122,6 +122,7 @@ export const getLocale = state => fromSettings.getLocale(state.settings);
 export const getVotingPower = state => fromSettings.getVotingPower(state.settings);
 export const getVotePercent = state => fromSettings.getVotePercent(state.settings);
 export const getShowNSFWPosts = state => fromSettings.getShowNSFWPosts(state.settings);
+export const getNightmode = state => fromSettings.getNightmode(state.settings);
 export const getRewriteLinks = state => fromSettings.getRewriteLinks(state.settings);
 export const getUpvoteSetting = state => fromSettings.getUpvoteSetting(state.settings);
 export const getExitPageSetting = state => fromSettings.getExitPageSetting(state.settings);

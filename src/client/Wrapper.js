@@ -17,6 +17,7 @@ import {
   getUsedLocale,
   getTranslations,
   getUseBeta,
+  getNightmode,
 } from './reducers';
 import { login, logout, busyLogin } from './auth/authActions';
 import { getFollowing, getNotifications } from './user/userActions';
@@ -44,6 +45,7 @@ import BBackTop from './components/BBackTop';
     usedLocale: getUsedLocale(state),
     translations: getTranslations(state),
     locale: getLocale(state),
+    nightmode: getNightmode(state),
   }),
   {
     login,
@@ -77,6 +79,7 @@ export default class Wrapper extends React.PureComponent {
     getNotifications: PropTypes.func,
     setUsedLocale: PropTypes.func,
     busyLogin: PropTypes.func,
+    nightmode: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -93,6 +96,7 @@ export default class Wrapper extends React.PureComponent {
     getNotifications: () => {},
     setUsedLocale: () => {},
     busyLogin: () => {},
+    nightmode: false,
   };
 
   static async fetchData({ store, req, res }) {
@@ -201,14 +205,17 @@ export default class Wrapper extends React.PureComponent {
   }
 
   render() {
-    const { user, usedLocale, translations } = this.props;
+    const { user, usedLocale, translations, nightmode } = this.props;
 
     const language = findLanguage(usedLocale);
 
     return (
       <IntlProvider key={language.id} locale={language.localeData} messages={translations}>
         <LocaleProvider locale={enUS}>
-          <Layout data-dir={language && language.rtl ? 'rtl' : 'ltr'}>
+          <Layout
+            className={nightmode ? 'dark' : ''}
+            data-dir={language && language.rtl ? 'rtl' : 'ltr'}
+          >
             <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 1050 }}>
               <Topnav username={user.name} onMenuItemClick={this.handleMenuItemClick} />
             </Layout.Header>
