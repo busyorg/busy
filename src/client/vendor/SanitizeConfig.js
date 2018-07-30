@@ -1,3 +1,4 @@
+import sanitizeHtml from 'sanitize-html';
 import URL from 'url-parse';
 import { ownUrl } from '../helpers/regexHelpers';
 import { knownDomains } from '../helpers/constants';
@@ -87,6 +88,7 @@ export default ({ large = true, noImage = false, sanitizeErrors = [], secureLink
     img: ['src', 'alt'],
     a: ['href', 'rel', 'target'],
   },
+  allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(['byteball', 'bitcoin']),
   transformTags: {
     iframe: (tagName, attribs) => {
       const srcAtty = decodeURIComponent(attribs.src);
