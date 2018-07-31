@@ -37,4 +37,29 @@
       }
     }
   }
+
+  .Topnav__search-dropdown-container {
+    background: @grey-nero;
+  }
+
+  .Topnav__search-dropdown-container.ant-select-dropdown {
+    border-right: @border-width-base @border-style-base @normal-grey;
+    border-left: @border-width-base @border-style-base @normal-grey;
+    border-bottom: @border-width-base @border-style-base @normal-grey;
+  }
+
+  .Topnav__search-autocomplete.ant-select-dropdown-menu-item-active {
+    &:hover {
+      background-color: #32373c;
+    }
+  }
+
+  .Topnav__search-autocomplete.ant-select-dropdown-menu-item {
+    border-bottom: @border-width-base @border-style-base @normal-grey;
+    color: @white-smoke;
+  }
+
+  .Topnav__search-all-results {
+    background-color: @grey-nero;
+  }
 }
