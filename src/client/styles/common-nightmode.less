@@ -37,7 +37,7 @@ body.nightmode {
   .ant-input {
     background-color: @grey-nero;
     color: @white-smoke;
-    border: @border-width-base @border-style-base @normal-grey;
+    border: @border-width-base @border-style-base @normal-grey !important;
   }
 
   .ant-checkbox-wrapper {
@@ -57,6 +57,24 @@ body.nightmode {
     background-color: @grey-nero;
     border-left: @border-width-base @border-style-base @normal-grey;
     border-top: @border-width-base @border-style-base @normal-grey;
+  }
+
+  .ant-form {
+    color: @blue-heather;
+  }
+
+  .ant-form-item {
+    color: @blue-heather;
+  }
+
+  .ant-form-explain,
+  .ant-form-extra {
+    color: @blue-heather;
+  }
+
+  .has-error .ant-form-explain,
+  .has-error .ant-form-split {
+    color: @red;
   }
 
   .username {
