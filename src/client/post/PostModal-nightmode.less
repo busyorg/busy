@@ -1,0 +1,29 @@
+@import (reference) '../styles/custom.less';
+@import (reference) '../styles/modules/variables.less';
+
+.nightmode {
+  .ant-modal-mask {
+    background-color: rgba(36, 41, 46, 0.97) !important;
+  }
+
+  .PostModal {
+    .ant-modal-body {
+      background: @grey-nightRider;
+    }
+
+    &__back {
+      background: @grey-nero;
+      border-bottom: @base-border;
+    }
+
+    &__action {
+      background: @grey-nightRider;
+      color: @blue-heather !important;
+      border: @border-width-base @border-style-base @normal-grey;
+
+      &:hover {
+        color: @blue-heather !important;
+      }
+    }
+  }
+}
