@@ -6,7 +6,7 @@
 .nightmode {
   .Topnav {
     background-color: @grey-nero;
-    border-bottom: @normal-grey;
+    border-bottom: @border-width-base @border-style-base @normal-grey;
 
     &__input-container {
       .ant-select-selection {
@@ -27,8 +27,6 @@
       &__menu {
         & > li.ant-menu-item {
           & > a {
-            color: @tertiary-color !important;
-
             &:hover {
               color: @white-smoke !important;
             }
