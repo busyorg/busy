@@ -1,0 +1,35 @@
+@import (reference) '../styles/custom.less';
+@import (reference) '../styles/modules/variables.less';
+
+.nightmode {
+  .UserWalletSummary {
+    border: @border-width-base @border-style-base @normal-grey;
+    background-color: @grey-nero;
+
+    &__item {
+      border-bottom: @border-width-base @border-style-base @normal-grey;
+    }
+
+    &__icon {
+      color: @blue-baliHai;
+    }
+
+    &__label {
+      color: @white-smoke;
+    }
+
+    &__value {
+      color: @white-smoke;
+    }
+
+    &__reward {
+      &:after {
+        color: @blue-botticelli;
+      }
+    }
+
+    @media @small {
+      border: @border-width-base @border-style-base @normal-grey;
+    }
+  }
+}

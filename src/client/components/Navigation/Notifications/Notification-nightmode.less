@@ -1,0 +1,24 @@
+@import (reference) '../../../styles/custom.less';
+
+.nightmode {
+  .Notification {
+    background-color: @grey-nero;
+    border-bottom: @border-width-base @border-style-base @normal-grey;
+
+    &--unread {
+      background-color: #32373c;
+    }
+
+    &__text {
+      &__message {
+        color: @grey-darkGrey;
+      }
+    }
+
+    &__empty {
+      border-bottom: @base-border;
+      color: @black;
+      justify-content: center;
+    }
+  }
+}

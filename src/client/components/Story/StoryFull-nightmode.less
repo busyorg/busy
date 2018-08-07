@@ -1,0 +1,19 @@
+@import (reference) '../../styles/modules/variables.less';
+@import (reference) '../../styles/custom.less';
+@import (reference) '../../styles/fonts.less';
+
+.nightmode {
+  .StoryFull {
+    &__reply {
+      border: @border-width-base @border-style-base @normal-grey;
+
+      & > &__title {
+        color: @white-smoke;
+      }
+    }
+
+    &__title {
+      color: @white-smoke;
+    }
+  }
+}

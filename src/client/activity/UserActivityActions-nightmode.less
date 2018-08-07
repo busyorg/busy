@@ -1,0 +1,72 @@
+@import (reference) '../styles/custom.less';
+@import (reference) '../styles/mixins.less';
+@import (reference) '../styles/modules/variables.less';
+
+.nightmode {
+  .UserActivityActions {
+    background-color: @grey-nero;
+
+    &__action {
+      color: @grey-nightRider;
+      border-bottom: @border-width-base @border-style-base @normal-grey;
+
+      &:nth-of-type(2) {
+        border-top: @border-width-base @border-style-base @normal-grey;
+      }
+
+      @media @small {
+        border-right: @border-width-base @border-style-base @normal-grey;
+        border-left: @border-width-base @border-style-base @normal-grey;
+      }
+    }
+
+    &__loader {
+      border-bottom: @border-width-base @border-style-base @normal-grey;
+
+      @media @small {
+        border-right: @border-width-base @border-style-base @normal-grey;
+        border-left: @border-width-base @border-style-base @normal-grey;
+      }
+    }
+
+    &__icon {
+      &__container {
+        color: @blue-heather;
+        background-color: @blue-solitude;
+      }
+    }
+
+    &__content {
+      &__message {
+        color: @white-gainsboro;
+      }
+    }
+
+    &__contents {
+      background: @grey-gondola;
+      border: @border-width-base @border-style-base @normal-grey;
+      color: @blue-heather;
+
+      &__item {
+        border: @border-width-base @border-style-base @normal-grey;
+      }
+
+      &__value {
+        border-top: @border-width-base @border-style-base @normal-grey;
+      }
+
+      &__label {
+        background: @grey-gondola;
+        border-top: @border-width-base @border-style-base @normal-grey;
+      }
+    }
+
+    @media @small {
+      &__contents {
+        &__label {
+          border-top: @border-width-base @border-style-base @normal-grey;
+        }
+      }
+    }
+  }
+}
