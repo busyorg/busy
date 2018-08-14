@@ -1,0 +1,48 @@
+@import (reference) '../../styles/modules/variables.less';
+@import (reference) '../../styles/custom.less';
+@import (reference) '../../styles/fonts.less';
+
+.nightmode {
+  .Body {
+    color: @white-smoke;
+
+    strong,
+    b {
+      color: @white-smoke;
+    }
+
+    // Quote and code
+
+    blockquote {
+      border-left: 1px solid rgba(255, 255, 255, 0.6);
+      color: @grey-darkGrey;
+    }
+
+    :not(pre) > code {
+      color: @grey-nightRider;
+      background-color: @white-smoke;
+    }
+
+    pre {
+      background-color: #2b3035;
+    }
+
+    // Table
+
+    table {
+      tr > th {
+        background-color: @post-table-background-color;
+      }
+
+      tr:nth-child(even) {
+        td {
+          background-color: @post-table-background-color;
+        }
+      }
+    }
+
+    hr {
+      border-bottom: @base-border;
+    }
+  }
+}

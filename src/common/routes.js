@@ -57,6 +57,7 @@ const routes = [
       {
         path: '/editor',
         component: Editor,
+        exact: true,
       },
       {
         path: '/settings',

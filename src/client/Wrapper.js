@@ -156,6 +156,14 @@ export default class Wrapper extends React.PureComponent {
     }
   }
 
+  componentDidUpdate() {
+    if (this.props.nightmode) {
+      document.body.classList.add('nightmode');
+    } else {
+      document.body.classList.remove('nightmode');
+    }
+  }
+
   async loadLocale(locale) {
     let activeLocale = locale;
     if (activeLocale === 'auto') {
@@ -205,17 +213,14 @@ export default class Wrapper extends React.PureComponent {
   }
 
   render() {
-    const { user, usedLocale, translations, nightmode } = this.props;
+    const { user, usedLocale, translations } = this.props;
 
     const language = findLanguage(usedLocale);
 
     return (
       <IntlProvider key={language.id} locale={language.localeData} messages={translations}>
         <LocaleProvider locale={enUS}>
-          <Layout
-            className={nightmode ? 'dark' : ''}
-            data-dir={language && language.rtl ? 'rtl' : 'ltr'}
-          >
+          <Layout data-dir={language && language.rtl ? 'rtl' : 'ltr'}>
             <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 1050 }}>
               <Topnav username={user.name} onMenuItemClick={this.handleMenuItemClick} />
             </Layout.Header>
