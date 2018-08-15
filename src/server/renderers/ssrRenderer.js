@@ -21,7 +21,7 @@ export default function renderSsrPage(store, html, assets, template, noindex) {
 
   const production = process.env.NODE_ENV === 'production';
 
-  const nightmode = preloadedState.settings.nightmode;
+  const nightmode = preloadedState && preloadedState.settings && preloadedState.settings.nightmode;
 
   return template({
     header,
