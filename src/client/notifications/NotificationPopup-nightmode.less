@@ -1,0 +1,18 @@
+@import (reference) '../styles/custom.less';
+
+.nightmode {
+  .NotificationPopup {
+    &.ant-notification-notice {
+      background: @grey-nero;
+      border: @border-width-base @border-style-base @normal-grey;
+      .ant-notification-notice-message {
+        a {
+          color: @grey-darkGrey !important;
+        }
+      }
+      .ant-notification-notice-close {
+        color: rgba(255, 255, 255, 0.45);
+      }
+    }
+  }
+}
