@@ -64,17 +64,12 @@ class Replies extends React.Component {
     return (
       <div className="shifted">
         <Helmet>
-          <title>{intl.formatMessage({ id: 'replies', defaultMessage: 'Replies' })} - Busy</title>
+          <title>{intl.formatMessage({ id: 'replies', defaultMessage: 'Replies' })} - WeYouMe</title>
         </Helmet>
         <div className="feed-layout container">
           <Affix className="leftContainer" stickPosition={77}>
             <div className="left">
               <LeftSidebar />
-            </div>
-          </Affix>
-          <Affix className="rightContainer" stickPosition={77}>
-            <div className="right">
-              <RightSidebar />
             </div>
           </Affix>
           <div className="center">
@@ -87,6 +82,11 @@ class Replies extends React.Component {
             />
             <PostModal />
           </div>
+          <Affix className="rightContainer" stickPosition={77}>
+            <div className="right">
+              <RightSidebar />
+            </div>
+          </Affix>
         </div>
       </div>
     );

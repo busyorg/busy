@@ -287,40 +287,52 @@ class Topnav extends React.Component {
   }
 
   handleSearchForInput(event) {
+		let query = event.target.value;
     const value = event.target.value;
     this.hideAutoCompleteDropdown();
     this.props.history.push({
       pathname: '/search',
-      search: `q=${value}`,
+      search: `q=${value.replace(/^@/ig, '')}`,
       state: {
-        query: value,
+        query: query.replace(/^@/ig, ''),
       },
     });
   }
 
-  debouncedSearch = _.debounce(value => this.props.searchAutoComplete(value), 300);
+  debouncedSearch = _.debounce(value => this.props.searchAutoComplete(value.replace(/^@/ig, '')), 300);
 
   handleAutoCompleteSearch(value) {
-    this.debouncedSearch(value);
+    this.debouncedSearch(value.replace(/^@/ig, ''));
   }
 
   handleSelectOnAutoCompleteDropdown(value) {
-    this.props.history.push(`/@${value}`);
+		this.props.history.push(`/@${value.replace(/^@/ig, '')}`);
+		this.setState({
+      searchBarValue: '',
+    });
   }
 
   handleOnChangeForAutoComplete(value) {
-    this.setState({
-      searchBarValue: value,
-    });
+		const { searchBarValue } = this.state;
+		// if(searchBarValue == '@'+value){
+		// 	this.setState({
+		// 		searchBarValue: '@'+value,
+		// 	});
+		// } else {
+			this.setState({
+				searchBarValue: value,
+			});
+		// }
   }
 
   render() {
     const { intl, autoCompleteSearchResults } = this.props;
     const { searchBarActive, searchBarValue } = this.state;
 
+		// console.log('autoCompleteSearchResults', autoCompleteSearchResults)
     const dropdownOptions = _.map(autoCompleteSearchResults, option => (
-      <AutoComplete.Option key={option} value={option} className="Topnav__search-autocomplete">
-        {option}
+      <AutoComplete.Option key={option.replace(/^@/ig, '')} value={option.replace(/^@/ig,'')} className="Topnav__search-autocomplete">
+        {'@'+option}
       </AutoComplete.Option>
     ));
     const formattedAutoCompleteDropdown = _.isEmpty(dropdownOptions)
@@ -330,7 +342,7 @@ class Topnav extends React.Component {
             <Link
               to={{
                 pathname: '/search',
-                search: `?q=${searchBarValue}`,
+                search: `?q=${searchBarValue.replace(/^@/ig, '')}`,
                 state: { query: searchBarValue },
               }}
             >
@@ -352,10 +364,22 @@ class Topnav extends React.Component {
         <div className="topnav-layout">
           <div className={classNames('left', { 'Topnav__mobile-hidden': searchBarActive })}>
             <Link className="Topnav__brand" to="/">
-              <i className="iconfont icon-busy Topnav__brand-icon" />
-              busy
+							<img src="images/logo.png" className="Topnav__brand__logo"></img>
+              {/* <i className="iconfont native-icons-WeYouMe Topnav__brand-icon" /> */}
+              <div className="Topnav__brandname">
+								<span className="We">
+									We
+								</span>
+								<span className="You">
+									You
+								</span>
+								<span className="Me">
+									Me
+								</span>
+
+							</div>
             </Link>
-            <span className="Topnav__version">beta</span>
+            <div className="Topnav__version">alpha</div>
           </div>
           <div className={classNames('center', { mobileVisible: searchBarActive })}>
             <div className="Topnav__input-container">
@@ -377,7 +401,7 @@ class Topnav extends React.Component {
                   onPressEnter={this.handleSearchForInput}
                   placeholder={intl.formatMessage({
                     id: 'search_placeholder',
-                    defaultMessage: 'What are you looking for?',
+                    defaultMessage: 'Search WeYouMe',
                   })}
                   autoCapitalize="off"
                   autoCorrect="off"

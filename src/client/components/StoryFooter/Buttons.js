@@ -32,6 +32,7 @@ export default class Buttons extends React.Component {
     pendingBookmark: PropTypes.bool,
     saving: PropTypes.bool,
     onLikeClick: PropTypes.func,
+    onDislikeClick: PropTypes.func,
     onShareClick: PropTypes.func,
     handlePostPopoverMenuClick: PropTypes.func,
   };
@@ -44,6 +45,7 @@ export default class Buttons extends React.Component {
     pendingBookmark: false,
     saving: false,
     onLikeClick: () => {},
+    onDislikeClick: () => {},
     onShareClick: () => {},
     handlePostPopoverMenuClick: () => {},
   };
@@ -69,6 +71,7 @@ export default class Buttons extends React.Component {
     };
 
     this.handleLikeClick = this.handleLikeClick.bind(this);
+    this.handleDislikeClick = this.handleDislikeClick.bind(this);
     this.shareClick = this.shareClick.bind(this);
     this.handleShareClick = this.handleShareClick.bind(this);
     this.handleShareOk = this.handleShareOk.bind(this);
@@ -90,6 +93,9 @@ export default class Buttons extends React.Component {
 
   handleLikeClick() {
     this.props.onActionInitiated(this.props.onLikeClick);
+  }
+  handleDislikeClick() {
+    this.props.onActionInitiated(this.props.onDislikeClick);
   }
 
   shareClick() {
@@ -233,7 +239,7 @@ export default class Buttons extends React.Component {
   }
 
   render() {
-    const { intl, post, postState, pendingLike, ownPost, defaultVotePercent } = this.props;
+    const { intl, post, postState, pendingLike, pendingDislike, pendingFlag, ownPost, defaultVotePercent } = this.props;
 
     const upVotes = getUpvotes(post.active_votes).sort(sortVotes);
     const downVotes = getDownvotes(post.active_votes)
@@ -270,9 +276,35 @@ export default class Buttons extends React.Component {
           />
         </a>
       </p>
+		);
+		
+    const downVotesPreview = take(downVotes, 10).map(vote => (
+      <p key={vote.voter}>
+        <Link to={`/@${vote.voter}`}>{vote.voter}</Link>
+
+        {vote.rshares * ratio > 0.01 && (
+          <span style={{ opacity: '0.5' }}>
+            {' '}
+            <USDDisplay value={vote.rshares * ratio} />
+          </span>
+        )}
+      </p>
+    ));
+    const downVotesDiff = downVotes.length - downVotesPreview.length;
+    const downVotesMore = downVotesDiff > 0 && (
+      <p>
+        <a role="presentation" onClick={this.handleShowReactions}>
+          <FormattedMessage
+            id="and_more_amount"
+            defaultMessage="and {amount} more"
+            values={{ amount: downVotesDiff }}
+          />
+        </a>
+      </p>
     );
 
     const likeClass = classNames({ active: postState.isLiked, Buttons__link: true });
+    const dislikeClass = classNames({ active: postState.isDisliked, Buttons__link: true });
     const rebloggedClass = classNames({ active: postState.isReblogged, Buttons__link: true });
 
     const commentsLink =
@@ -290,6 +322,23 @@ export default class Buttons extends React.Component {
             <FormattedNumber
               style="percent" // eslint-disable-line
               value={defaultVotePercent / 10000}
+            />
+          </span>
+        </span>
+      );
+		}
+		
+    let dislikeTooltip = <span>{intl.formatMessage({ id: 'dislike' })}</span>;
+    if (postState.isDisliked) {
+      dislikeTooltip = <span>{intl.formatMessage({ id: 'undislike', defaultMessage: 'Undislike' })}</span>;
+    } else if (defaultVotePercent !== 10000) {
+      dislikeTooltip = (
+        <span>
+          {intl.formatMessage({ id: 'dislike' })}{' '}
+          <span style={{ opacity: 0.5 }}>
+            <FormattedNumber
+              style="percent" // eslint-disable-line
+              value={defaultVotePercent / -10000}
             />
           </span>
         </span>
@@ -328,6 +377,44 @@ export default class Buttons extends React.Component {
               }
             >
               <FormattedNumber value={upVotes.length} />
+              <span />
+            </BTooltip>
+          </span>
+        )}
+				<BTooltip 
+					title={dislikeTooltip}>
+					<a 
+						role="presentation" 
+						className={dislikeClass} 
+						onClick={this.handleDislikeClick}>
+            {pendingDislike ? (
+              <Icon type="loading" />
+            ) : (
+              <i
+                className={`iconfont icon-${this.state.sliderVisible ? 'right' : 'thumb-down'}`}
+              />
+            )}
+          </a>
+        </BTooltip>
+        {downVotes.length > 0 && (
+          <span
+            className="Buttons__number Buttons__reactions-count"
+            role="presentation"
+            onClick={this.handleShowReactions}
+          >
+            <BTooltip
+              title={
+                <div>
+                  {downVotes.length > 0 ? (
+                    downVotesPreview
+                  ) : (
+                    <FormattedMessage id="no_dislikes" defaultMessage="No dislikes yet" />
+                  )}
+                  {downVotesMore}
+                </div>
+              }
+            >
+              <FormattedNumber value={downVotes.length} />
               <span />
             </BTooltip>
           </span>

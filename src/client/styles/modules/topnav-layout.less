@@ -3,63 +3,76 @@
 .topnav-layout {
   position: relative;
   margin: 0 auto;
-  max-width: @container-width;
-
+  max-width: @topnav-width;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
   .left {
-    position: absolute;
+    position: relative;
     padding-left: 16px;
-
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: row;
+		max-height: 100%;
+		padding-right: 75px;
+		margin-left: 10px;
+		margin-right: auto;
     @media @small {
+			margin-left: auto;
       width: @left-width;
       padding-left: @mobile-padding;
     }
-
     @media @large {
       padding-left: 0;
     }
   }
 
   .right {
-    position: absolute;
+    position: relative;
     top: 0;
     right: 0;
     margin-right: 16px;
     justify-content: flex-end;
     display: flex;
-
+		padding-left: 5px;
     @media @small {
       display: block;
       justify-content: initial;
-      width: @right-width;
+			width: auto;
     }
-
+		@media @medium {
+			padding-left: 15px;
+		}
     @media @large {
       margin-right: 0;
     }
   }
 
   .center {
-    width: calc(100% - 55px);
+    width: calc(80% - 55px);
     position: absolute;
     display: none;
     z-index: 1;
-
+		margin-left: auto;
+		margin-right: 0px;
     @media @small {
       width: calc(100% - (@left-width + @right-width + 2 * @margin));
       position: static;
-      margin-left: @left-width;
-      margin-right: @right-width + @margin;
+      // margin-left: @left-width*1.5;
+      // margin-right: @right-width + @margin;
       display: block;
     }
 
     @media @medium {
-      width: calc(100% - (@left-width + @right-width + 4 * @margin));
-      margin-left: @left-width + 2 * @margin;
+      width: calc(90% - (@left-width + @right-width + 4 * @margin));
+      // margin-left: @left-width + @margin;
     }
 
     @media @large {
-      width: calc(100% - (@left-width + @right-width + 2 * @margin));
-      margin-left: @left-width + @margin;
+      width: calc(80% - (@left-width + @right-width + 2 * @margin));
+      // margin-left: @left-width + @margin;
     }
 
     &.mobileVisible {
@@ -102,4 +115,14 @@ div[data-dir='rtl'] .topnav-layout {
       background-color: white;
     }
   }
+}
+
+
+.ant-select-search__field {
+	border-radius: 20px !important;
+	background-color: fade(#ff2020, 2) !important;
+}
+
+.ant-select-auto-complete.ant-select .ant-input {
+	background-color: fade(#ff2020, 2) !important;
 }

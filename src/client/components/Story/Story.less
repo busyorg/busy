@@ -2,7 +2,7 @@
 @import (reference) '../../styles/modules/variables.less';
 
 .Story {
-  background-color: @white;
+  background-color: @story-bg-color;
   color: #353535;
   border-top: @base-border;
   border-bottom: @base-border;
@@ -150,9 +150,11 @@
     }
 
     &__body {
-      padding: 4px 16px;
-    }
-
+			padding: 4px 8px;
+			@media @small {
+				padding: 4px 16px;
+			}
+		}
     & &__img-container {
       width: 100%;
 
@@ -194,6 +196,10 @@ div[data-dir='rtl'] .Story {
       }
     }
   }
+}
+
+.send-money-tooltip {
+	
 }
 
 @import 'Story-nightmode';

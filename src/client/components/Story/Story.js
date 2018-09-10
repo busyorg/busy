@@ -18,6 +18,7 @@ import {
   dropCategory,
   isBannedPost,
 } from '../../helpers/postHelpers';
+import { openTransfer } from '../../wallet/walletActions';
 import withAuthActions from '../../auth/withAuthActions';
 import BTooltip from '../BTooltip';
 import ReputationTag from '../ReputationTag';
@@ -25,6 +26,7 @@ import StoryPreview from './StoryPreview';
 import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
 import Topic from '../Button/Topic';
+import Action from '../Button/Action';
 import NSFWStoryPreviewMessage from './NSFWStoryPreviewMessage';
 import HiddenStoryPreviewMessage from './HiddenStoryPreviewMessage';
 import DMCARemovedMessage from './DMCARemovedMessage';
@@ -45,6 +47,7 @@ class Story extends React.Component {
     showNSFWPosts: PropTypes.bool.isRequired,
     onActionInitiated: PropTypes.func.isRequired,
     pendingLike: PropTypes.bool,
+    pendingDislike: PropTypes.bool,
     pendingFlag: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
@@ -59,11 +62,12 @@ class Story extends React.Component {
     editPost: PropTypes.func,
     followUser: PropTypes.func,
     unfollowUser: PropTypes.func,
-    push: PropTypes.func,
+		push: PropTypes.func
   };
 
   static defaultProps = {
     pendingLike: false,
+    pendingDislike: false,
     pendingFlag: false,
     pendingFollow: false,
     pendingBookmark: false,
@@ -78,7 +82,7 @@ class Story extends React.Component {
     editPost: () => {},
     followUser: () => {},
     unfollowUser: () => {},
-    push: () => {},
+		push: () => {}
   };
 
   constructor(props) {
@@ -95,12 +99,18 @@ class Story extends React.Component {
     this.handlePostModalDisplay = this.handlePostModalDisplay.bind(this);
     this.handlePreviewClickPostModalDisplay = this.handlePreviewClickPostModalDisplay.bind(this);
     this.handleLikeClick = this.handleLikeClick.bind(this);
+    this.handleDislikeClick = this.handleDislikeClick.bind(this);
     this.handleReportClick = this.handleReportClick.bind(this);
     this.handleShareClick = this.handleShareClick.bind(this);
     this.handleFollowClick = this.handleFollowClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
+    this.handleTransferClick = this.handleTransferClick.bind(this);
   }
-
+	handleTransferClick = () => {
+		const { post } = this.props;
+    openTransfer(post.author);
+	};
+	
   shouldComponentUpdate(nextProps, nextState) {
     return !_.isEqual(nextProps, this.props) || !_.isEqual(nextState, this.state);
   }
@@ -129,6 +139,17 @@ class Story extends React.Component {
       this.props.votePost(post.id, post.author, post.permlink, 0);
     } else {
       this.props.votePost(post.id, post.author, post.permlink, defaultVotePercent);
+    }
+	}
+	
+  handleDislikeClick(post, postState, weight = -10000) {
+    const { sliderMode, user, defaultVotePercent } = this.props;
+    if (sliderMode === 'on' || (sliderMode === 'auto' && getHasDefaultSlider(user))) {
+      this.props.votePost(post.id, post.author, post.permlink, weight);
+    } else if (postState.isLiked) {
+      this.props.votePost(post.id, post.author, post.permlink, 0);
+    } else {
+      this.props.votePost(post.id, post.author, post.permlink, (defaultVotePercent*-1));
     }
   }
 
@@ -165,7 +186,7 @@ class Story extends React.Component {
       case 'save':
         this.props.toggleBookmark(post.id, post.author, post.permlink);
         break;
-      case 'report':
+			case 'report':
         this.handleReportClick(post, postState);
         break;
       case 'edit':
@@ -261,6 +282,7 @@ class Story extends React.Component {
       post,
       postState,
       pendingLike,
+      pendingDislike,
       pendingFlag,
       pendingFollow,
       pendingBookmark,
@@ -268,7 +290,7 @@ class Story extends React.Component {
       rewardFund,
       ownPost,
       sliderMode,
-      defaultVotePercent,
+			defaultVotePercent
     } = this.props;
 
     if (isPostDeleted(post)) return <div />;
@@ -312,8 +334,17 @@ class Story extends React.Component {
             <div className="Story__header__text">
               <span className="Story__header__flex">
                 <Link to={`/@${post.author}`}>
-                  <h4>
-                    <span className="username">{post.author}</span>
+                  <h4	className="send-money-tooltip">
+										<BTooltip 
+											title={
+												<Action className="send-money" onClick={this.handleTransferClick}>
+													<img src="images/dollar.png" className="send-dollar"/>
+													<FormattedMessage id="tranfer" defaultMessage="Send" />
+												</Action>
+											}
+											>
+											<span className="username">{post.author}</span>
+										</BTooltip>
                     <ReputationTag reputation={post.author_reputation} />
                   </h4>
                 </Link>
@@ -358,12 +389,14 @@ class Story extends React.Component {
               post={post}
               postState={postState}
               pendingLike={pendingLike}
+              pendingDislike={pendingDislike}
               pendingFlag={pendingFlag}
               rewardFund={rewardFund}
               ownPost={ownPost}
               sliderMode={sliderMode}
               defaultVotePercent={defaultVotePercent}
               onLikeClick={this.handleLikeClick}
+              onDislikeClick={this.handleDislikeClick}
               onShareClick={this.handleShareClick}
               onEditClick={this.handleEditClick}
               pendingFollow={pendingFollow}

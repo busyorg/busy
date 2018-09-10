@@ -5,7 +5,7 @@ module.exports = {
    */
   apps: [
     {
-      name: 'busy',
+      name: 'weapp',
       script: 'build/server.js',
       instances: 4,
       exec_mode: 'cluster',

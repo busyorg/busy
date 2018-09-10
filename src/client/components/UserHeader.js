@@ -48,7 +48,7 @@ const UserHeader = ({
                     </Action>
                   </Link>
                 ) : (
-                  <FollowButton username={handle} />
+                  <FollowButton className="follow-button" username={handle} />
                 )}
               </div>
               {!isSameUser && (
@@ -57,9 +57,10 @@ const UserHeader = ({
                     'UserHeader__user__button-follows-you': isFollowing && !isSameUser,
                   })}
                 >
-                  <Action onClick={onTransferClick}>
-                    <FormattedMessage id="tranfer" defaultMessage="Transfer" />
-                  </Action>
+								<Action className="send-money" onClick={onTransferClick}>
+									<img src="images/dollar.png" className="send-dollar"/>
+									<FormattedMessage id="tranfer" defaultMessage="Send" />
+								</Action>
                 </div>
               )}
             </div>

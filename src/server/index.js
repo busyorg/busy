@@ -1,9 +1,6 @@
 import http from 'http';
 import app from './app';
 
-var env = require('dotenv').config()
-require('dotenv-expand')(env)
-
 const server = http.createServer(app);
 
 let currentApp = app;

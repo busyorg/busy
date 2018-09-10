@@ -16,9 +16,9 @@
     "prettier-check": "node ./scripts/prettier/tasks/checkFiles.js",
     "prettier-check-all": "node ./scripts/prettier/tasks/checkFiles.js all",
     "prettier-file": "node ./scripts/prettier/tasks/formatFile.js",
-    "dev": "node ./scripts/dev.js",
-    "build": "node ./scripts/build.js",
-    "start": "node ./build/server.js",
+    "dev": "source .env && node ./scripts/dev.js",
+    "build": "source .env && node ./scripts/build.js",
+    "start": "source .env && node ./build/server.js",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -155,6 +155,6 @@
     },
     "setupTestFrameworkScriptFile": "<rootDir>/setupTests.js"
   },
-  "repository": "https://github.com/adcpm/busy.git",
+  "repository": "https://github.com/weyoume/weapp",
   "license": "MIT"
 }

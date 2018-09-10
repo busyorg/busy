@@ -10,15 +10,38 @@
   border-bottom: @base-border;
 
   &__brand {
-    font-size: 30px;
+    font-size: 24px;
     font-weight: bold;
-    letter-spacing: 0.5px;
+		// letter-spacing: 0.5px;
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: row;
+		z-index: 1;
+		margin-top: 1px;
+		&name {
+			font-size: 26px;
+			display: none;
+			@media @small {
+				display: initial;
+			}
+		}
 
     &-icon {
       margin-right: 4px;
       font-size: 20px !important;
       vertical-align: 2px;
-    }
+		}
+		
+		&__logo {
+			width: 40px;
+			height: 40px;
+			margin-right: 5px;
+		}
+		.Me {
+			margin-left: 2px;
+		}
 
     &:hover,
     &:visited,
@@ -29,11 +52,18 @@
   }
 
   &__version {
-    color: @tertiary-color;
+    color: lighten(@tertiary-color, 15);
     font-weight: 500;
     position: absolute;
-    margin-top: 6px;
-    font-size: 16px;
+    margin-top: 14px;
+		right: 17px;
+		font-size: 14px;
+		z-index: 0;
+		display: none;
+		@media @small {
+			display: initial;
+		}
+		// align-self: flex-end;
   }
 
   &__container {
@@ -48,7 +78,6 @@
     height: 55px;
     display: flex;
     margin-left: 15px;
-
     > .ant-select-show-search {
       width: 100%;
     }

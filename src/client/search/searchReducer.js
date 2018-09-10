@@ -52,7 +52,7 @@ export default (state = initialState, action) => {
           _.map(
             _.sortBy(parsedResults, 'reputation').reverse(),
             accountDetails => accountDetails.account,
-          ),
+          ).reverse(),
           0,
           5,
         ),

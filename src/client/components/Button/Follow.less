@@ -5,7 +5,7 @@
   .btn;
   .btn-primary;
 
-  .colorize-button(@primary-color, @primary-button-border);
+  .colorize-button(@primary-color, lighten(@primary-button-border,15));
 
   color: @white-darker;
 
@@ -18,7 +18,7 @@
   color: @primary-color !important;
   background-color: transparent !important;
   border-width: @border-width-base;
-  border-color: @primary-color !important;
+  border-color: lighten(@primary-button-border, 15) !important;
 
   &:hover {
     background-color: transparent !important;

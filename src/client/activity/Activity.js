@@ -11,7 +11,7 @@ import requiresLogin from '../auth/requiresLogin';
 const Activity = ({ intl }) => (
   <div className="shifted">
     <Helmet>
-      <title>{intl.formatMessage({ id: 'activity', defaultMessage: 'Activity' })} - Busy</title>
+      <title>{intl.formatMessage({ id: 'activity', defaultMessage: 'Activity' })} - WeYouMe</title>
     </Helmet>
     <div className="feed-layout container">
       <Affix className="leftContainer" stickPosition={77}>
@@ -19,14 +19,14 @@ const Activity = ({ intl }) => (
           <LeftSidebar />
         </div>
       </Affix>
-      <Affix className="rightContainer" stickPosition={77}>
+      <div className="center">
+        <UserActivity isCurrentUser />
+      </div>
+			<Affix className="rightContainer" stickPosition={77}>
         <div className="right">
           <RightSidebar />
         </div>
       </Affix>
-      <div className="center">
-        <UserActivity isCurrentUser />
-      </div>
     </div>
   </div>
 );

@@ -2,8 +2,7 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const paths = require('../scripts/paths');
 
-var env = require('dotenv').config()
-require('dotenv-expand')(env)
+require('dotenv').config()
 
 const IS_DEV = process.env.NODE_ENV !== 'production';
 
@@ -29,7 +28,7 @@ const POSTCSS_LOADER = {
 const DEFINE_PLUGIN = new webpack.DefinePlugin({
   'process.env.NODE_ENV': IS_DEV ? JSON.stringify('development') : JSON.stringify('production'),
   'process.env.AUTH_API_CLIENT_ID': JSON.stringify(
-    process.env.AUTH_API_CLIENT_ID || 'busy.app',
+    process.env.AUTH_API_CLIENT_ID || 'weyoume',
   ),
   'process.env.AUTH_API_REDIRECT_URL': JSON.stringify(
     process.env.AUTH_API_REDIRECT_URL || 'http://localhost:3456/callback',

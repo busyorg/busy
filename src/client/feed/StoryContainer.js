@@ -35,6 +35,7 @@ const mapStateToProps = (state, { id }) => {
     isReblogging: getPendingReblogs(state).includes(post.id),
     isSaved: !!getBookmarks(state)[post.id],
     isLiked: userVote.percent > 0,
+    isDisliked: userVote.percent < 0,
     isReported: userVote.percent < 0,
     userFollowed: getFollowingList(state).includes(post.author),
   };
@@ -43,14 +44,17 @@ const mapStateToProps = (state, { id }) => {
 
   const pendingLike =
     pendingVote && (pendingVote.weight > 0 || (pendingVote.weight === 0 && postState.isLiked));
-  const pendingFlag =
+	const pendingDislike =
+    pendingVote && (pendingVote.weight < 0 || (pendingVote.weight === 0 && postState.isReported));
+	const pendingFlag =
     pendingVote && (pendingVote.weight < 0 || (pendingVote.weight === 0 && postState.isReported));
 
   return {
     user,
     post,
     postState,
-    pendingLike,
+		pendingLike,
+		pendingDislike,
     pendingFlag,
     pendingFollow: getPendingFollows(state).includes(post.author),
     pendingBookmark: getPendingBookmarks(state).includes(post.id),

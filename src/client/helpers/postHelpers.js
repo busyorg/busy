@@ -68,8 +68,8 @@ export function getContentImages(content, parsed = false) {
 
 export function createPostMetadata(body, tags, oldMetadata = {}) {
   let metaData = {
-    community: 'busy',
-    app: `busy/${appVersion}`,
+    community: 'weyoume',
+    app: `weyoume/${appVersion}`,
     format: 'markdown',
   };
 

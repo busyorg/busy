@@ -6,7 +6,7 @@ describe('<Topics />', () => {
   it('renders without exploding', () => {
     const props = {
       favorite: true,
-      topics: ['busy', 'introduceyourself', 'steemfest', 'poland'],
+      topics: ['weyoume', 'introduceyourself', 'steemfest', 'poland'],
       maxItems: 20,
       loading: false,
     };

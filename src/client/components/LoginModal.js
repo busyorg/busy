@@ -55,12 +55,12 @@ class LoginModal extends React.Component {
         <div className="LoginModal__body">
           <i className="iconfont icon-busy LoginModal__icon" />
           <span className="LoginModal__login-title">
-            <FormattedMessage id="login_to_busy" defaultMessage="Login to Busy" />
+            <FormattedMessage id="login_to_busy" defaultMessage="Login to WeYouMe" />
           </span>
           <span className="LoginModal__login-description">
             <FormattedMessage
               id="login_modal_description"
-              defaultMessage="Login with your Steem account using SteemConnect to enjoy Busy at 100%"
+              defaultMessage="Login with your Steem account using SteemConnect to enjoy WeYouMe at 100%"
             />
           </span>
           <a className="LoginModal__login-button" href={SteemConnect.getLoginURL(next)}>

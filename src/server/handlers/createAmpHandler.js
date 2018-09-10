@@ -2,7 +2,7 @@ import url from 'url';
 import steemAPI from '../steemAPI';
 import renderAmpPage from '../renderers/ampRenderer';
 
-const debug = require('debug')('busy:server');
+const debug = require('debug')('weapp:server');
 
 export default function createAmpHandler(template) {
   return async function ampResponse(req, res) {

@@ -58,7 +58,8 @@ class Search extends React.Component {
   }
 
   renderSearchResult() {
-    const { searchResults } = this.props;
+		const { searchResults } = this.props;
+		searchResults.reverse()
     return _.map(searchResults, (result, i) => {
       switch (result.type) {
         case 'post':
@@ -88,7 +89,7 @@ class Search extends React.Component {
     return (
       <div className="settings-layout container">
         <Helmet>
-          <title>{intl.formatMessage({ id: 'search', defaultMessage: 'Search' })} - Busy</title>
+          <title>{intl.formatMessage({ id: 'search', defaultMessage: 'Search' })} - WeYouMe</title>
         </Helmet>
         <Affix className="leftContainer" stickPosition={77}>
           <div className="left">

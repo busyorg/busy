@@ -13,7 +13,7 @@ const Error404 = ({ intl, staticContext }) => {
     <div className="ErrorPage container">
       <Helmet>
         <title>
-          {intl.formatMessage({ id: 'page_not_found', defaultMessage: 'Page not found' })} - Busy
+          {intl.formatMessage({ id: 'page_not_found', defaultMessage: 'Page not found' })} - WeYouMe
         </title>
       </Helmet>
       <h1>
