@@ -2,9 +2,12 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const paths = require('../scripts/paths');
 
+var env = require('dotenv').config()
+require('dotenv-expand')(env)
+
 const IS_DEV = process.env.NODE_ENV !== 'production';
 
-const SERVER_PORT = process.env.PORT || 3000;
+const SERVER_PORT = process.env.SSR_PORT || 3456;
 const CONTENT_PORT = IS_DEV ? SERVER_PORT + 1 : SERVER_PORT;
 
 const MATCH_JS = /\.js$/i;
@@ -25,18 +28,18 @@ const POSTCSS_LOADER = {
 
 const DEFINE_PLUGIN = new webpack.DefinePlugin({
   'process.env.NODE_ENV': IS_DEV ? JSON.stringify('development') : JSON.stringify('production'),
-  'process.env.STEEMCONNECT_CLIENT_ID': JSON.stringify(
-    process.env.STEEMCONNECT_CLIENT_ID || 'busy.app',
+  'process.env.AUTH_API_CLIENT_ID': JSON.stringify(
+    process.env.AUTH_API_CLIENT_ID || 'busy.app',
   ),
-  'process.env.STEEMCONNECT_REDIRECT_URL': JSON.stringify(
-    process.env.STEEMCONNECT_REDIRECT_URL || 'http://localhost:3000/callback',
+  'process.env.AUTH_API_REDIRECT_URL': JSON.stringify(
+    process.env.AUTH_API_REDIRECT_URL || 'http://localhost:3456/callback',
   ),
   'process.env.STEEMCONNECT_HOST': JSON.stringify(
-    process.env.STEEMCONNECT_HOST || 'https://steemconnect.com',
+    process.env.STEEMCONNECT_HOST || 'https://v2.steemconnect.com',
   ),
-  'process.env.STEEMJS_URL': JSON.stringify(process.env.STEEMJS_URL || 'https://api.steemit.com'),
+  'process.env.API_URL': JSON.stringify(process.env.API_URL || 'https://api.steemit.com'),
   'process.env.SIGNUP_URL': JSON.stringify(
-    process.env.SIGNUP_URL || 'https://signup.steemit.com/?ref=busy',
+    process.env.SIGNUP_URL || 'https://signup.steemit.com/?ref=weyoume',
   ),
   'process.env.MANIFEST_PATH': JSON.stringify(paths.assets),
 });

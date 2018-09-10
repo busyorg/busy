@@ -7,6 +7,9 @@ const WebpackBar = require('webpackbar');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const paths = require('../scripts/paths');
 
+var env = require('dotenv').config()
+require('dotenv-expand')(env)
+
 const {
   CONTENT_PORT,
   MATCH_JS,

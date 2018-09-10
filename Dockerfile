@@ -7,5 +7,5 @@ COPY . /usr/src/app
 RUN yarn install
 RUN yarn build
 
-EXPOSE 3000
+EXPOSE 3456
 CMD yarn start

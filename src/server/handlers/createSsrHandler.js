@@ -28,9 +28,9 @@ export default function createSsrHandler(template) {
   return async function serverSideResponse(req, res) {
     try {
       const api = sc2.Initialize({
-        app: process.env.STEEMCONNECT_CLIENT_ID,
+        app: process.env.AUTH_API_CLIENT_ID,
         baseURL: process.env.STEEMCONNECT_HOST,
-        callbackURL: process.env.STEEMCONNECT_REDIRECT_URL,
+        callbackURL: process.env.AUTH_API_REDIRECT_URL,
       });
 
       if (req.cookies.access_token) {

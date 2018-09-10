@@ -1,3 +1,6 @@
+var env = require('dotenv').config()
+require('dotenv-expand')(env)
+
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';

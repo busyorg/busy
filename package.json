@@ -1,5 +1,5 @@
 {
-  "name": "busy",
+  "name": "weapp",
   "version": "2.5.6",
   "engines": {
     "node": ">=7.10.1",
@@ -16,7 +16,7 @@
     "prettier-check": "node ./scripts/prettier/tasks/checkFiles.js",
     "prettier-check-all": "node ./scripts/prettier/tasks/checkFiles.js all",
     "prettier-file": "node ./scripts/prettier/tasks/formatFile.js",
-    "dev": "node ./scripts/start.js",
+    "dev": "node ./scripts/dev.js",
     "build": "node ./scripts/build.js",
     "start": "node ./build/server.js",
     "storybook": "start-storybook -p 9001 -c .storybook",
@@ -25,12 +25,12 @@
     "test:coverage": "jest --coverage",
     "eslint-autofix": "eslint --fix \"src/**/*.js\"",
     "heroku-prebuild": "npm i -g pm2 && pm2 install pm2-logrotate",
-    "heroku-postbuild": "npm run build"
+		"heroku-postbuild": "npm run build",
+		"push" : "git add . ; git commit -m 'ready' ; git push origin steem-dev",
+		"pull" : "git pull origin steem-dev"
   },
   "husky": {
-    "hooks": {
-      "pre-commit": "npm run linc && npm run prettier-check && npm run test"
-    }
+    "hooks": {}
   },
   "dependencies": {
     "antd": "^3.4.4",
@@ -57,6 +57,8 @@
     "cross-env": "^5.0.5",
     "debug": "~2.2.0",
     "diff-match-patch": "^1.0.0",
+    "dotenv": "^6.0.0",
+    "dotenv-expand": "^4.2.0",
     "embedjs": "^0.0.11",
     "express": "^4.15.4",
     "filesize": "^3.5.11",

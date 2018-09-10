@@ -7,6 +7,9 @@ import createSsrHandler from './handlers/createSsrHandler';
 import createAmpHandler from './handlers/createAmpHandler';
 import steemAPI from './steemAPI';
 
+var env = require('dotenv').config()
+require('dotenv-expand')(env)
+
 const indexPath = `${paths.templates}/index.hbs`;
 const indexHtml = fs.readFileSync(indexPath, 'utf-8');
 const template = Handlebars.compile(indexHtml);
