@@ -359,7 +359,7 @@ export default class Settings extends React.Component {
                   <p>
                     <FormattedMessage
                       id="rewrite_links_details"
-                      defaultMessage="You can enable this option to replace Steemit.com links with alpha.WeYouMe.io links."
+                      defaultMessage="You can enable this option to replace Steemit.com links with alpha.weyoume.src links."
                     />
                   </p>
                   <div className="Settings__section__checkbox">

@@ -19,7 +19,7 @@ const Sidenav = ({ username }) =>
 		</li>
 		) : null}
 		<li>
-			<NavLink to="/" activeClassName="Sidenav__item--active" exact>
+			<NavLink to="/hot" activeClassName="Sidenav__item--active" exact>
 				<i className="iconfont icon-clock" />
 				<FormattedMessage id="feed" defaultMessage="Feed" />
 			</NavLink>

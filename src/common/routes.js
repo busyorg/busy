@@ -139,7 +139,7 @@ const routes = [
         component: ExitPage,
       },
       {
-        path: '/:sortBy(trending|created|active|hot|promoted)?/:category?',
+        path: '/:sortBy(hot|created|active|trending|promoted)?/:category?',
         component: Page,
       },
       {

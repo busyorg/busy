@@ -44,14 +44,14 @@ class Page extends React.Component {
     }
   };
 
-  handleTopicClose = () => this.props.history.push('/trending');
+  handleTopicClose = () => this.props.history.push('/hot');
 
   render() {
     const { authenticated, loaded, location, match } = this.props;
     const { category, sortBy } = match.params;
 
     const shouldDisplaySelector = location.pathname !== '/' || (!authenticated && loaded);
-    const displayTopicSelector = location.pathname === '/trending';
+    const displayTopicSelector = location.pathname === '/hot';
 
     const robots = location.pathname === '/' ? 'index,follow' : 'noindex,follow';
 
@@ -63,7 +63,8 @@ class Page extends React.Component {
         </Helmet>
         <ScrollToTop />
         <ScrollToTopOnMount />
-        {/* <HeroBannerContainer /> */}
+				{/* <HeroBannerContainer /> */}
+				
         <div className="shifted">
           <div className="feed-layout container">
             <Affix className="leftContainer" stickPosition={77}>
