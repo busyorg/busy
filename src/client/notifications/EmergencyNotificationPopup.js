@@ -28,14 +28,10 @@ class EmergencyNotificationPopup extends React.Component {
         onOk={this.handleModalClose}
       >
         <div className="EmergencyNotificationPopup">
-          <span>
-            <FormattedMessage
-              id="steem_emergency_maintenance"
-              defaultMessage="Steem is experiencing a new fork (HF20), and it went bad somehow, so the blockchain is facing some issues.
-we apologize for the interruptions in service that users experienced today. These interruptions were due to an issue that arose during the process of
-transitioning to Hardfork 20 for Steem. This issue is currently being worked on and it will be resolved."
-            />
-          </span>
+          <FormattedMessage
+            id="steem_emergency_maintenance"
+            defaultMessage="Steem is experiencing a new fork (HF20). We apologize for the interruptions in services that users are currently experiencing. The Steem team is working hard to bring all services back online."
+          />
         </div>
       </Modal>
     );
