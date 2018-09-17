@@ -35,6 +35,7 @@ import Topnav from './components/Navigation/Topnav';
 import Transfer from './wallet/Transfer';
 import PowerUpOrDown from './wallet/PowerUpOrDown';
 import BBackTop from './components/BBackTop';
+import EmergencyNotificationPopup from './notifications/EmergencyNotificationPopup';
 
 @withRouter
 @connect(
@@ -226,6 +227,7 @@ export default class Wrapper extends React.PureComponent {
             </Layout.Header>
             <div className="content">
               {renderRoutes(this.props.route.routes)}
+              <EmergencyNotificationPopup />
               <Redirect />
               <Transfer />
               <PowerUpOrDown />
