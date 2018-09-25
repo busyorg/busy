@@ -5,7 +5,7 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import _ from 'lodash';
 import { Form, Input, Radio, Modal } from 'antd';
 import { STEEM, SBD } from '../../common/constants/cryptos';
-import steemAPI from '../steemAPI';
+import blockchainAPI from '../blockchainAPI';
 import SteemConnect from '../steemConnectAPI';
 import { getCryptoPriceHistory } from '../app/appActions';
 import { closeTransfer } from './walletActions';
@@ -240,7 +240,7 @@ export default class Transfer extends React.Component {
       ]);
       return;
     }
-    steemAPI.sendAsync('get_accounts', [[value]]).then(result => {
+    blockchainAPI.sendAsync('get_accounts', [[value]]).then(result => {
       if (result[0]) {
         callback();
       } else {

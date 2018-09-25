@@ -1,8 +1,8 @@
-import sc2 from 'sc2-sdk';
+import weauthjs from 'weauthjs';
 
-const api = sc2.Initialize({
+const api = weauthjs.Initialize({
   app: process.env.AUTH_API_CLIENT_ID,
-  baseURL: process.env.STEEMCONNECT_HOST,
+  baseURL: process.env.AUTH_URL,
   callbackURL: process.env.AUTH_API_REDIRECT_URL,
 });
 

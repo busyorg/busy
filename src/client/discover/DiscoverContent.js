@@ -1,7 +1,7 @@
 import React from 'react';
 import { people } from '../helpers/constants';
 import DiscoverUser from './DiscoverUser';
-import SteemAPI from '../steemAPI';
+import SteemAPI from '../blockchainAPI';
 import ReduxInfiniteScroll from '../vendor/ReduxInfiniteScroll';
 
 const displayLimit = 20;

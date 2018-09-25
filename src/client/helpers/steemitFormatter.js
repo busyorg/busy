@@ -1,5 +1,5 @@
 // https://github.com/steemit/steem-js/blob/1ebe788987d395af5fd8c80c1bbf06e24614a86c/src/api/methods.js
-import steemAPI from '../steemAPI';
+import blockchainAPI from '../blockchainAPI';
 
 // Vendor file - disable eslint
 /* eslint-disable */
@@ -184,4 +184,4 @@ const createFormatter = api => {
   };
 };
 
-export default createFormatter(steemAPI);
+export default createFormatter(blockchainAPI);

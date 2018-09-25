@@ -9117,9 +9117,9 @@ sax@^1.2.4, sax@~1.2.1:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
 
-sc2-sdk@^1.0.1:
+weauthjs@^1.0.1:
   version "1.0.2"
-  resolved "https://registry.yarnpkg.com/sc2-sdk/-/sc2-sdk-1.0.2.tgz#6a83d8a55d50ef5c861f80c84da433e4e29fcf56"
+  resolved "https://registry.yarnpkg.com/weauthjs/-/weauthjs-1.0.2.tgz#6a83d8a55d50ef5c861f80c84da433e4e29fcf56"
   dependencies:
     cross-fetch "^1.1.1"
     debug "^2.2.0"

@@ -16,14 +16,14 @@ const storePostId = postId => {
   return newReblogged;
 };
 
-export const reblog = postId => (dispatch, getState, { steemConnectAPI }) => {
+export const reblog = postId => (dispatch, getState, { weauthjsInstance }) => {
   const { auth, posts } = getState();
   const post = posts.list[postId];
 
   dispatch({
     type: REBLOG_POST,
     payload: {
-      promise: steemConnectAPI.reblog(auth.user.name, post.author, post.permlink).then(result => {
+      promise: weauthjsInstance.reblog(auth.user.name, post.author, post.permlink).then(result => {
         const list = storePostId(postId);
         dispatch(getRebloggedListAction(list));
 

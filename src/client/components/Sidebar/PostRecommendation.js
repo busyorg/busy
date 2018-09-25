@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { usernameURLRegex } from '../../helpers/regexHelpers';
 import formatter from '../../helpers/steemitFormatter';
 import Loading from '../../components/Icon/Loading';
-import steemAPI from '../../steemAPI';
+import blockchainAPI from '../../blockchainAPI';
 import PostRecommendationLink from './PostRecommendationLink';
 import './PostRecommendation.less';
 import './SidebarContentBlock.less';
@@ -54,7 +54,7 @@ class PostRecommendation extends Component {
   }
 
   getPostsByAuthor = author => {
-    steemAPI
+    blockchainAPI
       .sendAsync('get_discussions_by_blog', [
         {
           tag: author,

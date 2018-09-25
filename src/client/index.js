@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { message } from 'antd';
 import Cookie from 'js-cookie';
-import steemConnectAPI from './steemConnectAPI';
+import weauthjsInstance from './weauthjsInstance';
 import history from './history';
 import getStore from './store';
 import AppHost from './AppHost';
@@ -18,10 +18,10 @@ if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
 
 const accessToken = Cookie.get('access_token');
 if (accessToken) {
-  steemConnectAPI.setAccessToken(accessToken);
+  weauthjsInstance.setAccessToken(accessToken);
 }
 
-const store = getStore(steemConnectAPI);
+const store = getStore(weauthjsInstance);
 
 message.config({
   top: 62,

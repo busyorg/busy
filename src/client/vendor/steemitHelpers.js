@@ -2,7 +2,7 @@ import base58 from 'bs58';
 import getSlug from 'speakingurl';
 import secureRandom from 'secure-random';
 import diff_match_patch from 'diff-match-patch';
-import steemAPI from '../steemAPI';
+import blockchainAPI from '../blockchainAPI';
 import formatter from '../helpers/steemitFormatter';
 
 const dmp = new diff_match_patch();
@@ -117,7 +117,7 @@ export function createPermlink(title, author, parent_author, parent_permlink) {
       s = base58.encode(secureRandom.randomBuffer(4));
     }
 
-    return steemAPI
+    return blockchainAPI
       .sendAsync('get_content', [author, s])
       .then(content => {
         let prefix;

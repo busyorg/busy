@@ -28,17 +28,17 @@ const POSTCSS_LOADER = {
 const DEFINE_PLUGIN = new webpack.DefinePlugin({
   'process.env.NODE_ENV': IS_DEV ? JSON.stringify('development') : JSON.stringify('production'),
   'process.env.AUTH_API_CLIENT_ID': JSON.stringify(
-    process.env.AUTH_API_CLIENT_ID || 'weyoume',
+    process.env.AUTH_API_CLIENT_ID,
   ),
   'process.env.AUTH_API_REDIRECT_URL': JSON.stringify(
-    process.env.AUTH_API_REDIRECT_URL || 'http://localhost:3456/callback',
+    process.env.AUTH_API_REDIRECT_URL,
   ),
-  'process.env.STEEMCONNECT_HOST': JSON.stringify(
-    process.env.STEEMCONNECT_HOST || 'https://v2.steemconnect.com',
+  'process.env.AUTH_URL': JSON.stringify(
+    process.env.AUTH_URL,
   ),
-  'process.env.API_URL': JSON.stringify(process.env.API_URL || 'https://api.steemit.com'),
+  'process.env.API_URL': JSON.stringify(process.env.API_URL),
   'process.env.SIGNUP_URL': JSON.stringify(
-    process.env.SIGNUP_URL || 'https://signup.steemit.com/?ref=weyoume',
+    process.env.SIGNUP_URL,
   ),
   'process.env.MANIFEST_PATH': JSON.stringify(paths.assets),
 });

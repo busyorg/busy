@@ -1,4 +1,4 @@
-import SteemAPI from '../steemAPI';
+import SteemAPI from '../blockchainAPI';
 import { jsonParse } from '../helpers/formatter';
 import * as accountHistoryConstants from '../../common/constants/accountHistory';
 
@@ -7,10 +7,10 @@ import * as accountHistoryConstants from '../../common/constants/accountHistory'
  * @param path - as in URL like 'trending'
  * @param API - the { api } from steem npm package
  * @param query {Object} - the same query sending to Steem API
- * @param steemAPI - The same giving to Steem API
+ * @param blockchainAPI - The same giving to Steem API
  * @returns {function}
  */
-export function getDiscussionsFromAPI(sortBy, query, steemAPI) {
+export function getDiscussionsFromAPI(sortBy, query, blockchainAPI) {
   switch (sortBy) {
     case 'feed':
     case 'hot':
@@ -20,7 +20,7 @@ export function getDiscussionsFromAPI(sortBy, query, steemAPI) {
     case 'blog':
     case 'comments':
     case 'promoted':
-      return steemAPI.sendAsync(`get_discussions_by_${sortBy}`, [query]);
+      return blockchainAPI.sendAsync(`get_discussions_by_${sortBy}`, [query]);
     default:
       throw new Error('There is not API endpoint defined for this sorting');
   }

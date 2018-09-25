@@ -50,7 +50,7 @@ const getCommentsChildrenLists = apiRes => {
 export const getComments = (postId, reload = false, focusedComment = undefined) => (
   dispatch,
   getState,
-  { steemAPI },
+  { blockchainAPI },
 ) => {
   const { posts, comments } = getState();
 
@@ -61,7 +61,7 @@ export const getComments = (postId, reload = false, focusedComment = undefined) 
   dispatch({
     type: GET_COMMENTS,
     payload: {
-      promise: steemAPI
+      promise: blockchainAPI
         .sendAsync('get_state', [`/${category}/@${author}/${permlink}`])
         .then(apiRes => ({
           rootCommentsList: getRootCommentsList(apiRes),
@@ -80,7 +80,7 @@ export const getComments = (postId, reload = false, focusedComment = undefined) 
 export const sendComment = (parentPost, body, isUpdating = false, originalComment) => (
   dispatch,
   getState,
-  { steemConnectAPI },
+  { weauthjsInstance },
 ) => {
   const { category, id, permlink: parentPermlink, author: parentAuthor } = parentPost;
   const { auth } = getState();
@@ -109,7 +109,7 @@ export const sendComment = (parentPost, body, isUpdating = false, originalCommen
   return dispatch({
     type: SEND_COMMENT,
     payload: {
-      promise: steemConnectAPI
+      promise: weauthjsInstance
         .comment(parentAuthor, parentPermlink, author, permlink, '', newBody, jsonMetadata)
         .then(resp => {
           const focusedComment = {
@@ -138,7 +138,7 @@ export const sendComment = (parentPost, body, isUpdating = false, originalCommen
 export const likeComment = (commentId, weight = 10000, vote = 'like', retryCount = 0) => (
   dispatch,
   getState,
-  { steemAPI, steemConnectAPI },
+  { blockchainAPI, weauthjsInstance },
 ) => {
   const { auth, comments } = getState();
 
@@ -152,9 +152,9 @@ export const likeComment = (commentId, weight = 10000, vote = 'like', retryCount
   dispatch({
     type: LIKE_COMMENT,
     payload: {
-      promise: steemConnectAPI.vote(voter, author, permlink, weight).then(res => {
+      promise: weauthjsInstance.vote(voter, author, permlink, weight).then(res => {
         // reload comment data to fetch payout after vote
-        steemAPI.sendAsync('get_content', [author, permlink]).then(data => {
+        blockchainAPI.sendAsync('get_content', [author, permlink]).then(data => {
           dispatch(reloadExistingComment(data));
           return data;
         });

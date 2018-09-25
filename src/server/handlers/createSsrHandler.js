@@ -5,7 +5,7 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 
-import sc2 from 'sc2-sdk';
+import weauthjs from 'weauthjs';
 import getStore from '../../client/store';
 import routes from '../../common/routes';
 import renderSsrPage from '../renderers/ssrRenderer';
@@ -27,9 +27,9 @@ function createTimeout(timeout, promise) {
 export default function createSsrHandler(template) {
   return async function serverSideResponse(req, res) {
     try {
-      const api = sc2.Initialize({
+      const api = weauthjs.Initialize({
         app: process.env.AUTH_API_CLIENT_ID,
-        baseURL: process.env.STEEMCONNECT_HOST,
+        baseURL: process.env.AUTH_URL,
         callbackURL: process.env.AUTH_API_REDIRECT_URL,
       });
 

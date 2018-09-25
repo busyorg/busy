@@ -8,7 +8,7 @@ export const FOLLOW_USER_START = '@user/FOLLOW_USER_START';
 export const FOLLOW_USER_SUCCESS = '@user/FOLLOW_USER_SUCCESS';
 export const FOLLOW_USER_ERROR = '@user/FOLLOW_USER_ERROR';
 
-export const followUser = username => (dispatch, getState, { steemConnectAPI }) => {
+export const followUser = username => (dispatch, getState, { weauthjsInstance }) => {
   const state = getState();
 
   if (!getIsAuthenticated(state)) {
@@ -18,7 +18,7 @@ export const followUser = username => (dispatch, getState, { steemConnectAPI }) 
   return dispatch({
     type: FOLLOW_USER,
     payload: {
-      promise: steemConnectAPI.follow(getAuthenticatedUserName(state), username),
+      promise: weauthjsInstance.follow(getAuthenticatedUserName(state), username),
     },
     meta: {
       username,
@@ -31,7 +31,7 @@ export const UNFOLLOW_USER_START = '@user/UNFOLLOW_USER_START';
 export const UNFOLLOW_USER_SUCCESS = '@user/UNFOLLOW_USER_SUCCESS';
 export const UNFOLLOW_USER_ERROR = '@user/UNFOLLOW_USER_ERROR';
 
-export const unfollowUser = username => (dispatch, getState, { steemConnectAPI }) => {
+export const unfollowUser = username => (dispatch, getState, { weauthjsInstance }) => {
   const state = getState();
 
   if (!getIsAuthenticated(state)) {
@@ -41,7 +41,7 @@ export const unfollowUser = username => (dispatch, getState, { steemConnectAPI }
   return dispatch({
     type: UNFOLLOW_USER,
     payload: {
-      promise: steemConnectAPI.unfollow(getAuthenticatedUserName(state), username),
+      promise: weauthjsInstance.unfollow(getAuthenticatedUserName(state), username),
     },
     meta: {
       username,

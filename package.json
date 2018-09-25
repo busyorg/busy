@@ -26,8 +26,8 @@
     "eslint-autofix": "eslint --fix \"src/**/*.js\"",
     "heroku-prebuild": "npm i -g pm2 && pm2 install pm2-logrotate",
 		"heroku-postbuild": "npm run build",
-		"push" : "git add . ; git commit -m 'ready' ; git push origin steem-dev",
-		"pull" : "git pull origin steem-dev"
+		"push" : "git add . ; git commit -m 'ready' ; git push origin dev",
+		"pull" : "git pull origin dev"
   },
   "husky": {
     "hooks": {}
@@ -100,7 +100,7 @@
     "remarkable": "1.7.1",
     "resize-observer-polyfill": "^1.4.2",
     "sanitize-html": "1.15.0",
-    "sc2-sdk": "^1.0.1",
+    "weauthjs": "^1.0.1",
     "secure-random": "^1.1.1",
     "speakingurl": "^11.0.0",
     "steemscript": "^1.0.1",
