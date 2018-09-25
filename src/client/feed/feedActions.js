@@ -27,7 +27,6 @@ export const getFeedContent = ({ sortBy = 'hot', category, limit = 20 }) => (
   getState,
   { steemAPI },
 ) =>
-	console.log('sortBy', sortBy);
   dispatch({
 		type: GET_FEED_CONTENT.ACTION,
     payload: getDiscussionsFromAPI(sortBy, { tag: category, limit }, steemAPI),
