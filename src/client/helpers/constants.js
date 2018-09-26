@@ -10,6 +10,12 @@ export const knownDomains = [
   'utopian.io',
   'coinmarketcap.com',
   'youtube.com',
+  'weyoume.io',
+  'auth.weyoume.io',
+  'alpha.weyoume.io',
+  'steem.weyoume.io',
+  'steemit.weyoume.io',
+  'bitshares.weyoume.io',
 ];
 
 export const people = [
@@ -51,7 +57,7 @@ export const people = [
   'alexbeyman',
   'gringalicious',
   'donkeypong',
-  'steempower',
+  'amountSCOREvalueInTME',
   'marius19',
   'mindhunter',
   'the-alien',

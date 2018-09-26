@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import _ from 'lodash';
 import { Form, Input, Radio, Modal } from 'antd';
-import { STEEM, SBD } from '../../common/constants/cryptos';
+import { TME, TSD } from '../../common/constants/cryptos';
 import blockchainAPI from '../blockchainAPI';
-import SteemConnect from '../steemConnectAPI';
+import weauthjsInstance from '../weauthjsInstance';
 import { getCryptoPriceHistory } from '../app/appActions';
 import { closeTransfer } from './walletActions';
 import {
@@ -61,7 +61,7 @@ export default class Transfer extends React.Component {
   static exchangeRegex = /^(bittrex|blocktrades|poloniex|changelly|openledge|shapeshiftio|deepcrypto8)$/;
   static CURRENCIES = {
     STEEM: 'STEEM',
-    SBD: 'SBD',
+    TSD: 'TSD',
   };
 
   state = {
@@ -72,14 +72,14 @@ export default class Transfer extends React.Component {
   componentDidMount() {
     const { cryptosPriceHistory } = this.props;
     const currentSteemRate = _.get(cryptosPriceHistory, 'STEEM.priceDetails.currentUSDPrice', null);
-    const currentSBDRate = _.get(cryptosPriceHistory, 'SBD*.priceDetails.currentUSDPrice', null);
+    const currentTSDRate = _.get(cryptosPriceHistory, 'TSD*.priceDetails.currentUSDPrice', null);
 
     if (_.isNull(currentSteemRate)) {
-      this.props.getCryptoPriceHistory(STEEM.symbol);
+      this.props.getCryptoPriceHistory(TME.symbol);
     }
 
-    if (_.isNull(currentSBDRate)) {
-      this.props.getCryptoPriceHistory(SBD.symbol);
+    if (_.isNull(currentTSDRate)) {
+      this.props.getCryptoPriceHistory(TSD.symbol);
     }
   }
 
@@ -89,11 +89,11 @@ export default class Transfer extends React.Component {
       form.setFieldsValue({
         to,
         amount: undefined,
-        currency: STEEM.symbol,
+        currency: TME.symbol,
         memo: undefined,
       });
       this.setState({
-        currency: STEEM.symbol,
+        currency: TME.symbol,
       });
     }
   }
@@ -102,18 +102,18 @@ export default class Transfer extends React.Component {
     const { cryptosPriceHistory, intl } = this.props;
     const { currency, oldAmount } = this.state;
     const currentSteemRate = _.get(cryptosPriceHistory, 'STEEM.priceDetails.currentUSDPrice', null);
-    const currentSBDRate = _.get(cryptosPriceHistory, 'SBD*.priceDetails.currentUSDPrice', null);
-    const steemRateLoading = _.isNull(currentSteemRate) || _.isNull(currentSBDRate);
+    const currentTSDRate = _.get(cryptosPriceHistory, 'TSD*.priceDetails.currentUSDPrice', null);
+    const TMErateLoading = _.isNull(currentSteemRate) || _.isNull(currentTSDRate);
     const parsedAmount = parseFloat(oldAmount);
     const invalidAmount = parsedAmount <= 0 || _.isNaN(parsedAmount);
     let amount = 0;
 
-    if (steemRateLoading || invalidAmount) return '';
+    if (TMErateLoading || invalidAmount) return '';
 
-    if (currency === STEEM.symbol) {
+    if (currency === TME.symbol) {
       amount = parsedAmount * parseFloat(currentSteemRate);
     } else {
-      amount = parsedAmount * parseFloat(currentSBDRate);
+      amount = parsedAmount * parseFloat(currentTSDRate);
     }
 
     return `~ $${intl.formatNumber(amount, {
@@ -150,7 +150,7 @@ export default class Transfer extends React.Component {
         };
         if (values.memo) transferQuery.memo = values.memo;
 
-        const win = window.open(SteemConnect.sign('transfer', transferQuery), '_blank');
+        const win = window.open(weauthjsInstance.sign('transfer', transferQuery), '_blank');
         win.focus();
         this.props.closeTransfer();
       }
@@ -279,7 +279,7 @@ export default class Transfer extends React.Component {
     }
 
     const selectedBalance =
-      this.state.currency === Transfer.CURRENCIES.STEEM ? user.balance : user.sbd_balance;
+      this.state.currency === Transfer.CURRENCIES.STEEM ? user.balance : user.TSDbalance;
 
     if (authenticated && currentValue !== 0 && currentValue > parseFloat(selectedBalance)) {
       callback([
@@ -297,14 +297,14 @@ export default class Transfer extends React.Component {
     const { getFieldDecorator } = this.props.form;
 
     const balance =
-      this.state.currency === Transfer.CURRENCIES.STEEM ? user.balance : user.sbd_balance;
+      this.state.currency === Transfer.CURRENCIES.STEEM ? user.balance : user.TSDbalance;
 
     const currencyPrefix = getFieldDecorator('currency', {
       initialValue: this.state.currency,
     })(
       <Radio.Group onChange={this.handleCurrencyChange} className="Transfer__amount__type">
         <Radio.Button value={Transfer.CURRENCIES.STEEM}>{Transfer.CURRENCIES.STEEM}</Radio.Button>
-        <Radio.Button value={Transfer.CURRENCIES.SBD}>{Transfer.CURRENCIES.SBD}</Radio.Button>
+        <Radio.Button value={Transfer.CURRENCIES.TSD}>{Transfer.CURRENCIES.TSD}</Radio.Button>
       </Radio.Group>,
     );
 

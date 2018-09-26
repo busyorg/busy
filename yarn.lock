@@ -2107,9 +2107,9 @@ builtin-status-codes@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/builtin-status-codes/-/builtin-status-codes-3.0.0.tgz#85982878e21b98e1c66425e03d0174788f569ee8"
 
-busyjs@^1.0.2:
+welitejs@^1.0.2:
   version "1.0.2"
-  resolved "https://registry.yarnpkg.com/busyjs/-/busyjs-1.0.2.tgz#d52d8310fce923ad242093566ab41b6df53bbf62"
+  resolved "https://registry.yarnpkg.com/welitejs/-/welitejs-1.0.2.tgz#d52d8310fce923ad242093566ab41b6df53bbf62"
   dependencies:
     ws "^4.0.0"
 
@@ -9591,9 +9591,9 @@ stealthy-require@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/stealthy-require/-/stealthy-require-1.1.1.tgz#35b09875b4ff49f26a777e509b3090a3226bf24b"
 
-steemscript@^1.0.1:
+weschemajs@^1.0.1:
   version "1.0.1"
-  resolved "https://registry.yarnpkg.com/steemscript/-/steemscript-1.0.1.tgz#3739bc91420825f5c505049d33d888842eaf0bbd"
+  resolved "https://registry.yarnpkg.com/weschemajs/-/weschemajs-1.0.1.tgz#3739bc91420825f5c505049d33d888842eaf0bbd"
 
 store@^1.3.20:
   version "1.3.20"

@@ -53,29 +53,29 @@ const filterValues = {
     defaultMessage: accountHistoryConstants.REBLOGGED,
     value: [accountHistoryConstants.REBLOGGED],
   },
-  [accountHistoryConstants.AUTHOR_REWARD]: {
-    id: accountHistoryConstants.AUTHOR_REWARD,
-    messageId: accountHistoryConstants.AUTHOR_REWARD,
+  [accountHistoryConstants.authorReward]: {
+    id: accountHistoryConstants.authorReward,
+    messageId: accountHistoryConstants.authorReward,
     defaultMessage: 'Author reward',
-    value: [accountHistoryConstants.AUTHOR_REWARD],
+    value: [accountHistoryConstants.authorReward],
   },
-  [accountHistoryConstants.CURATION_REWARD]: {
-    id: accountHistoryConstants.CURATION_REWARD,
-    messageId: accountHistoryConstants.CURATION_REWARD,
+  [accountHistoryConstants.curationReward]: {
+    id: accountHistoryConstants.curationReward,
+    messageId: accountHistoryConstants.curationReward,
     defaultMessage: 'Curation reward',
-    value: [accountHistoryConstants.CURATION_REWARD],
+    value: [accountHistoryConstants.curationReward],
   },
   [accountHistoryConstants.CLAIM_REWARDS]: {
     id: accountHistoryConstants.CLAIM_REWARDS,
     messageId: accountHistoryConstants.CLAIM_REWARDS,
     defaultMessage: 'Claim rewards',
-    value: [accountHistoryConstants.CLAIM_REWARDS, accountHistoryConstants.CLAIM_REWARD_BALANCE],
+    value: [accountHistoryConstants.CLAIM_REWARDS, accountHistoryConstants.claimRewardBalance],
   },
   [accountHistoryConstants.POWERED_UP]: {
     id: accountHistoryConstants.POWERED_UP,
     messageId: accountHistoryConstants.POWERED_UP,
     defaultMessage: 'Powered up',
-    value: [accountHistoryConstants.POWERED_UP, accountHistoryConstants.TRANSFER_TO_VESTING],
+    value: [accountHistoryConstants.POWERED_UP, accountHistoryConstants.transferTMEtoSCOREfund],
   },
   [accountHistoryConstants.RECEIVED]: {
     id: accountHistoryConstants.RECEIVED,
@@ -94,9 +94,9 @@ const filterValues = {
     messageId: accountHistoryConstants.SAVINGS,
     defaultMessage: 'Savings',
     value: [
-      accountHistoryConstants.CANCEL_TRANSFER_FROM_SAVINGS,
-      accountHistoryConstants.TRANSFER_FROM_SAVINGS,
-      accountHistoryConstants.TRANSFER_TO_SAVINGS,
+      accountHistoryConstants.cancelTransferFromSavings,
+      accountHistoryConstants.transferFromSavings,
+      accountHistoryConstants.transferToSavings,
     ],
   },
 };
@@ -119,8 +119,8 @@ const financeFilters = [
 ];
 
 const rewardsFilters = [
-  filterValues[accountHistoryConstants.AUTHOR_REWARD],
-  filterValues[accountHistoryConstants.CURATION_REWARD],
+  filterValues[accountHistoryConstants.authorReward],
+  filterValues[accountHistoryConstants.curationReward],
   filterValues[accountHistoryConstants.CLAIM_REWARDS],
 ];
 
@@ -154,8 +154,8 @@ class UserActivitySearch extends React.Component {
         [filterValues[accountHistoryConstants.UNFOLLOWED].id]: false,
         [filterValues[accountHistoryConstants.REPLIED].id]: false,
         [filterValues[accountHistoryConstants.REBLOGGED].id]: false,
-        [filterValues[accountHistoryConstants.AUTHOR_REWARD].id]: false,
-        [filterValues[accountHistoryConstants.CURATION_REWARD].id]: false,
+        [filterValues[accountHistoryConstants.authorReward].id]: false,
+        [filterValues[accountHistoryConstants.curationReward].id]: false,
         [filterValues[accountHistoryConstants.CLAIM_REWARDS].id]: false,
         [filterValues[accountHistoryConstants.POWERED_UP].id]: false,
         [filterValues[accountHistoryConstants.RECEIVED].id]: false,

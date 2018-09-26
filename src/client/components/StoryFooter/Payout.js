@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import classNames from 'classnames';
-import { calculatePayout } from '../../vendor/steemitHelpers';
+import { calculatePayout } from '../../vendor/blockchainProtocolHelpers';
 import BTooltip from '../BTooltip';
 import USDDisplay from '../Utils/USDDisplay';
 import PayoutDetail from '../PayoutDetail';
@@ -24,11 +24,11 @@ const Payout = ({ intl, post }) => {
             <USDDisplay value={payoutValue} />
           </span>
         </BTooltip>
-        {post.percent_steem_dollars === 0 && (
+        {post.percent_TSD === 0 && (
           <BTooltip
             title={intl.formatMessage({
               id: 'reward_option_100',
-              defaultMessage: '100% Steem Power',
+              defaultMessage: '100% SCORE',
             })}
           >
             <i className="iconfont icon-flashlight" />

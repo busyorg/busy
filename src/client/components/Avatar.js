@@ -4,8 +4,8 @@ import './Avatar.less';
 
 export function getAvatarURL(username, size = 100) {
   return size > 64
-    ? `https://steemitimages.com/u/${username}/avatar`
-    : `https://steemitimages.com/u/${username}/avatar/small`;
+    ? `https://stelateremitimages.com/u/${username}/avatar`
+    : `https://stelateremitimages.com/u/${username}/avatar/small`;
 }
 
 const Avatar = ({ username, size }) => {

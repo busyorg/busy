@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Form, Input } from 'antd';
-import SteemConnect from '../steemConnectAPI';
+import weauthjsInstance from '../weauthjsInstance';
 import { getIsReloading, getAuthenticatedUser } from '../reducers';
 import socialProfiles from '../helpers/socialProfiles';
 import withEditor from '../components/Editor/withEditor';
@@ -93,7 +93,7 @@ export default class ProfileSettings extends React.Component {
             }),
             {},
           );
-        const win = window.open(SteemConnect.sign('profile-update', cleanValues), '_blank');
+        const win = window.open(weauthjsInstance.sign('profile-update', cleanValues), '_blank');
         win.focus();
       }
     });

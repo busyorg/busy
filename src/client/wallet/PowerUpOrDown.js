@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Form, Input, Modal } from 'antd';
-import SteemConnect from '../steemConnectAPI';
+import weauthjsInstance from '../weauthjsInstance';
 import { closePowerUpOrDown } from './walletActions';
 import {
   getAuthenticatedUser,
   getIsPowerUpOrDownVisible,
   getIsPowerDown,
-  getTotalVestingShares,
-  getTotalVestingFundSteem,
+  gettotalSCORE,
+  getSCOREbackingTMEfundBalance,
 } from '../reducers';
-import formatter from '../helpers/steemitFormatter';
+import formatter from '../helpers/blockchainProtocolFormatter';
 import './Transfer.less';
 
 @injectIntl
@@ -20,8 +20,8 @@ import './Transfer.less';
   state => ({
     visible: getIsPowerUpOrDownVisible(state),
     user: getAuthenticatedUser(state),
-    totalVestingShares: getTotalVestingShares(state),
-    totalVestingFundSteem: getTotalVestingFundSteem(state),
+    totalSCORE: gettotalSCORE(state),
+    SCOREbackingTMEfundBalance: getSCOREbackingTMEfundBalance(state),
     down: getIsPowerDown(state),
   }),
   {
@@ -36,8 +36,8 @@ export default class PowerUpOrDown extends React.Component {
     visible: PropTypes.bool.isRequired,
     closePowerUpOrDown: PropTypes.func.isRequired,
     user: PropTypes.shape().isRequired,
-    totalVestingShares: PropTypes.string.isRequired,
-    totalVestingFundSteem: PropTypes.string.isRequired,
+    totalSCORE: PropTypes.string.isRequired,
+    SCOREbackingTMEfundBalance: PropTypes.string.isRequired,
     down: PropTypes.bool.isRequired,
   };
 
@@ -56,13 +56,13 @@ export default class PowerUpOrDown extends React.Component {
   }
 
   getAvailableBalance = () => {
-    const { user, down, totalVestingShares, totalVestingFundSteem } = this.props;
+    const { user, down, totalSCORE, SCOREbackingTMEfundBalance } = this.props;
 
     return down
-      ? formatter.vestToSteem(
+      ? formatter.SCOREinTMEvalue(
           parseFloat(user.vesting_shares) - parseFloat(user.delegated_vesting_shares),
-          totalVestingShares,
-          totalVestingFundSteem,
+          totalSCORE,
+          SCOREbackingTMEfundBalance,
         )
       : parseFloat(user.balance);
   };
@@ -79,10 +79,10 @@ export default class PowerUpOrDown extends React.Component {
   };
 
   handleContinueClick = () => {
-    const { form, user, down, totalVestingShares, totalVestingFundSteem } = this.props;
+    const { form, user, down, totalSCORE, SCOREbackingTMEfundBalance } = this.props;
     form.validateFields({ force: true }, (errors, values) => {
       const vests = (
-        values.amount / formatter.vestToSteem(1, totalVestingShares, totalVestingFundSteem)
+        values.amount / formatter.SCOREinTMEvalue(1, totalSCORE, SCOREbackingTMEfundBalance)
       ).toFixed(6);
       if (!errors) {
         const transferQuery = down
@@ -95,7 +95,7 @@ export default class PowerUpOrDown extends React.Component {
             };
 
         const win = window.open(
-          SteemConnect.sign(down ? 'withdraw-vesting' : 'transfer-to-vesting', transferQuery),
+          weauthjsInstance.sign(down ? 'withdraw-vesting' : 'transfer-to-vesting', transferQuery),
           '_blank',
         );
         win.focus();
@@ -198,7 +198,7 @@ export default class PowerUpOrDown extends React.Component {
                       defaultMessage="{amount} {currency}"
                       values={{
                         amount: Math.floor(this.getAvailableBalance() * 1000) / 1000,
-                        currency: down ? 'SP' : 'STEEM',
+                        currency: down ? 'SCORE' : 'STEEM',
                       }}
                     />
                   </span>

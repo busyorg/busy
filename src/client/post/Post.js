@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import VisibilitySensor from 'react-visibility-sensor';
-import formatter from '../helpers/steemitFormatter';
+import formatter from '../helpers/blockchainProtocolFormatter';
 import { getCryptoDetails } from '../helpers/cryptosHelper';
 import { isBannedPost } from '../helpers/postHelpers';
 import {

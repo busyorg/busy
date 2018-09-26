@@ -7,8 +7,8 @@ ShallowWrapper {
   Symbol(enzyme.__unrendered__): <UserWalletTransactions
     actions={Array []}
     currentUsername="hellosteem"
-    totalVestingFundSteem="0"
-    totalVestingShares="0"
+    SCOREbackingTMEfundBalance="0"
+    totalSCORE="0"
     transactions={
       Array [
         Object {
@@ -71,8 +71,8 @@ ShallowWrapper {
         <div />
         <WalletTransaction
           currentUsername="hellosteem"
-          totalVestingFundSteem="0"
-          totalVestingShares="0"
+          SCOREbackingTMEfundBalance="0"
+          totalSCORE="0"
           transaction={
             Object {
               "op": Array [
@@ -87,8 +87,8 @@ ShallowWrapper {
         />
         <WalletTransaction
           currentUsername="hellosteem"
-          totalVestingFundSteem="0"
-          totalVestingShares="0"
+          SCOREbackingTMEfundBalance="0"
+          totalSCORE="0"
           transaction={
             Object {
               "op": Array [
@@ -117,8 +117,8 @@ ShallowWrapper {
           Array [
             <WalletTransaction
               currentUsername="hellosteem"
-              totalVestingFundSteem="0"
-              totalVestingShares="0"
+              SCOREbackingTMEfundBalance="0"
+              totalSCORE="0"
               transaction={
                 Object {
                   "op": Array [
@@ -133,8 +133,8 @@ ShallowWrapper {
             />,
             <WalletTransaction
               currentUsername="hellosteem"
-              totalVestingFundSteem="0"
-              totalVestingShares="0"
+              SCOREbackingTMEfundBalance="0"
+              totalSCORE="0"
               transaction={
                 Object {
                   "op": Array [
@@ -187,8 +187,8 @@ ShallowWrapper {
           "nodeType": "function",
           "props": Object {
             "currentUsername": "hellosteem",
-            "totalVestingFundSteem": "0",
-            "totalVestingShares": "0",
+            "SCOREbackingTMEfundBalance": "0",
+            "totalSCORE": "0",
             "transaction": Object {
               "op": Array [
                 "transfer_to_vesting",
@@ -209,8 +209,8 @@ ShallowWrapper {
           "nodeType": "function",
           "props": Object {
             "currentUsername": "hellosteem",
-            "totalVestingFundSteem": "0",
-            "totalVestingShares": "0",
+            "SCOREbackingTMEfundBalance": "0",
+            "totalSCORE": "0",
             "transaction": Object {
               "op": Array [
                 "transfer",
@@ -263,8 +263,8 @@ ShallowWrapper {
           <div />
           <WalletTransaction
             currentUsername="hellosteem"
-            totalVestingFundSteem="0"
-            totalVestingShares="0"
+            SCOREbackingTMEfundBalance="0"
+            totalSCORE="0"
             transaction={
               Object {
                 "op": Array [
@@ -279,8 +279,8 @@ ShallowWrapper {
           />
           <WalletTransaction
             currentUsername="hellosteem"
-            totalVestingFundSteem="0"
-            totalVestingShares="0"
+            SCOREbackingTMEfundBalance="0"
+            totalSCORE="0"
             transaction={
               Object {
                 "op": Array [
@@ -309,8 +309,8 @@ ShallowWrapper {
             Array [
               <WalletTransaction
                 currentUsername="hellosteem"
-                totalVestingFundSteem="0"
-                totalVestingShares="0"
+                SCOREbackingTMEfundBalance="0"
+                totalSCORE="0"
                 transaction={
                   Object {
                     "op": Array [
@@ -325,8 +325,8 @@ ShallowWrapper {
               />,
               <WalletTransaction
                 currentUsername="hellosteem"
-                totalVestingFundSteem="0"
-                totalVestingShares="0"
+                SCOREbackingTMEfundBalance="0"
+                totalSCORE="0"
                 transaction={
                   Object {
                     "op": Array [
@@ -379,8 +379,8 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "currentUsername": "hellosteem",
-              "totalVestingFundSteem": "0",
-              "totalVestingShares": "0",
+              "SCOREbackingTMEfundBalance": "0",
+              "totalSCORE": "0",
               "transaction": Object {
                 "op": Array [
                   "transfer_to_vesting",
@@ -401,8 +401,8 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "currentUsername": "hellosteem",
-              "totalVestingFundSteem": "0",
-              "totalVestingShares": "0",
+              "SCOREbackingTMEfundBalance": "0",
+              "totalSCORE": "0",
               "transaction": Object {
                 "op": Array [
                   "transfer",

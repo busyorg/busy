@@ -9,7 +9,7 @@ import embedjs from 'embedjs';
 import { jsonParse } from '../../helpers/formatter';
 import sanitizeConfig from '../../vendor/SanitizeConfig';
 import { imageRegex, dtubeImageRegex, rewriteRegex } from '../../helpers/regexHelpers';
-import htmlReady from '../../vendor/steemitHtmlReady';
+import htmlReady from '../../vendor/blockchainProtocolHtmlReady';
 import improve from '../../helpers/improve';
 import PostFeedEmbed from './PostFeedEmbed';
 import './Body.less';

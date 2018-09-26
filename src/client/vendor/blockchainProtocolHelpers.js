@@ -3,7 +3,7 @@ import getSlug from 'speakingurl';
 import secureRandom from 'secure-random';
 import diff_match_patch from 'diff-match-patch';
 import blockchainAPI from '../blockchainAPI';
-import formatter from '../helpers/steemitFormatter';
+import formatter from '../helpers/blockchainProtocolFormatter';
 
 const dmp = new diff_match_patch();
 /**
@@ -176,20 +176,20 @@ export const calculateVoteValue = (
   vp = 10000,
   weight = 10000,
 ) => {
-  const vestingShares = parseInt(vests * 1e6, 10);
+  const SCORE = parseInt(vests * 1e6, 10);
   const power = vp * weight / 10000 / 50;
-  const rshares = power * vestingShares / 10000;
+  const rshares = power * SCORE / 10000;
   return rshares / recentClaims * rewardBalance * rate;
 };
 
-export const calculateTotalDelegatedSP = (user, totalVestingShares, totalVestingFundSteem) => {
-  const receivedSP = parseFloat(
-    formatter.vestToSteem(user.received_vesting_shares, totalVestingShares, totalVestingFundSteem),
+export const calculateTotalDelegatedSCORE = (user, totalSCORE, SCOREbackingTMEfundBalance) => {
+  const receivedSCORE = parseFloat(
+    formatter.SCOREinTMEvalue(user.received_vesting_shares, totalSCORE, SCOREbackingTMEfundBalance),
   );
-  const delegatedSP = parseFloat(
-    formatter.vestToSteem(user.delegated_vesting_shares, totalVestingShares, totalVestingFundSteem),
+  const delegatedSCORE = parseFloat(
+    formatter.SCOREinTMEvalue(user.delegated_vesting_shares, totalSCORE, SCOREbackingTMEfundBalance),
   );
-  return receivedSP - delegatedSP;
+  return receivedSCORE - delegatedSCORE;
 };
 
 export const calculateVotingPower = user => {
@@ -199,18 +199,18 @@ export const calculateVotingPower = user => {
 
 export const calculateEstAccountValue = (
   user,
-  totalVestingShares,
-  totalVestingFundSteem,
-  steemRate,
-  sbdRate,
+  totalSCORE,
+  SCOREbackingTMEfundBalance,
+  TMErate,
+  TSDrate,
 ) => {
-  const steemPower = formatter.vestToSteem(
+  const amountSCOREvalueInTME = formatter.SCOREinTMEvalue(
     user.vesting_shares,
-    totalVestingShares,
-    totalVestingFundSteem,
+    totalSCORE,
+    SCOREbackingTMEfundBalance,
   );
   return (
-    parseFloat(steemRate) * (parseFloat(user.balance) + parseFloat(steemPower)) +
-    parseFloat(user.sbd_balance) * parseFloat(sbdRate)
+    parseFloat(TMErate) * (parseFloat(user.balance) + parseFloat(amountSCOREvalueInTME)) +
+    parseFloat(user.TSDbalance) * parseFloat(TSDrate)
   );
 };

@@ -4,9 +4,9 @@ const options = {
   timeout: 15000,
 };
 
-const steemUrl = process.env.API_URL || 'https://node.weyoume.src';
+const apiURL = process.env.API_URL || 'https://node.weyoume.src';
 
-const client = createClient(steemUrl, options);
+const client = createClient(apiURL, options);
 client.sendAsync = (message, params) =>
   new Promise((resolve, reject) => {
     client.send(message, params, (err, result) => {

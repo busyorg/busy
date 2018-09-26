@@ -7,58 +7,58 @@ import {
   FormattedDate,
   FormattedTime,
 } from 'react-intl';
-import formatter from '../helpers/steemitFormatter';
+import formatter from '../helpers/blockchainProtocolFormatter';
 import BTooltip from '../components/BTooltip';
 
 const getFormattedPayout = (
-  rewardSteem,
-  rewardSbd,
-  rewardVests,
-  totalVestingShares,
-  totalVestingFundSteem,
+  TMEreward,
+  TSDreward,
+  SCOREreward,
+  totalSCORE,
+  SCOREbackingTMEfundBalance,
 ) => {
   const payouts = [];
-  const parsedRewardSteem = parseFloat(rewardSteem);
-  const parsedRewardSbd = parseFloat(rewardSbd);
-  const parsedRewardVests = parseFloat(
-    formatter.vestToSteem(rewardVests, totalVestingShares, totalVestingFundSteem),
+  const parsedTMEreward = parseFloat(TMEreward);
+  const parsedTSDreward = parseFloat(TSDreward);
+  const parsedSCOREreward = parseFloat(
+    formatter.SCOREinTMEvalue(SCOREreward, totalSCORE, SCOREbackingTMEfundBalance),
   );
 
-  if (parsedRewardSteem > 0) {
+  if (parsedTMEreward > 0) {
     payouts.push(
       <span key="STEEM" className="UserWalletTransactions__payout-rewards">
         <FormattedNumber
-          value={parsedRewardSteem}
+          value={parsedTMEreward}
           minimumFractionDigits={3}
           maximumFractionDigits={3}
         />
-        {' STEEM'}
+        {' TME'}
       </span>,
     );
   }
 
-  if (parsedRewardSbd > 0) {
+  if (parsedTSDreward > 0) {
     payouts.push(
-      <span key="SBD" className="UserWalletTransactions__payout-rewards">
+      <span key="TSD" className="UserWalletTransactions__payout-rewards">
         <FormattedNumber
-          value={parsedRewardSbd}
+          value={parsedTSDreward}
           minimumFractionDigits={3}
           maximumFractionDigits={3}
         />
-        {' SBD'}
+        {' TSD'}
       </span>,
     );
   }
 
-  if (parsedRewardVests > 0) {
+  if (parsedSCOREreward > 0) {
     payouts.push(
-      <span key="SP" className="UserWalletTransactions__payout-rewards">
+      <span key="SCORE" className="UserWalletTransactions__payout-rewards">
         <FormattedNumber
-          value={parsedRewardVests}
+          value={parsedSCOREreward}
           minimumFractionDigits={3}
           maximumFractionDigits={3}
         />
-        {' SP'}
+        {' SCORE'}
       </span>,
     );
   }
@@ -68,11 +68,11 @@ const getFormattedPayout = (
 
 const ClaimReward = ({
   timestamp,
-  rewardSteem,
-  rewardSbd,
-  rewardVests,
-  totalVestingShares,
-  totalVestingFundSteem,
+  TMEreward,
+  TSDreward,
+  SCOREreward,
+  totalSCORE,
+  SCOREbackingTMEfundBalance,
 }) => (
   <div className="UserWalletTransactions__transaction">
     <div className="UserWalletTransactions__icon-container">
@@ -85,11 +85,11 @@ const ClaimReward = ({
         </div>
         <div className="UserWalletTransactions__payout">
           {getFormattedPayout(
-            rewardSteem,
-            rewardSbd,
-            rewardVests,
-            totalVestingShares,
-            totalVestingFundSteem,
+            TMEreward,
+            TSDreward,
+            SCOREreward,
+            totalSCORE,
+            SCOREbackingTMEfundBalance,
           )}
         </div>
       </div>
@@ -112,11 +112,11 @@ const ClaimReward = ({
 
 ClaimReward.propTypes = {
   timestamp: PropTypes.string.isRequired,
-  rewardSteem: PropTypes.string.isRequired,
-  rewardSbd: PropTypes.string.isRequired,
-  rewardVests: PropTypes.string.isRequired,
-  totalVestingShares: PropTypes.string.isRequired,
-  totalVestingFundSteem: PropTypes.string.isRequired,
+  TMEreward: PropTypes.string.isRequired,
+  TSDreward: PropTypes.string.isRequired,
+  SCOREreward: PropTypes.string.isRequired,
+  totalSCORE: PropTypes.string.isRequired,
+  SCOREbackingTMEfundBalance: PropTypes.string.isRequired,
 };
 
 export default ClaimReward;

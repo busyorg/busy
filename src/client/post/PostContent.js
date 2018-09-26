@@ -188,6 +188,12 @@ class PostContent extends React.Component {
     if (postMetaData && _.indexOf(postMetaData.app, 'steemit') === 0) {
       canonicalHost = 'https://steemit.com';
     }
+    if (postMetaData && _.indexOf(postMetaData.app, 'weyoume') === 0) {
+      canonicalHost = 'https://alpha.weyoume.src';
+    }
+    if (postMetaData && _.indexOf(postMetaData.app, 'weapp') === 0) {
+      canonicalHost = 'https://alpha.weyoume.src';
+    }
 
     const userVote = _.find(content.active_votes, { voter: user.name }) || {};
 

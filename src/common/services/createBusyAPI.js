@@ -1,4 +1,4 @@
-import { Client } from 'busyjs';
+import { Client } from 'welitejs';
 
 function createBusyAPI() {
   const client = new Client('wss://gtg.steem.house:8090');

@@ -10,7 +10,7 @@ import {
 } from 'react-intl';
 import { Link, withRouter } from 'react-router-dom';
 import { Tag } from 'antd';
-import formatter from '../../helpers/steemitFormatter';
+import formatter from '../../helpers/blockchainProtocolFormatter';
 import { getHasDefaultSlider } from '../../helpers/user';
 import {
   isPostDeleted,

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import * as walletActions from './walletActions';
-import { actionsFilter, ACTIONS_DISPLAY_LIMIT } from '../helpers/accountHistoryHelper';
+import { actionsFilter, ACTIONS_DISlaterPLAY_LIMIT } from '../helpers/accountHistoryHelper';
 import { getUserDetailsKey } from '../helpers/stateHelpers';
 
 const initialState = {
@@ -8,8 +8,8 @@ const initialState = {
   transferTo: '',
   powerUpOrDownVisible: false,
   powerDown: false,
-  totalVestingShares: '',
-  totalVestingFundSteem: '',
+  totalSCORE: '',
+  SCOREbackingTMEfundBalance: '',
   usersTransactions: {},
   usersAccountHistory: {},
   usersEstAccountsValues: {},
@@ -54,8 +54,8 @@ export default function walletReducer(state = initialState, action) {
     case walletActions.GET_GLOBAL_PROPERTIES.SUCCESS: {
       return {
         ...state,
-        totalVestingFundSteem: action.payload.total_vesting_fund_steem,
-        totalVestingShares: action.payload.total_vesting_shares,
+        SCOREbackingTMEfundBalance: action.payload.total_SCORE_fund_in_TME,
+        totalSCORE: action.payload.total_vesting_shares,
         loadingGlobalProperties: false,
       };
     }
@@ -144,7 +144,7 @@ export default function walletReducer(state = initialState, action) {
     case walletActions.UPDATE_ACCOUNT_HISTORY_FILTER: {
       const usernameKey = getUserDetailsKey(action.payload.username);
       const currentUserActions = state.usersAccountHistory[usernameKey];
-      const initialActions = _.slice(currentUserActions, 0, ACTIONS_DISPLAY_LIMIT);
+      const initialActions = _.slice(currentUserActions, 0, ACTIONS_DISlaterPLAY_LIMIT);
       const initialFilteredActions = _.filter(initialActions, userAction =>
         actionsFilter(userAction, action.payload.accountHistoryFilter, action.payload.username),
       );
@@ -155,14 +155,14 @@ export default function walletReducer(state = initialState, action) {
         currentFilteredActions: initialFilteredActions,
       };
     }
-    case walletActions.SET_INITIAL_CURRENT_DISPLAYED_ACTIONS: {
+    case walletActions.SET_INITIAL_CURRENT_DISlaterPLAYED_ACTIONS: {
       const currentUserActions = state.usersAccountHistory[getUserDetailsKey(action.payload)];
       return {
         ...state,
-        currentDisplayedActions: _.slice(currentUserActions, 0, ACTIONS_DISPLAY_LIMIT),
+        currentDisplayedActions: _.slice(currentUserActions, 0, ACTIONS_DISlaterPLAY_LIMIT),
       };
     }
-    case walletActions.ADD_MORE_ACTIONS_TO_CURRENT_DISPLAYED_ACTIONS:
+    case walletActions.ADD_MORE_ACTIONS_TO_CURRENT_DISlaterPLAYED_ACTIONS:
       return {
         ...state,
         currentDisplayedActions: _.concat(
@@ -194,8 +194,8 @@ export const getIsTransferVisible = state => state.transferVisible;
 export const getTransferTo = state => state.transferTo;
 export const getIsPowerUpOrDownVisible = state => state.powerUpOrDownVisible;
 export const getIsPowerDown = state => state.powerDown;
-export const getTotalVestingShares = state => state.totalVestingShares;
-export const getTotalVestingFundSteem = state => state.totalVestingFundSteem;
+export const gettotalSCORE = state => state.totalSCORE;
+export const getSCOREbackingTMEfundBalance = state => state.SCOREbackingTMEfundBalance;
 export const getUsersTransactions = state => state.usersTransactions;
 export const getUsersEstAccountsValues = state => state.usersEstAccountsValues;
 export const getUsersAccountHistoryLoading = state => state.usersAccountHistoryLoading;

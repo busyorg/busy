@@ -110,7 +110,7 @@ export const getUserFeedFailedFromState = (username, feedState) =>
  * @param {String} sortBy - how comments should be sorted
  * @returns {Array} - list of sorted IDs
  */
-export const sortCommentsFromSteem = (list, commentsState, sortBy = 'trending') => {
+export const sortComments = (list, commentsState, sortBy = 'trending') => {
   let compareFunc;
   const newList = [...list];
 

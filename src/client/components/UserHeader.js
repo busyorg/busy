@@ -14,7 +14,7 @@ const UserHeader = ({
   username,
   handle,
   userReputation,
-  vestingShares,
+  SCORE,
   isSameUser,
   coverImage,
   hasCover,
@@ -23,7 +23,7 @@ const UserHeader = ({
   isActive,
 }) => {
   const style = hasCover
-    ? { backgroundImage: `url("https://steemitimages.com/2048x512/${coverImage}")` }
+    ? { backgroundImage: `url("https://stelateremitimages.com/2048x512/${coverImage}")` }
     : {};
   return (
     <div className={classNames('UserHeader', { 'UserHeader--cover': hasCover })} style={style}>
@@ -77,8 +77,8 @@ const UserHeader = ({
             <div className="UserHeader__rank">
               <i className="iconfont icon-ranking" />
               <FormattedMessage
-                id={getUserRankKey(vestingShares)}
-                defaultMessage={getUserRank(vestingShares)}
+                id={getUserRankKey(SCORE)}
+                defaultMessage={getUserRank(SCORE)}
               />
             </div>
           </div>
@@ -102,7 +102,7 @@ UserHeader.propTypes = {
   username: PropTypes.string,
   handle: PropTypes.string,
   userReputation: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  vestingShares: PropTypes.number,
+  SCORE: PropTypes.number,
   isSameUser: PropTypes.bool,
   coverImage: PropTypes.string,
   hasCover: PropTypes.bool,
@@ -115,7 +115,7 @@ UserHeader.defaultProps = {
   username: '',
   handle: '',
   userReputation: '0',
-  vestingShares: 0,
+  SCORE: 0,
   isSameUser: false,
   coverImage: '',
   hasCover: false,

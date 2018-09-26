@@ -1,12 +1,12 @@
 import omit from 'lodash/omit';
-import SteemConnect from '../steemConnectAPI';
+import weauthjsInstance from '../weauthjsInstance';
 
-const getMetadata = () => SteemConnect.me().then(resp => resp.user_metadata);
+const getMetadata = () => weauthjsInstance.me().then(resp => resp.user_metadata);
 
 export const saveSettingsMetadata = settings =>
   getMetadata()
     .then(metadata =>
-      SteemConnect.updateUserMetadata({
+      weauthjsInstance.updateUserMetadata({
         ...metadata,
         settings: {
           ...metadata.settings,
@@ -19,7 +19,7 @@ export const saveSettingsMetadata = settings =>
 export const setLocaleMetadata = locale =>
   getMetadata()
     .then(metadata =>
-      SteemConnect.updateUserMetadata({
+      weauthjsInstance.updateUserMetadata({
         ...metadata,
         locale,
       }),
@@ -29,7 +29,7 @@ export const setLocaleMetadata = locale =>
 export const addDraftMetadata = draft =>
   getMetadata()
     .then(metadata =>
-      SteemConnect.updateUserMetadata({
+      weauthjsInstance.updateUserMetadata({
         ...metadata,
         drafts: {
           ...metadata.drafts,
@@ -42,7 +42,7 @@ export const addDraftMetadata = draft =>
 export const deleteDraftMetadata = draftIds =>
   getMetadata()
     .then(metadata =>
-      SteemConnect.updateUserMetadata({
+      weauthjsInstance.updateUserMetadata({
         ...metadata,
         drafts: omit(metadata.drafts, draftIds),
       }),
@@ -52,7 +52,7 @@ export const deleteDraftMetadata = draftIds =>
 export const toggleBookmarkMetadata = (id, author, permlink) =>
   getMetadata()
     .then(metadata =>
-      SteemConnect.updateUserMetadata({
+      weauthjsInstance.updateUserMetadata({
         ...metadata,
         bookmarks:
           metadata.bookmarks && metadata.bookmarks[id]
@@ -65,7 +65,7 @@ export const toggleBookmarkMetadata = (id, author, permlink) =>
 export const saveNotificationsLastTimestamp = lastTimestamp =>
   getMetadata()
     .then(metadata =>
-      SteemConnect.updateUserMetadata({
+      weauthjsInstance.updateUserMetadata({
         ...metadata,
         notifications_last_timestamp: lastTimestamp,
       }),

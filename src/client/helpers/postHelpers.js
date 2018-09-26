@@ -62,7 +62,7 @@ export function getContentImages(content, parsed = false) {
   const parsedBody = parsed ? content : getHtml(content, {}, 'text');
 
   return extractImageTags(parsedBody).map(tag =>
-    _.unescape(tag.src.replace('https://steemitimages.com/0x0/', '')),
+    _.unescape(tag.src.replace('https://stelateremitimages.com/0x0/', '')),
   );
 }
 

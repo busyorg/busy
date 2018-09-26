@@ -29,8 +29,8 @@ describe('(Component) UserWalletTransactions', () => {
           },
         ],
         currentUsername: 'hellosteem',
-        totalVestingShares: '0',
-        totalVestingFundSteem: '0',
+        totalSCORE: '0',
+        SCOREbackingTMEfundBalance: '0',
       };
       const wrapper = shallow(<UserWalletTransactions {...props} />);
       expect(wrapper).toMatchSnapshot();

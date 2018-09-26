@@ -1,4 +1,4 @@
-import { calculateVoteValue } from '../vendor/steemitHelpers';
+import { calculateVoteValue } from '../vendor/blockchainProtocolHelpers';
 
 export const getUserRank = vests => {
   let rank = 'Plankton';

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { usernameURLRegex } from '../../helpers/regexHelpers';
-import formatter from '../../helpers/steemitFormatter';
+import formatter from '../../helpers/blockchainProtocolFormatter';
 import Loading from '../../components/Icon/Loading';
 import blockchainAPI from '../../blockchainAPI';
 import PostRecommendationLink from './PostRecommendationLink';

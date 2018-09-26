@@ -3,13 +3,13 @@ import { parseBlockChainError } from '../errorMiddleware';
 describe('parseBlockChainError', () => {
   it('should fingerprint errors', () => {
     let actual = parseBlockChainError(
-      '( now - auth.last_root_post ) > STEEM_MIN_ROOT_COMMENT_INTERVAL: You may only post once every 5 minutes.',
+      '( now - auth.last_root_post ) > MIN_ROOT_COMMENT_INTERVAL: You may only post once every 5 minutes.',
     );
     let expected = 'You may only post once every 5 minutes.';
     expect(actual).toEqual(expected);
 
     actual = parseBlockChainError(
-      '(now - auth.last_post) > STEEM_MIN_REPLY_INTERVAL: You may only comment once every 20 seconds.',
+      '(now - auth.last_post) > MIN_REPLY_INTERVAL: You may only comment once every 20 seconds.',
     );
     expected = 'You may only comment once every 20 seconds.';
     expect(actual).toEqual(expected);
@@ -33,13 +33,13 @@ describe('parseBlockChainError', () => {
     expect(actual).toEqual(expected);
 
     actual = parseBlockChainError(
-      'Account: account bandwidth limit exceeded. Please wait to transact or power up STEEM.',
+      'Account: account bandwidth limit exceeded. Please wait to transact or power up TME.',
     );
-    expected = 'Your bandwith has been exceeded. Please wait to transact or power up STEEM.';
+    expected = 'Your bandwith has been exceeded. Please wait to transact or power up TME.';
     expect(actual).toEqual(expected);
 
     actual = parseBlockChainError(
-      'info->abs_rshares > STEEM_VOTE_DUST_THRESHOLD || vote_weight == 0: Voting weight is too small, please accumulate more voting power or steem power.',
+      'info->abs_rshares > VOTE_DUST_THRESHOLD || vote_weight == 0: Voting weight is too small, please accumulate more voting power or steem power.',
     );
     expected =
       'Your voting power is too small, please accumulate more voting power or steem power.';

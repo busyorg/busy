@@ -14,7 +14,7 @@ import {
   getAuthenticatedUserSCMetaData,
   getIsLoadingNotifications,
 } from '../../reducers';
-import SteemConnect from '../../steemConnectAPI';
+import weauthjsInstance from '../../weauthjsInstance';
 import { PARSED_NOTIFICATIONS } from '../../../common/constants/notifications';
 import BTooltip from '../BTooltip';
 import Avatar from '../Avatar';
@@ -135,7 +135,7 @@ class Topnav extends React.Component {
             |
           </Menu.Item>
           <Menu.Item key="login">
-            <a href={SteemConnect.getLoginURL(next)}>
+            <a href={weauthjsInstance.getLoginURL(next)}>
               <FormattedMessage id="login" defaultMessage="Log in" />
             </a>
           </Menu.Item>

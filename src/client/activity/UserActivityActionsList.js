@@ -8,8 +8,8 @@ import {
   getUser,
   getAuthenticatedUser,
   getAuthenticatedUserName,
-  getTotalVestingShares,
-  getTotalVestingFundSteem,
+  gettotalSCORE,
+  getSCOREbackingTMEfundBalance,
   getUsersAccountHistory,
   getLoadingMoreUsersAccountHistory,
   getUserHasMoreAccountHistory,
@@ -33,8 +33,8 @@ import UserAction from './UserAction';
     user: ownProps.isCurrentUser
       ? getAuthenticatedUser(state)
       : getUser(state, ownProps.match.params.name),
-    totalVestingShares: getTotalVestingShares(state),
-    totalVestingFundSteem: getTotalVestingFundSteem(state),
+    totalSCORE: gettotalSCORE(state),
+    SCOREbackingTMEfundBalance: getSCOREbackingTMEfundBalance(state),
     usersAccountHistory: getUsersAccountHistory(state),
     loadingMoreUsersAccountHistory: getLoadingMoreUsersAccountHistory(state),
     userHasMoreActions: getUserHasMoreAccountHistory(
@@ -61,8 +61,8 @@ class UserActivityActionsList extends Component {
     loadMoreCurrentUsersActions: PropTypes.func.isRequired,
     user: PropTypes.shape().isRequired,
     usersAccountHistory: PropTypes.shape().isRequired,
-    totalVestingShares: PropTypes.string.isRequired,
-    totalVestingFundSteem: PropTypes.string.isRequired,
+    totalSCORE: PropTypes.string.isRequired,
+    SCOREbackingTMEfundBalance: PropTypes.string.isRequired,
     currentDisplayedActions: PropTypes.arrayOf(PropTypes.shape()),
     currentFilteredActions: PropTypes.arrayOf(PropTypes.shape()),
     accountHistoryFilter: PropTypes.arrayOf(PropTypes.string),
@@ -92,8 +92,8 @@ class UserActivityActionsList extends Component {
     const {
       usersAccountHistory,
       user,
-      totalVestingShares,
-      totalVestingFundSteem,
+      totalSCORE,
+      SCOREbackingTMEfundBalance,
       userHasMoreActions,
       loadingMoreUsersAccountHistory,
       accountHistoryFilter,
@@ -125,15 +125,15 @@ class UserActivityActionsList extends Component {
                 key={`${action.trx_id}${action.actionCount}`}
                 transaction={action}
                 currentUsername={currentUsername}
-                totalVestingShares={totalVestingShares}
-                totalVestingFundSteem={totalVestingFundSteem}
+                totalSCORE={totalSCORE}
+                SCOREbackingTMEfundBalance={SCOREbackingTMEfundBalance}
               />
             ) : (
               <UserAction
                 key={`${action.trx_id}${action.actionCount}`}
                 action={action}
-                totalVestingShares={totalVestingShares}
-                totalVestingFundSteem={totalVestingFundSteem}
+                totalSCORE={totalSCORE}
+                SCOREbackingTMEfundBalance={SCOREbackingTMEfundBalance}
                 currentUsername={currentUsername}
               />
             ),

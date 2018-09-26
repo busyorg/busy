@@ -7,7 +7,7 @@ import _ from 'lodash';
 import urlParse from 'url-parse';
 import { getUser, getRewardFund, getRate } from '../../reducers';
 import { getVoteValue } from '../../helpers/user';
-import { calculateVotingPower } from '../../vendor/steemitHelpers';
+import { calculateVotingPower } from '../../vendor/blockchainProtocolHelpers';
 import SocialLinks from '../../components/SocialLinks';
 import USDDisplay from '../../components/Utils/USDDisplay';
 

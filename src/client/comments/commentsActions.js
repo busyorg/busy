@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { createCommentPermlink, getBodyPatchIfSmaller } from '../vendor/steemitHelpers';
+import { createCommentPermlink, getBodyPatchIfSmaller } from '../vendor/blockchainProtocolHelpers';
 import { notify } from '../app/Notification/notificationActions';
 import { jsonParse } from '../helpers/formatter';
 import { createPostMetadata } from '../helpers/postHelpers';

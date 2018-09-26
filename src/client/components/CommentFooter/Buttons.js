@@ -6,7 +6,7 @@ import { injectIntl, FormattedNumber, FormattedMessage } from 'react-intl';
 import { Icon } from 'antd';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
 import { sortVotes } from '../../helpers/sortHelpers';
-import { calculatePayout } from '../../vendor/steemitHelpers';
+import { calculatePayout } from '../../vendor/blockchainProtocolHelpers';
 import BTooltip from '../BTooltip';
 import ReactionsModal from '../Reactions/ReactionsModal';
 import withAuthActions from '../../auth/withAuthActions';

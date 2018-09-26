@@ -5,12 +5,12 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <ClaimReward
-    rewardSbd="0 SBD"
+    rewardSbd="0 TSD"
     rewardSteem="0 STEEM"
-    rewardVests="0 SP"
+    rewardVests="0 SCORE"
     timestamp="0"
-    totalVestingFundSteem="0"
-    totalVestingShares="0"
+    SCOREbackingTMEfundBalance="0"
+    totalSCORE="0"
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],

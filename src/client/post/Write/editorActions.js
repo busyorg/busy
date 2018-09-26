@@ -5,7 +5,7 @@ import { createAction } from 'redux-actions';
 import { addDraftMetadata, deleteDraftMetadata } from '../../helpers/metadata';
 import { jsonParse } from '../../helpers/formatter';
 import { rewardsValues } from '../../../common/constants/rewards';
-import { createPermlink, getBodyPatchIfSmaller } from '../../vendor/steemitHelpers';
+import { createPermlink, getBodyPatchIfSmaller } from '../../vendor/blockchainProtocolHelpers';
 import { saveSettings } from '../../settings/settingsActions';
 import { notify } from '../../app/Notification/notificationActions';
 
@@ -116,14 +116,14 @@ const broadcastComment = (
     permlink,
     allow_votes: true,
     allow_curation_rewards: true,
-    max_accepted_payout: '1000000.000 SBD',
-    percent_steem_dollars: 10000,
+    max_accepted_payout: '1000000.000 TSD',
+    percent_TSD: 10000,
   };
 
   if (reward === rewardsValues.none) {
-    commentOptionsConfig.max_accepted_payout = '0.000 SBD';
+    commentOptionsConfig.max_accepted_payout = '0.000 TSD';
   } else if (reward === rewardsValues.all) {
-    commentOptionsConfig.percent_steem_dollars = 0;
+    commentOptionsConfig.percent_TSD = 0;
   }
 
   if (referral && referral !== authUsername) {
