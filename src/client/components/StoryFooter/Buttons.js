@@ -5,6 +5,7 @@ import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import { scroller } from 'react-scroll';
 import { Link } from 'react-router-dom';
 import { Icon, Modal } from 'antd';
+import Topic from '../Button/Topic';
 import classNames from 'classnames';
 import withAuthActions from '../../auth/withAuthActions';
 import { sortVotes } from '../../helpers/sortHelpers';
@@ -15,6 +16,7 @@ import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import ReactionsModal from '../Reactions/ReactionsModal';
 import USDDisplay from '../Utils/USDDisplay';
 import './Buttons.less';
+import Action from '../Button/Action';
 
 @injectIntl
 @withAuthActions
@@ -35,6 +37,7 @@ export default class Buttons extends React.Component {
     onDislikeClick: PropTypes.func,
     onShareClick: PropTypes.func,
     handlePostPopoverMenuClick: PropTypes.func,
+    handleTransferClick: PropTypes.func,
   };
 
   static defaultProps = {
@@ -48,6 +51,7 @@ export default class Buttons extends React.Component {
     onDislikeClick: () => {},
     onShareClick: () => {},
     handlePostPopoverMenuClick: () => {},
+    handleTransferClick: () => {},
   };
 
   static handleCommentClick() {
@@ -145,7 +149,8 @@ export default class Buttons extends React.Component {
       intl,
       post,
       handlePostPopoverMenuClick,
-      ownPost,
+			ownPost,
+			handleTransferClick
     } = this.props;
     const { isReported } = postState;
 
@@ -172,8 +177,26 @@ export default class Buttons extends React.Component {
         { username: post.author },
       );
     }
+		let sendToAuthor = `Send to ${post.author}`;
 
-    let popoverMenu = [];
+    let popoverMenu = [
+			<PopoverMenuItem key="sendMoney">
+				<Action className="send-money" onClick={handleTransferClick}>
+					<FormattedMessage id="sendmoneytoauthor" defaultMessage={sendToAuthor} />
+					<img src="/images/dollar.png" className="send-dollar on-right"/>
+				</Action>
+			</PopoverMenuItem>,
+			<PopoverMenuItem key="storyTopics">
+				<div className="Story__topics__list">
+					<span className="Story_topics__label">
+						{`Tags: `}
+					</span>
+					<span className="Story__topics">
+						<Topic name={post.category} />
+					</span>
+				</div>
+			</PopoverMenuItem>
+		];
 
     if (ownPost && post.cashout_time !== '1969-12-31T23:59:59') {
       popoverMenu = [
@@ -195,7 +218,7 @@ export default class Buttons extends React.Component {
       ];
     }
 
-    popoverMenu = [
+		popoverMenu = [
       ...popoverMenu,
       <PopoverMenuItem key="save">
         {pendingBookmark ? <Icon type="loading" /> : <i className="iconfont icon-collection" />}
@@ -206,7 +229,14 @@ export default class Buttons extends React.Component {
       </PopoverMenuItem>,
       <PopoverMenuItem key="report">
         {pendingFlag ? (
-          <Icon type="loading" />
+          // <Icon type="loading" />
+					<i
+						className={classNames('iconfont', {
+							'icon-flag': !postState.isReported,
+							'icon-flag_fill': postState.isReported,
+						})}
+					/>
+
         ) : (
           <i
             className={classNames('iconfont', {
@@ -220,21 +250,23 @@ export default class Buttons extends React.Component {
         ) : (
           <FormattedMessage id="flag_post" defaultMessage="Flag post" />
         )}
-      </PopoverMenuItem>,
+			</PopoverMenuItem>
     ];
 
     return (
-      <Popover
-        placement="bottomRight"
-        trigger="click"
-        content={
-          <PopoverMenu onSelect={handlePostPopoverMenuClick} bold={false}>
-            {popoverMenu}
-          </PopoverMenu>
-        }
-      >
-        <i className="Buttons__post-menu iconfont icon-more" />
-      </Popover>
+			<div className="button__group">
+				<Popover
+					placement="bottomRight"
+					trigger="click"
+					content={
+						<PopoverMenu onSelect={handlePostPopoverMenuClick} bold={false}>
+							{popoverMenu}
+						</PopoverMenu>
+					}
+				>
+					<i className="Buttons__post-menu iconfont icon-more" />
+				</Popover>
+			</div>
     );
   }
 
@@ -303,8 +335,8 @@ export default class Buttons extends React.Component {
       </p>
     );
 
-    const likeClass = classNames({ active: postState.isLiked, Buttons__link: true });
-    const dislikeClass = classNames({ active: postState.isDisliked, Buttons__link: true });
+    const likeClass = classNames({ active: postState.isLiked || (pendingLike && !pendingDislike), Buttons__link: true });
+    const dislikeClass = classNames({ active: postState.isDisliked || (!pendingLike && pendingDislike), Buttons__link: true });
     const rebloggedClass = classNames({ active: postState.isReblogged, Buttons__link: true });
 
     const commentsLink =
@@ -318,12 +350,12 @@ export default class Buttons extends React.Component {
       likeTooltip = (
         <span>
           {intl.formatMessage({ id: 'like' })}{' '}
-          <span style={{ opacity: 0.5 }}>
+          {/* <span style={{ opacity: 0.5 }}>
             <FormattedNumber
               style="percent" // eslint-disable-line
               value={defaultVotePercent / 10000}
             />
-          </span>
+          </span> */}
         </span>
       );
 		}
@@ -335,130 +367,147 @@ export default class Buttons extends React.Component {
       dislikeTooltip = (
         <span>
           {intl.formatMessage({ id: 'dislike' })}{' '}
-          <span style={{ opacity: 0.5 }}>
+          {/* <span style={{ opacity: 0.5 }}>
             <FormattedNumber
               style="percent" // eslint-disable-line
               value={defaultVotePercent / -10000}
             />
-          </span>
+          </span> */}
         </span>
       );
     }
 
     return (
       <div className="Buttons">
-        <BTooltip title={likeTooltip}>
-          <a role="presentation" className={likeClass} onClick={this.handleLikeClick}>
-            {pendingLike ? (
-              <Icon type="loading" />
-            ) : (
-              <i
-                className={`iconfont icon-${this.state.sliderVisible ? 'right' : 'praise_fill'}`}
-              />
-            )}
-          </a>
-        </BTooltip>
-        {post.active_votes.length > 0 && (
-          <span
-            className="Buttons__number Buttons__reactions-count"
-            role="presentation"
-            onClick={this.handleShowReactions}
-          >
-            <BTooltip
-              title={
-                <div>
-                  {upVotes.length > 0 ? (
-                    upVotesPreview
-                  ) : (
-                    <FormattedMessage id="no_likes" defaultMessage="No likes yet" />
-                  )}
-                  {upVotesMore}
-                </div>
-              }
-            >
-              <FormattedNumber value={upVotes.length} />
-              <span />
-            </BTooltip>
-          </span>
-        )}
-				<BTooltip 
-					title={dislikeTooltip}>
-					<a 
-						role="presentation" 
-						className={dislikeClass} 
-						onClick={this.handleDislikeClick}>
-            {pendingDislike ? (
-              <Icon type="loading" />
-            ) : (
-              <i
-                className={`iconfont icon-${this.state.sliderVisible ? 'right' : 'thumb-down'}`}
-              />
-            )}
-          </a>
-        </BTooltip>
-        {downVotes.length > 0 && (
-          <span
-            className="Buttons__number Buttons__reactions-count"
-            role="presentation"
-            onClick={this.handleShowReactions}
-          >
-            <BTooltip
-              title={
-                <div>
-                  {downVotes.length > 0 ? (
-                    downVotesPreview
-                  ) : (
-                    <FormattedMessage id="no_dislikes" defaultMessage="No dislikes yet" />
-                  )}
-                  {downVotesMore}
-                </div>
-              }
-            >
-              <FormattedNumber value={downVotes.length} />
-              <span />
-            </BTooltip>
-          </span>
-        )}
-        <BTooltip title={intl.formatMessage({ id: 'comment', defaultMessage: 'Comment' })}>
-          <Link className="Buttons__link" to={commentsLink} onClick={this.handleCommentClick}>
-            <i className="iconfont icon-message_fill" />
-          </Link>
-        </BTooltip>
-        <span className="Buttons__number">
-          {post.children > 0 && <FormattedNumber value={post.children} />}
-        </span>
-        {showReblogLink && (
-          <BTooltip
-            title={intl.formatMessage({
-              id: postState.reblogged ? 'reblog_reblogged' : 'reblog',
-              defaultMessage: postState.reblogged ? 'You already reblogged this post' : 'Reblog',
-            })}
-          >
-            <a role="presentation" className={rebloggedClass} onClick={this.handleShareClick}>
-              <i className="iconfont icon-share1 Buttons__share" />
-            </a>
-          </BTooltip>
-        )}
-        {this.renderPostPopoverMenu()}
-        {!postState.isReblogged && (
-          <Modal
-            title={intl.formatMessage({
-              id: 'reblog_modal_title',
-              defaultMessage: 'Reblog this post?',
-            })}
-            visible={this.state.shareModalVisible}
-            confirmLoading={this.state.shareModalLoading}
-            okText={intl.formatMessage({ id: 'reblog', defaultMessage: 'Reblog' })}
-            cancelText={intl.formatMessage({ id: 'cancel', defaultMessage: 'Cancel' })}
-            onOk={this.handleShareOk}
-            onCancel={this.handleShareCancel}
-          >
-            <FormattedMessage
-              id="reblog_modal_content"
-              defaultMessage="This post will appear on your personal feed. This action cannot be reversed."
-            />
-          </Modal>
-        )}
+				<div className="button__group">
+					<BTooltip title={likeTooltip}>
+						<a role="presentation" className={likeClass} onClick={this.handleLikeClick}>
+							{pendingLike ? (
+								// <Icon type="loading" />
+								<i
+									className={`iconfont icon-${this.state.sliderVisible ? 'right' : 'praise_fill'}`}
+								/>
+
+							) : (
+								<i
+									className={`iconfont icon-${this.state.sliderVisible ? 'right' : 'praise_fill'}`}
+								/>
+							)}
+						</a>
+					</BTooltip>
+					{/* {post.active_votes.length > 0 && upVotes.length > 0 && ( */}
+						<span
+							className="Buttons__number Buttons__reactions-count"
+							role="presentation"
+							onClick={this.handleShowReactions}
+						>
+							<BTooltip
+								title={
+									<div>
+										{upVotes.length > 0 ? (
+											upVotesPreview
+										) : (
+											<FormattedMessage id="no_likes" defaultMessage="No likes yet" />
+										)}
+										{upVotesMore}
+									</div>
+								}
+							>
+								{ upVotes.length > 0 && <FormattedNumber value={upVotes.length} /> }
+								<span />
+							</BTooltip>
+						</span>
+				</div>
+        {/* )} */}
+				<div className="button__group">
+					<BTooltip 
+						title={dislikeTooltip}>
+						<a 
+							role="presentation" 
+							className={dislikeClass} 
+							onClick={this.handleDislikeClick}>
+							{pendingDislike ? (
+								// <Icon type="loading" />
+								<i
+									className={`iconfont icon-${this.state.sliderVisible ? 'right' : 'thumb-down'}`}
+								/>
+							) : (
+								<i
+									className={`iconfont icon-${this.state.sliderVisible ? 'right' : 'thumb-down'}`}
+								/>
+							)}
+						</a>
+					</BTooltip>
+					<span
+						className="Buttons__number Buttons__reactions-count"
+						role="presentation"
+						onClick={this.handleShowReactions}
+					>
+						<BTooltip
+							title={
+								<div>
+									{downVotes.length > 0 ? (
+										downVotesPreview
+									) : (
+										<FormattedMessage id="no_dislikes" defaultMessage="No dislikes yet" />
+									)}
+									{downVotesMore}
+								</div>
+							}
+						>
+							{ downVotes.length > 0 && <FormattedNumber value={downVotes.length} /> }
+							<span />
+						</BTooltip>
+					</span>
+				</div>
+        {/* {downVotes.length > 0 && ( */}
+				{/* )} */}
+				<div className="button__group">
+					<BTooltip title={intl.formatMessage({ id: 'comment', defaultMessage: 'Comment' })}>
+						<Link className="Buttons__link" to={commentsLink} onClick={this.handleCommentClick}>
+							<i className="iconfont icon-message_fill" />
+						</Link>
+					</BTooltip>
+					<span className="Buttons__number">
+						{post.children > 0 && <FormattedNumber value={post.children} />}
+					</span>
+				</div>
+				{showReblogLink && (
+					<div className="button__group">
+						<BTooltip
+							title={intl.formatMessage({
+								id: postState.reblogged ? 'reblog_reblogged' : 'reblog',
+								defaultMessage: postState.reblogged ? 'You already reblogged this post' : 'Reblog',
+							})}
+						>
+							<a role="presentation" className={rebloggedClass} onClick={this.handleShareClick}>
+								<i className="iconfont icon-share1 Buttons__share" />
+							</a>
+						</BTooltip>
+					</div>
+				)}
+				{this.renderPostPopoverMenu()}
+				{/* <div className="button__group">
+				</div> */}
+				{!postState.isReblogged && (
+					<Modal
+						title={intl.formatMessage({
+							id: 'reblog_modal_title',
+							defaultMessage: 'Reblog this post?',
+						})}
+						visible={this.state.shareModalVisible}
+						confirmLoading={this.state.shareModalLoading}
+						okText={intl.formatMessage({ id: 'reblog', defaultMessage: 'Reblog' })}
+						cancelText={intl.formatMessage({ id: 'cancel', defaultMessage: 'Cancel' })}
+						onOk={this.handleShareOk}
+						onCancel={this.handleShareCancel}
+					>
+						<FormattedMessage
+							id="reblog_modal_content"
+							defaultMessage="This post will appear on your personal feed. This action cannot be reversed."
+						/>
+					</Modal>
+				)}
         <ReactionsModal
           visible={this.state.reactionsModalVisible}
           upVotes={upVotes}

@@ -66,7 +66,6 @@ class UserWalletTransactions extends React.Component {
           }
           loadingMore={loadingMoreUsersAccountHistory}
         >
-          <div />
           {transactions.map(transaction => (
             <WalletTransaction
               key={`${transaction.trx_id}${transaction.actionCount}`}

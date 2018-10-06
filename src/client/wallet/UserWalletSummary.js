@@ -32,7 +32,7 @@ const getFormattedTotalDelegatedSCORE = (user, totalSCORE, SCOREbackingTMEfundBa
           <FormattedNumber
             value={calculateTotalDelegatedSCORE(user, totalSCORE, SCOREbackingTMEfundBalance)}
           />
-          {' SCORE)'}
+          {' POWER)'}
         </span>
       </BTooltip>
     );
@@ -71,7 +71,7 @@ const UserWalletSummary = ({
     <div className="UserWalletSummary__item">
       <i className="iconfont icon-flashlight_fill UserWalletSummary__icon" />
       <div className="UserWalletSummary__label">
-        <FormattedMessage id="SCORE" defaultMessage="SCORE" />
+        <FormattedMessage id="POWER" defaultMessage="POWER" />
       </div>
       <div className="UserWalletSummary__value">
         {loading || loadingGlobalProperties ? (
@@ -81,13 +81,13 @@ const UserWalletSummary = ({
             <FormattedNumber
               value={parseFloat(
                 formatter.SCOREinTMEvalue(
-                  user.vesting_shares,
+                  user.SCORE,
                   totalSCORE,
                   SCOREbackingTMEfundBalance,
                 ),
               )}
             />
-            {' SCORE '}
+            {' POWER '}
             {getFormattedTotalDelegatedSCORE(user, totalSCORE, SCOREbackingTMEfundBalance)}
           </span>
         )}
@@ -120,14 +120,14 @@ const UserWalletSummary = ({
         ) : (
           <span>
             <FormattedNumber value={parseFloat(user.TMEsavingsBalance)} />
-            {' STEEM, '}
+            {' TME, '}
             <FormattedNumber value={parseFloat(user.TSDsavingsBalance)} />
             {' TSD'}
           </span>
         )}
       </div>
     </div>
-    <div className="UserWalletSummary__item">
+    {/* <div className="UserWalletSummary__item">
       <i className="iconfont icon-people_fill UserWalletSummary__icon" />
       <div className="UserWalletSummary__label">
         <FormattedMessage id="est_account_value" defaultMessage="Est. Account Value" />
@@ -147,7 +147,7 @@ const UserWalletSummary = ({
           />
         )}
       </div>
-    </div>
+    </div> */}
   </div>
 );
 

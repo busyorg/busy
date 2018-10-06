@@ -10,7 +10,7 @@ export default function createAmpHandler(template) {
       const result = await blockchainAPI.sendAsync('get_content', [
         req.params.author,
         req.params.permlink,
-      ]);
+      ]).catch(err=>{console.error('err', err)});
       if (result.id === 0) return res.sendStatus(404);
       const appUrl = url.format({
         protocol: req.protocol,

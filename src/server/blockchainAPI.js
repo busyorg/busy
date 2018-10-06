@@ -1,6 +1,6 @@
-const createClient = require('lightrpc').createClient;
+const createClient = require('weliterpcjs').createClient;
 
-const client = createClient(process.env.API_URL || 'https://node.weyoume.src');
+const client = createClient(process.env.API_URL, {timeout: 15000});
 client.sendAsync = (message, params) =>
   new Promise((resolve, reject) => {
     client.send(message, params, (err, result) => {

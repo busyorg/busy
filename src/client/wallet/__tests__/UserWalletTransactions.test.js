@@ -10,9 +10,9 @@ describe('(Component) UserWalletTransactions', () => {
           {
             timestamp: '0',
             op: [
-              'transfer_to_vesting',
+              'transferTMEtoSCOREfund',
               {
-                amount: '100 STEEM',
+                amount: '100 TME',
               },
             ],
           },
@@ -23,7 +23,7 @@ describe('(Component) UserWalletTransactions', () => {
               {
                 from: 'hellosteem1',
                 memo: 'transfer memo',
-                amount: '100 STEEM',
+                amount: '100 TME',
               },
             ],
           },

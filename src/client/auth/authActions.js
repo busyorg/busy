@@ -74,7 +74,7 @@ export const getUpdatedSCUserMetadata = () => (dispatch, getState, { weauthjsIns
     },
   });
 
-export const busyLogin = () => (dispatch, getState, { busyAPI }) => {
+export const busyLogin = () => (dispatch, getState, { blockchainLiteAPI }) => {
   const accessToken = Cookie.get('access_token');
   const state = getState();
 
@@ -82,7 +82,7 @@ export const busyLogin = () => (dispatch, getState, { busyAPI }) => {
     return dispatch({ type: BUSY_LOGIN.ERROR });
   }
 
-  busyAPI.subscribe((response, message) => {
+  blockchainLiteAPI.subscribe((response, message) => {
     const type = message && message.type;
 
     if (type === BUSY_API_TYPES.notification && message.notification) {
@@ -96,7 +96,7 @@ export const busyLogin = () => (dispatch, getState, { busyAPI }) => {
     type: BUSY_LOGIN.ACTION,
     meta: targetUsername,
     payload: {
-      promise: busyAPI.sendAsync('login', [accessToken]),
+      promise: blockchainLiteAPI.sendAsync('login', [accessToken]),
     },
   });
 };

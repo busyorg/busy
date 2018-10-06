@@ -42,8 +42,8 @@ class ClaimRewardsBlock extends Component {
     const { user } = this.props;
     const {
       name,
-      TMEreward_balance: TMEbalance,
-      reward_TSDbalance: TSDbalance,
+      TMErewardBalance: TMEbalance,
+      TSDrewardBalance: TSDbalance,
       reward_vesting_balance: SCOREbalance,
     } = user;
     this.setState({
@@ -82,10 +82,10 @@ class ClaimRewardsBlock extends Component {
   render() {
     const { user, intl } = this.props;
     const { rewardClaimed } = this.state;
-    const TMEreward = parseFloat(user.TMEreward_balance);
-    const TSDreward = parseFloat(user.reward_TSDbalance);
-    const rewardSCORE = parseFloat(user.reward_SCOREvalueInTME);
-    const userHasRewards = TMEreward > 0 || TSDreward > 0 || rewardSCORE > 0;
+    const TMEreward = parseFloat(user.TMErewardBalance);
+    const TSDreward = parseFloat(user.TSDrewardBalance);
+    const SCORErewardBalanceInTME = parseFloat(user.SCORErewardBalanceInTME);
+    const userHasRewards = TMEreward > 0 || TSDreward > 0 || SCORErewardBalanceInTME > 0;
 
     const buttonText = rewardClaimed
       ? intl.formatMessage({
@@ -108,9 +108,9 @@ class ClaimRewardsBlock extends Component {
         <div className="SidebarContentBlock__content">
           {!rewardClaimed && (
             <div>
-              {TMEreward > 0 && this.renderReward(TMEreward, 'STEEM', 'steem')}
+              {TMEreward > 0 && this.renderReward(TMEreward, 'TME', 'TME')}
               {TSDreward > 0 && this.renderReward(TSDreward, 'TSD', 'TSD')}
-              {rewardSCORE > 0 && this.renderReward(rewardSCORE, 'SCORE', 'SCORE')}
+              {SCORErewardBalanceInTME > 0 && this.renderReward(SCORErewardBalanceInTME, 'SCORE', 'SCORE')}
             </div>
           )}
           <Action

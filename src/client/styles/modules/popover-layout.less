@@ -1,45 +1,58 @@
 @import (reference) '../../styles/custom.less';
 @import (reference) '../../styles/modules/variables.less';
 
-@media screen and (max-width: @medium-bp) {
-  .ant-popover {
-    width: 100%;
-    top: auto !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    position: fixed !important;
-  }
+.PopoverMenu {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  width: auto;
 
-  .ant-popover-content {
-    width: 100%;
-    text-align: center;
+}
+.Popover__overlay {
+	// width: 100vw;
+	// height: 100vh;
+}
+.ant-popover {
+	@media (max-width: @small-bp) {
+		// width: 100%
+	}
 
-    .ant-popover-arrow {
-      display: none;
-    }
+	.ant-popover-content {
+		.ant-popover-arrow {
+		}
+		.ant-popover-inner {
+			max-width: 100%;
+			border-top-left-radius: 0px;
+			border-top-right-radius: 0px;
+			.ant-popover-inner-content {
+				padding: 0 !important;
+				height: auto;
+				max-height: auto;
+			}
+			.PopoverMenuItem {
+				padding: 20px 25px;
 
-    .ant-popover-inner {
-      border-radius: 0 !important;
-      box-shadow: none !important;
+				@media (max-width: @small-bp) {
+					padding: 25px 40px;
+				}
+				width: 100%;
+				border-bottom: 1px solid rgba(100, 100, 100, .15) !important;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				&:first-child {
+					border-top-left-radius: 0px;
+					border-top-right-radius: 0px;
+				}
+				&:last-child {
+					// border-bottom: 1px solid rgba(100, 100, 100, .2) !important;
+				}
+			}
+		}
+	}
+}
 
-      .ant-popover-inner-content {
-        padding: 0 !important;
-      }
-
-      .PopoverMenuItem {
-        border-top: @base-border;
-        line-height: 50px !important;
-        height: 50px !important;
-
-        a {
-          line-height: 50px !important;
-          height: 50px !important;
-          display: block;
-          font-size: 16px !important;
-          font-weight: normal !important;
-        }
-      }
-    }
-  }
+.ant-popover-placement-bottom {
+  padding-top: 0px;
 }

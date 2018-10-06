@@ -6,4 +6,9 @@ const api = weauthjs.Initialize({
   callbackURL: process.env.AUTH_API_REDIRECT_URL,
 });
 
+if(typeof window !== 'undefined'){
+	window.weauthjs = weauthjs
+	window.weauthjsInstance = api
+}
+
 export default api;

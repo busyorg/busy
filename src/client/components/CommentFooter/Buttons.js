@@ -152,12 +152,12 @@ class Buttons extends React.Component {
       likeTooltip = (
         <span>
           {intl.formatMessage({ id: 'like' })}{' '}
-          <span style={{ opacity: 0.5 }}>
+          {/* <span style={{ opacity: 0.5 }}>
             <FormattedNumber
               style="percent" // eslint-disable-line
               value={defaultVotePercent / 10000}
             />
-          </span>
+          </span> */}
         </span>
       );
     }
@@ -170,11 +170,15 @@ class Buttons extends React.Component {
           <a
             role="presentation"
             className={classNames('CommentFooter__link', {
-              'CommentFooter__link--active': userUpVoted,
+              'CommentFooter__link--active': userUpVoted || (pendingLike && !pendingDisLike),
             })}
             onClick={this.handleLikeClick}
           >
-            {pendingLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
+            {/* {pendingLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />} */}
+            {pendingLike ? 
+							<i className="iconfont icon-praise_fill" /> 
+							: 
+							<i className="iconfont icon-praise_fill" />}
           </a>
         </BTooltip>
         {upVotes.length > 0 && (
@@ -200,12 +204,13 @@ class Buttons extends React.Component {
           <a
             role="presentation"
             className={classNames('CommentFooter__link', {
-              'CommentFooter__link--active': userDownVoted,
+              'CommentFooter__link--active': userDownVoted || (pendingDisLike && !pendingLike),
             })}
             onClick={this.handleDislikeClick}
           >
             {pendingDisLike ? (
-              <Icon type="loading" />
+							// <Icon type="loading" />
+							<i className="iconfont icon-praise_fill Comment__icon_dislike" />
             ) : (
               <i className="iconfont icon-praise_fill Comment__icon_dislike" />
             )}
@@ -230,7 +235,7 @@ class Buttons extends React.Component {
             </BTooltip>
           </span>
         )}
-        {payoutValue >= 0.005 && (
+        {payoutValue > 0 && (
           <React.Fragment>
             <span className="CommentFooter__bullet" />
             <span className="CommentFooter__payout">

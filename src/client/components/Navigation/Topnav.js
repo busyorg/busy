@@ -216,33 +216,33 @@ class Topnav extends React.Component {
               </Popover>
             </BTooltip>
           </Menu.Item>
-          <Menu.Item key="user" className="Topnav__item-user">
+          {/* <Menu.Item key="user" className="Topnav__item-user">
             <Link className="Topnav__user" to={`/@${username}`} onClick={Topnav.handleScrollToTop}>
-              <Avatar username={username} size={36} />
             </Link>
-          </Menu.Item>
+          </Menu.Item> */}
           <Menu.Item key="more" className="Topnav__menu--icon">
             <Popover
+							className="popover-custom"
               placement="bottom"
               trigger="click"
               visible={popoverVisible}
               onVisibleChange={this.handleMoreMenuVisibleChange}
               overlayStyle={{ position: 'fixed' }}
               content={
-                <PopoverMenu onSelect={this.handleMoreMenuSelect}>
-                  <PopoverMenuItem key="my-profile" fullScreenHidden>
+								<PopoverMenu className="popoverMenu" onSelect={this.handleMoreMenuSelect}>
+                  <PopoverMenuItem key="my-profile">
                     <FormattedMessage id="my_profile" defaultMessage="My profile" />
                   </PopoverMenuItem>
-                  <PopoverMenuItem key="feed" fullScreenHidden>
+                  <PopoverMenuItem key="feed">
                     <FormattedMessage id="feed" defaultMessage="Feed" />
                   </PopoverMenuItem>
-                  <PopoverMenuItem key="news" fullScreenHidden>
+                  <PopoverMenuItem key="news">
                     <FormattedMessage id="news" defaultMessage="News" />
                   </PopoverMenuItem>
-                  <PopoverMenuItem key="replies" fullScreenHidden>
+                  <PopoverMenuItem key="replies">
                     <FormattedMessage id="replies" defaultMessage="Replies" />
                   </PopoverMenuItem>
-                  <PopoverMenuItem key="wallet" fullScreenHidden>
+                  <PopoverMenuItem key="wallet">
                     <FormattedMessage id="wallet" defaultMessage="Wallet" />
                   </PopoverMenuItem>
                   <PopoverMenuItem key="activity">
@@ -264,7 +264,8 @@ class Topnav extends React.Component {
               }
             >
               <a className="Topnav__link Topnav__link--light">
-                <i className="iconfont icon-caretbottom" />
+								<Avatar username={username} size={36} />
+                {/* <i className="iconfont icon-caretbottom" /> */}
               </a>
             </Popover>
           </Menu.Item>
@@ -364,9 +365,9 @@ class Topnav extends React.Component {
         <div className="topnav-layout">
           <div className={classNames('left', { 'Topnav__mobile-hidden': searchBarActive })}>
             <Link className="Topnav__brand" to="/">
-							<img src="images/logo.png" className="Topnav__brand__logo"></img>
+							<img src="/images/logo.png" className="Topnav__brand__logo"></img>
               {/* <i className="iconfont native-icons-WeYouMe Topnav__brand-icon" /> */}
-              <div className="Topnav__brandname">
+              {/* <div className="Topnav__brandname">
 								<span className="We">
 									We
 								</span>
@@ -377,9 +378,9 @@ class Topnav extends React.Component {
 									Me
 								</span>
 
-							</div>
+							</div> */}
+							<div className="Topnav__version">alpha</div>
             </Link>
-            <div className="Topnav__version">alpha</div>
           </div>
           <div className={classNames('center', { mobileVisible: searchBarActive })}>
             <div className="Topnav__input-container">

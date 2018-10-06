@@ -61,20 +61,22 @@ export default class Transfer extends React.Component {
   static exchangeRegex = /^(bittrex|blocktrades|poloniex|changelly|openledge|shapeshiftio|deepcrypto8)$/;
   static CURRENCIES = {
     STEEM: 'STEEM',
+    TME: 'TME',
+    SCORE: 'SCORE',
     TSD: 'TSD',
   };
 
   state = {
-    currency: Transfer.CURRENCIES.STEEM,
+    currency: Transfer.CURRENCIES.TME,
     oldAmount: undefined,
   };
 
   componentDidMount() {
     const { cryptosPriceHistory } = this.props;
-    const currentSteemRate = _.get(cryptosPriceHistory, 'STEEM.priceDetails.currentUSDPrice', null);
-    const currentTSDRate = _.get(cryptosPriceHistory, 'TSD*.priceDetails.currentUSDPrice', null);
+    const currentTMERate = _.get(cryptosPriceHistory, 'TME.priceDetails.currentUSDPrice', null);
+    const currentTSDRate = _.get(cryptosPriceHistory, 'TSD.priceDetails.currentUSDPrice', null);
 
-    if (_.isNull(currentSteemRate)) {
+    if (_.isNull(currentTMERate)) {
       this.props.getCryptoPriceHistory(TME.symbol);
     }
 
@@ -101,9 +103,9 @@ export default class Transfer extends React.Component {
   getUSDValue() {
     const { cryptosPriceHistory, intl } = this.props;
     const { currency, oldAmount } = this.state;
-    const currentSteemRate = _.get(cryptosPriceHistory, 'STEEM.priceDetails.currentUSDPrice', null);
-    const currentTSDRate = _.get(cryptosPriceHistory, 'TSD*.priceDetails.currentUSDPrice', null);
-    const TMErateLoading = _.isNull(currentSteemRate) || _.isNull(currentTSDRate);
+    const currentTMERate = _.get(cryptosPriceHistory, 'TME.priceDetails.currentUSDPrice', null);
+    const currentTSDRate = _.get(cryptosPriceHistory, 'TSD.priceDetails.currentUSDPrice', null);
+    const TMErateLoading = _.isNull(currentTMERate) || _.isNull(currentTSDRate);
     const parsedAmount = parseFloat(oldAmount);
     const invalidAmount = parsedAmount <= 0 || _.isNaN(parsedAmount);
     let amount = 0;
@@ -111,7 +113,7 @@ export default class Transfer extends React.Component {
     if (TMErateLoading || invalidAmount) return '';
 
     if (currency === TME.symbol) {
-      amount = parsedAmount * parseFloat(currentSteemRate);
+      amount = parsedAmount * parseFloat(currentTMERate);
     } else {
       amount = parsedAmount * parseFloat(currentTSDRate);
     }
@@ -258,7 +260,7 @@ export default class Transfer extends React.Component {
           ),
         ]);
       }
-    });
+    }).catch(err=>{console.error('err', err)});
   };
 
   validateBalance = (rule, value, callback) => {
@@ -279,7 +281,7 @@ export default class Transfer extends React.Component {
     }
 
     const selectedBalance =
-      this.state.currency === Transfer.CURRENCIES.STEEM ? user.balance : user.TSDbalance;
+      this.state.currency === Transfer.CURRENCIES.TME ? user.balance : user.TSDbalance;
 
     if (authenticated && currentValue !== 0 && currentValue > parseFloat(selectedBalance)) {
       callback([
@@ -297,13 +299,13 @@ export default class Transfer extends React.Component {
     const { getFieldDecorator } = this.props.form;
 
     const balance =
-      this.state.currency === Transfer.CURRENCIES.STEEM ? user.balance : user.TSDbalance;
+      this.state.currency === Transfer.CURRENCIES.TME ? user.balance : user.TSDbalance;
 
     const currencyPrefix = getFieldDecorator('currency', {
       initialValue: this.state.currency,
     })(
       <Radio.Group onChange={this.handleCurrencyChange} className="Transfer__amount__type">
-        <Radio.Button value={Transfer.CURRENCIES.STEEM}>{Transfer.CURRENCIES.STEEM}</Radio.Button>
+        <Radio.Button value={Transfer.CURRENCIES.TME}>{Transfer.CURRENCIES.TME}</Radio.Button>
         <Radio.Button value={Transfer.CURRENCIES.TSD}>{Transfer.CURRENCIES.TSD}</Radio.Button>
       </Radio.Group>,
     );
@@ -410,7 +412,7 @@ export default class Transfer extends React.Component {
         </Form>
         <FormattedMessage
           id="transfer_modal_info"
-          defaultMessage="Click the button below to be redirected to SteemConnect to complete your transaction."
+          defaultMessage="Click the button below to be redirected to WeAuth to complete your transaction."
         />
       </Modal>
     );

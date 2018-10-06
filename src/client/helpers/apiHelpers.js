@@ -19,8 +19,11 @@ export function getDiscussionsFromAPI(sortBy, query, blockchainAPI) {
     case 'trending':
     case 'blog':
     case 'comments':
-    case 'promoted':
-      return blockchainAPI.sendAsync(`get_discussions_by_${sortBy}`, [query]);
+		case 'promoted':
+		
+			var ret = blockchainAPI.sendAsync(`get_discussions_by_${sortBy}`, [query])
+			// .catch(err=>{console.error('err', err)});
+			return ret
     default:
       throw new Error('There is not API endpoint defined for this sorting');
   }
@@ -30,14 +33,14 @@ export const getAccount = username =>
   BlockchainAPI.sendAsync('get_accounts', [[username]]).then(result => {
     if (result.length) {
       const userAccount = result[0];
-      userAccount.json_metadata = jsonParse(result[0].json_metadata);
+      userAccount.json = jsonParse(result[0].json);
       return userAccount;
     }
     throw new Error('User Not Found');
-  });
+  }).catch(err=>{console.error('err', err)});
 
 export const getFollowingCount = username =>
-  BlockchainAPI.sendAsync('call', ['follow_api', 'get_follow_count', [username]]);
+  BlockchainAPI.sendAsync('call', ['follow_api', 'get_follow_count', [username]]).catch(err=>{console.error('err', err)});
 
 export const getAccountWithFollowingCount = username =>
   Promise.all([getAccount(username), getFollowingCount(username)]).then(([account, following]) => ({
@@ -51,14 +54,14 @@ export const getFollowing = (username, startForm = '', type = 'blog', limit = 10
     'follow_api',
     'get_following',
     [username, startForm, type, limit],
-  ]).then(result => result.map(user => user.following));
+  ]).then(result => result.map(user => user.following)).catch(err=>{console.error('err', err)});
 
 export const getFollowers = (username, startForm = '', type = 'blog', limit = 100) =>
   BlockchainAPI.sendAsync('call', [
     'follow_api',
     'get_followers',
     [username, startForm, type, limit],
-  ]).then(result => result.map(user => user.follower));
+  ]).then(result => result.map(user => user.follower)).catch(err=>{console.error('err', err)});
 
 export const getAllFollowing = username =>
   new Promise(async resolve => {
@@ -80,10 +83,10 @@ export const getAllFollowing = username =>
 export const defaultAccountLimit = 500;
 
 export const getAccountHistory = (account, from = -1, limit = defaultAccountLimit) =>
-  BlockchainAPI.sendAsync('get_account_history', [account, from, limit]);
+  BlockchainAPI.sendAsync('get_account_history', [account, from, limit]).catch(err=>{console.error('err', err)});
 
 export const getDynamicGlobalProperties = () =>
-  BlockchainAPI.sendAsync('get_dynamic_global_properties', []);
+  BlockchainAPI.sendAsync('get_dynamic_global_properties', []).catch(err=>{console.error('err', err)});
 
 export const isWalletTransaction = actionType =>
   actionType === accountHistoryConstants.TRANSFER ||
@@ -95,7 +98,7 @@ export const isWalletTransaction = actionType =>
   actionType === accountHistoryConstants.claimRewardBalance;
 
 export const getAccountReputation = (name, limit = 20) =>
-  BlockchainAPI.sendAsync('call', ['follow_api', 'get_account_reputations', [name, limit]]);
+  BlockchainAPI.sendAsync('call', ['follow_api', 'get_account_reputations', [name, limit]]).catch(err=>{console.error('err', err)});
 
 export const getAllSearchResultPages = search => {
   const promises = [];
@@ -116,4 +119,4 @@ export const currentUserFollowersUser = (currentUsername, username) =>
     'follow_api',
     'get_following',
     [username, currentUsername, 'blog', 1],
-  ]);
+  ]).catch(err=>{console.error('err', err)});

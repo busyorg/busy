@@ -22,7 +22,7 @@ export const GET_MORE_REPLIES = createAsyncActionType('@user/GET_MORE_REPLIES');
 
 export const GET_BOOKMARKS = createAsyncActionType('@bookmarks/GET_BOOKMARKS');
 
-export const getFeedContent = ({ sortBy = 'hot', category, limit = 20 }) => (
+export const getFeedContent = ({ sortBy = 'feed', category, limit = 20 }) => (
   dispatch,
   getState,
   { blockchainAPI },
@@ -173,7 +173,8 @@ async function getBookmarksData(bookmarks, blockchainAPI) {
     const postData = blockchainAPI.sendAsync('get_content', [
       bookmarks[postId].author,
       bookmarks[postId].permlink,
-    ]);
+		]);
+		postData.catch(err=>{console.error('err', err)})
     bookmarksData.push(postData);
   }
   return Promise.all(bookmarksData.sort((a, b) => a.timestamp - b.timestamp).reverse());

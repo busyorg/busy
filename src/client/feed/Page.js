@@ -44,14 +44,14 @@ class Page extends React.Component {
     }
   };
 
-  handleTopicClose = () => this.props.history.push('/hot');
+  handleTopicClose = () => this.props.history.push('/trending');
 
   render() {
     const { authenticated, loaded, location, match } = this.props;
     const { category, sortBy } = match.params;
 
     const shouldDisplaySelector = location.pathname !== '/' || (!authenticated && loaded);
-    const displayTopicSelector = location.pathname === '/hot';
+    const displayTopicSelector = location.pathname === '/trending';
 
     const robots = location.pathname === '/' ? 'index,follow' : 'noindex,follow';
 

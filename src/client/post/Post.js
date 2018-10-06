@@ -135,13 +135,13 @@ export default class Post extends React.Component {
 
   renderCryptoTrendingCharts() {
     const { content } = this.props;
-    const parsedJsonMetadata = _.attempt(JSON.parse, content.json_metadata);
+    const parsedjson = _.attempt(JSON.parse, content.json);
 
-    if (_.isError(parsedJsonMetadata)) {
+    if (_.isError(parsedjson)) {
       return null;
     }
 
-    const tags = _.get(parsedJsonMetadata, 'tags', []);
+    const tags = _.get(parsedjson, 'tags', []);
     const allCryptoDetails = [];
 
     _.each(tags, tag => {
@@ -165,7 +165,7 @@ export default class Post extends React.Component {
     const reputation = loaded ? formatter.reputation(content.author_reputation) : 0;
     const showPost = reputation >= 0 || showHiddenPost;
 
-    const signature = _.get(user, 'json_metadata.profile.signature', null);
+    const signature = _.get(user, 'json.profile.signature', null);
 
     return (
       <div className="main-panel">

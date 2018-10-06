@@ -21,7 +21,7 @@ import './Settings.less';
 const FormItem = Form.Item;
 
 function mapPropsToFields(props) {
-  let metadata = _.attempt(JSON.parse, props.user.json_metadata);
+  let metadata = _.attempt(JSON.parse, props.user.json);
   if (_.isError(metadata)) metadata = {};
 
   const profile = metadata.profile || {};

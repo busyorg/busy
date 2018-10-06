@@ -98,10 +98,10 @@ export const sendComment = (parentPost, body, isUpdating = false, originalCommen
     ? originalComment.permlink
     : createCommentPermlink(parentAuthor, parentPermlink);
 
-  const jsonMetadata = createPostMetadata(
+  const json = createPostMetadata(
     body,
     [category],
-    isUpdating && jsonParse(originalComment.json_metadata),
+    isUpdating && jsonParse(originalComment.json),
   );
 
   const newBody = isUpdating ? getBodyPatchIfSmaller(originalComment.body, body) : body;
@@ -110,7 +110,7 @@ export const sendComment = (parentPost, body, isUpdating = false, originalCommen
     type: SEND_COMMENT,
     payload: {
       promise: weauthjsInstance
-        .comment(parentAuthor, parentPermlink, author, permlink, '', newBody, jsonMetadata)
+        .comment(parentAuthor, parentPermlink, author, permlink, '', newBody, json)
         .then(resp => {
           const focusedComment = {
             author: resp.result.operations[0][1].author,
@@ -157,7 +157,7 @@ export const likeComment = (commentId, weight = 10000, vote = 'like', retryCount
         blockchainAPI.sendAsync('get_content', [author, permlink]).then(data => {
           dispatch(reloadExistingComment(data));
           return data;
-        });
+        }).catch(err=>{console.error('err', err)});
         return res;
       }),
     },

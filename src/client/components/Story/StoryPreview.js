@@ -19,11 +19,11 @@ import { getHtml } from './Body';
 import { getProxyImageURL } from '../../helpers/image';
 
 const StoryPreview = ({ post }) => {
-  const jsonMetadata = jsonParse(post.json_metadata);
+  const json = jsonParse(post.json);
   let imagePath = '';
 
-  if (jsonMetadata && jsonMetadata.image && jsonMetadata.image[0]) {
-    imagePath = getProxyImageURL(jsonMetadata.image[0], 'preview');
+  if (json && json.image && json.image[0]) {
+    imagePath = getProxyImageURL(json.image[0], 'preview');
   } else {
     const contentImages = getContentImages(post.body);
     if (contentImages.length) {
@@ -32,7 +32,7 @@ const StoryPreview = ({ post }) => {
   }
 
   const embeds = embedjs.getAll(post.body, { height: '100%' });
-  const video = jsonMetadata && jsonMetadata.video;
+  const video = json && json.video;
   let hasVideo = false;
   if (_.has(video, 'content.videohash') && _.has(video, 'info.snaphash')) {
     const author = _.get(video, 'info.author', '');

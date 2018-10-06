@@ -57,7 +57,7 @@ export const people = [
   'alexbeyman',
   'gringalicious',
   'donkeypong',
-  'amountSCOREvalueInTME',
+  'lopu',
   'marius19',
   'mindhunter',
   'the-alien',

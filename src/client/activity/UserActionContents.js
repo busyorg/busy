@@ -9,7 +9,7 @@ const UserActionContents = ({ actionType, actionDetails }) => {
     // a part of custom json operations with actionDetails.id as "follow".
     // We have a parser for these ops, however we cannot parse
     // every custom json since it's flexible and there is no
-    // standard for the structure of custom_json ops.
+    // standard for the structure of customJson ops.
     if (_.includes(accountHistory.PARSED_customJson_IDS, actionDetails.id)) {
       return null;
     }

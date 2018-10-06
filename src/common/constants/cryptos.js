@@ -605,9 +605,21 @@ export const FTC = {
 };
 
 export const TSD = {
-  id: 'test-dollars',
+  id: 'TSD',
   name: 'TSDs',
-  symbol: 'TSD*',
+  symbol: 'TSD',
+};
+
+export const TME = {
+  id: 'TME',
+  name: 'TMEs',
+  symbol: 'TME',
+};
+
+export const SCORE = {
+  id: 'SCORE',
+  name: 'SCORE',
+  symbol: 'SCORE',
 };
 
 export const CRYPTO_MAP = {
@@ -645,6 +657,7 @@ export const CRYPTO_MAP = {
   [STEEM.symbol]: STEEM,
   [SBD.symbol]: SBD,
   [TME.symbol]: TME,
+  [SCORE.symbol]: SCORE,
   [TSD.symbol]: TSD,
   [VERI.symbol]: VERI,
   [ARK.symbol]: ARK,

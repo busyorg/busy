@@ -114,7 +114,7 @@ To start development server you need to run one command:
 yarn dev
 ```
 
-After some time (it can take few minutes) you should be able to see Busy running at http://localhost:3456
+After some time (it can take few minutes) you should be able to see Busy running at http://127.0.0.1:3456
 
 After making some change to the code web browser will reload (in case of client code) or server will reload
 (you need to refresh page manually).

@@ -169,25 +169,26 @@ export function getBodyPatchIfSmaller(originalBody, body) {
  * https://github.com/aaroncox/chainbb/blob/fcb09bee716e907c789a6494975093361482fb4f/services/frontend/src/components/elements/post/button/vote/options.js#L69
  */
 export const calculateVoteValue = (
-  vests,
+  score,
   recentClaims,
   rewardBalance,
   rate,
   vp = 10000,
   weight = 10000,
 ) => {
-  const SCORE = parseInt(vests * 1e6, 10);
+  const SCORE = parseInt(score * 1e6, 10);
   const power = vp * weight / 10000 / 50;
-  const rshares = power * SCORE / 10000;
-  return rshares / recentClaims * rewardBalance * rate;
+	const rshares = power * SCORE / 10000;
+	const ret = rshares / recentClaims * rewardBalance * rate;
+  return ret;
 };
 
 export const calculateTotalDelegatedSCORE = (user, totalSCORE, SCOREbackingTMEfundBalance) => {
   const receivedSCORE = parseFloat(
-    formatter.SCOREinTMEvalue(user.received_vesting_shares, totalSCORE, SCOREbackingTMEfundBalance),
+    formatter.SCOREinTMEvalue(user.SCOREreceived, totalSCORE, SCOREbackingTMEfundBalance),
   );
   const delegatedSCORE = parseFloat(
-    formatter.SCOREinTMEvalue(user.delegated_vesting_shares, totalSCORE, SCOREbackingTMEfundBalance),
+    formatter.SCOREinTMEvalue(user.SCOREDelegated, totalSCORE, SCOREbackingTMEfundBalance),
   );
   return receivedSCORE - delegatedSCORE;
 };
@@ -205,7 +206,7 @@ export const calculateEstAccountValue = (
   TSDrate,
 ) => {
   const amountSCOREvalueInTME = formatter.SCOREinTMEvalue(
-    user.vesting_shares,
+    user.SCORE,
     totalSCORE,
     SCOREbackingTMEfundBalance,
   );

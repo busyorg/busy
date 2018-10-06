@@ -5,9 +5,9 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <ClaimReward
-    rewardSbd="0 TSD"
-    rewardSteem="0 STEEM"
-    rewardVests="0 SCORE"
+    rewardTSD="0 TSD"
+    rewardTME="0 TME"
+    SCORErewardBalanceInTME="0 SCORE"
     timestamp="0"
     SCOREbackingTMEfundBalance="0"
     totalSCORE="0"

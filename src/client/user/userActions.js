@@ -77,7 +77,7 @@ export const updateRecommendations = createAction(UPDATE_RECOMMENDATIONS);
 
 export const GET_NOTIFICATIONS = createAsyncActionType('@user/GET_NOTIFICATIONS');
 
-export const getNotifications = username => (dispatch, getState, { busyAPI }) => {
+export const getNotifications = username => (dispatch, getState, { blockchainLiteAPI }) => {
   const state = getState();
 
   if (!username && !getIsAuthenticated(state)) {
@@ -90,7 +90,7 @@ export const getNotifications = username => (dispatch, getState, { busyAPI }) =>
     type: GET_NOTIFICATIONS.ACTION,
     meta: targetUsername,
     payload: {
-      promise: busyAPI.sendAsync('get_notifications', [targetUsername]),
+      promise: blockchainLiteAPI.sendAsync('get_notifications', [targetUsername]),
     },
   });
 };

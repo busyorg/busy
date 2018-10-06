@@ -146,7 +146,7 @@ class Story extends React.Component {
     const { sliderMode, user, defaultVotePercent } = this.props;
     if (sliderMode === 'on' || (sliderMode === 'auto' && getHasDefaultSlider(user))) {
       this.props.votePost(post.id, post.author, post.permlink, weight);
-    } else if (postState.isLiked) {
+    } else if (postState.isDisliked) {
       this.props.votePost(post.id, post.author, post.permlink, 0);
     } else {
       this.props.votePost(post.id, post.author, post.permlink, (defaultVotePercent*-1));
@@ -338,50 +338,50 @@ class Story extends React.Component {
 										<BTooltip 
 											title={
 												<Action className="send-money" onClick={this.handleTransferClick}>
-													<img src="images/dollar.png" className="send-dollar"/>
+													<img src="/images/dollar.png" className="send-dollar"/>
 													<FormattedMessage id="tranfer" defaultMessage="Send" />
 												</Action>
 											}
 											>
-											<span className="username">{post.author}</span>
+											<span className="account_name">{`${post.author}`}</span>
+											<span className="username">{`@${post.author}`}</span>
 										</BTooltip>
-                    <ReputationTag reputation={post.author_reputation} />
+                    {/* <ReputationTag reputation={post.author_reputation} /> */}
                   </h4>
                 </Link>
-                <span className="Story__topics">
-                  <Topic name={post.category} />
-                </span>
+								<span className="Story__posted__time">
+									<BTooltip
+										title={
+											<span>
+												<FormattedDate value={`${post.created}Z`} />{' '}
+												<FormattedTime value={`${post.created}Z`} />
+											</span>
+										}
+									>
+										<span className="Story__date">
+											<FormattedRelative value={`${post.created}Z`} />
+										</span>
+									</BTooltip>
+									<PostedFrom post={post} />
+								</span>
               </span>
-              <span>
-                <BTooltip
-                  title={
-                    <span>
-                      <FormattedDate value={`${post.created}Z`} />{' '}
-                      <FormattedTime value={`${post.created}Z`} />
-                    </span>
-                  }
-                >
-                  <span className="Story__date">
-                    <FormattedRelative value={`${post.created}Z`} />
-                  </span>
-                </BTooltip>
-                <PostedFrom post={post} />
-              </span>
+							<div className="Story__content">
+								<a
+									href={dropCategory(post.url)}
+									target="_blank"
+									onClick={this.handlePostModalDisplay}
+									className="Story__content__title"
+								>
+									<div className="Story__title">
+										{post.depth !== 0 && <Tag color="#4f545c">RE</Tag>}
+										{post.title || post.root_title}
+									</div>
+								</a>
+								{/* <div className="Story__content__sub">
+								</div> */}
+								{this.renderStoryPreview()}
+							</div>
             </div>
-          </div>
-          <div className="Story__content">
-            <a
-              href={dropCategory(post.url)}
-              target="_blank"
-              onClick={this.handlePostModalDisplay}
-              className="Story__content__title"
-            >
-              <h2>
-                {post.depth !== 0 && <Tag color="#4f545c">RE</Tag>}
-                {post.title || post.root_title}
-              </h2>
-            </a>
-            {this.renderStoryPreview()}
           </div>
           <div className="Story__footer">
             <StoryFooter
@@ -402,7 +402,8 @@ class Story extends React.Component {
               pendingFollow={pendingFollow}
               pendingBookmark={pendingBookmark}
               saving={saving}
-              handlePostPopoverMenuClick={this.handlePostPopoverMenuClick}
+							handlePostPopoverMenuClick={this.handlePostPopoverMenuClick}
+							handleTransferClick={this.handleTransferClick}
             />
           </div>
         </div>

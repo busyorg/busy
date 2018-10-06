@@ -339,7 +339,7 @@
   "lets_get_started": "さあ、始めましょう",
   "completed": "完了しました",
   "complete_your_profile": "プロフィールを完成させる",
-  "follow_blockchainers": "{amount}人のSteemianをフォロー",
+  "follow_people": "{amount}人のSteemianをフォロー",
   "like_good_posts": "良い記事に投票する",
   "write_first_post": "初めての投稿を書く",
   "complete_profile_tooltip": "名前、自己紹介、プロフィール画像欄を記入してください。",

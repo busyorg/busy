@@ -8,7 +8,7 @@ import { getProxyImageURL } from '../../helpers/image';
 import { getContentImages } from '../../helpers/postHelpers';
 
 const PostRecommendationLink = ({ post, navigateToPost, navigateToPostComments }) => {
-  const images = getFromMetadata(post.json_metadata, 'image');
+  const images = getFromMetadata(post.json, 'image');
   const firstImage = _.head(images);
   let imagePath = '';
 

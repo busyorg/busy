@@ -1,16 +1,15 @@
-import { createClient } from 'lightrpc';
+import { createClient } from 'weliterpcjs';
 
-const options = {
-  timeout: 15000,
-};
+const client = createClient(process.env.API_URL, {timeout: 15000});
 
-const apiURL = process.env.API_URL || 'https://node.weyoume.src';
-
-const client = createClient(apiURL, options);
+if(typeof window !== 'undefined'){
+	window.blockchainClient = client
+}
 client.sendAsync = (message, params) =>
   new Promise((resolve, reject) => {
     client.send(message, params, (err, result) => {
-      if (err !== null) return reject(err);
+			// console.error('err', err)
+      if (err !== null) {	return reject(err);	}
       return resolve(result);
     });
   });

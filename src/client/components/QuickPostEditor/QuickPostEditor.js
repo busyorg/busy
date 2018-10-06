@@ -102,7 +102,7 @@ class QuickPostEditor extends React.Component {
 
     const metaData = {
       community: 'weyoume',
-      app: `weyoume/${version}`,
+      app: `weapp/${version}`,
       format: 'markdown',
     };
 
@@ -120,7 +120,7 @@ class QuickPostEditor extends React.Component {
 
     data.parentPermlink = _.isEmpty(tag) ? nativeTag : tag;
     data.permlink = _.kebabCase(postTitle);
-    data.jsonMetadata = metaData;
+    data.json = metaData;
 
     return data;
   };
@@ -292,7 +292,7 @@ class QuickPostEditor extends React.Component {
                 ref={ref => this.setInput(ref)}
                 placeholder={intl.formatMessage({
                   id: 'write_quick_post',
-                  defaultMessage: 'Write quick post',
+                  defaultMessage: 'Add something',
                 })}
                 value={this.state.currentInputValue}
                 maxLength="255"

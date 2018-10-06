@@ -9,10 +9,10 @@ const createFormatter = api => {
   }
 
   function SCOREvalueInTME(account, gprops) {
-    const vests = parseFloat(account.vesting_shares.split(' ')[0]);
-    const totalSCORE = parseFloat(gprops.total_vesting_shares.split(' ')[0]);
-    const totalSCOREvalueInTME = parseFloat(gprops.total_SCORE_fund_in_TME.split(' ')[0]);
-    const accountSCOREvalueInTME = totalSCOREvalueInTME * (vests / totalSCORE);
+    const score = parseFloat(account.SCORE.split(' ')[0]);
+    const totalSCORE = parseFloat(gprops.totalSCORE.split(' ')[0]);
+    const totalSCOREvalueInTME = parseFloat(gprops.totalTMEfundForSCORE.split(' ')[0]);
+    const accountSCOREvalueInTME = totalSCOREvalueInTME * (score / totalSCORE);
     return accountSCOREvalueInTME;
   }
 

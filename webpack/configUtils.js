@@ -6,9 +6,8 @@ require('dotenv').config()
 
 const IS_DEV = process.env.NODE_ENV !== 'production';
 
-const SERVER_PORT = process.env.SSR_PORT || 3456;
-const CONTENT_PORT = IS_DEV ? SERVER_PORT + 1 : SERVER_PORT;
-
+const SERVER_PORT = process.env.SSR_PORT;
+const CONTENT_PORT = IS_DEV ? (parseInt(SERVER_PORT) + 1) : SERVER_PORT;
 const MATCH_JS = /\.js$/i;
 const MATCH_CSS_LESS = /\.(css|less)$/i;
 const MATCH_FONTS = /\.(eot|ttf|woff|woff2|svg)(\?.+)?$/;
@@ -40,7 +39,8 @@ const DEFINE_PLUGIN = new webpack.DefinePlugin({
   'process.env.SIGNUP_URL': JSON.stringify(
     process.env.SIGNUP_URL,
   ),
-  'process.env.MANIFEST_PATH': JSON.stringify(paths.assets),
+	'process.env.WSS_API_URL': JSON.stringify(process.env.WSS_API_URL),
+	'process.env.MANIFEST_PATH': JSON.stringify(paths.assets),
 });
 
 module.exports = {

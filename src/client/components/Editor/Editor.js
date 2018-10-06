@@ -354,13 +354,13 @@ class Editor extends React.Component {
             </Select>,
           )}
         </Form.Item>
-        <Form.Item className={classNames({ Editor__hidden: isUpdating })}>
-          {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: true })(
+        {/* <Form.Item className={classNames({ Editor__hidden: isUpdating })}>
+          {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: false })(
             <Checkbox onChange={this.onUpdate} disabled={isUpdating}>
               <FormattedMessage id="like_post" defaultMessage="Like this post" />
             </Checkbox>,
           )}
-        </Form.Item>
+        </Form.Item> */}
         <div className="Editor__bottom">
           <span className="Editor__bottom__info">
             <i className="iconfont icon-markdown" />{' '}

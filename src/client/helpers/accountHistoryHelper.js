@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import * as accountHistoryConstants from '../../common/constants/accountHistory';
 
-export const ACTIONS_DISlaterPLAY_LIMIT = 100;
+export const ACTIONS_DISPLAY_LIMIT = 100;
 
 export const getVoteFilterType = actionDetails => {
   let voteType = accountHistoryConstants.UNVOTED;

@@ -33,7 +33,8 @@ class StoryFooter extends React.Component {
     onDislikeClick: PropTypes.func,
     onShareClick: PropTypes.func,
     onEditClick: PropTypes.func,
-    handlePostPopoverMenuClick: PropTypes.func,
+		handlePostPopoverMenuClick: PropTypes.func,
+		handleTransferClick: PropTypes.func
   };
 
   static defaultProps = {
@@ -50,6 +51,7 @@ class StoryFooter extends React.Component {
     onShareClick: () => {},
     onEditClick: () => {},
     handlePostPopoverMenuClick: () => {},
+    handleTransferClick: () => {},
   };
 
   state = {
@@ -140,7 +142,8 @@ class StoryFooter extends React.Component {
       pendingFollow,
       pendingBookmark,
       saving,
-      handlePostPopoverMenuClick,
+			handlePostPopoverMenuClick,
+			handleTransferClick
     } = this.props;
 
     return (
@@ -166,7 +169,8 @@ class StoryFooter extends React.Component {
               onDislikeClick={this.handleDislikeClick}
               onShareClick={this.handleShareClick}
               onEditClick={this.handleEditClick}
-              handlePostPopoverMenuClick={handlePostPopoverMenuClick}
+							handlePostPopoverMenuClick={handlePostPopoverMenuClick}
+							handleTransferClick={handleTransferClick}
             />
           )}
         </div>

@@ -19,15 +19,15 @@ export default (state = initialState, action) => {
       };
     case searchActions.SEARCH_ASK.SUCCESS: {
       const askBlockchainResults = _.get(action.payload, 0, []);
-      const steemLookupResults = _.get(action.payload, 1, []);
-      const parsedSteemLookupResults = _.map(steemLookupResults, accountDetails => ({
+      const lookupResults = _.get(action.payload, 1, []);
+      const parsedlookupResults = _.map(lookupResults, accountDetails => ({
         ...accountDetails,
         reputation: formatter.reputation(accountDetails.reputation),
         name: accountDetails.account,
         type: 'user',
       }));
-      const sortedSteemLookupResults = _.sortBy(parsedSteemLookupResults, 'reputation').reverse();
-      const searchResults = _.compact(_.concat(sortedSteemLookupResults, askBlockchainResults));
+      const sortedlookupResults = _.sortBy(parsedlookupResults, 'reputation').reverse();
+      const searchResults = _.compact(_.concat(sortedlookupResults, askBlockchainResults));
       return {
         ...state,
         searchResults,

@@ -5,19 +5,19 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <UserWalletSummary
-    estAccountValue="100.00 STEEM"
+    estAccountValue="100.00 TME"
     loading={false}
     sbdRate={1}
     steemRate={1}
     steemRateLoading={false}
-    SCOREbackingTMEfundBalance="100 STEEM"
-    totalSCORE="100 STEEM"
+    SCOREbackingTMEfundBalance="100 TME"
+    totalSCORE="100 TME"
     user={
       Object {
         "balance": "100",
-        "savings_balance": "100 STEEM",
-        "savings_sbd_balance": "1000 STEEM",
-        "vesting_shares": "0",
+        "savings_balance": "100 TME",
+        "savings_sbd_balance": "1000 TME",
+        "SCORE": "0",
       }
     }
   />,

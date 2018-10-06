@@ -23,7 +23,7 @@ const UserHeader = ({
   isActive,
 }) => {
   const style = hasCover
-    ? { backgroundImage: `url("https://stelateremitimages.com/2048x512/${coverImage}")` }
+    ? { backgroundImage: `url("https://steemitimages.com/2048x512/${coverImage}")` }
     : {};
   return (
     <div className={classNames('UserHeader', { 'UserHeader--cover': hasCover })} style={style}>
@@ -33,24 +33,26 @@ const UserHeader = ({
           <div className="UserHeader__row">
             <h2 className="UserHeader__user__username">
               {username}
-              <ReputationTag reputation={userReputation} />
+              {/* <ReputationTag reputation={userReputation} /> */}
             </h2>
             <div className="UserHeader__user__buttons">
-              <div
-                className={classNames('UserHeader__user__button', {
-                  'UserHeader__user__button-follows-you': isFollowing && !isSameUser,
-                })}
-              >
-                {isSameUser ? (
-                  <Link to="/edit-profile">
-                    <Action>
-                      <FormattedMessage id="edit_profile" defaultMessage="Edit profile" />
-                    </Action>
-                  </Link>
-                ) : (
-                  <FollowButton className="follow-button" username={handle} />
-                )}
-              </div>
+							{!isSameUser && 
+								<div
+									className={classNames('UserHeader__user__button', {
+										'UserHeader__user__button-follows-you': isFollowing && !isSameUser,
+									})}
+								>
+									{/*  (
+										<Link className="edit-profile" to="/edit-profile">
+											<Action>
+												<FormattedMessage id="edit_profile" defaultMessage="Edit profile" />
+											</Action>
+										</Link>
+										) : (
+										) */}
+									{!isSameUser && <FollowButton className="follow-button" username={handle} /> }
+								</div>
+							}
               {!isSameUser && (
                 <div
                   className={classNames('UserHeader__user__button', {
@@ -58,21 +60,22 @@ const UserHeader = ({
                   })}
                 >
 								<Action className="send-money" onClick={onTransferClick}>
-									<img src="images/dollar.png" className="send-dollar"/>
-									<FormattedMessage id="tranfer" defaultMessage="Send" />
+									<FormattedMessage id="send" defaultMessage="Send" />
+									<img src="/images/dollar.png" className="send-dollar on-right"/>
 								</Action>
                 </div>
               )}
             </div>
           </div>
-          <div className="UserHeader__handle-rank-container">
-            <div className="UserHeader__row UserHeader__handle">
-              @{handle}
-              {isFollowing && (
-                <span className="UserHeader__follows-you">
-                  <FormattedMessage id="follows_you" defaultMessage="Follows you" />
-                </span>
-              )}
+					<div className="UserHeader__row UserHeader__handle">
+						@{handle}
+						{isFollowing && (
+							<span className="UserHeader__follows-you">
+								<FormattedMessage id="follows_you" defaultMessage="Follows you" />
+							</span>
+						)}
+					</div>
+          {/* <div className="UserHeader__handle-rank-container">
             </div>
             <div className="UserHeader__rank">
               <i className="iconfont icon-ranking" />
@@ -80,8 +83,7 @@ const UserHeader = ({
                 id={getUserRankKey(SCORE)}
                 defaultMessage={getUserRank(SCORE)}
               />
-            </div>
-          </div>
+          </div> */}
           {isFollowing &&
             !isSameUser && (
               <span

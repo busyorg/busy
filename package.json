@@ -16,18 +16,19 @@
     "prettier-check": "node ./scripts/prettier/tasks/checkFiles.js",
     "prettier-check-all": "node ./scripts/prettier/tasks/checkFiles.js all",
     "prettier-file": "node ./scripts/prettier/tasks/formatFile.js",
-    "dev": "source .env && node ./scripts/dev.js",
-    "build": "source .env && node ./scripts/build.js",
-    "start": "source .env && node ./build/server.js",
+    "build": "node ./scripts/build.js",
+    "dev": "node ./scripts/dev.js",
+    "start": "node ./build/server.js",
+    "run": "yarn run build && yarn run start",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "eslint-autofix": "eslint --fix \"src/**/*.js\"",
     "heroku-prebuild": "npm i -g pm2 && pm2 install pm2-logrotate",
-		"heroku-postbuild": "npm run build",
-		"push" : "git add . ; git commit -m 'ready' ; git push origin dev",
-		"pull" : "git pull origin dev"
+    "heroku-postbuild": "npm run build",
+    "push": "git add . ; git commit -m 'ready' ; git push origin dev",
+    "pull": "git pull origin dev"
   },
   "husky": {
     "hooks": {}
@@ -107,9 +108,11 @@
     "url-parse": "^1.1.9",
     "url-search-params-polyfill": "^2.0.0",
     "uuid": "^3.1.0",
-    "weauthjs": "latest",
-    "welitejs": "latest",
-    "weschemajs": "latest",
+    "weauthjs": "^1.1.155",
+    "wehelpjs": "^0.6.9",
+    "welitejs": "1.1.130",
+    "weliterpcjs": "^1.1.32",
+    "weschemajs": "^1.2.8",
     "xmldom": "^0.1.27"
   },
   "devDependencies": {
@@ -132,6 +135,7 @@
     "fs-extra": "^6.0.0",
     "glob": "^7.1.2",
     "husky": "^1.0.0-rc.2",
+    "ip": "^1.1.5",
     "jest": "^21.3.0-beta.8",
     "less": "^3.0.2",
     "less-loader": "^4.1.0",

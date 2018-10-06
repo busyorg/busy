@@ -17,7 +17,7 @@ class DiscoverContent extends React.Component {
       this.setState({
         users,
       }),
-    );
+    ).catch(err=>{console.error('err', err)});
   }
 
   handleLoadMore = () => {
@@ -28,7 +28,7 @@ class DiscoverContent extends React.Component {
       this.setState({
         users: users.concat(moreUsersResponse),
       }),
-    );
+    ).catch(err=>{console.error('err', err)});
   };
 
   render() {

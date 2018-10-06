@@ -24,6 +24,11 @@ const app = express();
 
 const IS_DEV = process.env.NODE_ENV === 'development';
 
+if (process.env.NODE_ENV !== 'production' || process.env.NODE_ENV !== 'prod') {
+	process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+}
+
+
 app.use(cookieParser());
 
 if (IS_DEV) {
@@ -49,7 +54,7 @@ app.get('/i/@:referral', async (req, res) => {
   try {
     const { referral } = req.params;
 
-    const accounts = await blockchainAPI.sendAsync('get_accounts', [[referral]]);
+    const accounts = await blockchainAPI.sendAsync('get_accounts', [[referral]]).catch(err=>{console.error('err', err)});
     if (accounts[0]) {
       res.cookie('referral', referral, { maxAge: 86400 * 30 * 1000 });
       res.redirect('/');
@@ -63,7 +68,7 @@ app.get('/i/:parent/@:referral/:permlink', async (req, res) => {
   try {
     const { parent, referral, permlink } = req.params;
 
-    const content = await blockchainAPI.sendAsync('get_content', [referral, permlink]);
+    const content = await blockchainAPI.sendAsync('get_content', [referral, permlink]).catch(err=>{console.error('err', err)});
 
     if (content.author) {
       res.cookie('referral', referral, { maxAge: 86400 * 30 * 1000 });

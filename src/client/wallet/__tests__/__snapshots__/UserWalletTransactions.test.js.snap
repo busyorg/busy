@@ -13,9 +13,9 @@ ShallowWrapper {
       Array [
         Object {
           "op": Array [
-            "transfer_to_vesting",
+            "transferTMEtoSCOREfund",
             Object {
-              "amount": "100 STEEM",
+              "amount": "100 TME",
             },
           ],
           "timestamp": "0",
@@ -24,7 +24,7 @@ ShallowWrapper {
           "op": Array [
             "transfer",
             Object {
-              "amount": "100 STEEM",
+              "amount": "100 TME",
               "from": "hellosteem1",
               "memo": "transfer memo",
             },
@@ -76,9 +76,9 @@ ShallowWrapper {
           transaction={
             Object {
               "op": Array [
-                "transfer_to_vesting",
+                "transferTMEtoSCOREfund",
                 Object {
-                  "amount": "100 STEEM",
+                  "amount": "100 TME",
                 },
               ],
               "timestamp": "0",
@@ -94,7 +94,7 @@ ShallowWrapper {
               "op": Array [
                 "transfer",
                 Object {
-                  "amount": "100 STEEM",
+                  "amount": "100 TME",
                   "from": "hellosteem1",
                   "memo": "transfer memo",
                 },
@@ -122,9 +122,9 @@ ShallowWrapper {
               transaction={
                 Object {
                   "op": Array [
-                    "transfer_to_vesting",
+                    "transferTMEtoSCOREfund",
                     Object {
-                      "amount": "100 STEEM",
+                      "amount": "100 TME",
                     },
                   ],
                   "timestamp": "0",
@@ -140,7 +140,7 @@ ShallowWrapper {
                   "op": Array [
                     "transfer",
                     Object {
-                      "amount": "100 STEEM",
+                      "amount": "100 TME",
                       "from": "hellosteem1",
                       "memo": "transfer memo",
                     },
@@ -191,9 +191,9 @@ ShallowWrapper {
             "totalSCORE": "0",
             "transaction": Object {
               "op": Array [
-                "transfer_to_vesting",
+                "transferTMEtoSCOREfund",
                 Object {
-                  "amount": "100 STEEM",
+                  "amount": "100 TME",
                 },
               ],
               "timestamp": "0",
@@ -215,7 +215,7 @@ ShallowWrapper {
               "op": Array [
                 "transfer",
                 Object {
-                  "amount": "100 STEEM",
+                  "amount": "100 TME",
                   "from": "hellosteem1",
                   "memo": "transfer memo",
                 },
@@ -268,9 +268,9 @@ ShallowWrapper {
             transaction={
               Object {
                 "op": Array [
-                  "transfer_to_vesting",
+                  "transferTMEtoSCOREfund",
                   Object {
-                    "amount": "100 STEEM",
+                    "amount": "100 TME",
                   },
                 ],
                 "timestamp": "0",
@@ -286,7 +286,7 @@ ShallowWrapper {
                 "op": Array [
                   "transfer",
                   Object {
-                    "amount": "100 STEEM",
+                    "amount": "100 TME",
                     "from": "hellosteem1",
                     "memo": "transfer memo",
                   },
@@ -314,9 +314,9 @@ ShallowWrapper {
                 transaction={
                   Object {
                     "op": Array [
-                      "transfer_to_vesting",
+                      "transferTMEtoSCOREfund",
                       Object {
-                        "amount": "100 STEEM",
+                        "amount": "100 TME",
                       },
                     ],
                     "timestamp": "0",
@@ -332,7 +332,7 @@ ShallowWrapper {
                     "op": Array [
                       "transfer",
                       Object {
-                        "amount": "100 STEEM",
+                        "amount": "100 TME",
                         "from": "hellosteem1",
                         "memo": "transfer memo",
                       },
@@ -383,9 +383,9 @@ ShallowWrapper {
               "totalSCORE": "0",
               "transaction": Object {
                 "op": Array [
-                  "transfer_to_vesting",
+                  "transferTMEtoSCOREfund",
                   Object {
-                    "amount": "100 STEEM",
+                    "amount": "100 TME",
                   },
                 ],
                 "timestamp": "0",
@@ -407,7 +407,7 @@ ShallowWrapper {
                 "op": Array [
                   "transfer",
                   Object {
-                    "amount": "100 STEEM",
+                    "amount": "100 TME",
                     "from": "hellosteem1",
                     "memo": "transfer memo",
                   },

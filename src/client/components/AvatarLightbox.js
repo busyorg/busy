@@ -35,7 +35,7 @@ export default class AvatarLightbox extends React.Component {
         </a>
         {this.state.open && (
           <Lightbox
-            mainSrc={`https://stelateremitimages.com/u/${username}/avatar/large`}
+            mainSrc={`https://steemitimages.com/u/${username}/avatar/large`}
             onCloseRequest={this.handleCloseRequest}
           />
         )}

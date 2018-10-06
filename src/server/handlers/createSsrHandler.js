@@ -13,7 +13,7 @@ import renderSsrPage from '../renderers/ssrRenderer';
 // eslint-disable-next-line import/no-dynamic-require
 const assets = require(process.env.MANIFEST_PATH);
 
-const ssrTimeout = 10000;
+const ssrTimeout = 5000;
 
 function createTimeout(timeout, promise) {
   return new Promise((resolve, reject) => {
@@ -41,7 +41,7 @@ export default function createSsrHandler(template) {
 
       const branch = matchRoutes(routes, req.url);
       const promises = branch.map(({ route, match }) => {
-        const fetchData = route.component.fetchData;
+				const fetchData = route.component.fetchData;
         if (fetchData instanceof Function) {
           return fetchData({ store, match, req, res });
         }

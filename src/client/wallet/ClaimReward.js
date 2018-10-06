@@ -26,7 +26,7 @@ const getFormattedPayout = (
 
   if (parsedTMEreward > 0) {
     payouts.push(
-      <span key="STEEM" className="UserWalletTransactions__payout-rewards">
+      <span key="TME" className="UserWalletTransactions__payout-rewards">
         <FormattedNumber
           value={parsedTMEreward}
           minimumFractionDigits={3}

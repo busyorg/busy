@@ -154,13 +154,13 @@ class StoryFull extends React.Component {
 
   renderDtubeEmbedPlayer() {
     const { post } = this.props;
-    const parsedJsonMetaData = _.attempt(JSON.parse, post.json_metadata);
+    const parsedjson = _.attempt(JSON.parse, post.json);
 
-    if (_.isError(parsedJsonMetaData)) {
+    if (_.isError(parsedjson)) {
       return null;
     }
 
-    const video = getFromMetadata(post.json_metadata, 'video');
+    const video = getFromMetadata(post.json, 'video');
     const isDtubeVideo = _.has(video, 'content.videohash') && _.has(video, 'info.snaphash');
 
     if (isDtubeVideo) {
@@ -216,7 +216,7 @@ class StoryFull extends React.Component {
 
     this.images = extractImageTags(parsedBody);
 
-    const tags = _.union(getFromMetadata(post.json_metadata, 'tags'), [post.category]);
+    const tags = _.union(getFromMetadata(post.json, 'tags'), [post.category]);
 
     let followText = '';
 
@@ -343,7 +343,7 @@ class StoryFull extends React.Component {
             full
             rewriteLinks={rewriteLinks}
             body={signedBody}
-            json_metadata={post.json_metadata}
+            json={post.json}
           />
         </div>
       );
@@ -377,7 +377,7 @@ class StoryFull extends React.Component {
           <div className="StoryFull__header__text">
             <Link to={`/@${post.author}`}>
               <span className="username">{post.author}</span>
-              <ReputationTag reputation={post.author_reputation} />
+              {/* <ReputationTag reputation={post.author_reputation} /> */}
             </Link>
             <BTooltip
               title={

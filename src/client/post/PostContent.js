@@ -181,7 +181,7 @@ class PostContent extends React.Component {
 
     if (isBannedPost(content)) return <DMCARemovedMessage className="center" />;
 
-    const postMetaData = jsonParse(content.json_metadata);
+    const postMetaData = jsonParse(content.json);
     const nativeHost = appUrl || 'https://alpha.weyoume.src';
     let canonicalHost = nativeHost;
 

@@ -339,7 +339,7 @@
   "lets_get_started": "Commençons",
   "completed": "Terminé",
   "complete_your_profile": "Compléter votre profile",
-  "follow_blockchainers": "Suivez {amount} steemiens",
+  "follow_people": "Suivez {amount} steemiens",
   "like_good_posts": "Votez quelques posts de qualité",
   "write_first_post": "Écrivez votre premier article",
   "complete_profile_tooltip": "Vous devez remplir les champs : nom, à propos et photo de profil",

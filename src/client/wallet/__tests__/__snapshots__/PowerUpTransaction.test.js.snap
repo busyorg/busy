@@ -7,7 +7,7 @@ ShallowWrapper {
   Symbol(enzyme.__unrendered__): <PowerUpTransaction
     amount={
       <span>
-        0 STEEM
+        0 TME
       </span>
     }
     from="hellosteem"
@@ -51,7 +51,7 @@ ShallowWrapper {
               className="UserWalletTransactions__payout"
             >
               <span>
-                0 STEEM
+                0 TME
               </span>
             </span>
           </div>
@@ -129,7 +129,7 @@ ShallowWrapper {
                 className="UserWalletTransactions__payout"
               >
                 <span>
-                  0 STEEM
+                  0 TME
                 </span>
               </span>
             </div>,
@@ -179,7 +179,7 @@ ShallowWrapper {
                   className="UserWalletTransactions__payout"
                 >
                   <span>
-                    0 STEEM
+                    0 TME
                   </span>
                 </span>,
               ],
@@ -220,7 +220,7 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": <span>
-                    0 STEEM
+                    0 TME
                   </span>,
                   "className": "UserWalletTransactions__payout",
                 },
@@ -230,10 +230,10 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": "0 STEEM",
+                    "children": "0 TME",
                   },
                   "ref": null,
-                  "rendered": "0 STEEM",
+                  "rendered": "0 TME",
                   "type": "span",
                 },
                 "type": "span",
@@ -357,7 +357,7 @@ ShallowWrapper {
                 className="UserWalletTransactions__payout"
               >
                 <span>
-                  0 STEEM
+                  0 TME
                 </span>
               </span>
             </div>
@@ -435,7 +435,7 @@ ShallowWrapper {
                   className="UserWalletTransactions__payout"
                 >
                   <span>
-                    0 STEEM
+                    0 TME
                   </span>
                 </span>
               </div>,
@@ -485,7 +485,7 @@ ShallowWrapper {
                     className="UserWalletTransactions__payout"
                   >
                     <span>
-                      0 STEEM
+                      0 TME
                     </span>
                   </span>,
                 ],
@@ -526,7 +526,7 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "children": <span>
-                      0 STEEM
+                      0 TME
                     </span>,
                     "className": "UserWalletTransactions__payout",
                   },
@@ -536,10 +536,10 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "children": "0 STEEM",
+                      "children": "0 TME",
                     },
                     "ref": null,
-                    "rendered": "0 STEEM",
+                    "rendered": "0 TME",
                     "type": "span",
                   },
                   "type": "span",

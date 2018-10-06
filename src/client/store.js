@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import { applyMiddleware, createStore, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import blockchainAPI from './blockchainAPI';
-import createBusyAPI from '../common/services/createBusyAPI';
+import createLiteAPIclient from '../common/services/createLiteAPIclient';
 import history from './history';
 import errorMiddleware from './helpers/errorMiddleware';
 import createReducer from './reducers';
@@ -25,7 +25,7 @@ export default weauthjsInstance => {
     thunk.withExtraArgument({
       blockchainAPI,
       weauthjsInstance,
-      busyAPI: createBusyAPI(),
+      blockchainLiteAPI: createLiteAPIclient(),
     }),
     routerMiddleware(history),
   ];

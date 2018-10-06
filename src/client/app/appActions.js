@@ -34,7 +34,7 @@ export const getRate = () => (dispatch, getState, { blockchainAPI }) => {
     payload: {
       promise: blockchainAPI
         .sendAsync('get_current_median_history_price', [])
-        .then(resp => parseFloat(resp.base)),
+				.then(resp => parseFloat(resp.base)),
     },
   });
 };
@@ -42,7 +42,8 @@ export const getRate = () => (dispatch, getState, { blockchainAPI }) => {
 export const getRewardFund = () => (dispatch, getSelection, { blockchainAPI }) =>
   dispatch({
     type: GET_REWARD_FUND,
-    payload: { promise: blockchainAPI.sendAsync('get_reward_fund', ['post']) },
+    payload: { 
+			promise: blockchainAPI.sendAsync('get_reward_fund', ['post']) },
   });
 
 export const getTrendingTopics = () => (dispatch, getState, { blockchainAPI }) => {
@@ -68,10 +69,10 @@ export const getCryptoPriceHistory = (symbol, refresh = false) => dispatch => {
       promise: Promise.all([
         fetch(
           `https://min-api.cryptocompare.com/data/histoday?fsym=${symbol}&tsym=USD&limit=6`,
-        ).then(res => res.json()),
+				).then(res => res.json()),
         fetch(
           `https://min-api.cryptocompare.com/data/histoday?fsym=${symbol}&tsym=BTC&limit=6`,
-        ).then(res => res.json()),
+				).then(res => res.json()),
       ]).then(response => {
         const usdPriceHistory = _.get(response, 0, {});
         const btcPriceHistory = _.get(response, 1, {});

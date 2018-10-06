@@ -67,18 +67,18 @@ export const deleteDraft = draftIds => dispatch =>
   });
 
 export const editPost = (post, intl) => dispatch => {
-  const jsonMetadata = jsonParse(post.json_metadata);
+  const json = jsonParse(post.json);
   const draft = {
     ...post,
     originalBody: post.body,
-    jsonMetadata,
+    json,
     lastUpdated: new Date(),
     isUpdating: true,
   };
   dispatch(saveDraft({ postData: draft, id: post.id }, true, intl));
 };
 
-const requiredFields = 'parentAuthor,parentPermlink,author,permlink,title,body,jsonMetadata'.split(
+const requiredFields = 'parentAuthor,parentPermlink,author,permlink,title,body,json'.split(
   ',',
 );
 
@@ -89,7 +89,7 @@ const broadcastComment = (
   author,
   title,
   body,
-  jsonMetadata,
+  json,
   reward,
   upvote,
   permlink,
@@ -106,7 +106,7 @@ const broadcastComment = (
       permlink,
       title,
       body,
-      json_metadata: JSON.stringify(jsonMetadata),
+      json: JSON.stringify(json),
     },
   ];
   operations.push(commentOp);
@@ -115,7 +115,7 @@ const broadcastComment = (
     author,
     permlink,
     allow_votes: true,
-    allow_curation_rewards: true,
+    allow_curationRewards: true,
     max_accepted_payout: '1000000.000 TSD',
     percent_TSD: 10000,
   };
@@ -168,7 +168,7 @@ export function createPost(postData) {
       author,
       title,
       body,
-      jsonMetadata,
+      json,
       reward,
       upvote,
       draftId,
@@ -203,7 +203,7 @@ export function createPost(postData) {
             author,
             title,
             newBody,
-            jsonMetadata,
+            json,
             !isUpdating && reward,
             !isUpdating && upvote,
             permlink,
@@ -224,7 +224,11 @@ export function createPost(postData) {
               });
             }
             return result;
-          }),
+          })
+					// .catch(err=>{
+					// 	console.error('err', err)
+					// 	return err
+					// }),
         ),
       },
     });

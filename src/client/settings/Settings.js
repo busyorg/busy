@@ -78,7 +78,7 @@ export default class Settings extends React.Component {
     nightmode: false,
     rewriteLinks: false,
     useBeta: false,
-    upvoteSetting: true,
+    upvoteSetting: false,
     exitPageSetting: true,
     reload: () => {},
     saveSettings: () => {},
@@ -372,7 +372,7 @@ export default class Settings extends React.Component {
                     </Checkbox>
                   </div>
                 </div>
-                <div className="Settings__section">
+                {/* <div className="Settings__section">
                   <h3>
                     <FormattedMessage id="use_beta" defaultMessage="Use WeYouMe beta" />
                   </h3>
@@ -387,7 +387,7 @@ export default class Settings extends React.Component {
                       <FormattedMessage id="use_beta" defaultMessage="Use WeYouMe beta" />
                     </Checkbox>
                   </div>
-                </div>
+                </div> */}
                 <div className="Settings__section">
                   <h3>
                     <FormattedMessage id="upvote_setting" defaultMessage="Like my posts" />

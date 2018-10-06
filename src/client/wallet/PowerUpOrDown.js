@@ -60,7 +60,7 @@ export default class PowerUpOrDown extends React.Component {
 
     return down
       ? formatter.SCOREinTMEvalue(
-          parseFloat(user.vesting_shares) - parseFloat(user.delegated_vesting_shares),
+          parseFloat(user.SCORE) - parseFloat(user.SCOREDelegated),
           totalSCORE,
           SCOREbackingTMEfundBalance,
         )
@@ -81,21 +81,21 @@ export default class PowerUpOrDown extends React.Component {
   handleContinueClick = () => {
     const { form, user, down, totalSCORE, SCOREbackingTMEfundBalance } = this.props;
     form.validateFields({ force: true }, (errors, values) => {
-      const vests = (
+      const score = (
         values.amount / formatter.SCOREinTMEvalue(1, totalSCORE, SCOREbackingTMEfundBalance)
       ).toFixed(6);
       if (!errors) {
         const transferQuery = down
           ? {
-              vesting_shares: `${vests} VESTS`,
+              SCORE: `${score} SCORE`,
             }
           : {
-              amount: `${parseFloat(values.amount).toFixed(3)} STEEM`,
+              amount: `${parseFloat(values.amount).toFixed(3)} TME`,
               to: user.name,
             };
 
         const win = window.open(
-          weauthjsInstance.sign(down ? 'withdraw-vesting' : 'transfer-to-vesting', transferQuery),
+          weauthjsInstance.sign(down ? 'withdrawSCORE' : 'transferTMEtoSCOREfund', transferQuery),
           '_blank',
         );
         win.focus();
@@ -198,7 +198,7 @@ export default class PowerUpOrDown extends React.Component {
                       defaultMessage="{amount} {currency}"
                       values={{
                         amount: Math.floor(this.getAvailableBalance() * 1000) / 1000,
-                        currency: down ? 'SCORE' : 'STEEM',
+                        currency: down ? 'SCORE' : 'TME',
                       }}
                     />
                   </span>
@@ -209,7 +209,7 @@ export default class PowerUpOrDown extends React.Component {
         </Form>
         <FormattedMessage
           id="transfer_modal_info"
-          defaultMessage="Click the button below to be redirected to SteemConnect to complete your transaction."
+          defaultMessage="Click the button below to be redirected to WeAuth to complete your transaction."
         />
       </Modal>
     );

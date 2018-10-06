@@ -1,5 +1,6 @@
 @import (reference) '../styles/custom.less';
 @import (reference) '../styles/modules/variables.less';
+@import (reference) '../styles/mixins.less';
 
 .UserHeader {
   background-color: #f3f4f6;
@@ -66,7 +67,7 @@
   display: flex;
   margin: 0 auto;
   max-width: 1011px;
-  padding: 50px 16px;
+  padding: @userHeaderPadding 16px;
   align-items: center;
   flex-direction: column;
   a {
@@ -87,7 +88,8 @@
   display: flex;
   flex-direction: column;
   padding-bottom: 20px;
-  margin: 0;
+	margin: 0;
+	position: relative;
 }
 
 .UserHeader__row {
@@ -121,7 +123,7 @@
 }
 
 .UserHeader__user__username {
-  margin-right: -8px;
+  // margin-right: -8px;
   font-weight: 700;
   font-size: 28px;
   color: #353535;
@@ -134,14 +136,22 @@
 }
 
 .UserHeader__user__buttons {
-	display: flex;
+	.flex(flex-start,flex-start,row,wrap);
+	box-sizing: border-box;
+	padding-left: 7px;
+	padding-right: 7px;
 }
 
 .UserHeader__user__button {
 	position: relative;
-  top: 40px;
-  margin-left: 10px;
-	
+	.flex(center, center, row, nowrap);
+	top: 40px;
+	margin-right: 5px;
+	margin-left: 5px;
+	@media (max-width: @small-bp){
+		margin-left: 5px;
+		margin-right: 5px;
+	}
   &-follows-you {
 		top: 52px;
 	}

@@ -11,6 +11,7 @@ import AppHost from './AppHost';
 import { getBrowserLocale, loadLanguage } from './translations';
 import { setUsedLocale } from './app/appActions';
 import { getLocale } from './reducers';
+require('./wehelpjs.js')
 
 if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
   navigator.serviceWorker.register('/service-worker.js');
@@ -29,6 +30,7 @@ message.config({
 });
 
 const render = async Component => {
+	
   const state = store.getState();
 
   const userLocale = getLocale(state);

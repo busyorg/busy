@@ -1,14 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Avatar.less';
+// import {
+//   getAuthenticatedUser,
+// } from '../reducers';
+
+// @connect(state => ({
+// 		authenticatedUser: getAuthenticatedUser(state),
+// 	}));
 
 export function getAvatarURL(username, size = 100) {
   return size > 64
-    ? `https://stelateremitimages.com/u/${username}/avatar`
-    : `https://stelateremitimages.com/u/${username}/avatar/small`;
+    ? `https://steemitimages.com/u/${username}/avatar`
+    : `https://steemitimages.com/u/${username}/avatar/small`;
 }
 
 const Avatar = ({ username, size }) => {
+
   let style = {
     minWidth: `${size}px`,
     width: `${size}px`,
@@ -29,7 +37,8 @@ const Avatar = ({ username, size }) => {
 
 Avatar.propTypes = {
   username: PropTypes.string.isRequired,
-  size: PropTypes.number,
+	size: PropTypes.number,
+	authenticatedUser: PropTypes.shape(),
 };
 
 Avatar.defaultProps = {

@@ -16,9 +16,15 @@ export const getContent = (author, permlink, afterLike) => (dispatch, getState, 
     type: GET_CONTENT.ACTION,
     payload: {
       promise: blockchainAPI.sendAsync('get_content', [author, permlink]).then(res => {
-        if (res.id === 0) throw new Error('There is no such post');
+        if (res.id === 0) {
+					console.error('err', `There is no such post @${author}/${permlink}`)
+					console.error('err', res)
+					// throw new Error('There is no such post')
+				};
         return res;
-      }),
+			}).catch(err=>{
+				console.error('err', err)
+			})
     },
     meta: {
       author,

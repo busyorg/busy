@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import UserWalletSummary from '../wallet/UserWalletSummary';
-import { TSD, STEEM } from '../../common/constants/cryptos';
+import { TSD, TME } from '../../common/constants/cryptos';
 import { getUserDetailsKey } from '../helpers/stateHelpers';
 import UserWalletTransactions from '../wallet/UserWalletTransactions';
 import Loading from '../components/Icon/Loading';
@@ -127,7 +127,7 @@ class Wallet extends Component {
     const userKey = getUserDetailsKey(user.name);
     const transactions = _.get(usersTransactions, userKey, []);
     const actions = _.get(usersAccountHistory, userKey, []);
-    const currentSteemRate = _.get(
+    const currentTMERate = _.get(
       cryptosPriceHistory,
       `${TME.symbol}.priceDetails.currentUSDPrice`,
       null,
@@ -137,7 +137,7 @@ class Wallet extends Component {
       `${TSD.symbol}.priceDetails.currentUSDPrice`,
       null,
     );
-    const TMErateLoading = _.isNull(currentSteemRate) || _.isNull(currentTSDRate);
+    const TMErateLoading = _.isNull(currentTMERate) || _.isNull(currentTSDRate);
 
     return (
       <div>
@@ -147,7 +147,7 @@ class Wallet extends Component {
           totalSCORE={totalSCORE}
           SCOREbackingTMEfundBalance={SCOREbackingTMEfundBalance}
           loadingGlobalProperties={loadingGlobalProperties}
-          TMErate={currentSteemRate}
+          TMErate={currentTMERate}
           TSDrate={currentTSDRate}
           TMErateLoading={TMErateLoading}
         />

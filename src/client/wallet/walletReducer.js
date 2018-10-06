@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import * as walletActions from './walletActions';
-import { actionsFilter, ACTIONS_DISlaterPLAY_LIMIT } from '../helpers/accountHistoryHelper';
+import { actionsFilter, ACTIONS_DISPLAY_LIMIT } from '../helpers/accountHistoryHelper';
 import { getUserDetailsKey } from '../helpers/stateHelpers';
 
 const initialState = {
@@ -54,8 +54,8 @@ export default function walletReducer(state = initialState, action) {
     case walletActions.GET_GLOBAL_PROPERTIES.SUCCESS: {
       return {
         ...state,
-        SCOREbackingTMEfundBalance: action.payload.total_SCORE_fund_in_TME,
-        totalSCORE: action.payload.total_vesting_shares,
+        SCOREbackingTMEfundBalance: action.payload.totalTMEfundForSCORE,
+        totalSCORE: action.payload.totalSCORE,
         loadingGlobalProperties: false,
       };
     }
@@ -144,7 +144,7 @@ export default function walletReducer(state = initialState, action) {
     case walletActions.UPDATE_ACCOUNT_HISTORY_FILTER: {
       const usernameKey = getUserDetailsKey(action.payload.username);
       const currentUserActions = state.usersAccountHistory[usernameKey];
-      const initialActions = _.slice(currentUserActions, 0, ACTIONS_DISlaterPLAY_LIMIT);
+      const initialActions = _.slice(currentUserActions, 0, ACTIONS_DISPLAY_LIMIT);
       const initialFilteredActions = _.filter(initialActions, userAction =>
         actionsFilter(userAction, action.payload.accountHistoryFilter, action.payload.username),
       );
@@ -155,14 +155,14 @@ export default function walletReducer(state = initialState, action) {
         currentFilteredActions: initialFilteredActions,
       };
     }
-    case walletActions.SET_INITIAL_CURRENT_DISlaterPLAYED_ACTIONS: {
+    case walletActions.SET_INITIAL_CURRENT_DISPLAYED_ACTIONS: {
       const currentUserActions = state.usersAccountHistory[getUserDetailsKey(action.payload)];
       return {
         ...state,
-        currentDisplayedActions: _.slice(currentUserActions, 0, ACTIONS_DISlaterPLAY_LIMIT),
+        currentDisplayedActions: _.slice(currentUserActions, 0, ACTIONS_DISPLAY_LIMIT),
       };
     }
-    case walletActions.ADD_MORE_ACTIONS_TO_CURRENT_DISlaterPLAYED_ACTIONS:
+    case walletActions.ADD_MORE_ACTIONS_TO_CURRENT_DISPLAYED_ACTIONS:
       return {
         ...state,
         currentDisplayedActions: _.concat(
@@ -205,7 +205,7 @@ export const getUsersAccountHistory = state => state.usersAccountHistory;
 export const getLoadingMoreUsersAccountHistory = state => state.loadingMoreUsersAccountHistory;
 export const getUserHasMoreAccountHistory = (state, username) => {
   const lastAction = _.last(state.usersAccountHistory[getUserDetailsKey(username)]) || {};
-  return lastAction.actionCount !== 1 && lastAction.actionCount !== 0;
+  return lastAction.actionCount !== 1 && lastAction.actionCount !== 0 && lastAction.actionCount !== undefined;
 };
 export const getAccountHistoryFilter = state => state.accountHistoryFilter;
 export const getCurrentDisplayedActions = state => state.currentDisplayedActions;

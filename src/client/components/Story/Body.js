@@ -38,15 +38,15 @@ const getEmbed = link => {
 
 // Should return text(html) if returnType is text
 // Should return Object(React Compatible) if returnType is Object
-export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options = {}) {
-  const parsedJsonMetadata = jsonParse(jsonMetadata) || {};
-  parsedJsonMetadata.image = parsedJsonMetadata.image || [];
+export function getHtml(body, json = {}, returnType = 'Object', options = {}) {
+  const parsedjson = jsonParse(json) || {};
+  parsedjson.image = parsedjson.image || [];
 
   let parsedBody = body.replace(/<!--([\s\S]+?)(-->|$)/g, '(html comment removed: $1)');
 
   parsedBody.replace(imageRegex, img => {
-    if (_.filter(parsedJsonMetadata.image, i => i.indexOf(img) !== -1).length === 0) {
-      parsedJsonMetadata.image.push(img);
+    if (_.filter(parsedjson.image, i => i.indexOf(img) !== -1).length === 0) {
+      parsedjson.image.push(img);
     }
   });
 
@@ -101,13 +101,13 @@ const Body = props => {
     rewriteLinks: props.rewriteLinks,
     secureLinks: props.exitPageSetting,
   };
-  const htmlSections = getHtml(props.body, props.jsonMetadata, 'Object', options);
+  const htmlSections = getHtml(props.body, props.json, 'Object', options);
   return <div className={classNames('Body', { 'Body--full': props.full })}>{htmlSections}</div>;
 };
 
 Body.propTypes = {
   body: PropTypes.string,
-  jsonMetadata: PropTypes.string,
+  json: PropTypes.string,
   full: PropTypes.bool,
   rewriteLinks: PropTypes.bool,
   exitPageSetting: PropTypes.bool,
@@ -115,7 +115,7 @@ Body.propTypes = {
 
 Body.defaultProps = {
   body: '',
-  jsonMetadata: '',
+  json: '',
   full: false,
   rewriteLinks: false,
   exitPageSetting: true,

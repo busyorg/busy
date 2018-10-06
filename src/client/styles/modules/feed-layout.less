@@ -7,7 +7,7 @@
 	justify-content: center;
 
   @media @small {
-    padding: 0 @mobile-padding;
+    padding: 0;
   }
 
   @media @large {
@@ -67,16 +67,20 @@
 		padding-right: @padding;
 
     @media @small {
-      width: calc(100% - (@right-width + @margin));
+			width: calc(100% - (@right-width + @margin));
     }
 
     @media @medium {
       width: calc(100% - (@left-width + @right-width + 2 * @margin) );
-      margin-left: @margin;
+			margin-left: @margin;
 		}
 		@media @large { 
 			width: calc(100% - (@left-width + @right-width) );
       margin-left: @margin;
+		}
+		@media (max-width: @small-bp) {
+			padding-left: 0px !important;
+			padding-right: 0px !important;
 		}
   }
 }
