@@ -75,12 +75,12 @@ class Avatar extends React.Component {
 			height: `${size}px`,
 		};
 
-		const url = getAvatarURL(username, size);
+		const url = getAvatarURL(profilePicture, size);
 		
 		if (username) {
 			style = {
 				...style,
-				backgroundImage: `url(${profilePicture || url})`,
+				backgroundImage: `url(${url})`,
 			};
 		}
 		return (
@@ -91,8 +91,13 @@ class Avatar extends React.Component {
 	
 export default Avatar;
 
-export function getAvatarURL(username, size = 100) {
-	return size > 64
-		? `https://steemitimages.com/128x128/https://steemitimages.com/DQmb2HNSGKN3pakguJ4ChCRjgkVuDN9WniFRPmrxoJ4sjR4`
-		: `https://steemitimages.com/64x64/https://steemitimages.com/DQmb2HNSGKN3pakguJ4ChCRjgkVuDN9WniFRPmrxoJ4sjR4`;
+export function getAvatarURL(profilePicture, size = 100) {
+
+	return profilePicture ? ( size > 64
+			? `https://steemitimages.com/128x128/${profilePicture}`
+			: `https://steemitimages.com/64x64/${profilePicture}`
+		) : ( size > 64
+			? `https://steemitimages.com/128x128/https://steemitimages.com/DQmb2HNSGKN3pakguJ4ChCRjgkVuDN9WniFRPmrxoJ4sjR4`
+			: `https://steemitimages.com/64x64/https://steemitimages.com/DQmb2HNSGKN3pakguJ4ChCRjgkVuDN9WniFRPmrxoJ4sjR4`
+		)
 }
