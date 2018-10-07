@@ -182,17 +182,17 @@ class PostContent extends React.Component {
     if (isBannedPost(content)) return <DMCARemovedMessage className="center" />;
 
     const postMetaData = jsonParse(content.json);
-    const nativeHost = appUrl || 'https://alpha.weyoume.src';
+    const nativeHost = appUrl || 'https://alpha.weyoume.io';
     let canonicalHost = nativeHost;
 
     if (postMetaData && _.indexOf(postMetaData.app, 'steemit') === 0) {
       canonicalHost = 'https://steemit.com';
     }
     if (postMetaData && _.indexOf(postMetaData.app, 'weyoume') === 0) {
-      canonicalHost = 'https://alpha.weyoume.src';
+      canonicalHost = 'https://alpha.weyoume.io';
     }
     if (postMetaData && _.indexOf(postMetaData.app, 'weapp') === 0) {
-      canonicalHost = 'https://alpha.weyoume.src';
+      canonicalHost = 'https://alpha.weyoume.io';
     }
 
     const userVote = _.find(content.active_votes, { voter: user.name }) || {};
