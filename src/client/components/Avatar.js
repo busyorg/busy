@@ -32,13 +32,23 @@ class Avatar extends React.Component {
 	};
 
 	componentDidMount(){
-		this.getProfilePicture();
 		var help;
+		var cached;
 		if(typeof window !== 'undefined' && window.wehelpjs ){
 			help = window.wehelpjs
+			if(!window.ppc) window.ppc = []
+			cached = window.ppc
 		} else if(typeof global !== 'undefined' && global.wehelpjs ){
 			help = global.wehelpjs			
+			if(!global.ppc) global.ppc = []
+			cached = global.ppc
 		}		
+		if(cached[this.props.username]){
+			this.setState({
+				profilePicture: cached[this.props.username]
+			})
+			this.forceUpdate()
+		}
 		help.api.getAccountsAsync([this.props.username])
 		.then((res,err)=>{
 			if(!err && res){
@@ -48,6 +58,7 @@ class Avatar extends React.Component {
 				this.setState({
 					profilePicture: profilePicture
 				})
+				cached[this.props.username] = profilePicture
 				this.forceUpdate()
 			} else if(err){
 				console.error('err', err)
