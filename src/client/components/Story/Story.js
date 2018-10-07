@@ -279,7 +279,7 @@ class Story extends React.Component {
 	getName = async (author) => {
 		let help = (window && window.wehelpjs) ? window.wehelpjs : (global && global.wehelpjs) ? global.wehelpjs : undefined
 		if(help){
-			return await help.api.getAccounts([author]).then(res=>{return JSON.stringify(res.json)['profile']['name']})
+			return await help.api.getAccounts([author]).then(res=>{return JSON.stringify(res.json)['profile'] ? JSON.stringify(res.json)['profile']['name'] : author}).catch(err=>{console.error('err', err)})
 		} else {
 			return author
 		}
