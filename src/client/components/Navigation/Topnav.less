@@ -7,7 +7,31 @@
   background-color: @white;
   height: @nav-height;
   line-height: @nav-height;
-  border-bottom: @base-border;
+	border-bottom: @base-border;
+	overflow: hidden;
+	&-dropdown {
+		&-avatar {
+			&-desktop {
+				display: none !important;
+				@media (min-width: @small-bp - 1){
+					display: flex !important;
+				}
+			}
+			&-mobile {
+				display: none !important;
+				@media (max-width: @small-bp){
+					display: flex !important;
+				}
+			}
+		}
+		&-caret {
+			display: flex !important;
+			margin-bottom: -1px;
+			@media (max-width: @small-bp){
+				display: none !important;
+			}
+		}
+	}
 
   &__brand {
     font-size: 24px;
@@ -163,9 +187,15 @@
 
   &__user {
     display: flex !important;
-    align-items: center;
-    height: 54px;
-		margin-top: -3px;
+		align-items: center;
+		height: 100%;
+		max-height: 100%;
+    // height: 54px;
+		// margin-top: 0px;
+		&::before {
+			bottom: 0px;
+			max-height: 100%;
+		}
     &__username {
       display: none;
       margin-left: 8px;
@@ -182,6 +212,10 @@
   }
 
   &__link {
+		&::before {
+			bottom: 0px;
+			max-height: 100%;
+		}
     &--light {
       i {
         font-weight: normal !important;

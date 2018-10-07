@@ -216,10 +216,13 @@ class Topnav extends React.Component {
               </Popover>
             </BTooltip>
           </Menu.Item>
-          {/* <Menu.Item key="user" className="Topnav__item-user">
+          <Menu.Item key="user" className="Topnav__item-user-main Topnav-dropdown-avatar-desktop">
             <Link className="Topnav__user" to={`/@${username}`} onClick={Topnav.handleScrollToTop}>
+							<a className="Topnav__link Topnav__link--light ">
+								<Avatar username={username} size={36} />
+              </a>
             </Link>
-          </Menu.Item> */}
+          </Menu.Item>
           <Menu.Item key="more" className="Topnav__menu--icon">
             <Popover
 							className="popover-custom"
@@ -263,10 +266,10 @@ class Topnav extends React.Component {
                 </PopoverMenu>
               }
             >
-              <a className="Topnav__link Topnav__link--light">
+              <a className="Topnav__link Topnav__link--light Topnav-dropdown-avatar-mobile">
 								<Avatar username={username} size={36} />
-                {/* <i className="iconfont icon-caretbottom" /> */}
               </a>
+							<i className="iconfont icon-caretbottom Topnav-dropdown-caret" />
             </Popover>
           </Menu.Item>
         </Menu>
