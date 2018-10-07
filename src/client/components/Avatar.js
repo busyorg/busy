@@ -93,6 +93,6 @@ export default Avatar;
 
 export function getAvatarURL(username, size = 100) {
 	return size > 64
-		? `https://steemitimages.com/128x128/https://steemitimages.com/DQmb2HNSGKN3pakguJ4ChCRjgkVuDN9WniFRPmrxoJ4sjR4`;
-		: `https://steemitimages.com/64x64/https://steemitimages.com/DQmb2HNSGKN3pakguJ4ChCRjgkVuDN9WniFRPmrxoJ4sjR4`
+		? `https://steemitimages.com/128x128/https://steemitimages.com/DQmb2HNSGKN3pakguJ4ChCRjgkVuDN9WniFRPmrxoJ4sjR4`
+		: `https://steemitimages.com/64x64/https://steemitimages.com/DQmb2HNSGKN3pakguJ4ChCRjgkVuDN9WniFRPmrxoJ4sjR4`;
 }
