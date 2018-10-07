@@ -10752,7 +10752,7 @@ welitejs@1.1.130:
   dependencies:
     ws "^4.0.0"
 
-weliterpcjs@^1.1.31:
+weliterpcjs@^1.1.32:
   version "1.1.32"
   resolved "https://registry.yarnpkg.com/weliterpcjs/-/weliterpcjs-1.1.32.tgz#f49e9de61d89f2f570d0fb1f3b47311884011dfe"
   dependencies:

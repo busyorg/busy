@@ -39,9 +39,11 @@ class Avatar extends React.Component {
 			if(!err && res){
 				let profile = res[0].json ? JSON.parse(res[0].json)['profile'] : undefined
 				let profilePicture = profile ? profile['profile_image'] : undefined
+				console.log('profilePicture', profilePicture)
 				this.setState({
-					profilePicture
+					profilePicture: profilePicture
 				})
+				this.forceUpdate()
 			} else if(err){
 				console.error('err', err)
 			}
@@ -59,7 +61,7 @@ class Avatar extends React.Component {
 	};
 
   render(){
-		let { username, size, user } = this.props;
+		let { username, size } = this.props;
 		let { profilePicture } = this.state
 		// let json = JSON.parse()
 		let style = {
@@ -67,7 +69,7 @@ class Avatar extends React.Component {
 			width: `${size}px`,
 			height: `${size}px`,
 		};
-		console.log('profilePicture2', profilePicture)
+
 		const url = getAvatarURL(username, size);
 		
 		if (username) {
