@@ -20,7 +20,8 @@ export function getDiscussionsFromAPI(sortBy, query, blockchainAPI) {
     case 'blog':
     case 'comments':
 		case 'promoted':
-		
+			console.log(`getting get_discussions_by_${sortBy}`)
+			console.log(`query`, [query])
 			var ret = blockchainAPI.sendAsync(`get_discussions_by_${sortBy}`, [query])
 			.catch(err=>{console.error('err', err)});
 			return ret

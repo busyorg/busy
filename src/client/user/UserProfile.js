@@ -43,7 +43,7 @@ export default class UserProfile extends React.Component {
   };
 
   static defaultProps = {
-		sortBy: 'feed',
+		sortBy: 'trending',
     limit: 10,
     location: {},
     getFeedContent: () => {},
