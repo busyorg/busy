@@ -90,7 +90,8 @@ class Story extends React.Component {
 
     this.state = {
       showHiddenStoryPreview: false,
-      displayLoginModal: false,
+			displayLoginModal: false,
+			accountName: undefined
     };
 
     this.getDisplayStoryPreview = this.getDisplayStoryPreview.bind(this);
@@ -109,7 +110,9 @@ class Story extends React.Component {
 	}
 	
 	componentDidMount(){
-		this.getName(this.props.post.author)
+		if(this.props.post){
+			this.getName(this.props.post.author)
+		}
 	}
 	handleTransferClick = () => {
 		const { post } = this.props;
@@ -311,9 +314,12 @@ class Story extends React.Component {
       rewardFund,
       ownPost,
       sliderMode,
-			defaultVotePercent,
+			defaultVotePercent
+		} = this.props;
+		
+		const {
 			accountName
-    } = this.props;
+		} = this.state;
 
     if (isPostDeleted(post)) return <div />;
 
