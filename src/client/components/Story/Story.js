@@ -105,7 +105,12 @@ class Story extends React.Component {
     this.handleFollowClick = this.handleFollowClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
     this.handleTransferClick = this.handleTransferClick.bind(this);
-  }
+    this.getName = this.getName.bind(this);
+	}
+	
+	componentDidMount(){
+		this.getName(this.props.post.author)
+	}
 	handleTransferClick = () => {
 		const { post } = this.props;
     openTransfer(post.author);
@@ -276,14 +281,20 @@ class Story extends React.Component {
     );
 	}
 	
-	getName = async (author) => {
+	getName = (author) => {
 		let help = (window && window.wehelpjs) ? window.wehelpjs : (global && global.wehelpjs) ? global.wehelpjs : undefined
 		if(help){
-			return await help.api.getAccounts([author]).then(res=>{return JSON.stringify(res.json)['profile'] ? JSON.stringify(res.json)['profile']['name'] : author}).catch(err=>{console.error('err', err)})
+			help.api.getAccountsAsync([author]).then(res=>{
+				let name = (res[0] && res[0].json && JSON.stringify(res[0].json)['profile']) ? JSON.stringify(res[0].json)['profile']['name'] : author
+				this.setState({
+					accountName: name
+				})
+				this.forceUpdate()
+			})
+			.catch(err=>{console.error('err', err)})
 		} else {
-			return author
+			// return author
 		}
-
 	}
 
   render() {
@@ -300,7 +311,8 @@ class Story extends React.Component {
       rewardFund,
       ownPost,
       sliderMode,
-			defaultVotePercent
+			defaultVotePercent,
+			accountName
     } = this.props;
 
     if (isPostDeleted(post)) return <div />;
@@ -353,7 +365,7 @@ class Story extends React.Component {
 												</Action>
 											}
 											>
-											<span className="account_name">{`${this.getName(post.author)}`}</span>
+											<span className="account_name">{`${accountName || post.author}`}</span>
 											<span className="username">{`@${post.author}`}</span>
 										</BTooltip>
                     {/* <ReputationTag reputation={post.author_reputation} /> */}
