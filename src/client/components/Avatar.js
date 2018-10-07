@@ -33,25 +33,29 @@ class Avatar extends React.Component {
 
 	componentDidMount(){
 		this.getProfilePicture();
-		if(window.wehelpjs){
-			window.wehelpjs.api.getAccountsAsync([this.props.username])
-			.then((res,err)=>{
-				if(!err && res){
-					let profile = res[0].json ? JSON.parse(res[0].json)['profile'] : undefined
-					let profilePicture = profile ? profile['profile_image'] : undefined
-					console.log('profilePicture', profilePicture)
-					this.setState({
-						profilePicture: profilePicture
-					})
-					this.forceUpdate()
-				} else if(err){
-					console.error('err', err)
-				}
-			})
-			.catch(err=>{
+		var help;
+		if(typeof window !== 'undefined' && window.wehelpjs ){
+			help = window.wehelpjs
+		} else if(typeof global !== 'undefined' && global.wehelpjs ){
+			help = global.wehelpjs			
+		}		
+		help.api.getAccountsAsync([this.props.username])
+		.then((res,err)=>{
+			if(!err && res){
+				let profile = res[0].json ? JSON.parse(res[0].json)['profile'] : undefined
+				let profilePicture = profile ? profile['profile_image'] : undefined
+				console.log('profilePicture', profilePicture)
+				this.setState({
+					profilePicture: profilePicture
+				})
+				this.forceUpdate()
+			} else if(err){
 				console.error('err', err)
-			})
-		}
+			}
+		})
+		.catch(err=>{
+			console.error('err', err)
+		})
 	};
 
 	componentDidUpdate(){
