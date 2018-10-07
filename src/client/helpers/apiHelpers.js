@@ -104,11 +104,11 @@ export const getAllSearchResultPages = search => {
   const promises = [];
 
   for (let i = 0; i <= 10; i += 1) {
-    promises.push(
-      fetch(`https://api.asksteem.com/search?q=${search}&types=post&pg=${i}`).then(res =>
-        res.json(),
-      ),
-    );
+    // promises.push(
+    //   fetch(`https://api.asksteem.com/search?q=${search}&types=post&pg=${i}`).then(res =>
+    //     res.json(),
+    //   ),
+    // );
   }
 
   return Promise.all(promises);

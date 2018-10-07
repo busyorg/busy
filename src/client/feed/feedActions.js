@@ -22,22 +22,22 @@ export const GET_MORE_REPLIES = createAsyncActionType('@user/GET_MORE_REPLIES');
 
 export const GET_BOOKMARKS = createAsyncActionType('@bookmarks/GET_BOOKMARKS');
 
-export const getFeedContent = ({ sortBy = 'feed', category='all', limit = 20 }) => (
+export const getFeedContent = ({ sortBy, category, limit = 20 }) => (
   dispatch,
   getState,
   { blockchainAPI },
 ) =>
   dispatch({
 		type: GET_FEED_CONTENT.ACTION,
-    payload: getDiscussionsFromAPI(sortBy || 'feed', { tag: category || 'all', limit }, blockchainAPI),
+    payload: getDiscussionsFromAPI(sortBy, { tag: category, limit }, blockchainAPI),
     meta: {
-      sortBy: sortBy || 'feed',
-      category: category || 'all',
+      sortBy: sortBy,
+      category: category,
       limit,
     },
   });
 
-export const getMoreFeedContent = ({ sortBy='feed', category='all', limit = 20 }) => (
+export const getMoreFeedContent = ({ sortBy, category, limit = 20 }) => (
   dispatch,
   getState,
   { blockchainAPI },
@@ -57,9 +57,9 @@ export const getMoreFeedContent = ({ sortBy='feed', category='all', limit = 20 }
   return dispatch({
     type: GET_MORE_FEED_CONTENT.ACTION,
     payload: getDiscussionsFromAPI(
-      sortBy || 'feed',
+      sortBy,
       {
-        tag: category || 'all',
+        tag: category,
         limit: limit + 1,
         start_author: startAuthor,
         start_permlink: startPermlink,
@@ -67,8 +67,8 @@ export const getMoreFeedContent = ({ sortBy='feed', category='all', limit = 20 }
       blockchainAPI,
     ).then(postsData => postsData.slice(1)),
     meta: {
-      sortBy: sortBy || 'feed',
-      category: category || 'all',
+      sortBy: sortBy,
+      category: category,
       limit,
     },
   });
