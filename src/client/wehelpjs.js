@@ -1,5 +1,4 @@
 import wehelpjs from 'wehelpjs';
-require('dotenv').config()
 
 if(typeof window !== 'undefined'){
 	window.wehelpjs = wehelpjs
