@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 // @connect((state, ownProps) => ({
 // 		user: getUser(state, ownProps.username),
 // }))
-import help from 'wehelpjs';
 
 class Avatar extends React.Component {
 	
@@ -34,21 +33,25 @@ class Avatar extends React.Component {
 
 	componentDidMount(){
 		this.getProfilePicture();
-		help.api.getAccountsAsync([this.props.username])
-		.then((res,err)=>{
-			if(!err && res){
-				let profile = res[0].json ? JSON.parse(res[0].json)['profile'] : undefined
-				let profilePicture = profile ? profile['profile_image'] : undefined
-				this.setState({
-					profilePicture
-				})
-			} else if(err){
+		if(window.wehelpjs){
+			window.wehelpjs.api.getAccountsAsync([this.props.username])
+			.then((res,err)=>{
+				if(!err && res){
+					let profile = res[0].json ? JSON.parse(res[0].json)['profile'] : undefined
+					let profilePicture = profile ? profile['profile_image'] : undefined
+					console.log('profilePicture', profilePicture)
+					this.setState({
+						profilePicture: profilePicture
+					})
+					this.forceUpdate()
+				} else if(err){
+					console.error('err', err)
+				}
+			})
+			.catch(err=>{
 				console.error('err', err)
-			}
-		})
-		.catch(err=>{
-			console.error('err', err)
-		})
+			})
+		}
 	};
 
 	componentDidUpdate(){
@@ -59,7 +62,7 @@ class Avatar extends React.Component {
 	};
 
   render(){
-		let { username, size, user } = this.props;
+		let { username, size } = this.props;
 		let { profilePicture } = this.state
 		// let json = JSON.parse()
 		let style = {
@@ -67,7 +70,7 @@ class Avatar extends React.Component {
 			width: `${size}px`,
 			height: `${size}px`,
 		};
-		console.log('profilePicture2', profilePicture)
+
 		const url = getAvatarURL(username, size);
 		
 		if (username) {

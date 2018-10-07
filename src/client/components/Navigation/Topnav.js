@@ -218,9 +218,9 @@ class Topnav extends React.Component {
           </Menu.Item>
           <Menu.Item key="user" className="Topnav__item-user-main Topnav-dropdown-avatar-desktop">
             <Link className="Topnav__user" to={`/@${username}`} onClick={Topnav.handleScrollToTop}>
-							<a className="Topnav__link Topnav__link--light ">
-								<Avatar username={username} size={36} />
-              </a>
+							{/* <a className="Topnav__link Topnav__link--light "> */}
+							<Avatar username={username} size={36} />
+              {/* </a> */}
             </Link>
           </Menu.Item>
           <Menu.Item key="more" className="Topnav__menu--icon">
