@@ -48,25 +48,26 @@ class Avatar extends React.Component {
 				profilePicture: cached[this.props.username]
 			})
 			this.forceUpdate()
-		}
-		help.api.getAccountsAsync([this.props.username])
-		.then((res,err)=>{
-			if(!err && res){
-				let profile = res[0].json ? JSON.parse(res[0].json)['profile'] : undefined
-				let profilePicture = profile ? profile['profile_image'] : undefined
-				console.log('profilePicture', profilePicture)
-				this.setState({
-					profilePicture: profilePicture
-				})
-				cached[this.props.username] = profilePicture
-				this.forceUpdate()
-			} else if(err){
+		} else {
+			help.api.getAccountsAsync([this.props.username])
+			.then((res,err)=>{
+				if(!err && res){
+					let profile = res[0].json ? JSON.parse(res[0].json)['profile'] : undefined
+					let profilePicture = profile ? profile['profile_image'] : undefined
+					console.log('profilePicture', profilePicture)
+					this.setState({
+						profilePicture: profilePicture
+					})
+					cached[this.props.username] = profilePicture
+					this.forceUpdate()
+				} else if(err){
+					console.error('err', err)
+				}
+			})
+			.catch(err=>{
 				console.error('err', err)
-			}
-		})
-		.catch(err=>{
-			console.error('err', err)
-		})
+			})
+		}
 	};
 
 	componentDidUpdate(){
