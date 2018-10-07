@@ -274,7 +274,17 @@ class Story extends React.Component {
     ) : (
       hiddenStoryPreviewMessage
     );
-  }
+	}
+	
+	getName = async (author) => {
+		let help = (window && window.wehelpjs) ? window.wehelpjs : (global && global.wehelpjs) ? global.wehelpjs : undefined
+		if(help){
+			return await help.api.getAccounts([author]).then(res=>{return JSON.stringify(res.json)['profile']['name']})
+		} else {
+			return author
+		}
+
+	}
 
   render() {
     const {
@@ -343,7 +353,7 @@ class Story extends React.Component {
 												</Action>
 											}
 											>
-											<span className="account_name">{`${post.author}`}</span>
+											<span className="account_name">{`${this.getName(post.author)}`}</span>
 											<span className="username">{`@${post.author}`}</span>
 										</BTooltip>
                     {/* <ReputationTag reputation={post.author_reputation} /> */}
