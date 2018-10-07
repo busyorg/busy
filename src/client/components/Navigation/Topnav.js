@@ -260,6 +260,9 @@ class Topnav extends React.Component {
                   <PopoverMenuItem key="settings">
                     <FormattedMessage id="settings" defaultMessage="Settings" />
                   </PopoverMenuItem>
+									<PopoverMenuItem key="edit-profile">
+                    <FormattedMessage id="edit-profile" defaultMessage="Edit Profile" />
+                  </PopoverMenuItem>
                   <PopoverMenuItem key="logout">
                     <FormattedMessage id="logout" defaultMessage="Logout" />
                   </PopoverMenuItem>
