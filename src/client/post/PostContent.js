@@ -194,6 +194,9 @@ class PostContent extends React.Component {
     if (postMetaData && _.indexOf(postMetaData.app, 'weapp') === 0) {
       canonicalHost = 'https://alpha.weyoume.io';
     }
+    if (postMetaData && _.indexOf(postMetaData.app, 'alpha.weyoume') === 0) {
+      canonicalHost = 'https://alpha.weyoume.io';
+    }
 
     const userVote = _.find(content.active_votes, { voter: user.name }) || {};
 

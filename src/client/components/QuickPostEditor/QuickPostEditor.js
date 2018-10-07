@@ -102,7 +102,7 @@ class QuickPostEditor extends React.Component {
 
     const metaData = {
       community: 'weyoume',
-      app: `weapp/${version}`,
+      app: `alpha.weyoume/${version}`,
       format: 'markdown',
     };
 
