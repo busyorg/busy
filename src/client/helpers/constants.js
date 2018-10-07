@@ -1,7 +1,7 @@
 export const knownDomains = [
   'localhost',
 	'busy.org',
-	'alpha.weyoume.src',
+	'alpha.weyoume.io',
   'staging.busy.org',
   'steemit.com',
   'steem.io',
@@ -10,12 +10,12 @@ export const knownDomains = [
   'utopian.io',
   'coinmarketcap.com',
   'youtube.com',
-  'weyoume.src',
-  'auth.weyoume.src',
-  'alpha.weyoume.src',
-  'steem.weyoume.src',
-  'steemit.weyoume.src',
-  'bitshares.weyoume.src',
+  'weyoume.io',
+  'auth.weyoume.io',
+  'alpha.weyoume.io',
+  'steem.weyoume.io',
+  'steemit.weyoume.io',
+  'bitshares.weyoume.io',
 ];
 
 export const people = [

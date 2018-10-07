@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { getUseBeta } from '../../reducers';
 
 const Redirect = ({ useBeta }) => {
-  if (typeof window !== 'undefined' && window.location.host === 'alpha.weyoume.src' && useBeta) {
+  if (typeof window !== 'undefined' && window.location.host === 'alpha.weyoume.io' && useBeta) {
     const url = window.location.href.split('/');
-    url[2] = 'alpha.weyoume.src';
+    url[2] = 'alpha.weyoume.io';
     window.location.replace(url.join('/'));
   }
 
