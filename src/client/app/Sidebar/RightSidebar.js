@@ -79,7 +79,7 @@ export default class RightSidebar extends React.Component {
           <Route path="/active/:tag" component={FeedSidebar} />
           <Route path="/hot/:tag" component={FeedSidebar} />
           <Route path="/promoted/:tag" component={FeedSidebar} />
-          <Route
+          {/* <Route
             path="/@:name"
             render={() =>
               authenticated && (
@@ -90,8 +90,8 @@ export default class RightSidebar extends React.Component {
                 />
               )
             }
-          />
-          <Route
+          /> */}
+          {/* <Route
             path="/"
             render={() => (
               <div>
@@ -107,7 +107,7 @@ export default class RightSidebar extends React.Component {
                 )}
               </div>
             )}
-          />
+          /> */}
         </Switch>
         {showPostRecommendation && <PostRecommendation isAuthFetching={isAuthFetching} />}
       </div>
