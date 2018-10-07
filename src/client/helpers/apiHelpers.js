@@ -10,7 +10,7 @@ import * as accountHistoryConstants from '../../common/constants/accountHistory'
  * @param blockchainAPI - The same giving to Blockchain API
  * @returns {function}
  */
-export function getDiscussionsFromAPI(sortBy='feed', query, blockchainAPI) {
+export function getDiscussionsFromAPI(sortBy, query, blockchainAPI) {
   switch (sortBy) {
     case 'feed':
     case 'hot':

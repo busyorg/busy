@@ -31,7 +31,7 @@ class Page extends React.Component {
   };
 
   static fetchData({ store, match }) {
-    const { sortBy='feed', category='all' } = match.params;
+    const { sortBy, category } = match.params;
     return store.dispatch(getFeedContent({ sortBy, category, limit: 10 }));
   }
 
