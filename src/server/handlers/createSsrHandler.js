@@ -13,7 +13,7 @@ import renderSsrPage from '../renderers/ssrRenderer';
 // eslint-disable-next-line import/no-dynamic-require
 const assets = require(process.env.MANIFEST_PATH);
 
-const ssrTimeout = 10;
+const ssrTimeout = 500;
 
 function createTimeout(timeout, promise) {
   return new Promise((resolve, reject) => {
