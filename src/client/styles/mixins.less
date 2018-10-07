@@ -5,16 +5,34 @@
 .colorize-button(@color, @border-color) {
   background: @color !important;
   border-color: @border-color !important;
-
   &:hover,
   &:active,
   &.active {
-    background: darken(@color, 15%, 'relative') !important;
+		background: darken(@color, 15%, 'relative') !important;
     border-color: darken(@border-color, 15%, 'relative') !important;
   }
 
   &:disabled {
-    background: lighten(@color, 20%, 'relative') !important;
+		background: lighten(@color, 20%, 'relative') !important;
+    border-color: lighten(@border-color, 20%, 'relative') !important;
+  }
+}
+
+.colorize-button(@color, @border-color, @text-color) {
+  background: @color !important;
+  border-color: @border-color !important;
+	color: @text-color !important;
+  &:hover,
+  &:active,
+  &.active {
+		background: darken(@color, 15%, 'relative') !important;
+		color: darken(@text-color, 15%, 'relative') !important;
+    border-color: darken(@border-color, 15%, 'relative') !important;
+  }
+
+  &:disabled {
+		background: lighten(@color, 20%, 'relative') !important;
+		color: lighten(@text-color, 29%, 'relative') !important;
     border-color: lighten(@border-color, 20%, 'relative') !important;
   }
 }
@@ -42,7 +60,8 @@
 	border: 2px solid !important;
   border-color: @border-color !important;
   &:hover,
-  &:active,
+	&:active,
+	&:focus,
   &.active {
 		background: fade(darken(@color, 15%, 'relative'),0%) !important;
 		color: darken(@color, 20%) !important;

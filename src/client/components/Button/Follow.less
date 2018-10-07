@@ -3,9 +3,12 @@
 
 .Follow {
   .btn;
-  .btn-primary;
-
-  .colorize-button(@primary-color, lighten(@primary-button-border,15));
+	.btn-primary;
+	.colorize-button(@white, lighten(@primary-button-border,100%), darken(@primary-color, 5%));
+	font-weight: 500;
+	&.Following {
+		.colorize-button(@primary-color, lighten(@primary-button-border,15%), @white);
+	}
 
   color: @white-darker;
 

@@ -103,7 +103,7 @@ export default class RightSidebar extends React.Component {
                     onRefresh={this.handleInterestingPeopleRefresh}
                   />
                 ) : (
-                  <div />
+                  <div/>
                 )}
               </div>
             )}

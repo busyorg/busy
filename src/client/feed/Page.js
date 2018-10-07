@@ -16,7 +16,7 @@ import ScrollToTop from '../components/Utils/ScrollToTop';
 import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 import QuickPostEditor from '../components/QuickPostEditor/QuickPostEditor';
 import UserWallet from '../user/UserWallet';
-
+// import Chin from '../components/Chin/Chin'
 @connect(state => ({
   authenticated: getIsAuthenticated(state),
   loaded: getIsLoaded(state),
@@ -31,7 +31,7 @@ class Page extends React.Component {
   };
 
   static fetchData({ store, match }) {
-    const { sortBy, category } = match.params;
+    const { sortBy='feed', category='all' } = match.params;
     return store.dispatch(getFeedContent({ sortBy, category, limit: 10 }));
   }
 
@@ -101,6 +101,7 @@ class Page extends React.Component {
 						</Affix>
           </div>
         </div>
+				{/* <Chin/> */}
       </div>
     );
   }

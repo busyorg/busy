@@ -10,7 +10,7 @@ import * as accountHistoryConstants from '../../common/constants/accountHistory'
  * @param blockchainAPI - The same giving to Blockchain API
  * @returns {function}
  */
-export function getDiscussionsFromAPI(sortBy, query, blockchainAPI) {
+export function getDiscussionsFromAPI(sortBy='feed', query, blockchainAPI) {
   switch (sortBy) {
     case 'feed':
     case 'hot':
@@ -22,7 +22,7 @@ export function getDiscussionsFromAPI(sortBy, query, blockchainAPI) {
 		case 'promoted':
 		
 			var ret = blockchainAPI.sendAsync(`get_discussions_by_${sortBy}`, [query])
-			// .catch(err=>{console.error('err', err)});
+			.catch(err=>{console.error('err', err)});
 			return ret
     default:
       throw new Error('There is not API endpoint defined for this sorting');

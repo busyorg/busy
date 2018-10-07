@@ -28,6 +28,7 @@ import {
   getMoreUserAccountHistory,
 } from '../wallet/walletActions';
 import { getAccount } from './usersActions';
+import WalletSidebar from '../components/Sidebar/WalletSidebar';
 
 @withRouter
 @connect(
@@ -122,7 +123,8 @@ class Wallet extends Component {
       loadingMoreUsersAccountHistory,
       userHasMoreActions,
       usersAccountHistory,
-      cryptosPriceHistory,
+			cryptosPriceHistory,
+			isCurrentUser
     } = this.props;
     const userKey = getUserDetailsKey(user.name);
     const transactions = _.get(usersTransactions, userKey, []);
@@ -140,7 +142,8 @@ class Wallet extends Component {
     const TMErateLoading = _.isNull(currentTMERate) || _.isNull(currentTSDRate);
 
     return (
-      <div>
+			<div className="UserWalletContent">
+				<WalletSidebar isCurrentUser={isCurrentUser} showMarket={false} />
         <UserWalletSummary
           user={user}
           loading={user.fetching}

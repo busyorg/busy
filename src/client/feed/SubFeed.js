@@ -35,9 +35,9 @@ import PostModal from '../post/PostModalContainer';
     feed: getFeed(state),
   }),
   dispatch => ({
-    getFeedContent: (sortBy, category) => dispatch(getFeedContent({ sortBy, category, limit: 10 })),
+    getFeedContent: (sortBy, category) => dispatch(getFeedContent({ sortBy: sortBy || 'feed', category: category || 'all', limit: 10 })),
     getMoreFeedContent: (sortBy, category) =>
-      dispatch(getMoreFeedContent({ sortBy, category, limit: 10 })),
+      dispatch(getMoreFeedContent({ sortBy: sortBy || 'feed', category: category || 'all', limit: 10 })),
     showPostModal: post => dispatch(showPostModal(post)),
   }),
 )
@@ -98,7 +98,7 @@ class SubFeed extends React.Component {
       if (!fetching) {
         this.props.getFeedContent('feed', user.name);
       }
-    } else if (oldSortBy !== newSortBy || oldCategory !== newCategory || (!wasLoaded && isLoaded)) {
+    } else if ((newSortBy && newCategory) && (oldSortBy !== newSortBy) || oldCategory !== newCategory || (!wasLoaded && isLoaded)) {
       const fetching = getFeedLoadingFromState(newSortBy || 'trending', newCategory, feed);
       if (!fetching) {
         this.props.getFeedContent(newSortBy || 'trending', newCategory);

@@ -58,7 +58,7 @@ class WalletSidebar extends React.Component {
   };
 
   render() {
-    const { match, user, isCurrentUser } = this.props;
+    const { match, user, isCurrentUser, showPowerControls, showTransferControls, showMarket, showEarnings } = this.props;
     const ownProfile = match.params.name === user.name || isCurrentUser;
     const cryptos = [TME.symbol, TSD.symbol];
 
@@ -66,7 +66,7 @@ class WalletSidebar extends React.Component {
       <div className="WalletSidebar">
         <Action big className="WalletSidebar__transfer" primary onClick={this.handleOpenTransfer}>
           <FormattedMessage id="send" defaultMessage="Send" />
-					<img src="/images/dollar.png" className="send-dollar on-right biggish"/>
+					{/* <img src="/images/dollar.png" className="send-dollar on-right biggish"/> */}
         </Action>
         {ownProfile && (
           <div className="WalletSidebar__power">
@@ -77,8 +77,10 @@ class WalletSidebar extends React.Component {
               <FormattedMessage id="power_down" defaultMessage="Power down" />
             </Action>
           </div>
-        )}
+				)}
+				{ showMarket && 
         <CryptoTrendingCharts cryptos={cryptos} />
+				}
         {ownProfile && <ClaimRewardsBlock />}
       </div>
     );
