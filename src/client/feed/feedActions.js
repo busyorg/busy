@@ -22,7 +22,7 @@ export const GET_MORE_REPLIES = createAsyncActionType('@user/GET_MORE_REPLIES');
 
 export const GET_BOOKMARKS = createAsyncActionType('@bookmarks/GET_BOOKMARKS');
 
-export const getFeedContent = ({ sortBy='feed', category, limit = 20 }) => (
+export const getFeedContent = ({ sortBy='trending', category, limit = 20 }) => (
   dispatch,
   getState,
   { blockchainAPI },
@@ -31,8 +31,8 @@ export const getFeedContent = ({ sortBy='feed', category, limit = 20 }) => (
 		type: GET_FEED_CONTENT.ACTION,
     payload: getDiscussionsFromAPI(sortBy, { tag: category, limit }, blockchainAPI),
     meta: {
-      sortBy: sortBy,
-      category: category,
+      sortBy,
+      category: category || 'all',
       limit,
     },
   });
@@ -67,8 +67,8 @@ export const getMoreFeedContent = ({ sortBy, category, limit = 20 }) => (
       blockchainAPI,
     ).then(postsData => postsData.slice(1)),
     meta: {
-      sortBy: sortBy,
-      category: category,
+      sortBy,
+      category: category || 'all',
       limit,
     },
   });

@@ -35,9 +35,9 @@ import PostModal from '../post/PostModalContainer';
     feed: getFeed(state),
   }),
   dispatch => ({
-    getFeedContent: (sortBy, category) => dispatch(getFeedContent({ sortBy: sortBy, category: category, limit: 10 })),
+    getFeedContent: (sortBy, category) => dispatch(getFeedContent({ sortBy, category: category, limit: 10 })),
     getMoreFeedContent: (sortBy, category) =>
-      dispatch(getMoreFeedContent({ sortBy: sortBy, category: category, limit: 10 })),
+      dispatch(getMoreFeedContent({ sortBy, category: category, limit: 10 })),
     showPostModal: post => dispatch(showPostModal(post)),
   }),
 )
@@ -92,11 +92,12 @@ class SubFeed extends React.Component {
     if (
       match.url === '/' &&
       ((match.url !== this.props.match.url && isAuthenticated) ||
-        (isAuthenticated && !wasAuthenticated))
+        (isAuthenticated && !wasAuthenticated)) && false
     ) {
       const fetching = getUserFeedLoadingFromState(user.name, feed);
       if (!fetching) {
         this.props.getFeedContent('feed', user.name);
+        // this.props.getFeedContent('trending', 'all');
       }
     } else if ((oldSortBy !== newSortBy) || oldCategory !== newCategory || (!wasLoaded && isLoaded)) {
       const fetching = getFeedLoadingFromState(newSortBy || 'trending', newCategory, feed);
@@ -116,7 +117,7 @@ class SubFeed extends React.Component {
     let loadMoreContent = () => {};
     const isAuthHomeFeed = match.url === '/' && authenticated;
 
-    if (isAuthHomeFeed) {
+    if (isAuthHomeFeed && false) {
       content = getUserFeedFromState(user.name, feed);
       isFetching = getUserFeedLoadingFromState(user.name, feed);
       fetched = getUserFeedFetchedFromState(user.name, feed);

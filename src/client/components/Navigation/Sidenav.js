@@ -4,12 +4,38 @@ import { FormattedMessage } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import './Sidenav.less';
 
-const isNews = (match, location) => location.pathname.match(/trending/);
+const isTrending = (match, location) => location.pathname.match(/trending/);
+const isNew = (match, location) => location.pathname.match(/created/);
 const isWallet = (match, location) => location.pathname.match(/wallet/);
+const isHot = (match, location) => location.pathname.match(/hot/);
 const isReplies = (match, location) => location.pathname.match(/replies/);
 
 const Sidenav = ({ username }) =>
 	<ul className="Sidenav">
+		<li>
+			<NavLink to="/hot" activeClassName="Sidenav__item--active" exact isActive={isHot}>
+				<i className="iconfont icon-collection_fill" />
+				<FormattedMessage id="hot" defaultMessage="Hot" />
+			</NavLink>
+		</li>
+		<li>
+			<NavLink to="/trending" activeClassName="Sidenav__item--active" isActive={isTrending}>
+				<i className="iconfont icon-headlines" />
+				<FormattedMessage id="trending" defaultMessage="Trending" />
+			</NavLink>
+		</li>
+		<li>
+			<NavLink to="/created" activeClassName="Sidenav__item--active" isActive={isNew}>
+				<i className="iconfont icon-clock" />
+				<FormattedMessage id="new" defaultMessage="New" />
+			</NavLink>
+		</li>
+		{/* <li>
+			<NavLink to="/active" activeClassName="Sidenav__item--active" isActive={isTrending}>
+			<i className="iconfont icon-emoji_fill" />
+			<FormattedMessage id="active" defaultMessage="Active" />
+			</NavLink>
+		</li> */}
 		{ username ? (
 		<li>
 			<NavLink to={`/@${username}`}>
@@ -18,18 +44,6 @@ const Sidenav = ({ username }) =>
 			</NavLink>
 		</li>
 		) : null}
-		<li>
-			<NavLink to="/hot" activeClassName="Sidenav__item--active" exact>
-				<i className="iconfont icon-clock" />
-				<FormattedMessage id="feed" defaultMessage="Feed" />
-			</NavLink>
-		</li>
-		<li>
-			<NavLink to="/trending" activeClassName="Sidenav__item--active" isActive={isNews}>
-				<i className="iconfont icon-headlines" />
-				<FormattedMessage id="news" defaultMessage="News" />
-			</NavLink>
-		</li>
 		{ username ? 
 		(
 			<li>
