@@ -195,10 +195,16 @@ export default class Wrapper extends React.PureComponent {
       case 'settings':
         this.props.history.push('/settings');
         break;
-      case 'feed':
+			case 'feed':
         this.props.history.push('/hot');
         break;
-      case 'news':
+			case 'hot':
+        this.props.history.push('/hot');
+        break;
+			case 'news':
+        this.props.history.push('/trending');
+        break;
+			case 'trending':
         this.props.history.push('/trending');
         break;
       case 'wallet':
