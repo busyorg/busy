@@ -80,7 +80,7 @@ class Avatar extends React.Component {
 		if (username) {
 			style = {
 				...style,
-				backgroundImage: `url(${profilePicture || url})`,
+				backgroundImage: `url(${profilePicture})`,
 			};
 		}
 		return (
