@@ -56,7 +56,7 @@ const XMLSerializer = new xmldom.XMLSerializer();
  *    - convert naked URLs to images/links
  *    - convert embeddable URLs to <iframe>s
  *    - basic sanitization?
- *  2. alpha.WeYouMe.io Rendering - add in proprietary alpha.WeYouMe.io functions/links
+ *  2. alpha.weyoume.src Rendering - add in proprietary alpha.weyoume.src functions/links
  *    - convert <iframe>s to custom objects
  *    - linkify #tags and @mentions
  *    - proxify images

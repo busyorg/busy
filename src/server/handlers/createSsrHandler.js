@@ -64,10 +64,10 @@ export default function createSsrHandler(template) {
         res.status(context.status);
       }
 
-      return res.send(renderSsrPage(store, content, assets, template, req.hostname !== 'alpha.weyoume.io'));
+      return res.send(renderSsrPage(store, content, assets, template, req.hostname !== 'alpha.weyoume.src'));
     } catch (err) {
       console.error('SSR error occured, falling back to bundled application instead', err);
-      return res.send(renderSsrPage(null, null, assets, template, req.hostname !== 'alpha.weyoume.io'));
+      return res.send(renderSsrPage(null, null, assets, template, req.hostname !== 'alpha.weyoume.src'));
     }
   };
 }

@@ -85,7 +85,7 @@ export default class Invite extends React.Component {
               <p className="Invite__description">
                 <FormattedMessage
                   id="invite_info"
-                  defaultMessage="Onboard new users on alpha.weyoume.io today using the link below and get 10% of their rewards for 30 days."
+                  defaultMessage="Onboard new users on alpha.weyoume.src today using the link below and get 10% of their rewards for 30 days."
                 />
               </p>
               <div className="Invite__input-container">
@@ -103,7 +103,7 @@ export default class Invite extends React.Component {
                   text={intl.formatMessage(
                     {
                       id: 'invite_share',
-                      defaultMessage: 'Join me today on alpha.weyoume.io and get rewarded to blog {link}',
+                      defaultMessage: 'Join me today on alpha.weyoume.src and get rewarded to blog {link}',
                     },
                     {
                       link: '',
@@ -115,7 +115,7 @@ export default class Invite extends React.Component {
                   text={intl.formatMessage(
                     {
                       id: 'invite_share',
-                      defaultMessage: 'Join me today on alpha.weyoume.io and get rewarded to blog {link}',
+                      defaultMessage: 'Join me today on alpha.weyoume.src and get rewarded to blog {link}',
                     },
                     {
                       link: this.state.inviteURL,

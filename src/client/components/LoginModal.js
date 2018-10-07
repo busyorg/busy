@@ -44,7 +44,7 @@ class LoginModal extends React.Component {
               values={{
                 link: (
                   <a role="presentation" onClick={this.handleSignup}>
-                    alpha.WeYouMe.io
+                    alpha.weyoume.src
                   </a>
                 ),
               }}
