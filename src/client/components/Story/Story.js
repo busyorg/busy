@@ -110,9 +110,9 @@ class Story extends React.Component {
 	}
 	
 	componentDidMount(){
-		if(this.props.post){
-			this.getName(this.props.post.author)
-		}
+		// if(this.props.post){
+		// 	this.getName(this.props.post.author)
+		// }
 	}
 	handleTransferClick = () => {
 		const { post } = this.props;
@@ -284,21 +284,21 @@ class Story extends React.Component {
     );
 	}
 	
-	getName = (author) => {
-		let help = (window && window.wehelpjs) ? window.wehelpjs : (global && global.wehelpjs) ? global.wehelpjs : undefined
-		if(help){
-			help.api.getAccountsAsync([author]).then(res=>{
-				let name = (res[0] && res[0].json && JSON.stringify(res[0].json)['profile']) ? JSON.stringify(res[0].json)['profile']['name'] : author
-				this.setState({
-					accountName: name
-				})
-				this.forceUpdate()
-			})
-			.catch(err=>{console.error('err', err)})
-		} else {
-			// return author
-		}
-	}
+	// getName = (author) => {
+	// 	let help = (window && window.wehelpjs) ? window.wehelpjs : (global && global.wehelpjs) ? global.wehelpjs : undefined
+	// 	if(help){
+	// 		help.api.getAccountsAsync([author]).then(res=>{
+	// 			let name = (res[0] && res[0].json && JSON.stringify(res[0].json)['profile']) ? JSON.stringify(res[0].json)['profile']['name'] : author
+	// 			this.setState({
+	// 				accountName: name
+	// 			})
+	// 			this.forceUpdate()
+	// 		})
+	// 		.catch(err=>{console.error('err', err)})
+	// 	} else {
+	// 		// return author
+	// 	}
+	// }
 
   render() {
     const {
