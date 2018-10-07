@@ -106,7 +106,7 @@ class Story extends React.Component {
     this.handleFollowClick = this.handleFollowClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
     this.handleTransferClick = this.handleTransferClick.bind(this);
-    this.getName = this.getName.bind(this);
+    // this.getName = this.getName.bind(this);
 	}
 	
 	componentDidMount(){
