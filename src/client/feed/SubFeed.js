@@ -98,7 +98,7 @@ class SubFeed extends React.Component {
       if (!fetching) {
         this.props.getFeedContent('feed', user.name);
       }
-    } else if ((newSortBy && newCategory) && (oldSortBy !== newSortBy) || oldCategory !== newCategory || (!wasLoaded && isLoaded)) {
+    } else if ((oldSortBy !== newSortBy) || oldCategory !== newCategory || (!wasLoaded && isLoaded)) {
       const fetching = getFeedLoadingFromState(newSortBy || 'trending', newCategory, feed);
       if (!fetching) {
         this.props.getFeedContent(newSortBy || 'trending', newCategory);
