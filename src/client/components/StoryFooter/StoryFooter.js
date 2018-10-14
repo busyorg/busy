@@ -149,7 +149,7 @@ class StoryFooter extends React.Component {
     return (
       <div className="StoryFooter">
         <div className="StoryFooter__actions">
-          <Payout post={post} />
+          {/* <Payout post={post} /> */}
           {this.state.sliderVisible && (
             <Confirmation onConfirm={this.handleLikeConfirm} onCancel={this.handleSliderCancel} />
           )}

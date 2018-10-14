@@ -235,7 +235,7 @@ class Buttons extends React.Component {
             </BTooltip>
           </span>
         )}
-        {payoutValue > 0 && (
+        {/* {payoutValue > 0 && (
           <React.Fragment>
             <span className="CommentFooter__bullet" />
             <span className="CommentFooter__payout">
@@ -245,7 +245,7 @@ class Buttons extends React.Component {
               </BTooltip>
             </span>
           </React.Fragment>
-        )}
+        )} */}
         {user.name && (
           <span>
             <span className="CommentFooter__bullet" />
