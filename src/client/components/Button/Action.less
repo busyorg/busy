@@ -7,25 +7,30 @@
 
   .colorize-button(#c2ccd3, #99aab5);
 
-  color: @white;
-
+	color: @white;
+	border-radius: 14px;
   &--primary {
-    .colorize-button(@primary-color, @primary-button-border);
-
+		.colorize-button(@primary-color, @primary-button-border);
+		
     color: @white-darker;
-
+		
     &:disabled,
     &:hover,
     &:focus,
     &:active,
     &.active {
-      color: @white-darker !important;
+			color: @white-darker !important;
     }
   }
-
+	
   &--big {
+		border-radius: 20px;
+		font-size: 18px;
     padding: 0 15px;
-    height: 46px;
+		height: 40px;
+		>span {
+			margin-top: -2px;
+		}
   }
 
   &:hover,

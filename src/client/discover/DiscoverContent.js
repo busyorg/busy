@@ -1,7 +1,7 @@
 import React from 'react';
 import { people } from '../helpers/constants';
 import DiscoverUser from './DiscoverUser';
-import SteemAPI from '../steemAPI';
+import BlockchainAPI from '../blockchainAPI';
 import ReduxInfiniteScroll from '../vendor/ReduxInfiniteScroll';
 
 const displayLimit = 20;
@@ -13,22 +13,22 @@ class DiscoverContent extends React.Component {
 
   componentDidMount() {
     const initialUsers = people.slice(0, displayLimit);
-    SteemAPI.sendAsync('get_accounts', [initialUsers]).then(users =>
+    BlockchainAPI.sendAsync('get_accounts', [initialUsers]).then(users =>
       this.setState({
         users,
       }),
-    );
+    ).catch(err=>{console.error('err', err)});
   }
 
   handleLoadMore = () => {
     const { users } = this.state;
     const moreUsersStartIndex = users.length;
     const moreUsers = people.slice(moreUsersStartIndex, moreUsersStartIndex + displayLimit);
-    SteemAPI.sendAsync('get_accounts', [moreUsers]).then(moreUsersResponse =>
+    BlockchainAPI.sendAsync('get_accounts', [moreUsers]).then(moreUsersResponse =>
       this.setState({
         users: users.concat(moreUsersResponse),
       }),
-    );
+    ).catch(err=>{console.error('err', err)});
   };
 
   render() {

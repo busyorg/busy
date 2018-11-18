@@ -1,6 +1,7 @@
 export const knownDomains = [
   'localhost',
-  'busy.org',
+	'busy.org',
+	'alpha.weyoume.io',
   'staging.busy.org',
   'steemit.com',
   'steem.io',
@@ -9,6 +10,12 @@ export const knownDomains = [
   'utopian.io',
   'coinmarketcap.com',
   'youtube.com',
+  'weyoume.io',
+  'auth.weyoume.io',
+  'alpha.weyoume.io',
+  'steem.weyoume.io',
+  'steemit.weyoume.io',
+  'bitshares.weyoume.io',
 ];
 
 export const people = [
@@ -50,7 +57,7 @@ export const people = [
   'alexbeyman',
   'gringalicious',
   'donkeypong',
-  'steempower',
+  'lopu',
   'marius19',
   'mindhunter',
   'the-alien',

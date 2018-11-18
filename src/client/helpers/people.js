@@ -37,7 +37,7 @@ export default [
   'alexbeyman',
   'gringalicious',
   'donkeypong',
-  'steempower',
+  'lopu',
   'marius19',
   'mindhunter',
   'the-alien',

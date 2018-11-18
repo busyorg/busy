@@ -46,7 +46,7 @@ function cleanHTML(html) {
 }
 
 function getContext(post, body, appUrl) {
-  const metadata = _.attempt(JSON.parse, post.json_metadata);
+  const metadata = _.attempt(JSON.parse, post.json);
   let images = [];
   if (!_.isError(metadata) && metadata.image) images = metadata.image;
 
@@ -63,7 +63,7 @@ function getContext(post, body, appUrl) {
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Busy.org',
+      name: 'alpha.weyoume.io',
       logo: {
         '@type': 'ImageObject',
         url: `${appUrl}/images/logo-brand.png`,
@@ -92,7 +92,7 @@ function getContext(post, body, appUrl) {
 }
 
 export default function renderAmpPage(post, appUrl, template) {
-  const body = cleanHTML(getHtml(post.body, post.jsonMetadata, 'text'));
+  const body = cleanHTML(getHtml(post.body, post.json, 'text'));
   const context = getContext(post, body, appUrl);
 
   return template(context, {

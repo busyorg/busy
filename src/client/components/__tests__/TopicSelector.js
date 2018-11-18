@@ -8,7 +8,7 @@ describe('<TopicSelector />', () => {
       sort: 'active',
       isSingle: true,
       bold: true,
-      topics: ['busy', 'introduceyourself', 'steemfest'],
+      topics: ['weyoume', 'introduceyourself', 'steemfest', 'busy', 'bitshares'],
     };
     const wrapper = shallow(<TopicSelector {...props} />);
     expect(wrapper).toMatchSnapshot();

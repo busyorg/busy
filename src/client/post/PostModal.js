@@ -94,12 +94,12 @@ class PostModal extends React.Component {
       shownPostContents,
     } = this.props;
     const { author, permlink, title, url } = currentShownPost;
-    const baseURL = window ? window.location.origin : 'https://busy.org';
+    const baseURL = window ? window.location.origin : 'https://alpha.weyoume.io';
     const postURL = `${baseURL}${dropCategory(url)}`;
     const twitterText = `"${encodeURIComponent(title)}" by @${author}`;
     const twitterShareURL = getTwitterShareURL(twitterText, postURL);
     const facebookShareURL = getFacebookShareURL(postURL);
-    const signature = _.get(authorDetails, 'json_metadata.profile.signature', null);
+    const signature = _.get(authorDetails, 'json.profile.signature', null);
 
     return (
       <Modal

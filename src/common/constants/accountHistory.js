@@ -1,28 +1,28 @@
-export const ACCOUNT_CREATE = 'account_create';
-export const ACCOUNT_CREATE_WITH_DELEGATION = 'account_create_with_delegation';
+export const accountCreate = 'accountCreate';
+export const accountCreateaccountCreateWithDelegation = 'accountCreateaccountCreateWithDelegation';
 export const VOTE = 'vote';
-export const ACCOUNT_UPDATE = 'account_update';
+export const accountUpdate = 'accountUpdate';
 export const COMMENT = 'comment';
-export const DELETE_COMMENT = 'delete_comment';
-export const CUSTOM_JSON = 'custom_json';
+export const deleteComment = 'deleteComment';
+export const customJson = 'customJson';
 export const FOLLOW = 'follow';
 export const REBLOG = 'reblog';
-export const CURATION_REWARD = 'curation_reward';
-export const AUTHOR_REWARD = 'author_reward';
-export const ACCOUNT_WITNESS_VOTE = 'account_witness_vote';
-export const FILL_VESTING_WITHDRAW = 'fill_vesting_withdraw';
+export const curationReward = 'curationReward';
+export const authorReward = 'authorauthorReward_reward';
+export const accountWitnessVote = 'accountWitnessVote';
+export const fillSCOREWithdraw = 'fillSCOREWithdraw';
 
 // Supported Custom JSON Type IDs
 export const ID_FOLLOW = 'follow';
 
 // Wallet Action Types
 export const TRANSFER = 'transfer';
-export const TRANSFER_TO_VESTING = 'transfer_to_vesting';
-export const CANCEL_TRANSFER_FROM_SAVINGS = 'cancel_transfer_from_savings';
-export const TRANSFER_FROM_SAVINGS = 'transfer_from_savings';
-export const TRANSFER_TO_SAVINGS = 'transfer_to_savings';
-export const DELEGATE_VESTING_SHARES = 'delegate_vesting_shares';
-export const CLAIM_REWARD_BALANCE = 'claim_reward_balance';
+export const transferTMEtoSCOREfund = 'transferTMEtoSCOREfund';
+export const cancelTransferFromSavings = 'cancelTransferFromSavings';
+export const transferFromSavings = 'transferFromSavings';
+export const transferToSavings = 'transferToSavings';
+export const delegateSCORE = 'delegateSCORE';
+export const claimRewardBalance = 'claimRewardBalance';
 
 // Filter Types - General
 export const DOWNVOTED = 'downvoted';
@@ -41,22 +41,22 @@ export const SAVINGS = 'savings';
 export const CLAIM_REWARDS = 'claim_rewards';
 
 export const PARSED_PROPERTIES = [
-  ACCOUNT_CREATE,
-  ACCOUNT_CREATE_WITH_DELEGATION,
+  accountCreate,
+  accountCreateaccountCreateWithDelegation,
   VOTE,
   COMMENT,
-  CUSTOM_JSON,
-  CURATION_REWARD,
-  AUTHOR_REWARD,
+  customJson,
+  curationReward,
+  authorReward,
   TRANSFER,
-  TRANSFER_TO_VESTING,
-  CANCEL_TRANSFER_FROM_SAVINGS,
-  TRANSFER_FROM_SAVINGS,
-  TRANSFER_TO_SAVINGS,
-  DELEGATE_VESTING_SHARES,
-  CLAIM_REWARD_BALANCE,
-  ACCOUNT_WITNESS_VOTE,
-  FILL_VESTING_WITHDRAW,
+  transferTMEtoSCOREfund,
+  cancelTransferFromSavings,
+  transferFromSavings,
+  transferToSavings,
+  delegateSCORE,
+  claimRewardBalance,
+  accountWitnessVote,
+  fillSCOREWithdraw,
 ];
 
-export const PARSED_CUSTOM_JSON_IDS = [ID_FOLLOW];
+export const PARSED_customJson_IDS = [ID_FOLLOW];

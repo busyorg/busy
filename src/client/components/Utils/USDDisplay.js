@@ -10,6 +10,7 @@ const USDDisplay = ({ value }) => {
       {negative && '-'}
       {'$'}
       <FormattedNumber value={absValue} minimumFractionDigits={2} maximumFractionDigits={2} />
+			{' USD'}
     </span>
   );
 };

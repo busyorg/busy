@@ -1,6 +1,8 @@
 #!/usr/bin/env node
+require('dotenv').config()
 
 process.env.NODE_ENV = 'development';
+
 
 const webpack = require('webpack');
 const DevServer = require('webpack-dev-server');
@@ -21,7 +23,7 @@ async function main() {
   });
 
   const clientDevServer = new DevServer(clientCompiler, {
-    port: CONTENT_PORT,
+    port: parseInt(CONTENT_PORT)+1,
     hot: true,
     compress: true,
     noInfo: true,
@@ -30,10 +32,11 @@ async function main() {
     },
     historyApiFallback: {
       disableDotRule: true,
-    },
+		},
+		disableHostCheck: true
   });
 
-  clientDevServer.listen(CONTENT_PORT, () => console.log('server started'));
+  clientDevServer.listen(parseInt(CONTENT_PORT)+1, () => console.log('server started'));
 }
 
 main();

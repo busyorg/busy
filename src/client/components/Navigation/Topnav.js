@@ -14,7 +14,7 @@ import {
   getAuthenticatedUserSCMetaData,
   getIsLoadingNotifications,
 } from '../../reducers';
-import SteemConnect from '../../steemConnectAPI';
+import weauthjsInstance from '../../weauthjsInstance';
 import { PARSED_NOTIFICATIONS } from '../../../common/constants/notifications';
 import BTooltip from '../BTooltip';
 import Avatar from '../Avatar';
@@ -135,7 +135,7 @@ class Topnav extends React.Component {
             |
           </Menu.Item>
           <Menu.Item key="login">
-            <a href={SteemConnect.getLoginURL(next)}>
+            <a href={weauthjsInstance.getLoginURL(next)}>
               <FormattedMessage id="login" defaultMessage="Log in" />
             </a>
           </Menu.Item>
@@ -216,33 +216,36 @@ class Topnav extends React.Component {
               </Popover>
             </BTooltip>
           </Menu.Item>
-          <Menu.Item key="user" className="Topnav__item-user">
+          <Menu.Item key="user" className="Topnav__item-user-main Topnav-dropdown-avatar-desktop">
             <Link className="Topnav__user" to={`/@${username}`} onClick={Topnav.handleScrollToTop}>
-              <Avatar username={username} size={36} />
+							{/* <a className="Topnav__link Topnav__link--light "> */}
+							<Avatar username={username} size={36} />
+              {/* </a> */}
             </Link>
           </Menu.Item>
           <Menu.Item key="more" className="Topnav__menu--icon">
             <Popover
+							className="popover-custom"
               placement="bottom"
               trigger="click"
               visible={popoverVisible}
               onVisibleChange={this.handleMoreMenuVisibleChange}
               overlayStyle={{ position: 'fixed' }}
               content={
-                <PopoverMenu onSelect={this.handleMoreMenuSelect}>
-                  <PopoverMenuItem key="my-profile" fullScreenHidden>
+								<PopoverMenu className="popoverMenu" onSelect={this.handleMoreMenuSelect}>
+                  <PopoverMenuItem key="my-profile">
                     <FormattedMessage id="my_profile" defaultMessage="My profile" />
                   </PopoverMenuItem>
-                  <PopoverMenuItem key="feed" fullScreenHidden>
-                    <FormattedMessage id="feed" defaultMessage="Feed" />
+                  <PopoverMenuItem key="trending">
+                    <FormattedMessage id="trending" defaultMessage="Trending" />
                   </PopoverMenuItem>
-                  <PopoverMenuItem key="news" fullScreenHidden>
-                    <FormattedMessage id="news" defaultMessage="News" />
+                  <PopoverMenuItem key="hot">
+                    <FormattedMessage id="hot" defaultMessage="Hot" />
                   </PopoverMenuItem>
-                  <PopoverMenuItem key="replies" fullScreenHidden>
+                  <PopoverMenuItem key="replies">
                     <FormattedMessage id="replies" defaultMessage="Replies" />
                   </PopoverMenuItem>
-                  <PopoverMenuItem key="wallet" fullScreenHidden>
+                  <PopoverMenuItem key="wallet">
                     <FormattedMessage id="wallet" defaultMessage="Wallet" />
                   </PopoverMenuItem>
                   <PopoverMenuItem key="activity">
@@ -257,15 +260,19 @@ class Topnav extends React.Component {
                   <PopoverMenuItem key="settings">
                     <FormattedMessage id="settings" defaultMessage="Settings" />
                   </PopoverMenuItem>
+									<PopoverMenuItem key="edit-profile">
+                    <FormattedMessage id="edit-profile" defaultMessage="Edit Profile" />
+                  </PopoverMenuItem>
                   <PopoverMenuItem key="logout">
                     <FormattedMessage id="logout" defaultMessage="Logout" />
                   </PopoverMenuItem>
                 </PopoverMenu>
               }
             >
-              <a className="Topnav__link Topnav__link--light">
-                <i className="iconfont icon-caretbottom" />
+              <a className="Topnav__link Topnav__link--light Topnav-dropdown-avatar-mobile">
+								<Avatar username={username} size={36} />
               </a>
+							<i className="iconfont icon-caretbottom Topnav-dropdown-caret" />
             </Popover>
           </Menu.Item>
         </Menu>
@@ -287,40 +294,52 @@ class Topnav extends React.Component {
   }
 
   handleSearchForInput(event) {
+		let query = event.target.value;
     const value = event.target.value;
     this.hideAutoCompleteDropdown();
     this.props.history.push({
       pathname: '/search',
-      search: `q=${value}`,
+      search: `q=${value.replace(/^@/ig, '')}`,
       state: {
-        query: value,
+        query: query.replace(/^@/ig, ''),
       },
     });
   }
 
-  debouncedSearch = _.debounce(value => this.props.searchAutoComplete(value), 300);
+  debouncedSearch = _.debounce(value => this.props.searchAutoComplete(value.replace(/^@/ig, '')), 300);
 
   handleAutoCompleteSearch(value) {
-    this.debouncedSearch(value);
+    this.debouncedSearch(value.replace(/^@/ig, ''));
   }
 
   handleSelectOnAutoCompleteDropdown(value) {
-    this.props.history.push(`/@${value}`);
+		this.props.history.push(`/@${value.replace(/^@/ig, '')}`);
+		this.setState({
+      searchBarValue: '',
+    });
   }
 
   handleOnChangeForAutoComplete(value) {
-    this.setState({
-      searchBarValue: value,
-    });
+		const { searchBarValue } = this.state;
+		// if(searchBarValue == '@'+value){
+		// 	this.setState({
+		// 		searchBarValue: '@'+value,
+		// 	});
+		// } else {
+			this.setState({
+				searchBarValue: value,
+			});
+		// }
   }
 
   render() {
     const { intl, autoCompleteSearchResults } = this.props;
     const { searchBarActive, searchBarValue } = this.state;
 
+		// console.log('autoCompleteSearchResults', autoCompleteSearchResults)
     const dropdownOptions = _.map(autoCompleteSearchResults, option => (
-      <AutoComplete.Option key={option} value={option} className="Topnav__search-autocomplete">
-        {option}
+      <AutoComplete.Option key={option.replace(/^@/ig, '')} value={option.replace(/^@/ig,'')} className="Topnav__search-autocomplete">
+        {'@'+option}
       </AutoComplete.Option>
     ));
     const formattedAutoCompleteDropdown = _.isEmpty(dropdownOptions)
@@ -330,7 +349,7 @@ class Topnav extends React.Component {
             <Link
               to={{
                 pathname: '/search',
-                search: `?q=${searchBarValue}`,
+                search: `?q=${searchBarValue.replace(/^@/ig, '')}`,
                 state: { query: searchBarValue },
               }}
             >
@@ -352,10 +371,22 @@ class Topnav extends React.Component {
         <div className="topnav-layout">
           <div className={classNames('left', { 'Topnav__mobile-hidden': searchBarActive })}>
             <Link className="Topnav__brand" to="/">
-              <i className="iconfont icon-busy Topnav__brand-icon" />
-              busy
+							<img src="/images/logo.png" className="Topnav__brand__logo"></img>
+              {/* <i className="iconfont native-icons-WeYouMe Topnav__brand-icon" /> */}
+              {/* <div className="Topnav__brandname">
+								<span className="We">
+									We
+								</span>
+								<span className="You">
+									You
+								</span>
+								<span className="Me">
+									Me
+								</span>
+
+							</div> */}
+							<div className="Topnav__version">alpha</div>
             </Link>
-            <span className="Topnav__version">beta</span>
           </div>
           <div className={classNames('center', { mobileVisible: searchBarActive })}>
             <div className="Topnav__input-container">
@@ -377,7 +408,7 @@ class Topnav extends React.Component {
                   onPressEnter={this.handleSearchForInput}
                   placeholder={intl.formatMessage({
                     id: 'search_placeholder',
-                    defaultMessage: 'What are you looking for?',
+                    defaultMessage: 'Search WeYouMe',
                   })}
                   autoCapitalize="off"
                   autoCorrect="off"

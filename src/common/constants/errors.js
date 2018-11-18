@@ -1,11 +1,11 @@
 export default {
   POST_INTERVAL: {
-    fingerprint: 'You may only post once every 5 minutes',
-    message: 'You may only post once every 5 minutes.',
+    fingerprint: 'You may only post once every 3 seconds',
+    message: 'You may only post once every 3 seconds.',
   },
   COMMENT_INTERVAL: {
-    fingerprint: 'You may only comment once every 20 seconds.',
-    message: 'You may only comment once every 20 seconds.',
+    fingerprint: 'You may only comment once every 2 seconds.',
+    message: 'You may only comment once every 2 seconds.',
   },
   DUPLICATE_VOTE: {
     fingerprint: 'You have already voted in a similar way',
@@ -21,11 +21,11 @@ export default {
   },
   BANDWIDTH_EXCEEDED: {
     fingerprint: 'bandwidth limit exceeded',
-    message: 'Your bandwith has been exceeded. Please wait to transact or power up STEEM.',
+    message: 'Your bandwith has been exceeded. Please wait to transact or power up TME.',
   },
   VOTING_POWER_TOO_SMALL: {
-    fingerprint: 'abs_rshares > STEEM_VOTE_DUST_THRESHOLD',
-    message: 'Your voting power is too small, please accumulate more voting power or steem power.',
+    fingerprint: 'abs_SCOREreward > VOTE_DUST_THRESHOLD',
+    message: 'Your voting power is too small, please accumulate more voting power or SCORE.',
   },
   UPVOTE_LOCKOUT: {
     fingerprint: 'Cannot increase payout within last twelve hours before payout.',

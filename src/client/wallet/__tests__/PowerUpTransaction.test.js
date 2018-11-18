@@ -7,7 +7,7 @@ describe('(Component) PowerUpTransaction', () => {
     it('renders and matches snapshot', () => {
       const props = {
         timestamp: '0',
-        amount: <span>{'0 STEEM'}</span>,
+        amount: <span>{'0 TME'}</span>,
         to: 'hellosteem',
         from: 'hellosteem',
       };

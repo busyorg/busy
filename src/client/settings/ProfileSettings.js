@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Form, Input } from 'antd';
-import SteemConnect from '../steemConnectAPI';
+import weauthjsInstance from '../weauthjsInstance';
 import { getIsReloading, getAuthenticatedUser } from '../reducers';
 import socialProfiles from '../helpers/socialProfiles';
 import withEditor from '../components/Editor/withEditor';
@@ -21,7 +21,7 @@ import './Settings.less';
 const FormItem = Form.Item;
 
 function mapPropsToFields(props) {
-  let metadata = _.attempt(JSON.parse, props.user.json_metadata);
+  let metadata = _.attempt(JSON.parse, props.user.json);
   if (_.isError(metadata)) metadata = {};
 
   const profile = metadata.profile || {};
@@ -93,7 +93,7 @@ export default class ProfileSettings extends React.Component {
             }),
             {},
           );
-        const win = window.open(SteemConnect.sign('profile-update', cleanValues), '_blank');
+        const win = window.open(weauthjsInstance.sign('profile-update', cleanValues), '_blank');
         win.focus();
       }
     });
@@ -144,7 +144,7 @@ export default class ProfileSettings extends React.Component {
       <div className="shifted">
         <Helmet>
           <title>
-            {intl.formatMessage({ id: 'edit_profile', defaultMessage: 'Edit profile' })} - Busy
+            {intl.formatMessage({ id: 'edit_profile', defaultMessage: 'Edit profile' })} - WeYouMe
           </title>
         </Helmet>
         <div className="settings-layout container">

@@ -7,15 +7,15 @@ ShallowWrapper {
   Symbol(enzyme.__unrendered__): <UserWalletTransactions
     actions={Array []}
     currentUsername="hellosteem"
-    totalVestingFundSteem="0"
-    totalVestingShares="0"
+    SCOREbackingTMEfundBalance="0"
+    totalSCORE="0"
     transactions={
       Array [
         Object {
           "op": Array [
-            "transfer_to_vesting",
+            "transferTMEtoSCOREfund",
             Object {
-              "amount": "100 STEEM",
+              "amount": "100 TME",
             },
           ],
           "timestamp": "0",
@@ -24,7 +24,7 @@ ShallowWrapper {
           "op": Array [
             "transfer",
             Object {
-              "amount": "100 STEEM",
+              "amount": "100 TME",
               "from": "hellosteem1",
               "memo": "transfer memo",
             },
@@ -71,14 +71,14 @@ ShallowWrapper {
         <div />
         <WalletTransaction
           currentUsername="hellosteem"
-          totalVestingFundSteem="0"
-          totalVestingShares="0"
+          SCOREbackingTMEfundBalance="0"
+          totalSCORE="0"
           transaction={
             Object {
               "op": Array [
-                "transfer_to_vesting",
+                "transferTMEtoSCOREfund",
                 Object {
-                  "amount": "100 STEEM",
+                  "amount": "100 TME",
                 },
               ],
               "timestamp": "0",
@@ -87,14 +87,14 @@ ShallowWrapper {
         />
         <WalletTransaction
           currentUsername="hellosteem"
-          totalVestingFundSteem="0"
-          totalVestingShares="0"
+          SCOREbackingTMEfundBalance="0"
+          totalSCORE="0"
           transaction={
             Object {
               "op": Array [
                 "transfer",
                 Object {
-                  "amount": "100 STEEM",
+                  "amount": "100 TME",
                   "from": "hellosteem1",
                   "memo": "transfer memo",
                 },
@@ -117,14 +117,14 @@ ShallowWrapper {
           Array [
             <WalletTransaction
               currentUsername="hellosteem"
-              totalVestingFundSteem="0"
-              totalVestingShares="0"
+              SCOREbackingTMEfundBalance="0"
+              totalSCORE="0"
               transaction={
                 Object {
                   "op": Array [
-                    "transfer_to_vesting",
+                    "transferTMEtoSCOREfund",
                     Object {
-                      "amount": "100 STEEM",
+                      "amount": "100 TME",
                     },
                   ],
                   "timestamp": "0",
@@ -133,14 +133,14 @@ ShallowWrapper {
             />,
             <WalletTransaction
               currentUsername="hellosteem"
-              totalVestingFundSteem="0"
-              totalVestingShares="0"
+              SCOREbackingTMEfundBalance="0"
+              totalSCORE="0"
               transaction={
                 Object {
                   "op": Array [
                     "transfer",
                     Object {
-                      "amount": "100 STEEM",
+                      "amount": "100 TME",
                       "from": "hellosteem1",
                       "memo": "transfer memo",
                     },
@@ -187,13 +187,13 @@ ShallowWrapper {
           "nodeType": "function",
           "props": Object {
             "currentUsername": "hellosteem",
-            "totalVestingFundSteem": "0",
-            "totalVestingShares": "0",
+            "SCOREbackingTMEfundBalance": "0",
+            "totalSCORE": "0",
             "transaction": Object {
               "op": Array [
-                "transfer_to_vesting",
+                "transferTMEtoSCOREfund",
                 Object {
-                  "amount": "100 STEEM",
+                  "amount": "100 TME",
                 },
               ],
               "timestamp": "0",
@@ -209,13 +209,13 @@ ShallowWrapper {
           "nodeType": "function",
           "props": Object {
             "currentUsername": "hellosteem",
-            "totalVestingFundSteem": "0",
-            "totalVestingShares": "0",
+            "SCOREbackingTMEfundBalance": "0",
+            "totalSCORE": "0",
             "transaction": Object {
               "op": Array [
                 "transfer",
                 Object {
-                  "amount": "100 STEEM",
+                  "amount": "100 TME",
                   "from": "hellosteem1",
                   "memo": "transfer memo",
                 },
@@ -263,14 +263,14 @@ ShallowWrapper {
           <div />
           <WalletTransaction
             currentUsername="hellosteem"
-            totalVestingFundSteem="0"
-            totalVestingShares="0"
+            SCOREbackingTMEfundBalance="0"
+            totalSCORE="0"
             transaction={
               Object {
                 "op": Array [
-                  "transfer_to_vesting",
+                  "transferTMEtoSCOREfund",
                   Object {
-                    "amount": "100 STEEM",
+                    "amount": "100 TME",
                   },
                 ],
                 "timestamp": "0",
@@ -279,14 +279,14 @@ ShallowWrapper {
           />
           <WalletTransaction
             currentUsername="hellosteem"
-            totalVestingFundSteem="0"
-            totalVestingShares="0"
+            SCOREbackingTMEfundBalance="0"
+            totalSCORE="0"
             transaction={
               Object {
                 "op": Array [
                   "transfer",
                   Object {
-                    "amount": "100 STEEM",
+                    "amount": "100 TME",
                     "from": "hellosteem1",
                     "memo": "transfer memo",
                   },
@@ -309,14 +309,14 @@ ShallowWrapper {
             Array [
               <WalletTransaction
                 currentUsername="hellosteem"
-                totalVestingFundSteem="0"
-                totalVestingShares="0"
+                SCOREbackingTMEfundBalance="0"
+                totalSCORE="0"
                 transaction={
                   Object {
                     "op": Array [
-                      "transfer_to_vesting",
+                      "transferTMEtoSCOREfund",
                       Object {
-                        "amount": "100 STEEM",
+                        "amount": "100 TME",
                       },
                     ],
                     "timestamp": "0",
@@ -325,14 +325,14 @@ ShallowWrapper {
               />,
               <WalletTransaction
                 currentUsername="hellosteem"
-                totalVestingFundSteem="0"
-                totalVestingShares="0"
+                SCOREbackingTMEfundBalance="0"
+                totalSCORE="0"
                 transaction={
                   Object {
                     "op": Array [
                       "transfer",
                       Object {
-                        "amount": "100 STEEM",
+                        "amount": "100 TME",
                         "from": "hellosteem1",
                         "memo": "transfer memo",
                       },
@@ -379,13 +379,13 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "currentUsername": "hellosteem",
-              "totalVestingFundSteem": "0",
-              "totalVestingShares": "0",
+              "SCOREbackingTMEfundBalance": "0",
+              "totalSCORE": "0",
               "transaction": Object {
                 "op": Array [
-                  "transfer_to_vesting",
+                  "transferTMEtoSCOREfund",
                   Object {
-                    "amount": "100 STEEM",
+                    "amount": "100 TME",
                   },
                 ],
                 "timestamp": "0",
@@ -401,13 +401,13 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "currentUsername": "hellosteem",
-              "totalVestingFundSteem": "0",
-              "totalVestingShares": "0",
+              "SCOREbackingTMEfundBalance": "0",
+              "totalSCORE": "0",
               "transaction": Object {
                 "op": Array [
                   "transfer",
                   Object {
-                    "amount": "100 STEEM",
+                    "amount": "100 TME",
                     "from": "hellosteem1",
                     "memo": "transfer memo",
                   },

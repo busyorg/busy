@@ -28,28 +28,29 @@ export const GET_CRYPTO_PRICE_HISTORY = createAsyncActionType('@app/GET_CRYPTOS_
 export const REFRESH_CRYPTO_PRICE_HISTORY = '@app/REFRESH_CRYPTO_PRICE_HISTORY';
 export const refreshCryptoPriceHistory = createAction(REFRESH_CRYPTO_PRICE_HISTORY);
 
-export const getRate = () => (dispatch, getState, { steemAPI }) => {
+export const getRate = () => (dispatch, getState, { blockchainAPI }) => {
   dispatch({
     type: RATE_REQUEST.ACTION,
     payload: {
-      promise: steemAPI
+      promise: blockchainAPI
         .sendAsync('get_current_median_history_price', [])
-        .then(resp => parseFloat(resp.base)),
+				.then(resp => parseFloat(resp.base)),
     },
   });
 };
 
-export const getRewardFund = () => (dispatch, getSelection, { steemAPI }) =>
+export const getRewardFund = () => (dispatch, getSelection, { blockchainAPI }) =>
   dispatch({
     type: GET_REWARD_FUND,
-    payload: { promise: steemAPI.sendAsync('get_reward_fund', ['post']) },
+    payload: { 
+			promise: blockchainAPI.sendAsync('get_reward_fund', ['post']) },
   });
 
-export const getTrendingTopics = () => (dispatch, getState, { steemAPI }) => {
+export const getTrendingTopics = () => (dispatch, getState, { blockchainAPI }) => {
   dispatch({
     type: GET_TRENDING_TOPICS,
     payload: {
-      promise: steemAPI.sendAsync('get_trending_tags', [undefined, 50]).then(result =>
+      promise: blockchainAPI.sendAsync('get_trending_tags', [undefined, 50]).then(result =>
         Object.values(result)
           .map(tag => tag.name)
           .filter(tag => tag !== ''),
@@ -68,10 +69,10 @@ export const getCryptoPriceHistory = (symbol, refresh = false) => dispatch => {
       promise: Promise.all([
         fetch(
           `https://min-api.cryptocompare.com/data/histoday?fsym=${symbol}&tsym=USD&limit=6`,
-        ).then(res => res.json()),
+				).then(res => res.json()),
         fetch(
           `https://min-api.cryptocompare.com/data/histoday?fsym=${symbol}&tsym=BTC&limit=6`,
-        ).then(res => res.json()),
+				).then(res => res.json()),
       ]).then(response => {
         const usdPriceHistory = _.get(response, 0, {});
         const btcPriceHistory = _.get(response, 1, {});

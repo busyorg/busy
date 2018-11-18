@@ -113,8 +113,8 @@ export default class Wrapper extends React.PureComponent {
 
     const useBeta = getUseBeta(state);
 
-    if (useBeta && appUrl === 'https://busy.org') {
-      res.redirect(`https://staging.busy.org${req.originalUrl}`);
+    if (useBeta && appUrl === 'https://alpha.weyoume.io') {
+      res.redirect(`https://alpha.weyoume.io${req.originalUrl}`);
       return;
     }
 
@@ -195,14 +195,23 @@ export default class Wrapper extends React.PureComponent {
       case 'settings':
         this.props.history.push('/settings');
         break;
-      case 'feed':
-        this.props.history.push('/');
+			case 'feed':
+        this.props.history.push('/hot');
         break;
-      case 'news':
+			case 'hot':
+        this.props.history.push('/hot');
+        break;
+			case 'news':
         this.props.history.push('/trending');
         break;
-      case 'wallet':
+			case 'trending':
+        this.props.history.push('/trending');
+        break;
+			case 'wallet':
         this.props.history.push('/wallet');
+        break;
+			case 'edit-profile':
+        this.props.history.push('/edit-profile');
         break;
       case 'my-profile':
         this.props.history.push(`/@${this.props.username}`);

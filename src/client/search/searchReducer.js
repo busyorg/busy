@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import * as searchActions from './searchActions';
-import formatter from '../helpers/steemitFormatter';
+import formatter from '../helpers/blockchainProtocolFormatter';
 
 const initialState = {
   loading: true,
@@ -11,30 +11,30 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case searchActions.SEARCH_ASK_STEEM.START:
+    case searchActions.SEARCH_ASK.START:
       return {
         ...state,
         loading: true,
         searchError: false,
       };
-    case searchActions.SEARCH_ASK_STEEM.SUCCESS: {
-      const askSteemResults = _.get(action.payload, 0, []);
-      const steemLookupResults = _.get(action.payload, 1, []);
-      const parsedSteemLookupResults = _.map(steemLookupResults, accountDetails => ({
+    case searchActions.SEARCH_ASK.SUCCESS: {
+      const askBlockchainResults = _.get(action.payload, 0, []);
+      const lookupResults = _.get(action.payload, 1, []);
+      const parsedlookupResults = _.map(lookupResults, accountDetails => ({
         ...accountDetails,
         reputation: formatter.reputation(accountDetails.reputation),
         name: accountDetails.account,
         type: 'user',
       }));
-      const sortedSteemLookupResults = _.sortBy(parsedSteemLookupResults, 'reputation').reverse();
-      const searchResults = _.compact(_.concat(sortedSteemLookupResults, askSteemResults));
+      const sortedlookupResults = _.sortBy(parsedlookupResults, 'reputation').reverse();
+      const searchResults = _.compact(_.concat(sortedlookupResults, askBlockchainResults));
       return {
         ...state,
         searchResults,
         loading: false,
       };
     }
-    case searchActions.SEARCH_ASK_STEEM.ERROR:
+    case searchActions.SEARCH_ASK.ERROR:
       return {
         ...state,
         searchResults: [],
@@ -52,7 +52,7 @@ export default (state = initialState, action) => {
           _.map(
             _.sortBy(parsedResults, 'reputation').reverse(),
             accountDetails => accountDetails.account,
-          ),
+          ).reverse(),
           0,
           5,
         ),

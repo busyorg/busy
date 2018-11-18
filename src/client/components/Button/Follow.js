@@ -59,6 +59,7 @@ export class FollowPure extends React.Component {
     return (
       <button
         className={classNames('Follow', {
+					'Following' : isFollowed,
           'Follow--danger': isDangerStyles,
           'Follow--danger--secondary': isDangerStyles && secondary,
           'Follow--secondary': secondary,

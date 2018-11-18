@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import './Confirmation.less';
+import './ConfirmationComment.less';
 
 const Confirmation = ({ onConfirm, onCancel }) => (
   <div className="Confirmation">

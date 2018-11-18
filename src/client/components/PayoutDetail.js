@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import _ from 'lodash';
 import USDDisplay from './Utils/USDDisplay';
-import { calculatePayout } from '../vendor/steemitHelpers';
+import { calculatePayout } from '../vendor/blockchainProtocolHelpers';
 
 const AmountWithLabel = ({ id, defaultMessage, nonzero, amount }) =>
   _.isNumber(amount) &&

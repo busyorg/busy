@@ -8,8 +8,8 @@ const initialState = {
   transferTo: '',
   powerUpOrDownVisible: false,
   powerDown: false,
-  totalVestingShares: '',
-  totalVestingFundSteem: '',
+  totalSCORE: '',
+  SCOREbackingTMEfundBalance: '',
   usersTransactions: {},
   usersAccountHistory: {},
   usersEstAccountsValues: {},
@@ -54,8 +54,8 @@ export default function walletReducer(state = initialState, action) {
     case walletActions.GET_GLOBAL_PROPERTIES.SUCCESS: {
       return {
         ...state,
-        totalVestingFundSteem: action.payload.total_vesting_fund_steem,
-        totalVestingShares: action.payload.total_vesting_shares,
+        SCOREbackingTMEfundBalance: action.payload.totalTMEfundForSCORE,
+        totalSCORE: action.payload.totalSCORE,
         loadingGlobalProperties: false,
       };
     }
@@ -194,8 +194,8 @@ export const getIsTransferVisible = state => state.transferVisible;
 export const getTransferTo = state => state.transferTo;
 export const getIsPowerUpOrDownVisible = state => state.powerUpOrDownVisible;
 export const getIsPowerDown = state => state.powerDown;
-export const getTotalVestingShares = state => state.totalVestingShares;
-export const getTotalVestingFundSteem = state => state.totalVestingFundSteem;
+export const gettotalSCORE = state => state.totalSCORE;
+export const getSCOREbackingTMEfundBalance = state => state.SCOREbackingTMEfundBalance;
 export const getUsersTransactions = state => state.usersTransactions;
 export const getUsersEstAccountsValues = state => state.usersEstAccountsValues;
 export const getUsersAccountHistoryLoading = state => state.usersAccountHistoryLoading;
@@ -205,7 +205,7 @@ export const getUsersAccountHistory = state => state.usersAccountHistory;
 export const getLoadingMoreUsersAccountHistory = state => state.loadingMoreUsersAccountHistory;
 export const getUserHasMoreAccountHistory = (state, username) => {
   const lastAction = _.last(state.usersAccountHistory[getUserDetailsKey(username)]) || {};
-  return lastAction.actionCount !== 1 && lastAction.actionCount !== 0;
+  return lastAction.actionCount !== 1 && lastAction.actionCount !== 0 && lastAction.actionCount !== undefined;
 };
 export const getAccountHistoryFilter = state => state.accountHistoryFilter;
 export const getCurrentDisplayedActions = state => state.currentDisplayedActions;

@@ -1,10 +1,10 @@
 {
-  "name": "busy",
+  "name": "weyoume",
   "scripts": {},
   "env": {
     "DEBUG": {
       "description": "Debug namespaces for https://github.com/visionmedia/debug.",
-      "value": "busy:server",
+      "value": "weapp:server",
       "required": false
     }
   },

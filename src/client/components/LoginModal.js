@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Modal } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import SteemConnect from '../steemConnectAPI';
+import weauthjsInstance from '../weauthjsInstance';
 import './LoginModal.less';
 
 class LoginModal extends React.Component {
@@ -44,7 +44,7 @@ class LoginModal extends React.Component {
               values={{
                 link: (
                   <a role="presentation" onClick={this.handleSignup}>
-                    Steemit.com
+                    alpha.weyoume.io
                   </a>
                 ),
               }}
@@ -55,18 +55,18 @@ class LoginModal extends React.Component {
         <div className="LoginModal__body">
           <i className="iconfont icon-busy LoginModal__icon" />
           <span className="LoginModal__login-title">
-            <FormattedMessage id="login_to_busy" defaultMessage="Login to Busy" />
+            <FormattedMessage id="login_to_busy" defaultMessage="Login to WeYouMe" />
           </span>
           <span className="LoginModal__login-description">
             <FormattedMessage
               id="login_modal_description"
-              defaultMessage="Login with your Steem account using SteemConnect to enjoy Busy at 100%"
+              defaultMessage="Login with your Blockchain Account using WeAuth to enjoy WeYouMe at 100%"
             />
           </span>
-          <a className="LoginModal__login-button" href={SteemConnect.getLoginURL(next)}>
+          <a className="LoginModal__login-button" href={weauthjsInstance.getLoginURL(next)}>
             <FormattedMessage
-              id="login_with_steemconnect"
-              defaultMessage="Login with SteemConnect"
+              id="login_with_blockchainAuth"
+              defaultMessage="Login with WeAuth"
             />
           </a>
         </div>

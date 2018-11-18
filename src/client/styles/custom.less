@@ -5,24 +5,29 @@
 @white-shadow: rgba(0, 0, 0, 0.05);
 @white-darker: #f9f9f9;
 @white-gainsboro: #e9e7e7;
-@white-ghostWhite: #fafbfc;
+@white-ghostWhite: #fff;
 @white-smoke: #f2f2f2;
+@story-bg-color: #fafbfc;
 @black: #000;
 @black-text: rgba(0, 0, 0, 0.84);
 @red: #d9534f;
 @orange: #f6a623;
 @green: #54d2a0;
-@blue-dodgerBlue: #2088ff;
-@blue-navyBlue: #79b8ff;
+@dark-green: rgba(96, 187, 70, 1);
+@moneyGreen: rgb(96, 216, 62);
+@blue-dodgerBlue: #ff2020;
+@main-blue: #2088ff;
+@blue-deep: darken(@main-blue, 10%);
+@blue-navyBlue: lighten(@blue-dodgerBlue, 30%);
 @blue-botticelli: #99aab5;
 @blue-hawkesBlue: #e7e9f5;
 @blue-linkWater: #c2ccd3;
 @blue-baliHai: #8798a4;
 @blue-heather: #a1afba;
 @blue-solitude: #f5f6f9;
-@blue-deepSkyBlue: #00aced;
+@blue-deepSkyBlue: darken(@blue-dodgerBlue, 10%);
 @blue-pattensBlue: #f3f6fa;
-@teal: #5bc0de;
+@teal: lighten(@blue-dodgerBlue, 25%);
 @normal-grey: #4f545c;
 @grey-mortar: #595959;
 @grey-nightRider: #303030;
@@ -87,7 +92,7 @@
 @twitter-background-color: #55acee;
 @email-background-color: #777777;
 
-@twitter-link-color: @blue-deepSkyBlue;
+@twitter-link-color: @blue-deep;
 
 @modal-background-color: rgba(242, 242, 242, 0.97);
 
@@ -117,3 +122,56 @@
 
 // Post
 @post-table-background-color: rgba(128, 128, 128, 0.05);
+
+
+.send-money-tooltip {
+	.ant-tooltip-inner {
+		padding: 3px 3px;
+		background: @blue-hawkesBlue;
+	}
+}
+.send-money {
+	// margin-top: -1px;
+	background: darken(@moneyGreen,6) !important;
+	border: 1px solid darken(@moneyGreen, 6) !important;
+	display: flex;
+	// box-sizing: content-box;
+	align-items: center;
+	justify-content: center;
+	padding: 1px 12px 0px 12px !important;
+	transition: all 300ms ease;
+	&:hover,
+	&:active,
+	&:focus {
+		background: darken(@moneyGreen, 10) !important;
+		border: 1px solid darken(@moneyGreen, 10) !important;
+
+	}
+	span {
+		position: relative;
+		display: block;
+		margin-top: -1px;
+	}
+}
+.send-dollar {
+	width: 16px;
+	height: auto;
+	// margin-right: 4px;
+	margin-top: -2px;
+	position: relative;
+	display: block;
+	&.on-left {
+		margin-right: 6px;
+	}
+	&.on-right {
+		margin-left: 6px;
+	}
+	&.biggish {
+		margin-top: -1px;
+		width: 20px;
+	}
+}
+
+.button-spaced {
+	margin-right: 10px;
+}

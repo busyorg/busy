@@ -6,6 +6,8 @@ const StartServerPlugin = require('start-server-webpack-plugin');
 const paths = require('../scripts/paths');
 const { MATCH_JS, MATCH_CSS_LESS, DEFINE_PLUGIN } = require('./configUtils');
 
+require('dotenv').config()
+
 module.exports = function createConfig(env = 'dev') {
   const IS_DEV = env === 'dev';
 

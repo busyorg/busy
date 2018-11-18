@@ -2,9 +2,12 @@
 
 .feed-layout {
   position: relative;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
 
   @media @small {
-    padding: 0 @mobile-padding;
+    padding: 0;
   }
 
   @media @large {
@@ -18,17 +21,23 @@
   }
 
   .left {
-    width: @left-width;
+		width: @left-width;
+		padding-left: @padding;
+		padding-right: @padding;
   }
 
   .right {
     width: @right-width;
+		padding-left: @padding;
+		padding-right: @padding;
   }
 
   .leftContainer {
-    float: left;
+		// float: left;
+		order: 1;
     display: none;
     width: @left-width;
+		min-width: @left-width;
 
     &__user {
       min-height: 150px !important;
@@ -40,7 +49,8 @@
   }
 
   .rightContainer {
-    float: right;
+		// float: right;
+		order: 3;
     display: none;
     width: @right-width;
 
@@ -50,26 +60,43 @@
   }
 
   .center {
-    float: left;
+		// float: left;
+		order: 2;
     width: 100%;
+		padding-left: @padding;
+		padding-right: @padding;
 
     @media @small {
-      width: calc(100% - (@right-width + @margin));
+			width: calc(100% - (@right-width + @margin));
     }
 
     @media @medium {
-      width: calc(100% - (@left-width + @right-width + 2 * @margin));
+      width: calc(100% - (@left-width + @right-width + 2 * @margin) );
+			margin-left: @margin;
+		}
+		@media @large { 
+			width: calc(100% - (@left-width + @right-width) );
       margin-left: @margin;
-    }
+		}
+		@media (max-width: @small-bp) {
+			padding-left: 0px !important;
+			padding-right: 0px !important;
+		}
   }
 }
 
 div[data-dir='rtl'] .feed-layout {
   .leftContainer {
-    float: right;
+		float: right;
+		order: 3;
   }
 
   .rightContainer {
-    float: left;
+		float: left;
+		order: 1;
   }
+}
+
+.userWalletPage { 
+	visibility: hidden;
 }

@@ -3,18 +3,19 @@
 
 .UserWalletSummary {
   border: @base-border;
-  border-right: 0;
-  border-left: 0;
+  // border-right: 0;
+  // border-left: 0;
   border-radius: 0;
   background-color: @white;
 
   &__item {
     display: flex;
-    border-bottom: @base-border;
+		border-bottom: @base-border;
+		box-sizing: border-box;
     align-items: center;
-    margin: 0 15px;
+    // margin: 0 15px;
     flex-direction: row;
-    padding: 10px 0;
+    padding: 10px 15px;
 
     &:last-of-type {
       border-bottom: 0;

@@ -64,7 +64,7 @@ class Write extends React.Component {
   static defaultProps = {
     saving: false,
     draftId: null,
-    upvoteSetting: true,
+    upvoteSetting: false,
     rewardSetting: rewardsValues.half,
     newPost: () => {},
     createPost: () => {},
@@ -94,8 +94,8 @@ class Write extends React.Component {
 
     if (draftPost) {
       let tags = [];
-      if (_.isArray(draftPost.jsonMetadata.tags)) {
-        tags = draftPost.jsonMetadata.tags;
+      if (_.isArray(draftPost.json.tags)) {
+        tags = draftPost.json.tags;
       }
 
       if (draftPost.permlink) {
@@ -145,7 +145,7 @@ class Write extends React.Component {
       const draftPost = _.get(draftPosts, draftId, {});
       const initialTitle = _.get(draftPost, 'title', '');
       const initialBody = _.get(draftPost, 'body', '');
-      const initialTopics = _.get(draftPost, 'jsonMetadata.tags', []);
+      const initialTopics = _.get(draftPost, 'json.tags', []);
       this.draftId = draftId;
       this.setState({
         initialTitle,
@@ -195,10 +195,10 @@ class Write extends React.Component {
     if (this.state.isUpdating) data.isUpdating = this.state.isUpdating;
 
     const oldMetadata =
-      this.props.draftPosts[this.draftId] && this.props.draftPosts[this.draftId].jsonMetadata;
+      this.props.draftPosts[this.draftId] && this.props.draftPosts[this.draftId].json;
 
     data.parentPermlink = form.topics.length ? form.topics[0] : 'general';
-    data.jsonMetadata = createPostMetadata(data.body, form.topics, oldMetadata);
+    data.json = createPostMetadata(data.body, form.topics, oldMetadata);
 
     if (this.originalBody) {
       data.originalBody = this.originalBody;

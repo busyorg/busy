@@ -97,7 +97,7 @@ class Drafts extends React.Component {
     return (
       <div className="Drafts shifted">
         <Helmet>
-          <title>{intl.formatMessage({ id: 'drafts', defaultMessage: 'Drafts' })} - Busy</title>
+          <title>{intl.formatMessage({ id: 'drafts', defaultMessage: 'Drafts' })} - WeYouMe</title>
         </Helmet>
         <div className="drafts-layout container">
           <Affix className="leftContainer" stickPosition={77}>

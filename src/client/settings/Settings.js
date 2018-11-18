@@ -78,7 +78,7 @@ export default class Settings extends React.Component {
     nightmode: false,
     rewriteLinks: false,
     useBeta: false,
-    upvoteSetting: true,
+    upvoteSetting: false,
     exitPageSetting: true,
     reload: () => {},
     saveSettings: () => {},
@@ -232,7 +232,7 @@ export default class Settings extends React.Component {
     return (
       <div className="shifted">
         <Helmet>
-          <title>{intl.formatMessage({ id: 'settings', defaultMessage: 'Settings' })} - Busy</title>
+          <title>{intl.formatMessage({ id: 'settings', defaultMessage: 'Settings' })} - WeYouMe</title>
         </Helmet>
         <div className="settings-layout container">
           <Affix className="leftContainer" stickPosition={77}>
@@ -295,7 +295,7 @@ export default class Settings extends React.Component {
                   <p>
                     <FormattedMessage
                       id="language_info"
-                      defaultMessage="What language do you want to use on Busy?"
+                      defaultMessage="What language do you want to use on WeYouMe?"
                     />
                   </p>
                   <Select
@@ -359,7 +359,7 @@ export default class Settings extends React.Component {
                   <p>
                     <FormattedMessage
                       id="rewrite_links_details"
-                      defaultMessage="You can enable this option to replace Steemit.com links with Busy.org links."
+                      defaultMessage="You can enable this option to replace alpha.weyoume.io links with alpha.weyoume.io links."
                     />
                   </p>
                   <div className="Settings__section__checkbox">
@@ -372,22 +372,22 @@ export default class Settings extends React.Component {
                     </Checkbox>
                   </div>
                 </div>
-                <div className="Settings__section">
+                {/* <div className="Settings__section">
                   <h3>
-                    <FormattedMessage id="use_beta" defaultMessage="Use Busy beta" />
+                    <FormattedMessage id="use_beta" defaultMessage="Use WeYouMe beta" />
                   </h3>
                   <p>
                     <FormattedMessage
                       id="use_beta_details"
-                      defaultMessage="You can enable this option to use Busy beta by default."
+                      defaultMessage="You can enable this option to use WeYouMe beta by default."
                     />
                   </p>
                   <div className="Settings__section__checkbox">
                     <Checkbox name="use_beta" checked={useBeta} onChange={this.handleUseBetaChange}>
-                      <FormattedMessage id="use_beta" defaultMessage="Use Busy beta" />
+                      <FormattedMessage id="use_beta" defaultMessage="Use WeYouMe beta" />
                     </Checkbox>
                   </div>
-                </div>
+                </div> */}
                 <div className="Settings__section">
                   <h3>
                     <FormattedMessage id="upvote_setting" defaultMessage="Like my posts" />

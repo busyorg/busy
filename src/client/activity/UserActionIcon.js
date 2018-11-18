@@ -14,10 +14,10 @@ class UserActionIcon extends React.Component {
   getIcon() {
     const { actionType, actionDetails, currentUsername } = this.props;
     switch (actionType) {
-      case accountHistoryConstants.ACCOUNT_CREATE_WITH_DELEGATION:
-      case accountHistoryConstants.ACCOUNT_CREATE:
+      case accountHistoryConstants.accountCreateaccountCreateWithDelegation:
+      case accountHistoryConstants.accountCreate:
         return 'icon-people_fill';
-      case accountHistoryConstants.ACCOUNT_UPDATE:
+      case accountHistoryConstants.accountUpdate:
         return 'icon-businesscard_fill';
       case accountHistoryConstants.VOTE:
         if (currentUsername === actionDetails.voter) {
@@ -29,12 +29,12 @@ class UserActionIcon extends React.Component {
           return 'icon-praise';
         }
         return null;
-      case accountHistoryConstants.CUSTOM_JSON: {
+      case accountHistoryConstants.customJson: {
         const actionJSON = JSON.parse(actionDetails.json);
         const customActionType = actionJSON[0];
         const customActionDetails = actionJSON[1];
 
-        if (!_.includes(accountHistoryConstants.PARSED_CUSTOM_JSON_IDS, actionDetails.id)) {
+        if (!_.includes(accountHistoryConstants.PARSED_customJson_IDS, actionDetails.id)) {
           return 'icon-document';
         }
         if (
@@ -58,8 +58,8 @@ class UserActionIcon extends React.Component {
 
         return null;
       }
-      case accountHistoryConstants.AUTHOR_REWARD:
-      case accountHistoryConstants.CURATION_REWARD:
+      case accountHistoryConstants.authorReward:
+      case accountHistoryConstants.curationReward:
         return 'icon-ranking';
       case accountHistoryConstants.COMMENT:
         if (actionDetails.parent_author === '') {
@@ -69,9 +69,9 @@ class UserActionIcon extends React.Component {
           return 'icon-message_fill';
         }
         return null;
-      case accountHistoryConstants.DELETE_COMMENT:
+      case accountHistoryConstants.deleteComment:
         return 'icon-message';
-      case accountHistoryConstants.FILL_VESTING_WITHDRAW:
+      case accountHistoryConstants.fillSCOREWithdraw:
         return 'icon-flashlight';
       default:
         return null;
@@ -83,7 +83,7 @@ class UserActionIcon extends React.Component {
     switch (actionType) {
       case accountHistoryConstants.COMMENT:
         return actionDetails.author;
-      case accountHistoryConstants.CUSTOM_JSON: {
+      case accountHistoryConstants.customJson: {
         const actionJSON = JSON.parse(actionDetails.json);
         const customActionType = actionJSON[0];
         const customActionDetails = actionJSON[1];
@@ -98,8 +98,8 @@ class UserActionIcon extends React.Component {
       }
       case accountHistoryConstants.VOTE:
         return actionDetails.voter;
-      case accountHistoryConstants.ACCOUNT_WITNESS_VOTE:
-      case accountHistoryConstants.ACCOUNT_UPDATE:
+      case accountHistoryConstants.accountWitnessVote:
+      case accountHistoryConstants.accountUpdate:
         return actionDetails.account;
       default:
         return _.get(actionDetails, 'author', '');

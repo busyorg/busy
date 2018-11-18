@@ -1,12 +1,27 @@
 @import (reference) '../styles/custom.less';
 @import (reference) '../styles/modules/variables.less';
+@import (reference) '../styles/mixins.less';
 
 .UserHeader {
   background-color: #f3f4f6;
   background-size: cover;
   background-position: center;
   position: relative;
-
+	&__user {
+		.flex(flex-start, flex-start, row, nowrap);
+		padding-bottom: 20px;
+		margin: 0;
+		position: relative;
+		&__details {
+			.flex(flex-start, flex-start, column, nowrap);
+		}
+		@media (max-width: @small-bp){
+			.flex(center, flex-start, column, nowrap);
+			&__details {
+				.flex(center, flex-start, column, nowrap);
+			}	
+		}
+	}
   &__more {
     position: absolute;
     top: 5px;
@@ -35,6 +50,8 @@
   }
 
   &__handle {
+		margin-top: -8px;
+		margin-left: -1px;
     .UserHeader__follows-you {
       display: none;
     }
@@ -49,7 +66,7 @@
 
   &__follows-you--mobile {
     position: relative;
-    top: -30px;
+    // top: -30px;
     text-align: center;
 
     @media @small {
@@ -66,7 +83,7 @@
   display: flex;
   margin: 0 auto;
   max-width: 1011px;
-  padding: 30px 16px;
+  padding: @userHeaderPadding 16px;
   align-items: center;
   flex-direction: column;
   a {
@@ -83,22 +100,15 @@
   }
 }
 
-.UserHeader__user {
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 20px;
-  margin: 0;
-}
-
 .UserHeader__row {
   display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .UserHeader__handle {
   position: relative;
-  top: -30px;
+  // top: -30px;
   color: #99aab5;
 
   &-rank-container {
@@ -121,7 +131,7 @@
 }
 
 .UserHeader__user__username {
-  margin-right: -8px;
+  // margin-right: -8px;
   font-weight: 700;
   font-size: 28px;
   color: #353535;
@@ -134,22 +144,37 @@
 }
 
 .UserHeader__user__buttons {
-  display: flex;
+	.flex(center,center,row,wrap);
+	box-sizing: border-box;
+	padding-top: 10px;
+	padding-left: 7px;
+	padding-right: 7px;
+	position: relative;
 }
 
 .UserHeader__user__button {
-  position: relative;
-  top: 40px;
-  margin-left: 10px;
-
+	position: relative;
+	.flex(center, center, row, nowrap);
+	// top: 40px;
+	margin-right: 5px;
+	margin-left: 5px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	@media (max-width: @small-bp){
+		margin-left: 5px;
+		margin-right: 5px;
+	}
   &-follows-you {
-    top: 52px;
-  }
+		// top: 52px;
+	}
+	Button {
+		border-radius: 8px !important;
+	}
 }
 
 @media @small {
   .UserHeader__container {
-    padding: 30px 0 30px 16px;
+    padding: 40px 0 40px 16px;
     align-items: initial;
     flex-direction: initial;
   }
@@ -174,8 +199,7 @@
   }
 
   .UserHeader__handle {
-    top: -8px;
-
+		margin-top: -8px;
     &-rank-container {
       display: block;
       flex-direction: initial;
@@ -188,13 +212,13 @@
   }
 
   .UserHeader__user__button {
-    top: 12px;
+    // top: 12px;
   }
 }
 
 @media @large {
   .UserHeader__container {
-    padding: 30px 0;
+    padding: 50px 0;
   }
 }
 

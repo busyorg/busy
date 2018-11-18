@@ -1,4 +1,4 @@
-const appsList = require('steemscript/apps.json');
+const appsList = require('weschemajs/apps.json');
 
 const apps = {};
 

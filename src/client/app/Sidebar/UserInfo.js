@@ -1,18 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import Action from '../../components/Button/Action';
 import { Icon } from 'antd';
 import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import _ from 'lodash';
 import urlParse from 'url-parse';
 import { getUser, getRewardFund, getRate } from '../../reducers';
 import { getVoteValue } from '../../helpers/user';
-import { calculateVotingPower } from '../../vendor/steemitHelpers';
+import { calculateVotingPower } from '../../vendor/blockchainProtocolHelpers';
 import SocialLinks from '../../components/SocialLinks';
 import USDDisplay from '../../components/Utils/USDDisplay';
+import { getAuthenticatedUser, getAuthenticatedUserName } from '../../auth/authReducer';
 
 @injectIntl
 @connect((state, ownProps) => ({
+	currentUser: state.auth.user.name,
   user: getUser(state, ownProps.match.params.name),
   rewardFund: getRewardFund(state),
   rate: getRate(state),
@@ -22,14 +26,15 @@ class UserInfo extends React.Component {
     intl: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
     rewardFund: PropTypes.shape().isRequired,
-    rate: PropTypes.number.isRequired,
+		rate: PropTypes.number.isRequired,
+		currentUser: PropTypes.any
   };
 
   render() {
-    const { intl, user, rewardFund, rate } = this.props;
-    const location = user && _.get(user.json_metadata, 'profile.location');
-    const profile = (user && _.get(user.json_metadata, 'profile')) || {};
-    let website = user && _.get(user.json_metadata, 'profile.website');
+    const { intl, user, rewardFund, rate, currentUser } = this.props;
+    const location = user && _.get(user.json, 'profile.location');
+    const profile = (user && _.get(user.json, 'profile')) || {};
+    let website = user && _.get(user.json, 'profile.website');
 
     if (website && website.indexOf('http://') === -1 && website.indexOf('https://') === -1) {
       website = `http://${website}`;
@@ -39,11 +44,17 @@ class UserInfo extends React.Component {
 
     if (hostWithoutWWW.indexOf('www.') === 0) {
       hostWithoutWWW = hostWithoutWWW.slice(4);
-    }
-
-    const voteWorth = getVoteValue(
+		}
+    const voteWorthTME = getVoteValue(
       user,
-      rewardFund.recent_claims,
+      rewardFund.recent_claims > 0 ? rewardFund.recent_claims : 1,
+      rewardFund.reward_balance,
+      1,
+      10000,
+    );
+    const voteWorthUSD = getVoteValue(
+      user,
+      rewardFund.recent_claims > 0 ? rewardFund.recent_claims : 1,
       rewardFund.reward_balance,
       rate,
       10000,
@@ -53,10 +64,10 @@ class UserInfo extends React.Component {
       <div>
         {user.name && (
           <div style={{ wordBreak: 'break-word' }}>
-            <div style={{ fontSize: '18px' }}>
-              {_.get(user && user.json_metadata, 'profile.about')}
+            <div className="user-description" style={{ fontSize: '18px' }}>
+              {_.get(user && user.json, 'profile.about')}
             </div>
-            <div style={{ marginTop: 16, marginBottom: 16 }}>
+            <div style={{ marginTop: 14, marginBottom: 16 }}>
               {location && (
                 <div>
                   <i className="iconfont icon-coordinates text-icon" />
@@ -95,17 +106,47 @@ class UserInfo extends React.Component {
                   maximumFractionDigits={0}
                 />
               </div>
-              <div>
-                <i className="iconfont icon-dollar text-icon" />
-                <FormattedMessage id="vote_value" defaultMessage="Vote Value" />
-                :{' '}
-                {isNaN(voteWorth) ? (
-                  <Icon type="loading" className="text-icon-right" />
-                ) : (
-                  <USDDisplay value={voteWorth} />
-                )}
-              </div>
+							{/* {
+								isNaN(voteWorthTME) ? '' : (
+									<div>
+										<i className="iconfont icon-dollar text-icon" />
+										<FormattedMessage id="vote_value" defaultMessage="Vote Value" />
+										:{' '}
+										{isNaN(voteWorthTME) ? (
+											<Icon type="loading" className="text-icon-right" />
+										) : (
+											<div>
+												{voteWorthTME}
+											</div>
+										)}
+									</div>
+								)
+							}
+							{
+								isNaN(voteWorthUSD) ? '' : (
+									<div>
+										<i className="iconfont icon-dollar text-icon" />
+										<FormattedMessage id="vote_value" defaultMessage="Vote Value" />
+										:{' '}
+										{isNaN(voteWorthUSD) ? (
+											<Icon type="loading" className="text-icon-right" />
+										) : (
+											<USDDisplay value={voteWorthUSD} />
+										)}
+									</div>
+								)
+							} */}
               <SocialLinks profile={profile} />
+							{
+								user.name == currentUser && 
+								<div className="edit-profile">
+									<Link className="edit-profile" to="/edit-profile">
+										<Action>
+											<FormattedMessage id="edit_profile" defaultMessage="Edit profile" />
+										</Action>
+									</Link>
+								</div>
+							}
             </div>
           </div>
         )}

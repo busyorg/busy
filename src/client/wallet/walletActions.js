@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { createAction } from 'redux-actions';
-import formatter from '../helpers/steemitFormatter';
+import formatter from '../helpers/blockchainProtocolFormatter';
 import { createAsyncActionType, getUserDetailsKey } from '../helpers/stateHelpers';
 import {
   getAccountHistory,
@@ -68,36 +68,40 @@ export const getGlobalProperties = () => dispatch =>
     },
   });
 
-export const getUserAccountHistory = username => dispatch =>
-  dispatch({
+export const getUserAccountHistory = username => dispatch => {
+	let promise = getAccountHistory(username).then(userActions => {
+		const parsedUserActions = getParsedUserActions(userActions);
+
+		return {
+			username,
+			userWalletTransactions: parsedUserActions.userWalletTransactions,
+			userAccountHistory: parsedUserActions.userAccountHistory,
+		};
+	});
+  return dispatch({
     type: GET_USER_ACCOUNT_HISTORY.ACTION,
     payload: {
-      promise: getAccountHistory(username).then(userActions => {
-        const parsedUserActions = getParsedUserActions(userActions);
-
-        return {
-          username,
-          userWalletTransactions: parsedUserActions.userWalletTransactions,
-          userAccountHistory: parsedUserActions.userAccountHistory,
-        };
-      }),
+      promise
     },
   });
+}
 
-export const getMoreUserAccountHistory = (username, start, limit) => dispatch =>
-  dispatch({
+export const getMoreUserAccountHistory = (username, start, limit) => dispatch => {
+	let promise = getAccountHistory(username, start, limit).then(userActions => {
+		const parsedUserActions = getParsedUserActions(userActions);
+		return {
+			username,
+			userWalletTransactions: parsedUserActions.userWalletTransactions,
+			userAccountHistory: parsedUserActions.userAccountHistory,
+		};
+	});
+  return dispatch({
     type: GET_MORE_USER_ACCOUNT_HISTORY.ACTION,
     payload: {
-      promise: getAccountHistory(username, start, limit).then(userActions => {
-        const parsedUserActions = getParsedUserActions(userActions);
-        return {
-          username,
-          userWalletTransactions: parsedUserActions.userWalletTransactions,
-          userAccountHistory: parsedUserActions.userAccountHistory,
-        };
-      }),
+      promise
     },
   });
+}
 
 export const getUserEstAccountValue = user => dispatch =>
   dispatch({

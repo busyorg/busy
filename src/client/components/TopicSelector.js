@@ -17,14 +17,14 @@ const TopicSelector = ({ sort, isSingle, topics, onTopicClose, onSortChange }) =
       <SortSelector.Item key="trending">
         <FormattedMessage id="sort_trending" defaultMessage="Trending" />
       </SortSelector.Item>
+      <SortSelector.Item key="hot">
+        <FormattedMessage id="sort_hot" defaultMessage="Hot" />
+      </SortSelector.Item>
       <SortSelector.Item key="created">
         <FormattedMessage id="sort_created" defaultMessage="Created" />
       </SortSelector.Item>
       <SortSelector.Item key="active">
         <FormattedMessage id="sort_active" defaultMessage="Active" />
-      </SortSelector.Item>
-      <SortSelector.Item key="hot">
-        <FormattedMessage id="sort_hot" defaultMessage="Hot" />
       </SortSelector.Item>
     </SortSelector>
   </div>

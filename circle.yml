@@ -4,7 +4,7 @@ general:
     - "yarn-error.log"
 jobs:
   build:
-    working_directory: ~/busy
+    working_directory: ~/weapp
     docker:
       - image: circleci/node:8
     steps:

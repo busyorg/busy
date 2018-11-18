@@ -119,7 +119,7 @@ export default class User extends React.Component {
 
     const username = this.props.match.params.name;
     const { user } = this.props;
-    const { profile = {} } = user.json_metadata || {};
+    const { profile = {} } = user.json || {};
     const busyHost = global.postOrigin || 'https://busy.org';
     const desc = profile.about || `Posts by ${username}`;
     const image = getAvatarURL(username) || '/images/logo.png';
@@ -127,7 +127,7 @@ export default class User extends React.Component {
     const url = `${busyHost}/@${username}`;
     const displayedUsername = profile.name || username || '';
     const hasCover = !!profile.cover_image;
-    const title = `${displayedUsername} - Busy`;
+    const title = `${displayedUsername} - WeYouMe`;
 
     const isSameUser = authenticated && authenticatedUser.name === username;
 
@@ -143,7 +143,7 @@ export default class User extends React.Component {
           <meta property="og:url" content={url} />
           <meta property="og:image" content={image} />
           <meta property="og:description" content={desc} />
-          <meta property="og:site_name" content="Busy" />
+          <meta property="og:site_name" content="WeYouMe" />
 
           <meta property="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
           <meta property="twitter:site" content={'@steemit'} />
@@ -175,10 +175,10 @@ export default class User extends React.Component {
                 <LeftSidebar />
               </div>
             </Affix>
+            {loaded && <div className="center">{renderRoutes(this.props.route.routes)}</div>}
             <Affix className="rightContainer" stickPosition={72}>
               <div className="right">{loaded && <RightSidebar key={user.name} />}</div>
             </Affix>
-            {loaded && <div className="center">{renderRoutes(this.props.route.routes)}</div>}
           </div>
         </div>
       </div>

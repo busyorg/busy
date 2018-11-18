@@ -2,13 +2,13 @@ import promiseMiddleware from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
 import { applyMiddleware, createStore, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
-import steemAPI from './steemAPI';
-import createBusyAPI from '../common/services/createBusyAPI';
+import blockchainAPI from './blockchainAPI';
+import createLiteAPIclient from '../common/services/createLiteAPIclient';
 import history from './history';
 import errorMiddleware from './helpers/errorMiddleware';
 import createReducer from './reducers';
 
-export default steemConnectAPI => {
+export default weauthjsInstance => {
   let preloadedState;
   if (typeof window !== 'undefined') {
     /* eslint-disable no-underscore-dangle */
@@ -23,9 +23,9 @@ export default steemConnectAPI => {
       promiseTypeSuffixes: ['START', 'SUCCESS', 'ERROR'],
     }),
     thunk.withExtraArgument({
-      steemAPI,
-      steemConnectAPI,
-      busyAPI: createBusyAPI(),
+      blockchainAPI,
+      weauthjsInstance,
+      blockchainLiteAPI: createLiteAPIclient(),
     }),
     routerMiddleware(history),
   ];

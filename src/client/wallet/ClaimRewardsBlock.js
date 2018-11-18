@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
-import SteemConnect from '../steemConnectAPI';
+import weauthjsInstance from '../weauthjsInstance';
 import { getAuthenticatedUser } from '../reducers';
 import { getUserAccountHistory } from './walletActions';
 import { reload } from '../auth/authActions';
@@ -42,14 +42,14 @@ class ClaimRewardsBlock extends Component {
     const { user } = this.props;
     const {
       name,
-      reward_steem_balance: steemBalance,
-      reward_sbd_balance: sbdBalance,
-      reward_vesting_balance: vestingBalance,
+      TMErewardBalance: TMEbalance,
+      TSDrewardBalance: TSDbalance,
+      reward_vesting_balance: SCOREbalance,
     } = user;
     this.setState({
       loading: true,
     });
-    SteemConnect.claimRewardBalance(name, steemBalance, sbdBalance, vestingBalance, err => {
+    weauthjsInstance.claimRewardBalance(name, TMEbalance, TSDbalance, SCOREbalance, err => {
       if (!err) {
         this.setState({
           loading: false,
@@ -82,10 +82,10 @@ class ClaimRewardsBlock extends Component {
   render() {
     const { user, intl } = this.props;
     const { rewardClaimed } = this.state;
-    const rewardSteem = parseFloat(user.reward_steem_balance);
-    const rewardSbd = parseFloat(user.reward_sbd_balance);
-    const rewardSP = parseFloat(user.reward_vesting_steem);
-    const userHasRewards = rewardSteem > 0 || rewardSbd > 0 || rewardSP > 0;
+    const TMEreward = parseFloat(user.TMErewardBalance);
+    const TSDreward = parseFloat(user.TSDrewardBalance);
+    const SCORErewardBalanceInTME = parseFloat(user.SCORErewardBalanceInTME);
+    const userHasRewards = TMEreward > 0 || TSDreward > 0 || SCORErewardBalanceInTME > 0;
 
     const buttonText = rewardClaimed
       ? intl.formatMessage({
@@ -108,9 +108,9 @@ class ClaimRewardsBlock extends Component {
         <div className="SidebarContentBlock__content">
           {!rewardClaimed && (
             <div>
-              {rewardSteem > 0 && this.renderReward(rewardSteem, 'STEEM', 'steem')}
-              {rewardSbd > 0 && this.renderReward(rewardSbd, 'SBD', 'steem_dollar')}
-              {rewardSP > 0 && this.renderReward(rewardSP, 'SP', 'steem_power')}
+              {TMEreward > 0 && this.renderReward(TMEreward, 'TME', 'TME')}
+              {TSDreward > 0 && this.renderReward(TSDreward, 'TSD', 'TSD')}
+              {SCORErewardBalanceInTME > 0 && this.renderReward(SCORErewardBalanceInTME, 'SCORE', 'SCORE')}
             </div>
           )}
           <Action

@@ -22,14 +22,14 @@ export const GET_MORE_REPLIES = createAsyncActionType('@user/GET_MORE_REPLIES');
 
 export const GET_BOOKMARKS = createAsyncActionType('@bookmarks/GET_BOOKMARKS');
 
-export const getFeedContent = ({ sortBy = 'trending', category, limit = 20 }) => (
+export const getFeedContent = ({ sortBy='trending', category, limit = 20 }) => (
   dispatch,
   getState,
-  { steemAPI },
+  { blockchainAPI },
 ) =>
   dispatch({
-    type: GET_FEED_CONTENT.ACTION,
-    payload: getDiscussionsFromAPI(sortBy, { tag: category, limit }, steemAPI),
+		type: GET_FEED_CONTENT.ACTION,
+    payload: getDiscussionsFromAPI(sortBy, { tag: category, limit }, blockchainAPI),
     meta: {
       sortBy,
       category: category || 'all',
@@ -40,7 +40,7 @@ export const getFeedContent = ({ sortBy = 'trending', category, limit = 20 }) =>
 export const getMoreFeedContent = ({ sortBy, category, limit = 20 }) => (
   dispatch,
   getState,
-  { steemAPI },
+  { blockchainAPI },
 ) => {
   const state = getState();
   const feed = getFeed(state);
@@ -64,7 +64,7 @@ export const getMoreFeedContent = ({ sortBy, category, limit = 20 }) => (
         start_author: startAuthor,
         start_permlink: startPermlink,
       },
-      steemAPI,
+      blockchainAPI,
     ).then(postsData => postsData.slice(1)),
     meta: {
       sortBy,
@@ -74,10 +74,10 @@ export const getMoreFeedContent = ({ sortBy, category, limit = 20 }) => (
   });
 };
 
-export const getUserComments = ({ username, limit = 20 }) => (dispatch, getState, { steemAPI }) =>
+export const getUserComments = ({ username, limit = 20 }) => (dispatch, getState, { blockchainAPI }) =>
   dispatch({
     type: GET_USER_COMMENTS.ACTION,
-    payload: steemAPI
+    payload: blockchainAPI
       .sendAsync('get_discussions_by_comments', [{ start_author: username, limit }])
       .then(postsData => postsData),
     meta: { sortBy: 'comments', category: username, limit },
@@ -86,7 +86,7 @@ export const getUserComments = ({ username, limit = 20 }) => (dispatch, getState
 export const getMoreUserComments = ({ username, limit = 20 }) => (
   dispatch,
   getState,
-  { steemAPI },
+  { blockchainAPI },
 ) => {
   const state = getState();
   const feed = getFeed(state);
@@ -106,7 +106,7 @@ export const getMoreUserComments = ({ username, limit = 20 }) => (
 
   return dispatch({
     type: GET_MORE_USER_COMMENTS.ACTION,
-    payload: steemAPI
+    payload: blockchainAPI
       .sendAsync('get_discussions_by_comments', [
         {
           start_author: startAuthor,
@@ -119,20 +119,20 @@ export const getMoreUserComments = ({ username, limit = 20 }) => (
   });
 };
 
-export const getReplies = () => (dispatch, getState, { steemAPI }) => {
+export const getReplies = () => (dispatch, getState, { blockchainAPI }) => {
   const state = getState();
   const category = getAuthenticatedUserName(state);
 
   dispatch({
     type: GET_REPLIES.ACTION,
-    payload: steemAPI
+    payload: blockchainAPI
       .sendAsync('get_state', [`/@${category}/recent-replies`])
       .then(apiRes => Object.values(apiRes.content).sort((a, b) => b.id - a.id)),
     meta: { sortBy: 'replies', category, limit: 50 },
   });
 };
 
-export const getMoreReplies = () => (dispatch, getState, { steemAPI }) => {
+export const getMoreReplies = () => (dispatch, getState, { blockchainAPI }) => {
   const state = getState();
   const feed = getFeed(state);
   const posts = getPosts(state);
@@ -151,7 +151,7 @@ export const getMoreReplies = () => (dispatch, getState, { steemAPI }) => {
 
   return dispatch({
     type: GET_MORE_REPLIES.ACTION,
-    payload: steemAPI
+    payload: blockchainAPI
       .sendAsync('get_replies_by_last_update', [startAuthor, startPermlink, limit + 1])
       .then(postsData => postsData.slice(1)),
     meta: { sortBy: 'replies', category, limit },
@@ -159,33 +159,34 @@ export const getMoreReplies = () => (dispatch, getState, { steemAPI }) => {
 };
 
 /**
- * Use async await to load all the posts of bookmarked from steemAPI and returns a Promise
+ * Use async await to load all the posts of bookmarked from blockchainAPI and returns a Promise
  *
  * @param bookmarks from localStorage only contain author and permlink
- * @param steemAPI
+ * @param blockchainAPI
  * @returns Promise - bookmarksData
  */
-async function getBookmarksData(bookmarks, steemAPI) {
+async function getBookmarksData(bookmarks, blockchainAPI) {
   const bookmarksData = [];
   for (let idx = 0; idx < Object.keys(bookmarks).length; idx += 1) {
     const postId = Object.keys(bookmarks)[idx];
 
-    const postData = steemAPI.sendAsync('get_content', [
+    const postData = blockchainAPI.sendAsync('get_content', [
       bookmarks[postId].author,
       bookmarks[postId].permlink,
-    ]);
+		]);
+		postData.catch(err=>{console.error('err', err)})
     bookmarksData.push(postData);
   }
   return Promise.all(bookmarksData.sort((a, b) => a.timestamp - b.timestamp).reverse());
 }
 
-export const getBookmarks = () => (dispatch, getState, { steemAPI }) => {
+export const getBookmarks = () => (dispatch, getState, { blockchainAPI }) => {
   const state = getState();
   const bookmarks = getBookmarksSelector(state);
 
   dispatch({
     type: GET_BOOKMARKS.ACTION,
-    payload: getBookmarksData(bookmarks, steemAPI).then(posts =>
+    payload: getBookmarksData(bookmarks, blockchainAPI).then(posts =>
       posts.filter(post => post.id !== 0),
     ),
     meta: {
