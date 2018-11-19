@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet';
 import { getFeedContent } from './feedActions';
 import { getIsLoaded, getIsAuthenticated } from '../reducers';
 import SubFeed from './SubFeed';
-import HeroBannerContainer from './HeroBannerContainer';
+// import HeroBannerContainer from './HeroBannerContainer';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RightSidebar from '../app/Sidebar/RightSidebar';
 import TopicSelector from '../components/TopicSelector';
@@ -15,7 +15,8 @@ import Affix from '../components/Utils/Affix';
 import ScrollToTop from '../components/Utils/ScrollToTop';
 import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 import QuickPostEditor from '../components/QuickPostEditor/QuickPostEditor';
-
+import UserWallet from '../user/UserWallet';
+// import Chin from '../components/Chin/Chin'
 @connect(state => ({
   authenticated: getIsAuthenticated(state),
   loaded: getIsLoaded(state),
@@ -30,11 +31,13 @@ class Page extends React.Component {
   };
 
   static fetchData({ store, match }) {
-    const { sortBy, category } = match.params;
+		const { sortBy, category } = match.params;
+		// if(sortBy=='new') sortBy = 'created'
     return store.dispatch(getFeedContent({ sortBy, category, limit: 10 }));
   }
 
   handleSortChange = key => {
+		// if(key=='new') key = 'created'
     const { category } = this.props.match.params;
     if (category) {
       this.props.history.push(`/${key}/${category}`);
@@ -48,7 +51,7 @@ class Page extends React.Component {
   render() {
     const { authenticated, loaded, location, match } = this.props;
     const { category, sortBy } = match.params;
-
+		// if(sortBy=='new') sortBy = 'created'
     const shouldDisplaySelector = location.pathname !== '/' || (!authenticated && loaded);
     const displayTopicSelector = location.pathname === '/trending';
 
@@ -57,12 +60,13 @@ class Page extends React.Component {
     return (
       <div>
         <Helmet>
-          <title>Busy</title>
+          <title>WeYouMe</title>
           <meta name="robots" content={robots} />
         </Helmet>
         <ScrollToTop />
         <ScrollToTopOnMount />
-        <HeroBannerContainer />
+				{/* <HeroBannerContainer /> */}
+				
         <div className="shifted">
           <div className="feed-layout container">
             <Affix className="leftContainer" stickPosition={77}>
@@ -70,27 +74,36 @@ class Page extends React.Component {
                 <LeftSidebar />
               </div>
             </Affix>
-            <Affix className="rightContainer" stickPosition={77}>
-              <div className="right">
-                <RightSidebar />
-              </div>
-            </Affix>
             <div className="center">
-              {displayTopicSelector && <TrendingTagsMenu />}
-              {shouldDisplaySelector && (
-                <TopicSelector
+              {/* {displayTopicSelector && <TrendingTagsMenu />} */}
+              {/* {shouldDisplaySelector && (
+								<TopicSelector
+								isSingle={false}
+								sort={sortBy}
+								topics={category ? [category] : []}
+								onSortChange={this.handleSortChange}
+								onTopicClose={this.handleTopicClose}
+                />
+							)} */}
+							<TopicSelector
                   isSingle={false}
                   sort={sortBy}
                   topics={category ? [category] : []}
                   onSortChange={this.handleSortChange}
                   onTopicClose={this.handleTopicClose}
                 />
-              )}
               {authenticated && <QuickPostEditor />}
               <SubFeed />
+							{/* <UserWallet isCurrentUser className="userWalletPage"></UserWallet> */}
             </div>
+						<Affix className="rightContainer" stickPosition={77}>
+							<div className="right">
+								<RightSidebar />
+							</div>
+						</Affix>
           </div>
         </div>
+				{/* <Chin/> */}
       </div>
     );
   }

@@ -5,20 +5,67 @@
 
 .Topnav {
   background-color: @white;
-  height: 56px;
-  line-height: 52px;
-  border-bottom: @base-border;
+  height: @nav-height;
+  line-height: @nav-height;
+	border-bottom: @base-border;
+	overflow: hidden;
+	&-dropdown {
+		&-avatar {
+			&-desktop {
+				display: none !important;
+				@media (min-width: @small-bp - 1){
+					display: flex !important;
+				}
+			}
+			&-mobile {
+				display: none !important;
+				@media (max-width: @small-bp){
+					display: flex !important;
+				}
+			}
+		}
+		&-caret {
+			display: flex !important;
+			margin-bottom: -1px;
+			@media (max-width: @small-bp){
+				display: none !important;
+			}
+		}
+	}
 
   &__brand {
-    font-size: 30px;
+    font-size: 24px;
     font-weight: bold;
-    letter-spacing: 0.5px;
+		// letter-spacing: 0.5px;
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: row;
+		z-index: 1;
+		margin-top: -1px;
+		&name {
+			font-size: 26px;
+			display: none;
+			@media @small {
+				display: initial;
+			}
+		}
 
     &-icon {
       margin-right: 4px;
       font-size: 20px !important;
-      vertical-align: 2px;
-    }
+      // vertical-align: 2px;
+		}
+		
+		&__logo {
+			width: 36px;
+			height: 36px;
+			margin-right: 5px;
+		}
+		.Me {
+			margin-left: 2px;
+		}
 
     &:hover,
     &:visited,
@@ -29,11 +76,23 @@
   }
 
   &__version {
-    color: @tertiary-color;
+    color: lighten(@tertiary-color, 15);
     font-weight: 500;
-    position: absolute;
-    margin-top: 6px;
-    font-size: 16px;
+    // position: absolute;
+		// margin-top: 14px;
+		// left: 70px;
+		// right: 17px;
+		font-size: 14px;
+		z-index: 0;
+		// display: none;
+		@media @small {
+			display: initial;
+		}
+		@media (max-width: @small-bp){
+			display: none;
+			// padding-left: 0;
+		}
+		// align-self: flex-end;
   }
 
   &__container {
@@ -45,21 +104,28 @@
   &__input-container {
     padding: 0 @base-spacing;
     position: relative;
-    height: 55px;
+    height: 44px;
     display: flex;
-    margin-left: 15px;
-
+		margin-left: 5px;
+		align-items: center;
+		justify-content: center;
+		max-width: 250px;
     > .ant-select-show-search {
       width: 100%;
     }
-
+		.ant-select-search__field {
+			margin-top: 0px;
+			font-size: 14px !important;
+			&::placeholder {
+				font-size: 14px !important;
+			}
+		}
     input {
-      height: 38px !important;
+      height: 32px !important;
       margin-top: 8px;
       border-radius: @border-radius-base;
-      padding: 0 0 0 43px !important;
+      padding: 0 0 0 15px !important;
       border: @border-width-base @border-style-base @border-color-base;
-
       &:hover,
       &:focus {
         box-shadow: none !important;
@@ -68,7 +134,7 @@
     }
 
     i {
-      left: 16px;
+      right: 10px;
       position: absolute;
       color: #c2ccd3;
       font-size: 20px;
@@ -84,13 +150,13 @@
 
     &__menu {
       flex-shrink: 0;
-      height: 55px !important;
+      height: 45px !important;
       border: 0 !important;
-      line-height: 55px !important;
+      line-height: 45px !important;
       margin-left: @base-spacing;
 
       & > li.ant-menu-item {
-        height: 55px !important;
+        height: 45px !important;
         padding: 0 3px !important;
         display: flex;
         justify-content: center;
@@ -121,9 +187,15 @@
 
   &__user {
     display: flex !important;
-    align-items: center;
-    height: 54px;
-
+		align-items: center;
+		height: 100%;
+		max-height: 100%;
+    // height: 54px;
+		// margin-top: 0px;
+		&::before {
+			bottom: 0px;
+			max-height: 100%;
+		}
     &__username {
       display: none;
       margin-left: 8px;
@@ -140,6 +212,10 @@
   }
 
   &__link {
+		&::before {
+			bottom: 0px;
+			max-height: 100%;
+		}
     &--light {
       i {
         font-weight: normal !important;
@@ -152,17 +228,17 @@
     border: 0;
     color: @tertiary-color;
     display: block;
-    height: 55px;
+    height: 45px;
     outline: none;
     width: 30px;
-    margin-top: 2px;
+    // margin-top: 2px;
 
     .icon-search {
       font-size: 28px !important;
     }
 
     &-close {
-      margin-right: -16px;
+      // margin-right: -10px;
     }
 
     &:hover {
@@ -177,7 +253,6 @@
 
   &__mobile-hidden {
     display: none;
-
     @media @small {
       display: initial;
     }
@@ -278,12 +353,16 @@ div[data-dir='rtl'] .Topnav {
   color: @blue-baliHai !important;
 }
 
+.popoverMenu {
+	height: auto;
+}
+
 .Topnav__notifications-tooltip {
   top: 61px !important;
 }
 
 .Topnav__menu--icon {
-  width: 16px !important;
+  // width: 16px !important;
   justify-content: flex-end !important;
 }
 

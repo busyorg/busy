@@ -12,9 +12,11 @@ ShallowWrapper {
     sort="active"
     topics={
       Array [
-        "busy",
+        "weyoume",
         "introduceyourself",
         "steemfest",
+				"busy",
+				"bitshares",
       ]
     }
   />,
@@ -37,7 +39,7 @@ ShallowWrapper {
           <Topic
             closable={false}
             favorite={false}
-            name="busy"
+            name="weyoume"
             onClose={[Function]}
           />
           <Topic
@@ -50,6 +52,18 @@ ShallowWrapper {
             closable={false}
             favorite={false}
             name="steemfest"
+            onClose={[Function]}
+          />
+          <Topic
+            closable={false}
+            favorite={false}
+            name="busy"
+            onClose={[Function]}
+          />
+          <Topic
+            closable={false}
+            favorite={false}
+            name="bitshares"
             onClose={[Function]}
           />
         </div>,
@@ -124,7 +138,7 @@ ShallowWrapper {
             <Topic
               closable={false}
               favorite={false}
-              name="busy"
+              name="weyoume"
               onClose={[Function]}
             />,
             <Topic
@@ -146,12 +160,12 @@ ShallowWrapper {
         "rendered": Array [
           Object {
             "instance": null,
-            "key": "busy",
+            "key": "weyoume",
             "nodeType": "class",
             "props": Object {
               "closable": false,
               "favorite": false,
-              "name": "busy",
+              "name": "weyoume",
               "onClose": [Function],
             },
             "ref": null,
@@ -400,7 +414,7 @@ ShallowWrapper {
             <Topic
               closable={false}
               favorite={false}
-              name="busy"
+              name="weyoume"
               onClose={[Function]}
             />
             <Topic
@@ -487,7 +501,7 @@ ShallowWrapper {
               <Topic
                 closable={false}
                 favorite={false}
-                name="busy"
+                name="weyoume"
                 onClose={[Function]}
               />,
               <Topic
@@ -509,12 +523,12 @@ ShallowWrapper {
           "rendered": Array [
             Object {
               "instance": null,
-              "key": "busy",
+              "key": "weyoume",
               "nodeType": "class",
               "props": Object {
                 "closable": false,
                 "favorite": false,
-                "name": "busy",
+                "name": "weyoume",
                 "onClose": [Function],
               },
               "ref": null,

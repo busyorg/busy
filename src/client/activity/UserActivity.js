@@ -8,8 +8,8 @@ import {
   getUser,
   getAuthenticatedUser,
   getAuthenticatedUserName,
-  getTotalVestingShares,
-  getTotalVestingFundSteem,
+  gettotalSCORE,
+  getSCOREbackingTMEfundBalance,
   getUsersAccountHistory,
   getUsersAccountHistoryLoading,
   getUsersEstAccountsValues,
@@ -36,8 +36,8 @@ import UserActivityActions from './UserActivityActions';
       ? getAuthenticatedUser(state)
       : getUser(state, ownProps.match.params.name),
     authenticatedUserName: getAuthenticatedUserName(state),
-    totalVestingShares: getTotalVestingShares(state),
-    totalVestingFundSteem: getTotalVestingFundSteem(state),
+    totalSCORE: gettotalSCORE(state),
+    SCOREbackingTMEfundBalance: getSCOREbackingTMEfundBalance(state),
     usersAccountHistory: getUsersAccountHistory(state),
     usersAccountHistoryLoading: getUsersAccountHistoryLoading(state),
     usersEstAccountsValues: getUsersEstAccountsValues(state),
@@ -69,8 +69,8 @@ class UserActivity extends React.Component {
     user: PropTypes.shape().isRequired,
     usersAccountHistory: PropTypes.shape().isRequired,
     usersEstAccountsValues: PropTypes.shape().isRequired,
-    totalVestingShares: PropTypes.string.isRequired,
-    totalVestingFundSteem: PropTypes.string.isRequired,
+    totalSCORE: PropTypes.string.isRequired,
+    SCOREbackingTMEfundBalance: PropTypes.string.isRequired,
     currentDisplayedActions: PropTypes.arrayOf(PropTypes.shape()),
     isCurrentUser: PropTypes.bool,
     authenticatedUserName: PropTypes.string,
@@ -84,8 +84,8 @@ class UserActivity extends React.Component {
 
   componentDidMount() {
     const {
-      totalVestingShares,
-      totalVestingFundSteem,
+      totalSCORE,
+      SCOREbackingTMEfundBalance,
       usersEstAccountsValues,
       usersAccountHistory,
       user,
@@ -97,7 +97,7 @@ class UserActivity extends React.Component {
       ? authenticatedUserName
       : this.props.location.pathname.match(/@(.*)(.*?)\//)[1];
 
-    if (_.isEmpty(totalVestingFundSteem) || _.isEmpty(totalVestingShares)) {
+    if (_.isEmpty(SCOREbackingTMEfundBalance) || _.isEmpty(totalSCORE)) {
       this.props.getGlobalProperties();
     }
 

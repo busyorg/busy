@@ -15,7 +15,7 @@ const SocialLinks = ({ profile }) => {
   );
 
   return (
-    <div style={{ marginTop: 8 }}>
+    <div style={{ marginTop: 14 }}>
       {availableProfiles.map(socialProfile => (
         <SocialLink
           key={socialProfile.id}

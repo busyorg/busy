@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
-import formatter from '../helpers/steemitFormatter';
+import formatter from '../helpers/blockchainProtocolFormatter';
 
 const AuthorRewardMessage = ({
   actionDetails,
   intl,
-  totalVestingShares,
-  totalVestingFundSteem,
+  totalSCORE,
+  SCOREbackingTMEfundBalance,
 }) => {
   const rewards = [
-    { payout: actionDetails.sbd_payout, currency: 'SBD' },
-    { payout: actionDetails.steem_payout, currency: 'STEEM' },
-    { payout: actionDetails.vesting_payout, currency: 'SP' },
+    { payout: actionDetails.TSDpayout, currency: 'TSD' },
+    { payout: actionDetails.TMEpayout, currency: 'TME' },
+    { payout: actionDetails.SCOREpayout, currency: 'SCORE' },
   ];
 
   const parsedRewards = _.reduce(
@@ -24,13 +24,13 @@ const AuthorRewardMessage = ({
 
       if (parsedPayout > 0) {
         let rewardsStr;
-        if (reward.currency === 'SP') {
-          const vestsToSP = formatter.vestToSteem(
+        if (reward.currency === 'SCORE') {
+          const SCORErewardInTMEvalue = formatter.SCOREinTMEvalue(
             parsedPayout,
-            totalVestingShares,
-            totalVestingFundSteem,
+            totalSCORE,
+            SCOREbackingTMEfundBalance,
           );
-          rewardsStr = intl.formatNumber(vestsToSP, {
+          rewardsStr = intl.formatNumber(SCORErewardInTMEvalue, {
             minimumFractionDigits: 3,
             maximumFractionDigits: 3,
           });
@@ -69,8 +69,8 @@ const AuthorRewardMessage = ({
 AuthorRewardMessage.propTypes = {
   actionDetails: PropTypes.shape().isRequired,
   intl: PropTypes.shape().isRequired,
-  totalVestingShares: PropTypes.string.isRequired,
-  totalVestingFundSteem: PropTypes.string.isRequired,
+  totalSCORE: PropTypes.string.isRequired,
+  SCOREbackingTMEfundBalance: PropTypes.string.isRequired,
 };
 
 export default injectIntl(AuthorRewardMessage);

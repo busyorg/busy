@@ -10,9 +10,9 @@ describe('(Component) UserWalletTransactions', () => {
           {
             timestamp: '0',
             op: [
-              'transfer_to_vesting',
+              'transferTMEtoSCOREfund',
               {
-                amount: '100 STEEM',
+                amount: '100 TME',
               },
             ],
           },
@@ -23,14 +23,14 @@ describe('(Component) UserWalletTransactions', () => {
               {
                 from: 'hellosteem1',
                 memo: 'transfer memo',
-                amount: '100 STEEM',
+                amount: '100 TME',
               },
             ],
           },
         ],
         currentUsername: 'hellosteem',
-        totalVestingShares: '0',
-        totalVestingFundSteem: '0',
+        totalSCORE: '0',
+        SCOREbackingTMEfundBalance: '0',
       };
       const wrapper = shallow(<UserWalletTransactions {...props} />);
       expect(wrapper).toMatchSnapshot();

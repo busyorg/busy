@@ -31,18 +31,18 @@ export const getMessageForSearchFilter = (currentUsername, actionType, actionDet
   switch (actionType) {
     case accountHistoryConstants.VOTE:
       return getVoteFilterType(actionDetails);
-    case accountHistoryConstants.CUSTOM_JSON:
+    case accountHistoryConstants.customJson:
       return getCustomJSONFilterType(actionDetails);
     case accountHistoryConstants.COMMENT:
       return accountHistoryConstants.REPLIED;
-    case accountHistoryConstants.AUTHOR_REWARD:
-      return accountHistoryConstants.AUTHOR_REWARD;
-    case accountHistoryConstants.CURATION_REWARD:
-      return accountHistoryConstants.CURATION_REWARD;
+    case accountHistoryConstants.authorReward:
+      return accountHistoryConstants.authorReward;
+    case accountHistoryConstants.curationReward:
+      return accountHistoryConstants.curationReward;
     case accountHistoryConstants.CLAIM_REWARDS:
-    case accountHistoryConstants.CLAIM_REWARD_BALANCE:
+    case accountHistoryConstants.claimRewardBalance:
       return accountHistoryConstants.CLAIM_REWARDS;
-    case accountHistoryConstants.TRANSFER_TO_VESTING:
+    case accountHistoryConstants.transferTMEtoSCOREfund:
       return accountHistoryConstants.POWERED_UP;
     case accountHistoryConstants.TRANSFER:
       if (actionDetails.to === currentUsername) {

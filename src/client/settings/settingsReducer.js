@@ -10,7 +10,7 @@ const initialState = {
   nightmode: false,
   rewriteLinks: false,
   loading: false,
-  upvoteSetting: true,
+  upvoteSetting: false,
   exitPageSetting: true,
   rewardSetting: rewardsValues.half,
   useBeta: false,

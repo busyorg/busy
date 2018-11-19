@@ -29,6 +29,7 @@ import './LetsGetStarted.less';
   followingFetched: getFollowingFetched(state),
   fetchFollowListError: getFetchFollowListError(state),
 }))
+
 class LetsGetStarted extends React.Component {
   static propTypes = {
     followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -44,11 +45,11 @@ class LetsGetStarted extends React.Component {
   static getCurrentUserState(authenticatedUser, followingList) {
     const hasPost = authenticatedUser.last_root_post !== '1970-01-01T00:00:00';
     const hasVoted = authenticatedUser.last_vote_time !== authenticatedUser.created;
-    const jsonMetadata = _.attempt(JSON.parse, authenticatedUser.json_metadata);
+    const json = _.attempt(JSON.parse, authenticatedUser.json);
     const hasProfile =
-      _.has(jsonMetadata, 'profile.name') &&
-      _.has(jsonMetadata, 'profile.about') &&
-      _.has(jsonMetadata, 'profile.profile_image');
+      _.has(json, 'profile.name') &&
+      _.has(json, 'profile.about') &&
+      _.has(json, 'profile.profile_image');
     const hasFollowed = _.size(followingList) >= 5;
 
     return {
@@ -158,8 +159,8 @@ class LetsGetStarted extends React.Component {
                 })}
               >
                 <FormattedMessage
-                  id="follow_steemians"
-                  defaultMessage="Follow {amount} steemians"
+                  id="follow_people"
+                  defaultMessage="Follow {amount} people"
                   values={{ amount: 5 }}
                 />
               </span>

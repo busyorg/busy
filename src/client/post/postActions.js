@@ -7,7 +7,7 @@ export const LIKE_POST_START = '@post/LIKE_POST_START';
 export const LIKE_POST_SUCCESS = '@post/LIKE_POST_SUCCESS';
 export const LIKE_POST_ERROR = '@post/LIKE_POST_ERROR';
 
-export const getContent = (author, permlink, afterLike) => (dispatch, getState, { steemAPI }) => {
+export const getContent = (author, permlink, afterLike) => (dispatch, getState, { blockchainAPI }) => {
   if (!author || !permlink) {
     return null;
   }
@@ -15,10 +15,16 @@ export const getContent = (author, permlink, afterLike) => (dispatch, getState, 
   return dispatch({
     type: GET_CONTENT.ACTION,
     payload: {
-      promise: steemAPI.sendAsync('get_content', [author, permlink]).then(res => {
-        if (res.id === 0) throw new Error('There is no such post');
+      promise: blockchainAPI.sendAsync('get_content', [author, permlink]).then(res => {
+        if (res.id === 0) {
+					console.error('err', `There is no such post @${author}/${permlink}`)
+					console.error('err', res)
+					// throw new Error('There is no such post')
+				};
         return res;
-      }),
+			}).catch(err=>{
+				console.error('err', err)
+			})
     },
     meta: {
       author,
@@ -31,7 +37,7 @@ export const getContent = (author, permlink, afterLike) => (dispatch, getState, 
 export const votePost = (postId, author, permlink, weight = 10000) => (
   dispatch,
   getState,
-  { steemConnectAPI },
+  { weauthjsInstance },
 ) => {
   const { auth, posts } = getState();
   if (!auth.isAuthenticated) {
@@ -44,7 +50,7 @@ export const votePost = (postId, author, permlink, weight = 10000) => (
   return dispatch({
     type: LIKE_POST,
     payload: {
-      promise: steemConnectAPI.vote(voter, post.author, post.permlink, weight).then(res => {
+      promise: weauthjsInstance.vote(voter, post.author, post.permlink, weight).then(res => {
         if (window.analytics) {
           window.analytics.track('Vote', {
             category: 'vote',

@@ -1,10 +1,36 @@
 @import (reference) '../../styles/custom.less';
+@import (reference) '../../styles/modules/variables.less';
 
 .Buttons {
   color: @blue-botticelli;
   font-size: 14px;
   font-weight: bold;
-
+	max-height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-direction: row;
+	flex-wrap: wrap;
+	.button__group {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		padding-left: 16px;
+		padding-right: 14px;
+		margin-right: 10px;
+		&:first-child {
+			padding-left: 0px
+		}
+		@media (max-width: @small-bp){
+			padding-left: 8px;
+			padding-right: 10px;
+			margin-right: 8px;	
+		}
+	}
+	
   &__reactions-count {
     cursor: pointer;
     &:hover {
@@ -14,16 +40,15 @@
 
   &__link {
     color: @blue-botticelli;
-    transition: none;
-
+		transition: none;
     & > .iconfont {
-      margin-right: 4px;
+      // margin-right: 4px;
       font-size: 24px !important;
       color: @blue-linkWater;
     }
 
     & > .anticon {
-      margin-right: 8px;
+      // margin-right: 8px;
       color: @blue-linkWater;
       vertical-align: 3px;
     }
@@ -43,8 +68,11 @@
   }
 
   &__number {
-    vertical-align: 3px;
-    margin-right: 10px;
+		position: absolute;
+		vertical-align: 3px;
+		// min-width: 15px;
+		right: 0px;
+    // margin-right: 10px;
   }
 
   &__dislike:before {
@@ -55,22 +83,21 @@
 
   &__share {
     vertical-align: -1px;
-    margin-right: 10px !important;
+    // margin-right: 10px !important;
   }
 
   &__icon-text {
     font-weight: bold;
-    margin-left: 4px;
+    // margin-left: 4px;
     vertical-align: 2px;
 
     &-dislike {
-      margin-left: 8px;
+      // margin-left: 8px;
     }
   }
 
   &__post-menu {
     cursor: pointer;
-
     &:hover {
       color: @primary-color;
     }

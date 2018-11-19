@@ -7,7 +7,7 @@
 import embedjs from 'embedjs';
 import slice from 'lodash/slice';
 import xmldom from 'xmldom';
-import linksRe from './steemitLinks';
+import linksRe from './blockchainProtocolLinks';
 import { validateAccountName } from './ChainValidation';
 import { getProxyImageURL } from '../helpers/image';
 
@@ -56,7 +56,7 @@ const XMLSerializer = new xmldom.XMLSerializer();
  *    - convert naked URLs to images/links
  *    - convert embeddable URLs to <iframe>s
  *    - basic sanitization?
- *  2. Steemit.com Rendering - add in proprietary Steemit.com functions/links
+ *  2. alpha.weyoume.io Rendering - add in proprietary alpha.weyoume.io functions/links
  *    - convert <iframe>s to custom objects
  *    - linkify #tags and @mentions
  *    - proxify images

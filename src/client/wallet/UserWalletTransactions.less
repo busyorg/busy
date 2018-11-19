@@ -36,21 +36,26 @@
   &__transaction {
     color: @grey-nightRider;
     display: flex;
-    padding: 10px 15px;
+		padding: 10px 15px;
     border-bottom: @base-border;
 
-    &:nth-of-type(2) {
+    &:first-child {
       border-top: @base-border;
     }
-
+		&:last-child {
+			border-top-left-radius: 0px;
+			border-top-right-radius: 0px;
+		}
     @media @small {
       border-right: @base-border;
       border-left: @base-border;
 
-      &:nth-of-type(2),
-      &:last-of-type {
-        border-top-left-radius: @border-radius-base;
-        border-top-right-radius: @border-radius-base;
+			&:first-child {
+				border-top: @base-border;
+			}
+      &:last-child {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
       }
     }
   }

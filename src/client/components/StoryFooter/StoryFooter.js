@@ -24,18 +24,22 @@ class StoryFooter extends React.Component {
     ownPost: PropTypes.bool,
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
     pendingLike: PropTypes.bool,
+    pendingDislike: PropTypes.bool,
     pendingFlag: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
     saving: PropTypes.bool,
     onLikeClick: PropTypes.func,
+    onDislikeClick: PropTypes.func,
     onShareClick: PropTypes.func,
     onEditClick: PropTypes.func,
-    handlePostPopoverMenuClick: PropTypes.func,
+		handlePostPopoverMenuClick: PropTypes.func,
+		handleTransferClick: PropTypes.func
   };
 
   static defaultProps = {
     pendingLike: false,
+    pendingDislike: false,
     pendingFlag: false,
     ownPost: false,
     pendingFollow: false,
@@ -43,9 +47,11 @@ class StoryFooter extends React.Component {
     saving: false,
     sliderMode: 'auto',
     onLikeClick: () => {},
+    onDisikeClick: () => {},
     onShareClick: () => {},
     onEditClick: () => {},
     handlePostPopoverMenuClick: () => {},
+    handleTransferClick: () => {},
   };
 
   state = {
@@ -82,11 +88,29 @@ class StoryFooter extends React.Component {
     }
   };
 
-  handleLikeConfirm = () => {
-    this.setState({ sliderVisible: false }, () => {
-      this.props.onLikeClick(this.props.post, this.props.postState, this.state.sliderValue * 100);
-    });
+	handleLikeConfirm = () => {
+		this.setState({ sliderVisible: false }, () => {
+			this.props.onLikeClick(this.props.post, this.props.postState, this.state.sliderValue * 100);
+		});
+	};
+
+	handleDislikeClick = () => {
+    const { sliderMode, user } = this.props;
+    if (sliderMode === 'on' || (sliderMode === 'auto' && getHasDefaultSlider(user))) {
+      if (!this.state.sliderVisible) {
+        this.setState(prevState => ({ sliderVisible: !prevState.sliderVisible }));
+      }
+    } else {
+      this.props.onDislikeClick(this.props.post, this.props.postState);
+    }
   };
+
+	handleDislikeConfirm = () => {
+		this.setState({ sliderVisible: false }, () => {
+			this.props.onDislikeClick(this.props.post, this.props.postState, this.state.sliderValue * 100);
+		});
+	};
+
 
   handleShareClick = () => this.props.onShareClick(this.props.post);
 
@@ -111,19 +135,21 @@ class StoryFooter extends React.Component {
       post,
       postState,
       pendingLike,
+      pendingDislike,
       pendingFlag,
       ownPost,
       defaultVotePercent,
       pendingFollow,
       pendingBookmark,
       saving,
-      handlePostPopoverMenuClick,
+			handlePostPopoverMenuClick,
+			handleTransferClick
     } = this.props;
 
     return (
       <div className="StoryFooter">
         <div className="StoryFooter__actions">
-          <Payout post={post} />
+          {/* <Payout post={post} /> */}
           {this.state.sliderVisible && (
             <Confirmation onConfirm={this.handleLikeConfirm} onCancel={this.handleSliderCancel} />
           )}
@@ -132,6 +158,7 @@ class StoryFooter extends React.Component {
               post={post}
               postState={postState}
               pendingLike={pendingLike}
+              pendingDislike={pendingDislike}
               pendingFlag={pendingFlag}
               pendingFollow={pendingFollow}
               pendingBookmark={pendingBookmark}
@@ -139,9 +166,11 @@ class StoryFooter extends React.Component {
               ownPost={ownPost}
               defaultVotePercent={defaultVotePercent}
               onLikeClick={this.handleLikeClick}
+              onDislikeClick={this.handleDislikeClick}
               onShareClick={this.handleShareClick}
               onEditClick={this.handleEditClick}
-              handlePostPopoverMenuClick={handlePostPopoverMenuClick}
+							handlePostPopoverMenuClick={handlePostPopoverMenuClick}
+							handleTransferClick={handleTransferClick}
             />
           )}
         </div>

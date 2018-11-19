@@ -81,7 +81,7 @@ export default class Slider extends React.Component {
           onChange={this.handleChange}
           tipFormatter={this.formatTip}
         />
-        <div className="Slider__info">
+        {/* <div className="Slider__info">
           <h3>
             <FormattedMessage
               id="like_slider_info"
@@ -93,7 +93,7 @@ export default class Slider extends React.Component {
               }}
             />
           </h3>
-        </div>
+        </div> */}
       </div>
     );
   }

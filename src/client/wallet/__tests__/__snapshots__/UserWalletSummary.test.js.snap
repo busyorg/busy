@@ -5,19 +5,19 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <UserWalletSummary
-    estAccountValue="100.00 STEEM"
+    estAccountValue="100.00 TME"
     loading={false}
     sbdRate={1}
     steemRate={1}
     steemRateLoading={false}
-    totalVestingFundSteem="100 STEEM"
-    totalVestingShares="100 STEEM"
+    SCOREbackingTMEfundBalance="100 TME"
+    totalSCORE="100 TME"
     user={
       Object {
         "balance": "100",
-        "savings_balance": "100 STEEM",
-        "savings_sbd_balance": "1000 STEEM",
-        "vesting_shares": "0",
+        "savings_balance": "100 TME",
+        "savings_sbd_balance": "1000 TME",
+        "SCORE": "0",
       }
     }
   />,
@@ -70,7 +70,7 @@ ShallowWrapper {
             className="UserWalletSummary__label"
           >
             <FormattedMessage
-              defaultMessage="Steem Power"
+              defaultMessage="SCORE"
               id="steem_power"
               values={Object {}}
             />
@@ -82,12 +82,12 @@ ShallowWrapper {
               <FormattedNumber
                 value={0}
               />
-               SP 
+               SCORE 
               <BTooltip
                 title={
                   <span>
                     <FormattedMessage
-                      defaultMessage="Steem Power delegated to this account"
+                      defaultMessage="SCORE delegated to this account"
                       id="steem_power_delegated_to_account_tooltip"
                       values={Object {}}
                     />
@@ -99,7 +99,7 @@ ShallowWrapper {
                   <FormattedNumber
                     value={NaN}
                   />
-                   SP)
+                   SCORE)
                 </span>
               </BTooltip>
             </span>
@@ -127,7 +127,7 @@ ShallowWrapper {
               <FormattedNumber
                 value={NaN}
               />
-               SBD
+               TSD
             </span>
           </div>
         </div>,
@@ -157,7 +157,7 @@ ShallowWrapper {
               <FormattedNumber
                 value={1000}
               />
-               SBD
+               TSD
             </span>
           </div>
         </div>,
@@ -322,7 +322,7 @@ ShallowWrapper {
               className="UserWalletSummary__label"
             >
               <FormattedMessage
-                defaultMessage="Steem Power"
+                defaultMessage="SCORE"
                 id="steem_power"
                 values={Object {}}
               />
@@ -334,12 +334,12 @@ ShallowWrapper {
                 <FormattedNumber
                   value={0}
                 />
-                 SP 
+                 SCORE 
                 <BTooltip
                   title={
                     <span>
                       <FormattedMessage
-                        defaultMessage="Steem Power delegated to this account"
+                        defaultMessage="SCORE delegated to this account"
                         id="steem_power_delegated_to_account_tooltip"
                         values={Object {}}
                       />
@@ -351,7 +351,7 @@ ShallowWrapper {
                     <FormattedNumber
                       value={NaN}
                     />
-                     SP)
+                     SCORE)
                   </span>
                 </BTooltip>
               </span>
@@ -378,7 +378,7 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": <FormattedMessage
-                defaultMessage="Steem Power"
+                defaultMessage="SCORE"
                 id="steem_power"
                 values={Object {}}
               />,
@@ -390,7 +390,7 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "class",
               "props": Object {
-                "defaultMessage": "Steem Power",
+                "defaultMessage": "SCORE",
                 "id": "steem_power",
                 "values": Object {},
               },
@@ -409,12 +409,12 @@ ShallowWrapper {
                 <FormattedNumber
                   value={0}
                 />
-                 SP 
+                 SCORE 
                 <BTooltip
                   title={
                     <span>
                       <FormattedMessage
-                        defaultMessage="Steem Power delegated to this account"
+                        defaultMessage="SCORE delegated to this account"
                         id="steem_power_delegated_to_account_tooltip"
                         values={Object {}}
                       />
@@ -426,7 +426,7 @@ ShallowWrapper {
                     <FormattedNumber
                       value={NaN}
                     />
-                     SP)
+                     SCORE)
                   </span>
                 </BTooltip>
               </span>,
@@ -442,12 +442,12 @@ ShallowWrapper {
                   <FormattedNumber
                     value={0}
                   />,
-                  " SP ",
+                  " SCORE ",
                   <BTooltip
                     title={
                       <span>
                         <FormattedMessage
-                          defaultMessage="Steem Power delegated to this account"
+                          defaultMessage="SCORE delegated to this account"
                           id="steem_power_delegated_to_account_tooltip"
                           values={Object {}}
                         />
@@ -459,7 +459,7 @@ ShallowWrapper {
                       <FormattedNumber
                         value={NaN}
                       />
-                       SP)
+                       SCORE)
                     </span>
                   </BTooltip>,
                 ],
@@ -477,7 +477,7 @@ ShallowWrapper {
                   "rendered": null,
                   "type": [Function],
                 },
-                " SP ",
+                " SCORE ",
                 Object {
                   "instance": null,
                   "key": undefined,
@@ -488,11 +488,11 @@ ShallowWrapper {
                       <FormattedNumber
                         value={NaN}
                       />
-                       SP)
+                       SCORE)
                     </span>,
                     "title": <span>
                       <FormattedMessage
-                        defaultMessage="Steem Power delegated to this account"
+                        defaultMessage="SCORE delegated to this account"
                         id="steem_power_delegated_to_account_tooltip"
                         values={Object {}}
                       />
@@ -509,7 +509,7 @@ ShallowWrapper {
                         <FormattedNumber
                           value={NaN}
                         />,
-                        " SP)",
+                        " SCORE)",
                       ],
                     },
                     "ref": null,
@@ -526,7 +526,7 @@ ShallowWrapper {
                         "rendered": null,
                         "type": [Function],
                       },
-                      " SP)",
+                      " SCORE)",
                     ],
                     "type": "span",
                   },
@@ -565,7 +565,7 @@ ShallowWrapper {
                 <FormattedNumber
                   value={NaN}
                 />
-                 SBD
+                 TSD
               </span>
             </div>,
           ],
@@ -621,7 +621,7 @@ ShallowWrapper {
                 <FormattedNumber
                   value={NaN}
                 />
-                 SBD
+                 TSD
               </span>,
               "className": "UserWalletSummary__value",
             },
@@ -635,7 +635,7 @@ ShallowWrapper {
                   <FormattedNumber
                     value={NaN}
                   />,
-                  " SBD",
+                  " TSD",
                 ],
               },
               "ref": null,
@@ -651,7 +651,7 @@ ShallowWrapper {
                   "rendered": null,
                   "type": [Function],
                 },
-                " SBD",
+                " TSD",
               ],
               "type": "span",
             },
@@ -689,7 +689,7 @@ ShallowWrapper {
                 <FormattedNumber
                   value={1000}
                 />
-                 SBD
+                 TSD
               </span>
             </div>,
           ],
@@ -749,7 +749,7 @@ ShallowWrapper {
                 <FormattedNumber
                   value={1000}
                 />
-                 SBD
+                 TSD
               </span>,
               "className": "UserWalletSummary__value",
             },
@@ -767,7 +767,7 @@ ShallowWrapper {
                   <FormattedNumber
                     value={1000}
                   />,
-                  " SBD",
+                  " TSD",
                 ],
               },
               "ref": null,
@@ -795,7 +795,7 @@ ShallowWrapper {
                   "rendered": null,
                   "type": [Function],
                 },
-                " SBD",
+                " TSD",
               ],
               "type": "span",
             },
@@ -946,7 +946,7 @@ ShallowWrapper {
               className="UserWalletSummary__label"
             >
               <FormattedMessage
-                defaultMessage="Steem Power"
+                defaultMessage="SCORE"
                 id="steem_power"
                 values={Object {}}
               />
@@ -958,12 +958,12 @@ ShallowWrapper {
                 <FormattedNumber
                   value={0}
                 />
-                 SP 
+                 SCORE 
                 <BTooltip
                   title={
                     <span>
                       <FormattedMessage
-                        defaultMessage="Steem Power delegated to this account"
+                        defaultMessage="SCORE delegated to this account"
                         id="steem_power_delegated_to_account_tooltip"
                         values={Object {}}
                       />
@@ -975,7 +975,7 @@ ShallowWrapper {
                     <FormattedNumber
                       value={NaN}
                     />
-                     SP)
+                     SCORE)
                   </span>
                 </BTooltip>
               </span>
@@ -1003,7 +1003,7 @@ ShallowWrapper {
                 <FormattedNumber
                   value={NaN}
                 />
-                 SBD
+                 TSD
               </span>
             </div>
           </div>,
@@ -1033,7 +1033,7 @@ ShallowWrapper {
                 <FormattedNumber
                   value={1000}
                 />
-                 SBD
+                 TSD
               </span>
             </div>
           </div>,
@@ -1198,7 +1198,7 @@ ShallowWrapper {
                 className="UserWalletSummary__label"
               >
                 <FormattedMessage
-                  defaultMessage="Steem Power"
+                  defaultMessage="SCORE"
                   id="steem_power"
                   values={Object {}}
                 />
@@ -1210,12 +1210,12 @@ ShallowWrapper {
                   <FormattedNumber
                     value={0}
                   />
-                   SP 
+                   SCORE 
                   <BTooltip
                     title={
                       <span>
                         <FormattedMessage
-                          defaultMessage="Steem Power delegated to this account"
+                          defaultMessage="SCORE delegated to this account"
                           id="steem_power_delegated_to_account_tooltip"
                           values={Object {}}
                         />
@@ -1227,7 +1227,7 @@ ShallowWrapper {
                       <FormattedNumber
                         value={NaN}
                       />
-                       SP)
+                       SCORE)
                     </span>
                   </BTooltip>
                 </span>
@@ -1254,7 +1254,7 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": <FormattedMessage
-                  defaultMessage="Steem Power"
+                  defaultMessage="SCORE"
                   id="steem_power"
                   values={Object {}}
                 />,
@@ -1266,7 +1266,7 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "class",
                 "props": Object {
-                  "defaultMessage": "Steem Power",
+                  "defaultMessage": "SCORE",
                   "id": "steem_power",
                   "values": Object {},
                 },
@@ -1285,12 +1285,12 @@ ShallowWrapper {
                   <FormattedNumber
                     value={0}
                   />
-                   SP 
+                   SCORE 
                   <BTooltip
                     title={
                       <span>
                         <FormattedMessage
-                          defaultMessage="Steem Power delegated to this account"
+                          defaultMessage="SCORE delegated to this account"
                           id="steem_power_delegated_to_account_tooltip"
                           values={Object {}}
                         />
@@ -1302,7 +1302,7 @@ ShallowWrapper {
                       <FormattedNumber
                         value={NaN}
                       />
-                       SP)
+                       SCORE)
                     </span>
                   </BTooltip>
                 </span>,
@@ -1318,12 +1318,12 @@ ShallowWrapper {
                     <FormattedNumber
                       value={0}
                     />,
-                    " SP ",
+                    " SCORE ",
                     <BTooltip
                       title={
                         <span>
                           <FormattedMessage
-                            defaultMessage="Steem Power delegated to this account"
+                            defaultMessage="SCORE delegated to this account"
                             id="steem_power_delegated_to_account_tooltip"
                             values={Object {}}
                           />
@@ -1335,7 +1335,7 @@ ShallowWrapper {
                         <FormattedNumber
                           value={NaN}
                         />
-                         SP)
+                         SCORE)
                       </span>
                     </BTooltip>,
                   ],
@@ -1353,7 +1353,7 @@ ShallowWrapper {
                     "rendered": null,
                     "type": [Function],
                   },
-                  " SP ",
+                  " SCORE ",
                   Object {
                     "instance": null,
                     "key": undefined,
@@ -1364,11 +1364,11 @@ ShallowWrapper {
                         <FormattedNumber
                           value={NaN}
                         />
-                         SP)
+                         SCORE)
                       </span>,
                       "title": <span>
                         <FormattedMessage
-                          defaultMessage="Steem Power delegated to this account"
+                          defaultMessage="SCORE delegated to this account"
                           id="steem_power_delegated_to_account_tooltip"
                           values={Object {}}
                         />
@@ -1385,7 +1385,7 @@ ShallowWrapper {
                           <FormattedNumber
                             value={NaN}
                           />,
-                          " SP)",
+                          " SCORE)",
                         ],
                       },
                       "ref": null,
@@ -1402,7 +1402,7 @@ ShallowWrapper {
                           "rendered": null,
                           "type": [Function],
                         },
-                        " SP)",
+                        " SCORE)",
                       ],
                       "type": "span",
                     },
@@ -1441,7 +1441,7 @@ ShallowWrapper {
                   <FormattedNumber
                     value={NaN}
                   />
-                   SBD
+                   TSD
                 </span>
               </div>,
             ],
@@ -1497,7 +1497,7 @@ ShallowWrapper {
                   <FormattedNumber
                     value={NaN}
                   />
-                   SBD
+                   TSD
                 </span>,
                 "className": "UserWalletSummary__value",
               },
@@ -1511,7 +1511,7 @@ ShallowWrapper {
                     <FormattedNumber
                       value={NaN}
                     />,
-                    " SBD",
+                    " TSD",
                   ],
                 },
                 "ref": null,
@@ -1527,7 +1527,7 @@ ShallowWrapper {
                     "rendered": null,
                     "type": [Function],
                   },
-                  " SBD",
+                  " TSD",
                 ],
                 "type": "span",
               },
@@ -1565,7 +1565,7 @@ ShallowWrapper {
                   <FormattedNumber
                     value={1000}
                   />
-                   SBD
+                   TSD
                 </span>
               </div>,
             ],
@@ -1625,7 +1625,7 @@ ShallowWrapper {
                   <FormattedNumber
                     value={1000}
                   />
-                   SBD
+                   TSD
                 </span>,
                 "className": "UserWalletSummary__value",
               },
@@ -1643,7 +1643,7 @@ ShallowWrapper {
                     <FormattedNumber
                       value={1000}
                     />,
-                    " SBD",
+                    " TSD",
                   ],
                 },
                 "ref": null,
@@ -1671,7 +1671,7 @@ ShallowWrapper {
                     "rendered": null,
                     "type": [Function],
                   },
-                  " SBD",
+                  " TSD",
                 ],
                 "type": "span",
               },

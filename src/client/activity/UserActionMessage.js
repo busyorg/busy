@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
-import formatter from '../helpers/steemitFormatter';
+import formatter from '../helpers/blockchainProtocolFormatter';
 import * as accountHistoryConstants from '../../common/constants/accountHistory';
 import VoteActionMessage from './VoteActionMessage';
 import CommentActionMessage from './CommentActionMessage';
@@ -14,8 +14,8 @@ class UserActionMessage extends React.Component {
   static propTypes = {
     actionType: PropTypes.string.isRequired,
     actionDetails: PropTypes.shape().isRequired,
-    totalVestingShares: PropTypes.string.isRequired,
-    totalVestingFundSteem: PropTypes.string.isRequired,
+    totalSCORE: PropTypes.string.isRequired,
+    SCOREbackingTMEfundBalance: PropTypes.string.isRequired,
     currentUsername: PropTypes.string.isRequired,
   };
 
@@ -27,16 +27,16 @@ class UserActionMessage extends React.Component {
     const {
       actionType,
       actionDetails,
-      totalVestingShares,
-      totalVestingFundSteem,
+      totalSCORE,
+      SCOREbackingTMEfundBalance,
       currentUsername,
     } = this.props;
 
     switch (actionType) {
-      case accountHistoryConstants.ACCOUNT_CREATE_WITH_DELEGATION:
+      case accountHistoryConstants.accountCreateaccountCreateWithDelegation:
         return (
           <FormattedMessage
-            id="account_created_with_delegation"
+            id="accountCreated_with_delegation"
             defaultMessage="{creator} created account with delegation {account}"
             values={{
               creator: (
@@ -52,10 +52,10 @@ class UserActionMessage extends React.Component {
             }}
           />
         );
-      case accountHistoryConstants.ACCOUNT_CREATE:
+      case accountHistoryConstants.accountCreate:
         return (
           <FormattedMessage
-            id="account_created"
+            id="accountCreated"
             defaultMessage="{creator} created account {account}"
             values={{
               creator: (
@@ -79,7 +79,7 @@ class UserActionMessage extends React.Component {
         return (
           <CommentActionMessage actionDetails={actionDetails} currentUsername={currentUsername} />
         );
-      case accountHistoryConstants.DELETE_COMMENT:
+      case accountHistoryConstants.deleteComment:
         return (
           <FormattedMessage
             id="deleted_comment"
@@ -93,34 +93,34 @@ class UserActionMessage extends React.Component {
             }}
           />
         );
-      case accountHistoryConstants.CUSTOM_JSON:
-        if (!_.includes(accountHistoryConstants.PARSED_CUSTOM_JSON_IDS, actionDetails.id)) {
+      case accountHistoryConstants.customJson:
+        if (!_.includes(accountHistoryConstants.PARSED_customJson_IDS, actionDetails.id)) {
           return UserActionMessage.renderDefault(actionType);
         }
         return <CustomJSONMessage actionDetails={actionDetails} />;
-      case accountHistoryConstants.ACCOUNT_UPDATE:
+      case accountHistoryConstants.accountUpdate:
         return <FormattedMessage id="account_updated" defaultMessage="Account Updated" />;
-      case accountHistoryConstants.AUTHOR_REWARD:
+      case accountHistoryConstants.authorReward:
         return (
           <AuthorRewardMessage
             actionDetails={actionDetails}
-            totalVestingShares={totalVestingShares}
-            totalVestingFundSteem={totalVestingFundSteem}
+            totalSCORE={totalSCORE}
+            SCOREbackingTMEfundBalance={SCOREbackingTMEfundBalance}
           />
         );
-      case accountHistoryConstants.CURATION_REWARD:
+      case accountHistoryConstants.curationReward:
         return (
           <FormattedMessage
             id="curation_reward_for_post"
-            defaultMessage="Curation reward: {steemPower} SP for {author} ({postLink})"
+            defaultMessage="Curation reward: {amountSCOREvalueInTME} SCORE for {author} ({postLink})"
             values={{
-              steemPower: (
+              amountSCOREvalueInTME: (
                 <FormattedNumber
                   value={parseFloat(
-                    formatter.vestToSteem(
+                    formatter.SCOREinTMEvalue(
                       actionDetails.reward,
-                      totalVestingShares,
-                      totalVestingFundSteem,
+                      totalSCORE,
+                      SCOREbackingTMEfundBalance,
                     ),
                   )}
                 />
@@ -142,7 +142,7 @@ class UserActionMessage extends React.Component {
             }}
           />
         );
-      case accountHistoryConstants.ACCOUNT_WITNESS_VOTE:
+      case accountHistoryConstants.accountWitnessVote:
         if (actionDetails.approve) {
           return (
             <FormattedMessage
@@ -181,7 +181,7 @@ class UserActionMessage extends React.Component {
             }}
           />
         );
-      case accountHistoryConstants.FILL_VESTING_WITHDRAW:
+      case accountHistoryConstants.fillSCOREWithdraw:
         return (
           <FormattedMessage
             id="power_down_message"

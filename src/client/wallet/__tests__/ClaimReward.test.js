@@ -7,11 +7,11 @@ describe('(Component) ClaimReward', () => {
     it('renders and matches snapshot', () => {
       const props = {
         timestamp: '0',
-        rewardSteem: '0 STEEM',
-        rewardSbd: '0 SBD',
-        rewardVests: '0 SP',
-        totalVestingShares: '0',
-        totalVestingFundSteem: '0',
+        rewardTME: '0 TME',
+        rewardTSD: '0 TSD',
+        SCORErewardBalanceInTME: '0 SCORE',
+        totalSCORE: '0',
+        SCOREbackingTMEfundBalance: '0',
       };
       const wrapper = shallow(<ClaimReward {...props} />);
       expect(wrapper).toMatchSnapshot();

@@ -1,5 +1,5 @@
 {
-  "name": "busy",
+  "name": "weapp",
   "version": "2.5.6",
   "engines": {
     "node": ">=7.10.1",
@@ -16,21 +16,22 @@
     "prettier-check": "node ./scripts/prettier/tasks/checkFiles.js",
     "prettier-check-all": "node ./scripts/prettier/tasks/checkFiles.js all",
     "prettier-file": "node ./scripts/prettier/tasks/formatFile.js",
-    "dev": "node ./scripts/start.js",
     "build": "node ./scripts/build.js",
+    "dev": "node ./scripts/dev.js",
     "start": "node ./build/server.js",
+    "run": "yarn run build && yarn run start",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "eslint-autofix": "eslint --fix \"src/**/*.js\"",
     "heroku-prebuild": "npm i -g pm2 && pm2 install pm2-logrotate",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "push": "git add . ; git commit -m 'ready' ; git push origin master",
+    "pull": "git pull origin master"
   },
   "husky": {
-    "hooks": {
-      "pre-commit": "npm run linc && npm run prettier-check && npm run test"
-    }
+    "hooks": {}
   },
   "dependencies": {
     "antd": "^3.4.4",
@@ -50,13 +51,14 @@
     "babel-register": "^6.24.1",
     "babel-runtime": "^6.18.0",
     "bs58": "^4.0.0",
-    "busyjs": "^1.0.2",
     "cheerio": "^1.0.0-rc.2",
     "classnames": "^2.2.5",
     "cookie-parser": "^1.4.3",
     "cross-env": "^5.0.5",
     "debug": "~2.2.0",
     "diff-match-patch": "^1.0.0",
+    "dotenv": "^6.0.0",
+    "dotenv-expand": "^4.2.0",
     "embedjs": "^0.0.11",
     "express": "^4.15.4",
     "filesize": "^3.5.11",
@@ -98,16 +100,19 @@
     "remarkable": "1.7.1",
     "resize-observer-polyfill": "^1.4.2",
     "sanitize-html": "1.15.0",
-    "sc2-sdk": "^1.0.1",
     "secure-random": "^1.1.1",
     "speakingurl": "^11.0.0",
-    "steemscript": "^1.0.1",
     "store": "^1.3.20",
     "striptags": "^2.1.1",
     "text-ellipsis": "^1.0.3",
     "url-parse": "^1.1.9",
     "url-search-params-polyfill": "^2.0.0",
     "uuid": "^3.1.0",
+    "weauthjs": "^1.1.155",
+    "wehelpjs": "^0.6.9",
+    "welitejs": "1.1.130",
+    "weliterpcjs": "^1.1.32",
+    "weschemajs": "^1.2.8",
     "xmldom": "^0.1.27"
   },
   "devDependencies": {
@@ -130,6 +135,7 @@
     "fs-extra": "^6.0.0",
     "glob": "^7.1.2",
     "husky": "^1.0.0-rc.2",
+    "ip": "^1.1.5",
     "jest": "^21.3.0-beta.8",
     "less": "^3.0.2",
     "less-loader": "^4.1.0",
@@ -153,6 +159,6 @@
     },
     "setupTestFrameworkScriptFile": "<rootDir>/setupTests.js"
   },
-  "repository": "https://github.com/adcpm/busy.git",
+  "repository": "https://github.com/weyoume/weapp",
   "license": "MIT"
 }

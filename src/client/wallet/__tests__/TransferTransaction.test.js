@@ -8,7 +8,7 @@ describe('(Component) TransferTransaction', () => {
       const props = {
         to: 'hellosteem',
         memo: 'Test Transfer Transaction',
-        amount: <span>{'0 STEEM'}</span>,
+        amount: <span>{'0 TME'}</span>,
         timestamp: '0',
       };
       const wrapper = shallow(<TransferTransaction {...props} />);

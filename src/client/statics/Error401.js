@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import SteemConnect from '../steemConnectAPI';
+import weauthjsInstance from '../weauthjsInstance';
 import './ErrorPage.less';
 
 const Error401 = ({ staticContext }) => {
@@ -26,7 +26,7 @@ const Error401 = ({ staticContext }) => {
           defaultMessage="You need to login to use this feature, please {link}."
           values={{
             link: (
-              <a href={SteemConnect.getLoginURL()}>
+              <a href={weauthjsInstance.getLoginURL()}>
                 <FormattedMessage id="login" defaultMessage="Login" />
               </a>
             ),

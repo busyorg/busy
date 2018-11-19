@@ -32,16 +32,16 @@ const getFormattedTransactionAmount = (amount, currency) => {
 const WalletTransaction = ({
   transaction,
   currentUsername,
-  totalVestingShares,
-  totalVestingFundSteem,
+  totalSCORE,
+  SCOREbackingTMEfundBalance,
 }) => {
   const transactionType = transaction.op[0];
   const transactionDetails = transaction.op[1];
   switch (transactionType) {
-    case accountHistoryConstants.TRANSFER_TO_VESTING:
+    case accountHistoryConstants.transferTMEtoSCOREfund:
       return (
         <PowerUpTransaction
-          amount={getFormattedTransactionAmount(transactionDetails.amount, 'SP')}
+          amount={getFormattedTransactionAmount(transactionDetails.amount, 'SCORE')}
           timestamp={transaction.timestamp}
           to={transactionDetails.to}
           from={transactionDetails.from}
@@ -66,20 +66,20 @@ const WalletTransaction = ({
           timestamp={transaction.timestamp}
         />
       );
-    case accountHistoryConstants.CLAIM_REWARD_BALANCE:
+    case accountHistoryConstants.claimRewardBalance:
       return (
         <ClaimReward
           timestamp={transaction.timestamp}
-          rewardSteem={transactionDetails.reward_steem}
-          rewardSbd={transactionDetails.reward_sbd}
-          rewardVests={transactionDetails.reward_vests}
-          totalVestingShares={totalVestingShares}
-          totalVestingFundSteem={totalVestingFundSteem}
+          TMEreward={transactionDetails.TMEreward}
+          TSDreward={transactionDetails.TSDreward}
+          SCOREreward={transactionDetails.reward_score}
+          totalSCORE={totalSCORE}
+          SCOREbackingTMEfundBalance={SCOREbackingTMEfundBalance}
         />
       );
-    case accountHistoryConstants.TRANSFER_TO_SAVINGS:
-    case accountHistoryConstants.TRANSFER_FROM_SAVINGS:
-    case accountHistoryConstants.CANCEL_TRANSFER_FROM_SAVINGS:
+    case accountHistoryConstants.transferToSavings:
+    case accountHistoryConstants.transferFromSavings:
+    case accountHistoryConstants.cancelTransferFromSavings:
       return (
         <SavingsTransaction
           transactionDetails={transactionDetails}
@@ -96,8 +96,8 @@ const WalletTransaction = ({
 WalletTransaction.propTypes = {
   transaction: PropTypes.shape().isRequired,
   currentUsername: PropTypes.string.isRequired,
-  totalVestingShares: PropTypes.string.isRequired,
-  totalVestingFundSteem: PropTypes.string.isRequired,
+  totalSCORE: PropTypes.string.isRequired,
+  SCOREbackingTMEfundBalance: PropTypes.string.isRequired,
 };
 
 export default WalletTransaction;

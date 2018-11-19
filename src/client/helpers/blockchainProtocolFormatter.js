@@ -1,5 +1,5 @@
 // https://github.com/steemit/steem-js/blob/1ebe788987d395af5fd8c80c1bbf06e24614a86c/src/api/methods.js
-import steemAPI from '../steemAPI';
+import blockchainAPI from '../blockchainAPI';
 
 // Vendor file - disable eslint
 /* eslint-disable */
@@ -8,67 +8,78 @@ const createFormatter = api => {
     return x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
 
-  function vestingSteem(account, gprops) {
-    const vests = parseFloat(account.vesting_shares.split(' ')[0]);
-    const total_vests = parseFloat(gprops.total_vesting_shares.split(' ')[0]);
-    const total_vest_steem = parseFloat(gprops.total_vesting_fund_steem.split(' ')[0]);
-    const vesting_steemf = total_vest_steem * (vests / total_vests);
-    return vesting_steemf;
+  function SCOREvalueInTME(account, gprops) {
+    const score = parseFloat(account.SCORE.split(' ')[0]);
+    const totalSCORE = parseFloat(gprops.totalSCORE.split(' ')[0]);
+    const totalSCOREvalueInTME = parseFloat(gprops.totalTMEfundForSCORE.split(' ')[0]);
+    const accountSCOREvalueInTME = totalSCOREvalueInTME * (score / totalSCORE);
+    return accountSCOREvalueInTME;
   }
 
   function processOrders(open_orders, assetPrecision) {
-    const sbdOrders = !open_orders
-      ? 0
-      : open_orders.reduce((o, order) => {
-          if (order.sell_price.base.indexOf('SBD') !== -1) {
-            o += order.for_sale;
-          }
-          return o;
-        }, 0) / assetPrecision;
+    const TSDorders = !open_orders ?
+      0 :
+      open_orders.reduce((o, order) => {
+        if (order.sell_price.base.indexOf('TSD') !== -1) {
+          o += order.for_sale;
+        }
+        return o;
+      }, 0) / assetPrecision;
 
-    const steemOrders = !open_orders
-      ? 0
-      : open_orders.reduce((o, order) => {
-          if (order.sell_price.base.indexOf('STEEM') !== -1) {
-            o += order.for_sale;
-          }
-          return o;
-        }, 0) / assetPrecision;
+    const ordersTME = !open_orders ?
+      0 :
+      open_orders.reduce((o, order) => {
+        if (order.sell_price.base.indexOf('TME') !== -1) {
+          o += order.for_sale;
+        }
+        return o;
+      }, 0) / assetPrecision;
 
-    return { steemOrders, sbdOrders };
+    return {
+      ordersTME,
+      TSDorders
+    };
   }
 
   function calculateSaving(savings_withdraws) {
-    let savings_pending = 0;
-    let savings_sbd_pending = 0;
+    let TMEsavingsPending = 0;
+    let TSDpendingSavings = 0;
     savings_withdraws.forEach(withdraw => {
       const [amount, asset] = withdraw.amount.split(' ');
-      if (asset === 'STEEM') savings_pending += parseFloat(amount);
-      else if (asset === 'SBD') savings_sbd_pending += parseFloat(amount);
+      if (asset === 'TME') TMEsavingsPending += parseFloat(amount);
+      else if (asset === 'TSD') TSDpendingSavings += parseFloat(amount);
     });
-    return { savings_pending, savings_sbd_pending };
+    return {
+      TMEsavingsPending,
+      TSDpendingSavings
+    };
   }
 
   function estimateAccountValue(
-    account,
-    { gprops, feed_price, open_orders, savings_withdraws, vesting_steem } = {},
+    account, {
+      gprops,
+      feed_price,
+      open_orders,
+      savings_withdraws,
+      SCOREvalueInTME
+    } = {},
   ) {
     const promises = [];
     const username = account.name;
     const assetPrecision = 1000;
     let orders, savings;
 
-    if (!vesting_steem || !feed_price) {
+    if (!SCOREvalueInTME || !feed_price) {
       if (!gprops || !feed_price) {
         promises.push(
           api.sendAsync('get-state', [`/@${username}`]).then(data => {
             gprops = data.props;
             feed_price = data.feed_price;
-            vesting_steem = vestingSteem(account, gprops);
+            SCOREvalueInTME = SCOREvalueInTME(account, gprops);
           }),
         );
       } else {
-        vesting_steem = vestingSteem(account, gprops);
+        SCOREvalueInTME = SCOREvalueInTME(account, gprops);
       }
     }
 
@@ -93,17 +104,20 @@ const createFormatter = api => {
     }
 
     return Promise.all(promises).then(() => {
-      let price_per_steem;
-      const { base, quote } = feed_price;
-      if (/ SBD$/.test(base) && / STEEM$/.test(quote)) {
-        price_per_steem = parseFloat(base.split(' ')[0]);
+      let TMEtoTSDprice;
+      const {
+        base,
+        quote
+      } = feed_price;
+      if (/ TSD$/.test(base) && / TME$/.test(quote)) {
+        TMEtoTSDprice = parseFloat(base.split(' ')[0]);
       }
-      const savings_balance = account.savings_balance;
-      const savings_sbd_balance = account.savings_sbd_balance;
-      const balance_steem = parseFloat(account.balance.split(' ')[0]);
-      const saving_balance_steem = parseFloat(savings_balance.split(' ')[0]);
-      const sbd_balance = parseFloat(account.sbd_balance);
-      const sbd_balance_savings = parseFloat(savings_sbd_balance.split(' ')[0]);
+      const TMEsavingsBalance = account.TMEsavingsBalance;
+      const TSDsavingsBalance = account.TSDsavingsBalance;
+      const balanceTME_Parsed = parseFloat(account.balance.split(' ')[0]);
+      const saving_balanceTME_Parsed = parseFloat(TMEsavingsBalance.split(' ')[0]);
+      const TSDbalance_Parsed = parseFloat(account.TSDbalance);
+      const TSDsavingsBalance_Parsed = parseFloat(TSDsavingsBalance.split(' ')[0]);
 
       let conversionValue = 0;
       const currentTime = new Date().getTime();
@@ -114,25 +128,25 @@ const createFormatter = api => {
         const finishTime = timestamp + 86400000 * 3.5; // add 3.5day conversion delay
         if (finishTime < currentTime) return out;
 
-        const amount = parseFloat(get(item, [1, 'op', 1, 'amount']).replace(' SBD', ''));
+        const amount = parseFloat(get(item, [1, 'op', 1, 'amount']).replace(' TSD', ''));
         conversionValue += amount;
       }, []);
 
-      const total_sbd =
-        sbd_balance +
-        sbd_balance_savings +
-        savings.savings_sbd_pending +
-        orders.sbdOrders +
+      const TSDtotal =
+        TSDbalance_Parsed +
+        TSDsavingsBalance_Parsed +
+        savings.TSDpendingSavings +
+        orders.TSDorders +
         conversionValue;
 
-      const total_steem =
-        vesting_steem +
-        balance_steem +
-        saving_balance_steem +
-        savings.savings_pending +
-        orders.steemOrders;
+      const totalTME =
+        SCOREvalueInTME +
+        balanceTME_Parsed +
+        saving_balanceTME_Parsed +
+        savings.TMEsavingsPending +
+        orders.ordersTME;
 
-      return (total_steem * price_per_steem + total_sbd).toFixed(2);
+      return (totalTME * TMEtoTSDprice + TSDtotal).toFixed(2);
     });
   }
 
@@ -159,10 +173,10 @@ const createFormatter = api => {
       return parseInt(this.reputationFloat(reputation));
     },
 
-    vestToSteem(vestingShares, totalVestingShares, totalVestingFundSteem) {
+    SCOREinTMEvalue(SCORE, totalSCORE, SCOREbackingTMEfundBalance) {
       return (
-        parseFloat(totalVestingFundSteem) *
-        (parseFloat(vestingShares) / parseFloat(totalVestingShares))
+        parseFloat(SCOREbackingTMEfundBalance) *
+        (parseFloat(SCORE) / parseFloat(totalSCORE))
       );
     },
 
@@ -179,9 +193,9 @@ const createFormatter = api => {
       return `${amount.toFixed(3)} ${asset}`;
     },
     numberWithCommas,
-    vestingSteem,
+    SCOREvalueInTME,
     estimateAccountValue,
   };
 };
 
-export default createFormatter(steemAPI);
+export default createFormatter(blockchainAPI);

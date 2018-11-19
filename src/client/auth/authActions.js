@@ -23,17 +23,17 @@ export const BUSY_LOGIN = createAsyncActionType('@auth/BUSY_LOGIN');
 
 const loginError = createAction(LOGIN_ERROR);
 
-export const login = () => (dispatch, getState, { steemConnectAPI }) => {
+export const login = () => (dispatch, getState, { weauthjsInstance }) => {
   const state = getState();
 
   let promise = Promise.resolve(null);
 
   if (getIsLoaded(state)) {
     promise = Promise.resolve(null);
-  } else if (!steemConnectAPI.options.accessToken) {
+  } else if (!weauthjsInstance.options.accessToken) {
     promise = Promise.reject(new Error('There is not accessToken present'));
   } else {
-    promise = steemConnectAPI.me().catch(() => dispatch(loginError()));
+    promise = weauthjsInstance.me().catch(() => dispatch(loginError()));
   }
 
   return dispatch({
@@ -49,16 +49,16 @@ export const login = () => (dispatch, getState, { steemConnectAPI }) => {
 
 export const getCurrentUserFollowing = () => dispatch => dispatch(getFollowing());
 
-export const reload = () => (dispatch, getState, { steemConnectAPI }) =>
+export const reload = () => (dispatch, getState, { weauthjsInstance }) =>
   dispatch({
     type: RELOAD,
     payload: {
-      promise: steemConnectAPI.me(),
+      promise: weauthjsInstance.me(),
     },
   });
 
-export const logout = () => (dispatch, getState, { steemConnectAPI }) => {
-  steemConnectAPI.revokeToken();
+export const logout = () => (dispatch, getState, { weauthjsInstance }) => {
+  weauthjsInstance.revokeToken();
   Cookie.remove('access_token');
 
   dispatch({
@@ -66,15 +66,15 @@ export const logout = () => (dispatch, getState, { steemConnectAPI }) => {
   });
 };
 
-export const getUpdatedSCUserMetadata = () => (dispatch, getState, { steemConnectAPI }) =>
+export const getUpdatedSCUserMetadata = () => (dispatch, getState, { weauthjsInstance }) =>
   dispatch({
     type: UPDATE_SC2_USER_METADATA.ACTION,
     payload: {
-      promise: steemConnectAPI.me(),
+      promise: weauthjsInstance.me(),
     },
   });
 
-export const busyLogin = () => (dispatch, getState, { busyAPI }) => {
+export const busyLogin = () => (dispatch, getState, { blockchainLiteAPI }) => {
   const accessToken = Cookie.get('access_token');
   const state = getState();
 
@@ -82,7 +82,7 @@ export const busyLogin = () => (dispatch, getState, { busyAPI }) => {
     return dispatch({ type: BUSY_LOGIN.ERROR });
   }
 
-  busyAPI.subscribe((response, message) => {
+  blockchainLiteAPI.subscribe((response, message) => {
     const type = message && message.type;
 
     if (type === BUSY_API_TYPES.notification && message.notification) {
@@ -96,7 +96,7 @@ export const busyLogin = () => (dispatch, getState, { busyAPI }) => {
     type: BUSY_LOGIN.ACTION,
     meta: targetUsername,
     payload: {
-      promise: busyAPI.sendAsync('login', [accessToken]),
+      promise: blockchainLiteAPI.sendAsync('login', [accessToken]),
     },
   });
 };

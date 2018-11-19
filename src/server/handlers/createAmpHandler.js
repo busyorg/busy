@@ -1,16 +1,16 @@
 import url from 'url';
-import steemAPI from '../steemAPI';
+import blockchainAPI from '../blockchainAPI';
 import renderAmpPage from '../renderers/ampRenderer';
 
-const debug = require('debug')('busy:server');
+const debug = require('debug')('weapp:server');
 
 export default function createAmpHandler(template) {
   return async function ampResponse(req, res) {
     try {
-      const result = await steemAPI.sendAsync('get_content', [
+      const result = await blockchainAPI.sendAsync('get_content', [
         req.params.author,
         req.params.permlink,
-      ]);
+      ]).catch(err=>{console.error('err', err)});
       if (result.id === 0) return res.sendStatus(404);
       const appUrl = url.format({
         protocol: req.protocol,

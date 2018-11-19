@@ -1,38 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import formatter from '../helpers/steemitFormatter';
-import { calculateTotalDelegatedSP, calculateEstAccountValue } from '../vendor/steemitHelpers';
+import formatter from '../helpers/blockchainProtocolFormatter';
+import { calculateTotalDelegatedSCORE, calculateEstAccountValue } from '../vendor/blockchainProtocolHelpers';
 import BTooltip from '../components/BTooltip';
 import Loading from '../components/Icon/Loading';
 import USDDisplay from '../components/Utils/USDDisplay';
 import './UserWalletSummary.less';
 
-const getFormattedTotalDelegatedSP = (user, totalVestingShares, totalVestingFundSteem) => {
-  const totalDelegatedSP = calculateTotalDelegatedSP(
+const getFormattedTotalDelegatedSCORE = (user, totalSCORE, SCOREbackingTMEfundBalance) => {
+  const totalDelegatedSCORE = calculateTotalDelegatedSCORE(
     user,
-    totalVestingShares,
-    totalVestingFundSteem,
+    totalSCORE,
+    SCOREbackingTMEfundBalance,
   );
 
-  if (totalDelegatedSP !== 0) {
+  if (totalDelegatedSCORE !== 0) {
     return (
       <BTooltip
         title={
           <span>
             <FormattedMessage
-              id="steem_power_delegated_to_account_tooltip"
-              defaultMessage="Steem Power delegated to this account"
+              id="SCORE_delegated_to_account_tooltip"
+              defaultMessage="SCORE delegated to this account"
             />
           </span>
         }
       >
         <span>
-          {totalDelegatedSP > 0 ? '(+' : '('}
+          {totalDelegatedSCORE > 0 ? '(+' : '('}
           <FormattedNumber
-            value={calculateTotalDelegatedSP(user, totalVestingShares, totalVestingFundSteem)}
+            value={calculateTotalDelegatedSCORE(user, totalSCORE, SCOREbackingTMEfundBalance)}
           />
-          {' SP)'}
+          {' POWER)'}
         </span>
       </BTooltip>
     );
@@ -44,18 +44,18 @@ const getFormattedTotalDelegatedSP = (user, totalVestingShares, totalVestingFund
 const UserWalletSummary = ({
   user,
   loading,
-  totalVestingShares,
-  totalVestingFundSteem,
+  totalSCORE,
+  SCOREbackingTMEfundBalance,
   loadingGlobalProperties,
-  steemRate,
-  sbdRate,
-  steemRateLoading,
+  TMErate,
+  TSDrate,
+  TMErateLoading,
 }) => (
   <div className="UserWalletSummary">
     <div className="UserWalletSummary__item">
       <i className="iconfont icon-steem UserWalletSummary__icon" />
       <div className="UserWalletSummary__label">
-        <FormattedMessage id="steem" defaultMessage="Steem" />
+        <FormattedMessage id="TME" defaultMessage="TME" />
       </div>
       <div className="UserWalletSummary__value">
         {loading ? (
@@ -63,7 +63,7 @@ const UserWalletSummary = ({
         ) : (
           <span>
             <FormattedNumber value={parseFloat(user.balance)} />
-            {' STEEM'}
+            {' TME'}
           </span>
         )}
       </div>
@@ -71,7 +71,7 @@ const UserWalletSummary = ({
     <div className="UserWalletSummary__item">
       <i className="iconfont icon-flashlight_fill UserWalletSummary__icon" />
       <div className="UserWalletSummary__label">
-        <FormattedMessage id="steem_power" defaultMessage="Steem Power" />
+        <FormattedMessage id="POWER" defaultMessage="POWER" />
       </div>
       <div className="UserWalletSummary__value">
         {loading || loadingGlobalProperties ? (
@@ -80,15 +80,15 @@ const UserWalletSummary = ({
           <span>
             <FormattedNumber
               value={parseFloat(
-                formatter.vestToSteem(
-                  user.vesting_shares,
-                  totalVestingShares,
-                  totalVestingFundSteem,
+                formatter.SCOREinTMEvalue(
+                  user.SCORE,
+                  totalSCORE,
+                  SCOREbackingTMEfundBalance,
                 ),
               )}
             />
-            {' SP '}
-            {getFormattedTotalDelegatedSP(user, totalVestingShares, totalVestingFundSteem)}
+            {' POWER '}
+            {getFormattedTotalDelegatedSCORE(user, totalSCORE, SCOREbackingTMEfundBalance)}
           </span>
         )}
       </div>
@@ -96,15 +96,15 @@ const UserWalletSummary = ({
     <div className="UserWalletSummary__item">
       <i className="iconfont icon-Dollar UserWalletSummary__icon" />
       <div className="UserWalletSummary__label">
-        <FormattedMessage id="steem_dollar" defaultMessage="Steem Dollar" />
+        <FormattedMessage id="TSD" defaultMessage="TSD" />
       </div>
       <div className="UserWalletSummary__value">
         {loading ? (
           <Loading />
         ) : (
           <span>
-            <FormattedNumber value={parseFloat(user.sbd_balance)} />
-            {' SBD'}
+            <FormattedNumber value={parseFloat(user.TSDbalance)} />
+            {' TSD'}
           </span>
         )}
       </div>
@@ -119,54 +119,54 @@ const UserWalletSummary = ({
           <Loading />
         ) : (
           <span>
-            <FormattedNumber value={parseFloat(user.savings_balance)} />
-            {' STEEM, '}
-            <FormattedNumber value={parseFloat(user.savings_sbd_balance)} />
-            {' SBD'}
+            <FormattedNumber value={parseFloat(user.TMEsavingsBalance)} />
+            {' TME, '}
+            <FormattedNumber value={parseFloat(user.TSDsavingsBalance)} />
+            {' TSD'}
           </span>
         )}
       </div>
     </div>
-    <div className="UserWalletSummary__item">
+    {/* <div className="UserWalletSummary__item">
       <i className="iconfont icon-people_fill UserWalletSummary__icon" />
       <div className="UserWalletSummary__label">
         <FormattedMessage id="est_account_value" defaultMessage="Est. Account Value" />
       </div>
       <div className="UserWalletSummary__value">
-        {loading || loadingGlobalProperties || steemRateLoading ? (
+        {loading || loadingGlobalProperties || TMErateLoading ? (
           <Loading />
         ) : (
           <USDDisplay
             value={calculateEstAccountValue(
               user,
-              totalVestingShares,
-              totalVestingFundSteem,
-              steemRate,
-              sbdRate,
+              totalSCORE,
+              SCOREbackingTMEfundBalance,
+              TMErate,
+              TSDrate,
             )}
           />
         )}
       </div>
-    </div>
+    </div> */}
   </div>
 );
 
 UserWalletSummary.propTypes = {
   loadingGlobalProperties: PropTypes.bool.isRequired,
   user: PropTypes.shape().isRequired,
-  totalVestingShares: PropTypes.string.isRequired,
-  totalVestingFundSteem: PropTypes.string.isRequired,
-  steemRate: PropTypes.number,
-  sbdRate: PropTypes.number,
+  totalSCORE: PropTypes.string.isRequired,
+  SCOREbackingTMEfundBalance: PropTypes.string.isRequired,
+  TMErate: PropTypes.number,
+  TSDrate: PropTypes.number,
   loading: PropTypes.bool,
-  steemRateLoading: PropTypes.bool,
+  TMErateLoading: PropTypes.bool,
 };
 
 UserWalletSummary.defaultProps = {
-  steemRate: 1,
-  sbdRate: 1,
+  TMErate: 1,
+  TSDrate: 1,
   loading: false,
-  steemRateLoading: false,
+  TMErateLoading: false,
 };
 
 export default UserWalletSummary;

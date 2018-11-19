@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import _ from 'lodash';
 import User from './User';
 import Loading from '../../components/Icon/Loading';
-import steemAPI from '../../steemAPI';
+import blockchainAPI from '../../blockchainAPI';
 import './InterestingPeople.less';
 import './SidebarContentBlock.less';
 
@@ -62,7 +62,7 @@ class InterestingPeopleWithAPI extends React.Component {
   }
 
   getBlogAuthors(username = '') {
-    steemAPI
+    blockchainAPI
       .sendAsync('call', ['follow_api', 'get_blog_authors', [username]])
       .then(result => {
         const users = _.sortBy(result, user => {

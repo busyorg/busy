@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { openTransfer, openPowerUpOrDown } from '../../wallet/walletActions';
 import { getAuthenticatedUser } from '../../reducers';
-import { STEEM, SBD } from '../../../common/constants/cryptos';
+import { TME, TSD } from '../../../common/constants/cryptos';
 import Action from '../Button/Action';
 import ClaimRewardsBlock from '../../wallet/ClaimRewardsBlock';
 import CryptoTrendingCharts from './CryptoTrendingCharts';
@@ -27,12 +27,20 @@ class WalletSidebar extends React.Component {
     isCurrentUser: PropTypes.bool,
     match: PropTypes.shape().isRequired,
     openTransfer: PropTypes.func.isRequired,
-    openPowerUpOrDown: PropTypes.func.isRequired,
+		openPowerUpOrDown: PropTypes.func.isRequired,
+		showPowerControls: PropTypes.any,
+		showTransferControls: PropTypes.any,
+		showMarket: PropTypes.any,
+		showEarnings: PropTypes.any,
   };
 
   static defaultProps = {
     user: {},
-    isCurrentUser: false,
+		isCurrentUser: false,
+		showPowerControls: true,
+		showTransferControls: true,
+		showMarket: true,
+		showEarnings: true,
   };
 
   handleOpenTransfer = () => {
@@ -50,14 +58,15 @@ class WalletSidebar extends React.Component {
   };
 
   render() {
-    const { match, user, isCurrentUser } = this.props;
+    const { match, user, isCurrentUser, showPowerControls, showTransferControls, showMarket, showEarnings } = this.props;
     const ownProfile = match.params.name === user.name || isCurrentUser;
-    const cryptos = [STEEM.symbol, SBD.symbol];
+    const cryptos = [TME.symbol, TSD.symbol];
 
     return (
       <div className="WalletSidebar">
         <Action big className="WalletSidebar__transfer" primary onClick={this.handleOpenTransfer}>
-          <FormattedMessage id="transfer" defaultMessage="Transfer" />
+          <FormattedMessage id="send" defaultMessage="Send" />
+					{/* <img src="/images/dollar.png" className="send-dollar on-right biggish"/> */}
         </Action>
         {ownProfile && (
           <div className="WalletSidebar__power">
@@ -68,8 +77,10 @@ class WalletSidebar extends React.Component {
               <FormattedMessage id="power_down" defaultMessage="Power down" />
             </Action>
           </div>
-        )}
+				)}
+				{ showMarket && 
         <CryptoTrendingCharts cryptos={cryptos} />
+				}
         {ownProfile && <ClaimRewardsBlock />}
       </div>
     );

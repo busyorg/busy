@@ -1,16 +1,16 @@
-import SteemAPI from '../steemAPI';
+import BlockchainAPI from '../blockchainAPI';
 import { jsonParse } from '../helpers/formatter';
 import * as accountHistoryConstants from '../../common/constants/accountHistory';
 
 /** *
- * Get the path from URL and the API object of steem and return the correct API call based on path
+ * Get the path from URL and the API object and return the correct API call based on path
  * @param path - as in URL like 'trending'
- * @param API - the { api } from steem npm package
- * @param query {Object} - the same query sending to Steem API
- * @param steemAPI - The same giving to Steem API
+ * @param API - the { api } from an npm package
+ * @param query {Object} - the same query sending to Blockchain API
+ * @param blockchainAPI - The same giving to Blockchain API
  * @returns {function}
  */
-export function getDiscussionsFromAPI(sortBy, query, steemAPI) {
+export function getDiscussionsFromAPI(sortBy, query, blockchainAPI) {
   switch (sortBy) {
     case 'feed':
     case 'hot':
@@ -19,25 +19,29 @@ export function getDiscussionsFromAPI(sortBy, query, steemAPI) {
     case 'trending':
     case 'blog':
     case 'comments':
-    case 'promoted':
-      return steemAPI.sendAsync(`get_discussions_by_${sortBy}`, [query]);
+		case 'promoted':
+			console.log(`getting get_discussions_by_${sortBy}`)
+			console.log(`query`, [query])
+			var ret = blockchainAPI.sendAsync(`get_discussions_by_${sortBy}`, [query])
+			.catch(err=>{console.error('err', err)});
+			return ret
     default:
       throw new Error('There is not API endpoint defined for this sorting');
   }
 }
 
 export const getAccount = username =>
-  SteemAPI.sendAsync('get_accounts', [[username]]).then(result => {
+  BlockchainAPI.sendAsync('get_accounts', [[username]]).then(result => {
     if (result.length) {
       const userAccount = result[0];
-      userAccount.json_metadata = jsonParse(result[0].json_metadata);
+      userAccount.json = jsonParse(result[0].json);
       return userAccount;
     }
     throw new Error('User Not Found');
-  });
+  }).catch(err=>{console.error('err', err)});
 
 export const getFollowingCount = username =>
-  SteemAPI.sendAsync('call', ['follow_api', 'get_follow_count', [username]]);
+  BlockchainAPI.sendAsync('call', ['follow_api', 'get_follow_count', [username]]).catch(err=>{console.error('err', err)});
 
 export const getAccountWithFollowingCount = username =>
   Promise.all([getAccount(username), getFollowingCount(username)]).then(([account, following]) => ({
@@ -47,18 +51,18 @@ export const getAccountWithFollowingCount = username =>
   }));
 
 export const getFollowing = (username, startForm = '', type = 'blog', limit = 100) =>
-  SteemAPI.sendAsync('call', [
+  BlockchainAPI.sendAsync('call', [
     'follow_api',
     'get_following',
     [username, startForm, type, limit],
-  ]).then(result => result.map(user => user.following));
+  ]).then(result => result.map(user => user.following)).catch(err=>{console.error('err', err)});
 
 export const getFollowers = (username, startForm = '', type = 'blog', limit = 100) =>
-  SteemAPI.sendAsync('call', [
+  BlockchainAPI.sendAsync('call', [
     'follow_api',
     'get_followers',
     [username, startForm, type, limit],
-  ]).then(result => result.map(user => user.follower));
+  ]).then(result => result.map(user => user.follower)).catch(err=>{console.error('err', err)});
 
 export const getAllFollowing = username =>
   new Promise(async resolve => {
@@ -80,40 +84,40 @@ export const getAllFollowing = username =>
 export const defaultAccountLimit = 500;
 
 export const getAccountHistory = (account, from = -1, limit = defaultAccountLimit) =>
-  SteemAPI.sendAsync('get_account_history', [account, from, limit]);
+  BlockchainAPI.sendAsync('get_account_history', [account, from, limit]).catch(err=>{console.error('err', err)});
 
 export const getDynamicGlobalProperties = () =>
-  SteemAPI.sendAsync('get_dynamic_global_properties', []);
+  BlockchainAPI.sendAsync('get_dynamic_global_properties', []).catch(err=>{console.error('err', err)});
 
 export const isWalletTransaction = actionType =>
   actionType === accountHistoryConstants.TRANSFER ||
-  actionType === accountHistoryConstants.TRANSFER_TO_VESTING ||
-  actionType === accountHistoryConstants.CANCEL_TRANSFER_FROM_SAVINGS ||
-  actionType === accountHistoryConstants.TRANSFER_FROM_SAVINGS ||
-  actionType === accountHistoryConstants.TRANSFER_TO_SAVINGS ||
-  actionType === accountHistoryConstants.DELEGATE_VESTING_SHARES ||
-  actionType === accountHistoryConstants.CLAIM_REWARD_BALANCE;
+  actionType === accountHistoryConstants.transferTMEtoSCOREfund ||
+  actionType === accountHistoryConstants.cancelTransferFromSavings ||
+  actionType === accountHistoryConstants.transferFromSavings ||
+  actionType === accountHistoryConstants.transferToSavings ||
+  actionType === accountHistoryConstants.delegateSCORE ||
+  actionType === accountHistoryConstants.claimRewardBalance;
 
 export const getAccountReputation = (name, limit = 20) =>
-  SteemAPI.sendAsync('call', ['follow_api', 'get_account_reputations', [name, limit]]);
+  BlockchainAPI.sendAsync('call', ['follow_api', 'get_account_reputations', [name, limit]]).catch(err=>{console.error('err', err)});
 
 export const getAllSearchResultPages = search => {
   const promises = [];
 
   for (let i = 0; i <= 10; i += 1) {
-    promises.push(
-      fetch(`https://api.asksteem.com/search?q=${search}&types=post&pg=${i}`).then(res =>
-        res.json(),
-      ),
-    );
+    // promises.push(
+    //   fetch(`https://api.asksteem.com/search?q=${search}&types=post&pg=${i}`).then(res =>
+    //     res.json(),
+    //   ),
+    // );
   }
 
   return Promise.all(promises);
 };
 
 export const currentUserFollowersUser = (currentUsername, username) =>
-  SteemAPI.sendAsync('call', [
+  BlockchainAPI.sendAsync('call', [
     'follow_api',
     'get_following',
     [username, currentUsername, 'blog', 1],
-  ]);
+  ]).catch(err=>{console.error('err', err)});

@@ -2,8 +2,8 @@ import base58 from 'bs58';
 import getSlug from 'speakingurl';
 import secureRandom from 'secure-random';
 import diff_match_patch from 'diff-match-patch';
-import steemAPI from '../steemAPI';
-import formatter from '../helpers/steemitFormatter';
+import blockchainAPI from '../blockchainAPI';
+import formatter from '../helpers/blockchainProtocolFormatter';
 
 const dmp = new diff_match_patch();
 /**
@@ -117,7 +117,7 @@ export function createPermlink(title, author, parent_author, parent_permlink) {
       s = base58.encode(secureRandom.randomBuffer(4));
     }
 
-    return steemAPI
+    return blockchainAPI
       .sendAsync('get_content', [author, s])
       .then(content => {
         let prefix;
@@ -169,27 +169,28 @@ export function getBodyPatchIfSmaller(originalBody, body) {
  * https://github.com/aaroncox/chainbb/blob/fcb09bee716e907c789a6494975093361482fb4f/services/frontend/src/components/elements/post/button/vote/options.js#L69
  */
 export const calculateVoteValue = (
-  vests,
+  score,
   recentClaims,
   rewardBalance,
   rate,
   vp = 10000,
   weight = 10000,
 ) => {
-  const vestingShares = parseInt(vests * 1e6, 10);
+  const SCORE = parseInt(score * 1e6, 10);
   const power = vp * weight / 10000 / 50;
-  const rshares = power * vestingShares / 10000;
-  return rshares / recentClaims * rewardBalance * rate;
+	const rshares = power * SCORE / 10000;
+	const ret = rshares / recentClaims * rewardBalance * rate;
+  return ret;
 };
 
-export const calculateTotalDelegatedSP = (user, totalVestingShares, totalVestingFundSteem) => {
-  const receivedSP = parseFloat(
-    formatter.vestToSteem(user.received_vesting_shares, totalVestingShares, totalVestingFundSteem),
+export const calculateTotalDelegatedSCORE = (user, totalSCORE, SCOREbackingTMEfundBalance) => {
+  const receivedSCORE = parseFloat(
+    formatter.SCOREinTMEvalue(user.SCOREreceived, totalSCORE, SCOREbackingTMEfundBalance),
   );
-  const delegatedSP = parseFloat(
-    formatter.vestToSteem(user.delegated_vesting_shares, totalVestingShares, totalVestingFundSteem),
+  const delegatedSCORE = parseFloat(
+    formatter.SCOREinTMEvalue(user.SCOREDelegated, totalSCORE, SCOREbackingTMEfundBalance),
   );
-  return receivedSP - delegatedSP;
+  return receivedSCORE - delegatedSCORE;
 };
 
 export const calculateVotingPower = user => {
@@ -199,18 +200,18 @@ export const calculateVotingPower = user => {
 
 export const calculateEstAccountValue = (
   user,
-  totalVestingShares,
-  totalVestingFundSteem,
-  steemRate,
-  sbdRate,
+  totalSCORE,
+  SCOREbackingTMEfundBalance,
+  TMErate,
+  TSDrate,
 ) => {
-  const steemPower = formatter.vestToSteem(
-    user.vesting_shares,
-    totalVestingShares,
-    totalVestingFundSteem,
+  const amountSCOREvalueInTME = formatter.SCOREinTMEvalue(
+    user.SCORE,
+    totalSCORE,
+    SCOREbackingTMEfundBalance,
   );
   return (
-    parseFloat(steemRate) * (parseFloat(user.balance) + parseFloat(steemPower)) +
-    parseFloat(user.sbd_balance) * parseFloat(sbdRate)
+    parseFloat(TMErate) * (parseFloat(user.balance) + parseFloat(amountSCOREvalueInTME)) +
+    parseFloat(user.TSDbalance) * parseFloat(TSDrate)
   );
 };

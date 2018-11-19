@@ -106,11 +106,11 @@ export const getUserFeedFailedFromState = (username, feedState) =>
 /**
  * Sort comments based on payout
  * @param {Array} list - list of IDs of comments
- * @param {Object} commentsState - state.comments in busy redux setup
+ * @param {Object} commentsState - state.comments in redux setup
  * @param {String} sortBy - how comments should be sorted
  * @returns {Array} - list of sorted IDs
  */
-export const sortCommentsFromSteem = (list, commentsState, sortBy = 'trending') => {
+export const sortComments = (list, commentsState, sortBy = 'trending') => {
   let compareFunc;
   const newList = [...list];
 

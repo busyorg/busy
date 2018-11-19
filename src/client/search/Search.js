@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { getSearchResults, getSearchLoading } from '../reducers';
-import { searchAskSteem } from './searchActions';
+import { searchBlockchain } from './searchActions';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import SearchResultEmptyMessage from './SearchResultEmptyMessage';
 import Affix from '../components/Utils/Affix';
@@ -21,7 +21,7 @@ import './Search.less';
     searchLoading: getSearchLoading(state),
   }),
   {
-    searchAskSteem,
+    searchBlockchain,
   },
 )
 class Search extends React.Component {
@@ -30,7 +30,7 @@ class Search extends React.Component {
     location: PropTypes.shape().isRequired,
     searchResults: PropTypes.arrayOf(PropTypes.shape()),
     searchLoading: PropTypes.bool.isRequired,
-    searchAskSteem: PropTypes.func.isRequired,
+    searchBlockchain: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -40,11 +40,11 @@ class Search extends React.Component {
   componentDidMount() {
     const searchQuery = _.get(this.props.location.state, 'query', '');
     if (!_.isEmpty(searchQuery)) {
-      this.props.searchAskSteem(searchQuery);
+      this.props.searchBlockchain(searchQuery);
     } else {
       const searchQueryRegexResults = this.props.location.search.match(/\?q=(.*)/);
       const searchQueryFromUrl = _.get(searchQueryRegexResults, 1, '');
-      this.props.searchAskSteem(searchQueryFromUrl);
+      this.props.searchBlockchain(searchQueryFromUrl);
     }
   }
 
@@ -53,12 +53,13 @@ class Search extends React.Component {
     const newSearchQuery = _.get(nextProps.location.state, 'query', '');
 
     if (oldSearchQuery !== newSearchQuery) {
-      this.props.searchAskSteem(newSearchQuery);
+      this.props.searchBlockchain(newSearchQuery);
     }
   }
 
   renderSearchResult() {
-    const { searchResults } = this.props;
+		const { searchResults } = this.props;
+		searchResults.reverse()
     return _.map(searchResults, (result, i) => {
       switch (result.type) {
         case 'post':
@@ -88,7 +89,7 @@ class Search extends React.Component {
     return (
       <div className="settings-layout container">
         <Helmet>
-          <title>{intl.formatMessage({ id: 'search', defaultMessage: 'Search' })} - Busy</title>
+          <title>{intl.formatMessage({ id: 'search', defaultMessage: 'Search' })} - WeYouMe</title>
         </Helmet>
         <Affix className="leftContainer" stickPosition={77}>
           <div className="left">

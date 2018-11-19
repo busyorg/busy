@@ -13,7 +13,7 @@ describe('settingsReducer', () => {
     showNSFWPosts: false,
     nightmode: false,
     rewriteLinks: false,
-    upvoteSetting: true,
+    upvoteSetting: false,
     exitPageSetting: true,
     rewardSetting: rewardsValues.half,
     useBeta: false,
@@ -88,7 +88,7 @@ describe('settingsReducer', () => {
         showNSFWPosts: true,
         nightmode: true,
         rewriteLinks: true,
-        upvoteSetting: true,
+        upvoteSetting: false,
         exitPageSetting: true,
         rewardSetting: rewardsValues.half,
       },
@@ -103,7 +103,7 @@ describe('settingsReducer', () => {
       ...stateBefore,
       locale: 'fr',
       votingPower: 'off',
-      upvoteSetting: true,
+      upvoteSetting: false,
       rewardSetting: rewardsValues.half,
     };
     const action = {
@@ -113,7 +113,7 @@ describe('settingsReducer', () => {
           settings: {
             locale: 'fr',
             votingPower: 'off',
-            upvoteSetting: true,
+            upvoteSetting: false,
             rewardSetting: rewardsValues.half,
           },
         },
@@ -179,7 +179,7 @@ describe('settingsReducer', () => {
           settings: {
             locale: 'fr',
             votingPower: 'off',
-            upvoteSetting: true,
+            upvoteSetting: false,
             rewardSetting: rewardsValues.half,
           },
         },

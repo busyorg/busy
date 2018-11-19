@@ -1,4 +1,5 @@
 @import (reference) './custom.less';
+@import (reference) './modules/variables.less';
 
 body {
   overflow-x: hidden;
@@ -19,7 +20,7 @@ a:focus {
 }
 
 .content {
-  margin-top: 56px;
+  margin-top: @nav-height;
   width: 100%;
 }
 
@@ -43,7 +44,8 @@ a:focus {
 }
 
 .ant-layout-header {
-  z-index: @ant-layout-header-z-index !important;
+	z-index: @ant-layout-header-z-index !important;
+	max-height: @nav-height;
 }
 
 textarea.ant-input {
@@ -106,7 +108,7 @@ body.post-modal .primary-modal {
 }
 
 .ant-popover-inner-content {
-  max-height: 55vh;
+  // max-height: 55vh;
   overflow-y: auto;
 }
 

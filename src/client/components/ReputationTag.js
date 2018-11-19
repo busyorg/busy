@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import { Tag } from 'antd';
 import BTooltip from './BTooltip';
-import formatter from '../helpers/steemitFormatter';
+import formatter from '../helpers/blockchainProtocolFormatter';
 
 function ReputationTag({ intl, reputation }) {
   const formattedReputation = formatter.reputationFloat(reputation);

@@ -206,7 +206,7 @@ class Editor extends React.Component {
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
         <Helmet>
           <title>
-            {intl.formatMessage({ id: 'write_post', defaultMessage: 'Write post' })} - Busy
+            {intl.formatMessage({ id: 'write_post', defaultMessage: 'Write post' })} - WeYouMe
           </title>
         </Helmet>
         <Form.Item
@@ -343,10 +343,10 @@ class Editor extends React.Component {
           {getFieldDecorator('reward')(
             <Select onChange={this.onUpdate} disabled={isUpdating}>
               <Select.Option value={rewardsValues.all}>
-                <FormattedMessage id="reward_option_100" defaultMessage="100% Steem Power" />
+                <FormattedMessage id="reward_option_100" defaultMessage="100% SCORE" />
               </Select.Option>
               <Select.Option value={rewardsValues.half}>
-                <FormattedMessage id="reward_option_50" defaultMessage="50% SBD and 50% SP" />
+                <FormattedMessage id="reward_option_50" defaultMessage="50% TSD and 50% SCORE" />
               </Select.Option>
               <Select.Option value={rewardsValues.none}>
                 <FormattedMessage id="reward_option_0" defaultMessage="Declined" />
@@ -354,13 +354,13 @@ class Editor extends React.Component {
             </Select>,
           )}
         </Form.Item>
-        <Form.Item className={classNames({ Editor__hidden: isUpdating })}>
-          {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: true })(
+        {/* <Form.Item className={classNames({ Editor__hidden: isUpdating })}>
+          {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: false })(
             <Checkbox onChange={this.onUpdate} disabled={isUpdating}>
               <FormattedMessage id="like_post" defaultMessage="Like this post" />
             </Checkbox>,
           )}
-        </Form.Item>
+        </Form.Item> */}
         <div className="Editor__bottom">
           <span className="Editor__bottom__info">
             <i className="iconfont icon-markdown" />{' '}

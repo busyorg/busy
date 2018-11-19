@@ -1,7 +1,7 @@
-import { Client } from 'busyjs';
+import { Client } from 'welitejs';
 
-function createBusyAPI() {
-  const client = new Client('wss://api.busy.org');
+function createLiteAPIclient() {
+  const client = new Client(process.env.WSS_API_URL);
 
   client.sendAsync = (message, params) =>
     new Promise((resolve, reject) => {
@@ -10,8 +10,7 @@ function createBusyAPI() {
         return resolve(result);
       });
     });
-
   return client;
 }
 
-export default createBusyAPI;
+export default createLiteAPIclient;
