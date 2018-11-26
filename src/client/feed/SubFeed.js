@@ -64,7 +64,7 @@ class SubFeed extends React.Component {
 
     if (!loaded && Cookie.get('access_token')) return;
 
-    if (match.url === '/' && authenticated && false) {
+    if (match.url === '/' && authenticated) {
       const fetched = getUserFeedFetchedFromState(user.name, feed);
       if (fetched) return;
       this.props.getFeedContent('feed', user.name);
@@ -95,7 +95,6 @@ class SubFeed extends React.Component {
 				(match.url !== this.props.match.url && isAuthenticated) ||
 				(isAuthenticated && !wasAuthenticated)
 			) 
-			&& false
     ) {
       const fetching = getUserFeedLoadingFromState(user.name, feed);
       if (!fetching) {
@@ -103,9 +102,9 @@ class SubFeed extends React.Component {
         // this.props.getFeedContent('trending', 'all');
       }
     } else if ((oldSortBy !== newSortBy) || oldCategory !== newCategory || (!wasLoaded && isLoaded)) {
-      const fetching = getFeedLoadingFromState(newSortBy || 'trending', newCategory, feed);
+      const fetching = getFeedLoadingFromState(newSortBy, newCategory, feed);
       if (!fetching) {
-        this.props.getFeedContent(newSortBy || 'trending', newCategory);
+        this.props.getFeedContent(newSortBy, newCategory);
       }
     }
   }
@@ -120,7 +119,7 @@ class SubFeed extends React.Component {
     let loadMoreContent = () => {};
     const isAuthHomeFeed = match.url === '/' && authenticated;
 
-    if (isAuthHomeFeed && false) {
+    if (isAuthHomeFeed) {
       content = getUserFeedFromState(user.name, feed);
       isFetching = getUserFeedLoadingFromState(user.name, feed);
       fetched = getUserFeedFetchedFromState(user.name, feed);

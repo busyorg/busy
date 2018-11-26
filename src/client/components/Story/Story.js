@@ -105,7 +105,7 @@ class Story extends React.Component {
     this.handleShareClick = this.handleShareClick.bind(this);
     this.handleFollowClick = this.handleFollowClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
-    this.handleTransferClick = this.handleTransferClick.bind(this);
+    // this.handleTransferClick = this.handleTransferClick.bind(this);
     // this.getName = this.getName.bind(this);
 	}
 	
@@ -115,9 +115,12 @@ class Story extends React.Component {
 		// }
 	}
 	handleTransferClick = () => {
-		const { post } = this.props;
-    openTransfer(post.author);
-	};
+    openTransfer(this.props.match.params.author);
+  };
+  
+  // handleTransferClick = () => {
+  //  this.props.openTransfer(this.props.match.params.name);
+  //};
 	
   shouldComponentUpdate(nextProps, nextState) {
     return !_.isEqual(nextProps, this.props) || !_.isEqual(nextState, this.state);
