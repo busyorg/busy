@@ -34,7 +34,7 @@ export const getRate = () => (dispatch, getState, { steemAPI }) => {
     payload: {
       promise: steemAPI
         .sendAsync('get_current_median_history_price', [])
-        .then(resp => parseFloat(resp.base)),
+        .then(resp => parseFloat(resp.base) / parseFloat(resp.quote)),
     },
   });
 };
