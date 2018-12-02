@@ -244,7 +244,9 @@ class Buttons extends React.Component {
         )}
          <span className="CommentFooter__link" >
           <BTooltip title= "Send">
-				    <a role ="presentation" onClick={this.handleTransferClick}>
+				    <a role ="presentation" className={classNames('CommentFooter__link', {
+              'CommentFooter__link--active': false})}
+              onClick={this.handleTransferClick}>
 					    <i className="iconfont icon-Dollar"/>
 				    </a>
           </BTooltip>

@@ -339,6 +339,7 @@ export default class Buttons extends React.Component {
     const likeClass = classNames({ active: postState.isLiked || (pendingLike && !pendingDislike), Buttons__link: true });
     const dislikeClass = classNames({ active: postState.isDisliked || (!pendingLike && pendingDislike), Buttons__link: true });
     const rebloggedClass = classNames({ active: postState.isReblogged, Buttons__link: true });
+    const sendClass = classNames({ active: false, Buttons__link: true});
 
     const commentsLink =
       post.url.indexOf('#') !== -1 ? post.url : { pathname: post.url, hash: '#comments' };
@@ -490,7 +491,7 @@ export default class Buttons extends React.Component {
         
         <div className="button__group">
           <BTooltip title= "Send">
-				    <a role ="presentation" onClick={this.handleTransferClick}>
+				    <a role ="presentation" className={sendClass} onClick={this.handleTransferClick}>
 					    <i className="iconfont icon-Dollar"/>
 				    </a>
           </BTooltip>
