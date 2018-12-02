@@ -26,6 +26,7 @@ import {
 } from '../reducers';
 import { editPost } from './Write/editorActions';
 import { votePost } from './postActions';
+import { openTransfer } from '../wallet/walletActions';
 import { reblog } from '../app/Reblog/reblogActions';
 import { toggleBookmark } from '../bookmarks/bookmarksActions';
 import { followUser, unfollowUser } from '../user/userActions';
@@ -56,6 +57,7 @@ import DMCARemovedMessage from '../components/Story/DMCARemovedMessage';
   {
     editPost,
     votePost,
+    openTransfer,
     reblog,
     toggleBookmark,
     followUser,
@@ -85,6 +87,7 @@ class PostContent extends React.Component {
     editPost: PropTypes.func,
     toggleBookmark: PropTypes.func,
     votePost: PropTypes.func,
+    openTransfer: PropTypes.func,
     reblog: PropTypes.func,
     followUser: PropTypes.func,
     unfollowUser: PropTypes.func,
@@ -103,6 +106,7 @@ class PostContent extends React.Component {
     editPost: () => {},
     toggleBookmark: () => {},
     votePost: () => {},
+    openTransfer: () => {},
     reblog: () => {},
     followUser: () => {},
     unfollowUser: () => {},
@@ -141,6 +145,8 @@ class PostContent extends React.Component {
   }
 
   handleShareClick = post => this.props.reblog(post.id);
+
+  handleTransferClick = post => this.props.openTransfer(post.author);
 
   handleSaveClick = post => this.props.toggleBookmark(post.id, post.author, post.permlink);
 
@@ -273,6 +279,7 @@ class PostContent extends React.Component {
           onSaveClick={this.handleSaveClick}
           onFollowClick={this.handleFollowClick}
           onEditClick={this.handleEditClick}
+          onTransferClick={this.handleTransferClick}
         />
       </div>
     );

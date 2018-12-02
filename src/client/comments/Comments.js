@@ -20,6 +20,7 @@ import CommentsList from '../components/Comments/Comments';
 import * as commentsActions from './commentsActions';
 import { notify } from '../app/Notification/notificationActions';
 import './Comments.less';
+import { openTransfer } from '../wallet/walletActions'
 
 @connect(
   state => ({
@@ -41,6 +42,7 @@ import './Comments.less';
         voteComment: (id, percent, vote) => commentsActions.likeComment(id, percent, vote),
         sendComment: (parentPost, body, isUpdating, originalPost) =>
           commentsActions.sendComment(parentPost, body, isUpdating, originalPost),
+        openTransfer: (comment) => openTransfer(comment),
         notify,
       },
       dispatch,
@@ -69,6 +71,7 @@ export default class Comments extends React.Component {
     getComments: PropTypes.func,
     voteComment: PropTypes.func,
     sendComment: PropTypes.func,
+    openTransfer: PropTypes.func,
   };
 
   static defaultProps = {
@@ -83,6 +86,7 @@ export default class Comments extends React.Component {
     getComments: () => {},
     voteComment: () => {},
     sendComment: () => {},
+    openTransfer: () => {},
   };
 
   state = {
@@ -141,6 +145,10 @@ export default class Comments extends React.Component {
     }
   };
 
+  handleTransferClick = comment => {
+    this.props.openTransfer(comment.author);
+  }
+
   render() {
     const {
       user,
@@ -190,6 +198,7 @@ export default class Comments extends React.Component {
           onLikeClick={this.handleLikeClick}
           onDislikeClick={this.handleDislikeClick}
           onSendComment={this.props.sendComment}
+          onTransferClick={this.handleTransferClick}
         />
       )
     );

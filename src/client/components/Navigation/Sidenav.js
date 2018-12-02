@@ -5,13 +5,21 @@ import { NavLink } from 'react-router-dom';
 import './Sidenav.less';
 
 const isTrending = (match, location) => location.pathname.match(/trending/);
+const is_Active = (match, location) => location.pathname.match(/active/);
 const isNew = (match, location) => location.pathname.match(/created/);
 const isWallet = (match, location) => location.pathname.match(/wallet/);
 const isHot = (match, location) => location.pathname.match(/hot/);
 const isReplies = (match, location) => location.pathname.match(/replies/);
+const isPics = (match, location) => location.pathname.match(/pics/);
 
 const Sidenav = ({ username }) =>
 	<ul className="Sidenav">
+		<li>
+			<NavLink to="/" activeClassName="Sidenav__item--active" isActive={function(){return false}}>
+				<i className="iconfont icon-homepage" />
+				<FormattedMessage id="home" defaultMessage="Home" />
+			</NavLink>
+		</li>
 		<li>
 			<NavLink to="/hot" activeClassName="Sidenav__item--active" exact isActive={isHot}>
 				<i className="iconfont icon-collection_fill" />
@@ -19,23 +27,30 @@ const Sidenav = ({ username }) =>
 			</NavLink>
 		</li>
 		<li>
-			<NavLink to="/trending" activeClassName="Sidenav__item--active" isActive={isTrending}>
+			<NavLink to="/trending" activeClassName="Sidenav__item--active" exact isActive={isTrending}>
 				<i className="iconfont icon-headlines" />
 				<FormattedMessage id="trending" defaultMessage="Trending" />
 			</NavLink>
 		</li>
 		<li>
-			<NavLink to="/created" activeClassName="Sidenav__item--active" isActive={isNew}>
+			<NavLink to="/created" activeClassName="Sidenav__item--active" exact isActive={isNew}>
 				<i className="iconfont icon-clock" />
 				<FormattedMessage id="new" defaultMessage="New" />
 			</NavLink>
 		</li>
-		{/* <li>
-			<NavLink to="/active" activeClassName="Sidenav__item--active" isActive={isTrending}>
-			<i className="iconfont icon-emoji_fill" />
-			<FormattedMessage id="active" defaultMessage="Active" />
+		<li>
+			<NavLink to="/active" activeClassName="Sidenav__item--active" exact isActive={is_Active}>
+				<i className="iconfont icon-flashlight" />
+				<FormattedMessage id="active" defaultMessage="Active" />
 			</NavLink>
-		</li> */}
+		</li> 
+		<li>
+			<NavLink to="/pics" activeClassName="Sidenav__item--active" isActive={isPics}>
+				<i className="iconfont icon-picture" />
+				<FormattedMessage id="pics" defaultMessage="Pictures" />
+			</NavLink>
+		</li>
+		
 		{ username ? (
 		<li>
 			<NavLink to={`/@${username}`}>
@@ -64,18 +79,12 @@ const Sidenav = ({ username }) =>
 			</li>
 		) : null }
 		<li>
-			<div className="floating-label-container">
-				<div className="floating-label-positioner">
-					<div className="floating-label">
-						<span>soon</span>
-					</div>
-				</div>
-			</div>
-			<NavLink to="/exchange" activeClassName="Sidenav__item--active" isActive={function(){return false}}>
+			<a href="https://exchange.weyoume.io" >
 				<i className="iconfont icon-chart" />
 				<FormattedMessage id="exchange" defaultMessage="Exchange" />
-			</NavLink>
+			</a>
 		</li>
+		
 		<li>
 			<div className="floating-label-container">
 				<div className="floating-label-positioner">

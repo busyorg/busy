@@ -235,7 +235,8 @@ export default class ProfileSettings extends React.Component {
                   <h3>
                     <FormattedMessage id="profile_picture" defaultMessage="Profile picture" />
                   </h3>
-                  <div className="Settings__section__inputs">
+                  
+                  {/* <div className="Settings__section__inputs">
                     <FormItem>
                       {getFieldDecorator('profile_image')(
                         <Input
@@ -247,13 +248,33 @@ export default class ProfileSettings extends React.Component {
                         />,
                       )}
                     </FormItem>
+                  </div> */}
+
+                  <div className="Settings__section__inputs">
+                    {getFieldDecorator('profile_image', {
+                      initialValue: '',
+                    })(
+                      <EditorInput
+                        rows={1}
+                        //onChange={this.handleSignatureChange}
+                        onImageUpload={this.props.onImageUpload}
+                        onImageInvalid={this.props.onImageInvalid}
+                        inputId={'profile_image'}
+                      />,
+                    )}
+                    {bodyHTML && (
+                      <Form.Item label={<FormattedMessage id="profile_picture" defaultMessage="Profile Picture" />}>
+                        <BodyContainer full body={bodyHTML} />
+                      </Form.Item>
+                    )}
                   </div>
                 </div>
+                
                 <div className="Settings__section">
                   <h3>
                     <FormattedMessage id="profile_cover" defaultMessage="Cover picture" />
                   </h3>
-                  <div className="Settings__section__inputs">
+                  {/* <div className="Settings__section__inputs">
                     <FormItem>
                       {getFieldDecorator('cover_image')(
                         <Input
@@ -265,6 +286,25 @@ export default class ProfileSettings extends React.Component {
                         />,
                       )}
                     </FormItem>
+                  </div> */}
+                  
+                  <div className="Settings__section__inputs">
+                    {getFieldDecorator('cover_image', {
+                      initialValue: '',
+                    })(
+                      <EditorInput
+                        rows={1}
+                        //onChange={this.handleSignatureChange}
+                        onImageUpload={this.props.onImageUpload}
+                        onImageInvalid={this.props.onImageInvalid}
+                        inputId={'profile_cover'}
+                      />,
+                    )}
+                    {bodyHTML && (
+                      <Form.Item label={<FormattedMessage id="profile_cover" defaultMessage="Cover_Picture" />}>
+                        <BodyContainer full body={bodyHTML} />
+                      </Form.Item>
+                    )}
                   </div>
                 </div>
                 <div className="Settings__section">

@@ -97,7 +97,7 @@ class ClaimRewardsBlock extends Component {
           defaultMessage: 'Claim Rewards',
         });
 
-    if (!userHasRewards || rewardClaimed) return null;
+    //if (!userHasRewards || rewardClaimed) return null;
 
     return (
       <div className="SidebarContentBlock ClaimRewardsBlock">

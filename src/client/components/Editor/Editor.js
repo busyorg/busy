@@ -243,7 +243,7 @@ class Editor extends React.Component {
               className="Editor__title"
               placeholder={intl.formatMessage({
                 id: 'title_placeholder',
-                defaultMessage: 'Add title',
+                defaultMessage: 'Post Title:',
               })}
             />,
           )}
@@ -251,7 +251,7 @@ class Editor extends React.Component {
         <Form.Item
           label={
             <span className="Editor__label">
-              <FormattedMessage id="topics" defaultMessage="Topics" />
+              <FormattedMessage id="topics" defaultMessage="Select Topics:" />
             </span>
           }
           extra={intl.formatMessage({
@@ -303,7 +303,7 @@ class Editor extends React.Component {
             ],
           })(
             <EditorInput
-              rows={12}
+              rows={20}
               addon={
                 <FormattedMessage
                   id="reading_time"
@@ -354,13 +354,13 @@ class Editor extends React.Component {
             </Select>,
           )}
         </Form.Item>
-        {/* <Form.Item className={classNames({ Editor__hidden: isUpdating })}>
+        <Form.Item className={classNames({ Editor__hidden: isUpdating })}>
           {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: false })(
             <Checkbox onChange={this.onUpdate} disabled={isUpdating}>
               <FormattedMessage id="like_post" defaultMessage="Like this post" />
             </Checkbox>,
           )}
-        </Form.Item> */}
+        </Form.Item>
         <div className="Editor__bottom">
           <span className="Editor__bottom__info">
             <i className="iconfont icon-markdown" />{' '}

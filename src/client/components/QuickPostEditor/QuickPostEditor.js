@@ -89,9 +89,9 @@ class QuickPostEditor extends React.Component {
       },
       ' ',
     );
-    const postTitle = this.state.currentInputValue;
+    const postTitle = " ";
     const data = {
-      body: postBody,
+      body: this.state.currentInputValue,
       title: postTitle,
       reward: '50',
       author: this.props.user.name,
@@ -263,7 +263,7 @@ class QuickPostEditor extends React.Component {
       <div className="QuickPostEditor">
         <div className="QuickPostEditor__contents">
           <div className="QuickPostEditor__avatar">
-            <Avatar username={user.name} size={40} />
+            <Avatar username={user.name} size={50} />
           </div>
           <div className="QuickPostEditor__dropzone-base">
             <Dropzone
@@ -292,7 +292,7 @@ class QuickPostEditor extends React.Component {
                 ref={ref => this.setInput(ref)}
                 placeholder={intl.formatMessage({
                   id: 'write_quick_post',
-                  defaultMessage: 'Add something',
+                  defaultMessage: 'Write your post:',
                 })}
                 value={this.state.currentInputValue}
                 maxLength="255"
@@ -300,7 +300,6 @@ class QuickPostEditor extends React.Component {
             </Dropzone>
           </div>
         </div>
-        {focusedInput && (
           <QuickPostEditorFooter
             imageUploading={imageUploading}
             postCreationLoading={postCreationLoading}
@@ -318,7 +317,6 @@ class QuickPostEditor extends React.Component {
             onRemoveImage={this.handleRemoveImage}
             handleFooterFocus={this.handleFocusInput}
           />
-        )}
       </div>
     );
   }
