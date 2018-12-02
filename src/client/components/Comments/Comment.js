@@ -47,6 +47,7 @@ class Comment extends React.Component {
     notify: PropTypes.func,
     onLikeClick: PropTypes.func,
     onDislikeClick: PropTypes.func,
+    onTransferClick: PropTypes.func,
     onSendComment: PropTypes.func,
   };
 
@@ -61,6 +62,7 @@ class Comment extends React.Component {
     notify: () => {},
     onLikeClick: () => {},
     onDislikeClick: () => {},
+    onTransferClick: () => {},
     onSendComment: () => {},
   };
 
@@ -321,6 +323,7 @@ class Comment extends React.Component {
             defaultVotePercent={defaultVotePercent}
             onLikeClick={this.props.onLikeClick}
             onDislikeClick={this.props.onDislikeClick}
+            onTransferClick={this.props.onTransferClick}
             onReplyClick={this.handleReplyClick}
             onEditClick={this.handleEditClick}
           />
@@ -366,6 +369,7 @@ class Comment extends React.Component {
                   onLikeClick={this.props.onLikeClick}
                   onDislikeClick={this.props.onDislikeClick}
                   onSendComment={this.props.onSendComment}
+                  onTransferClick={this.props.onTransferClick}
                 />
               ))}
           </div>

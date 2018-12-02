@@ -35,6 +35,7 @@ class Buttons extends React.Component {
     onDislikeClick: PropTypes.func,
     onReplyClick: PropTypes.func,
     onEditClick: PropTypes.func,
+    onTransferClick: PropTypes.func,
   };
 
   static defaultProps = {
@@ -46,6 +47,7 @@ class Buttons extends React.Component {
     onDislikeClick: () => {},
     onReplyClick: () => {},
     onEditClick: () => {},
+    onTransferClick: () => {},
   };
 
   constructor(props) {
@@ -57,6 +59,7 @@ class Buttons extends React.Component {
 
     this.handleLikeClick = this.handleLikeClick.bind(this);
     this.handleDislikeClick = this.handleDislikeClick.bind(this);
+    this.handleTransferClick = this.handleTransferClick.bind(this);
     this.handleShowReactions = this.handleShowReactions.bind(this);
     this.handleCloseReactions = this.handleCloseReactions.bind(this);
   }
@@ -67,6 +70,10 @@ class Buttons extends React.Component {
 
   handleDislikeClick() {
     this.props.onActionInitiated(this.props.onDislikeClick);
+  }
+
+  handleTransferClick() {
+    this.props.onActionInitiated(this.props.onTransferClick);
   }
 
   handleShowReactions() {
@@ -235,6 +242,13 @@ class Buttons extends React.Component {
             </BTooltip>
           </span>
         )}
+         <span className="CommentFooter__link" >
+          <BTooltip title= "Send">
+				    <a role ="presentation" onClick={this.handleTransferClick}>
+					    <i className="iconfont icon-Dollar"/>
+				    </a>
+          </BTooltip>
+			  </span>
         {/* {payoutValue > 0 && (
           <React.Fragment>
             <span className="CommentFooter__bullet" />
@@ -274,6 +288,7 @@ class Buttons extends React.Component {
             </a>
           </span>
         )}
+       
         <ReactionsModal
           visible={this.state.reactionsModalVisible}
           upVotes={upVotes}

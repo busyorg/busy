@@ -2,7 +2,7 @@ import * as actions from '../walletActions';
 
 describe('walletActions', () => {
   it('should create an action to open a transfer', () => {
-    const username = 'sekhmet';
+    // const username = 'sekhmet';
     const expectedAction = {
       type: actions.OPEN_TRANSFER,
       payload: username,

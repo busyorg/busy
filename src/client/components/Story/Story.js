@@ -18,7 +18,6 @@ import {
   dropCategory,
   isBannedPost,
 } from '../../helpers/postHelpers';
-import { openTransfer } from '../../wallet/walletActions';
 import withAuthActions from '../../auth/withAuthActions';
 import BTooltip from '../BTooltip';
 import ReputationTag from '../ReputationTag';
@@ -32,8 +31,11 @@ import HiddenStoryPreviewMessage from './HiddenStoryPreviewMessage';
 import DMCARemovedMessage from './DMCARemovedMessage';
 import PostedFrom from './PostedFrom';
 import './Story.less';
+import { connect } from 'react-redux';
+import { getAccount } from '../../user/usersActions';
 
 @injectIntl
+
 @withRouter
 @withAuthActions
 class Story extends React.Component {
@@ -62,7 +64,9 @@ class Story extends React.Component {
     editPost: PropTypes.func,
     followUser: PropTypes.func,
     unfollowUser: PropTypes.func,
-		push: PropTypes.func
+    push: PropTypes.func,
+    getAccount: PropTypes.func,
+    openTransfer: PropTypes.func,
   };
 
   static defaultProps = {
@@ -82,7 +86,9 @@ class Story extends React.Component {
     editPost: () => {},
     followUser: () => {},
     unfollowUser: () => {},
-		push: () => {}
+    push: () => {},
+    getAccount: () => {},
+    openTransfer: () => {},
   };
 
   constructor(props) {
@@ -105,23 +111,20 @@ class Story extends React.Component {
     this.handleShareClick = this.handleShareClick.bind(this);
     this.handleFollowClick = this.handleFollowClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
-    // this.handleTransferClick = this.handleTransferClick.bind(this);
+    this.handleTransferClick = this.handleTransferClick.bind(this);
     // this.getName = this.getName.bind(this);
 	}
 	
-	componentDidMount(){
+	// componentDidMount(){
 		// if(this.props.post){
 		// 	this.getName(this.props.post.author)
 		// }
-	}
-	handleTransferClick = () => {
-    openTransfer(this.props.match.params.author);
-  };
+  // }
   
-  // handleTransferClick = () => {
-  //  this.props.openTransfer(this.props.match.params.name);
-  //};
-	
+	handleTransferClick(post) {
+    this.props.openTransfer(post.author);
+  }
+  	
   shouldComponentUpdate(nextProps, nextState) {
     return !_.isEqual(nextProps, this.props) || !_.isEqual(nextState, this.state);
   }
@@ -365,19 +368,9 @@ class Story extends React.Component {
             <div className="Story__header__text">
               <span className="Story__header__flex">
                 <Link to={`/@${post.author}`}>
-                  <h4	className="send-money-tooltip">
-										<BTooltip 
-											title={
-												<Action className="send-money" onClick={this.handleTransferClick}>
-													<img src="/images/dollar.png" className="send-dollar"/>
-													<FormattedMessage id="tranfer" defaultMessage="Send" />
-												</Action>
-											}
-											>
-											<span className="account_name">{`${accountName || post.author}`}</span>
-											<span className="username">{`@${post.author}`}</span>
-										</BTooltip>
-                    {/* <ReputationTag reputation={post.author_reputation} /> */}
+                  <h4	className="send-money-tooltip">	
+										<span className="account_name">{`${accountName || post.author}`}</span>
+										<span className="username">{`@${post.author}`}</span>
                   </h4>
                 </Link>
 								<span className="Story__posted__time">
@@ -429,12 +422,12 @@ class Story extends React.Component {
               onLikeClick={this.handleLikeClick}
               onDislikeClick={this.handleDislikeClick}
               onShareClick={this.handleShareClick}
+              onTransferClick={this.handleTransferClick}
               onEditClick={this.handleEditClick}
               pendingFollow={pendingFollow}
               pendingBookmark={pendingBookmark}
               saving={saving}
 							handlePostPopoverMenuClick={this.handlePostPopoverMenuClick}
-							handleTransferClick={this.handleTransferClick}
             />
           </div>
         </div>

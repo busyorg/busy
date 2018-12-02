@@ -60,6 +60,7 @@ class StoryFull extends React.Component {
     onLikeClick: PropTypes.func,
     onShareClick: PropTypes.func,
     onEditClick: PropTypes.func,
+    onTransferClick: PropTypes.func
   };
 
   static defaultProps = {
@@ -79,6 +80,7 @@ class StoryFull extends React.Component {
     onLikeClick: () => {},
     onShareClick: () => {},
     onEditClick: () => {},
+    onTransferClick: () => {},
     postState: {},
   };
 
@@ -202,6 +204,7 @@ class StoryFull extends React.Component {
       onLikeClick,
       onShareClick,
       onEditClick,
+      onTransferClick,
     } = this.props;
     const { isReported } = postState;
 
@@ -498,6 +501,7 @@ class StoryFull extends React.Component {
           handlePostPopoverMenuClick={this.handleClick}
           onShareClick={onShareClick}
           onEditClick={onEditClick}
+          onTransferClick={onTransferClick}
         />
       </div>
     );

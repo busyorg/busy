@@ -339,7 +339,7 @@ export default class Transfer extends React.Component {
                 type="text"
                 placeholder={intl.formatMessage({
                   id: 'to_placeholder',
-                  defaultMessage: 'Payment recipient',
+                  defaultMessage: 'Payment Recipient:',
                 })}
               />,
             )}
@@ -372,7 +372,7 @@ export default class Transfer extends React.Component {
                   onChange={this.handleAmountChange}
                   placeholder={intl.formatMessage({
                     id: 'amount_placeholder',
-                    defaultMessage: 'How much do you want to send',
+                    defaultMessage: "Transfer amount",
                   })}
                 />,
               )}

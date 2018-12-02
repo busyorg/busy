@@ -79,14 +79,7 @@ const Sidenav = ({ username }) =>
 			</li>
 		) : null }
 		<li>
-			<div className="floating-label-container">
-				<div className="floating-label-positioner">
-					<div className="floating-label">
-						<span>soon</span>
-					</div>
-				</div>
-			</div>
-			<a href="https://exchange.weyoume.io" activeClassName="Sidenav__item--active" isActive={function(){return false}}>
+			<a href="https://exchange.weyoume.io" >
 				<i className="iconfont icon-chart" />
 				<FormattedMessage id="exchange" defaultMessage="Exchange" />
 			</a>

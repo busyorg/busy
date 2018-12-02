@@ -19,6 +19,7 @@ import {
   getShowNSFWPosts,
 } from '../reducers';
 import { votePost } from '../post/postActions';
+import { openTransfer } from '../wallet/walletActions';
 import { toggleBookmark } from '../bookmarks/bookmarksActions';
 import { editPost } from '../post/Write/editorActions';
 import { reblog } from '../app/Reblog/reblogActions';
@@ -69,6 +70,7 @@ const mapStateToProps = (state, { id }) => {
 
 export default connect(mapStateToProps, {
   votePost,
+  openTransfer,
   toggleBookmark,
   editPost,
   reblog,

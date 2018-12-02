@@ -40,6 +40,7 @@ class Comments extends React.Component {
     onLikeClick: PropTypes.func,
     onDislikeClick: PropTypes.func,
     onSendComment: PropTypes.func,
+    onTransferClick: PropTypes.func,
   };
 
   static defaultProps = {
@@ -56,6 +57,7 @@ class Comments extends React.Component {
     onLikeClick: () => {},
     onDislikeClick: () => {},
     onSendComment: () => {},
+    onTransferClick: () => {},
   };
 
   static SHOW_COMMENTS_INCREMENT = 20;
@@ -200,6 +202,7 @@ class Comments extends React.Component {
       pendingVotes,
       onLikeClick,
       onDislikeClick,
+      onTransferClick,
       authenticated,
       username,
       sliderMode,
@@ -279,6 +282,7 @@ class Comments extends React.Component {
               onLikeClick={onLikeClick}
               onDislikeClick={onDislikeClick}
               onSendComment={this.props.onSendComment}
+              onTransferClick={onTransferClick}
             />
           ))}
         <MoreCommentsButton

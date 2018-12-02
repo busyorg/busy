@@ -36,8 +36,9 @@ export default class Buttons extends React.Component {
     onLikeClick: PropTypes.func,
     onDislikeClick: PropTypes.func,
     onShareClick: PropTypes.func,
+    onTransferClick: PropTypes.func,
     handlePostPopoverMenuClick: PropTypes.func,
-    handleTransferClick: PropTypes.func,
+    // handleOpenTransfer: PropTypes.func,
   };
 
   static defaultProps = {
@@ -51,7 +52,8 @@ export default class Buttons extends React.Component {
     onDislikeClick: () => {},
     onShareClick: () => {},
     handlePostPopoverMenuClick: () => {},
-    handleTransferClick: () => {},
+    onTransferClick: () => {},
+    // handleOpenTransfer: () => {},
   };
 
   static handleCommentClick() {
@@ -82,6 +84,7 @@ export default class Buttons extends React.Component {
     this.handleShareCancel = this.handleShareCancel.bind(this);
     this.handleShowReactions = this.handleShowReactions.bind(this);
     this.handleCloseReactions = this.handleCloseReactions.bind(this);
+    this.handleTransferClick = this.handleTransferClick.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -100,6 +103,9 @@ export default class Buttons extends React.Component {
   }
   handleDislikeClick() {
     this.props.onActionInitiated(this.props.onDislikeClick);
+  }
+  handleTransferClick() {
+    this.props.onActionInitiated(this.props.onTransferClick);
   }
 
   shareClick() {
@@ -149,8 +155,9 @@ export default class Buttons extends React.Component {
       intl,
       post,
       handlePostPopoverMenuClick,
-			ownPost,
-			handleTransferClick
+      ownPost,
+      //handleOpenTransfer,
+			// handleTransferClick
     } = this.props;
     const { isReported } = postState;
 
@@ -177,15 +184,9 @@ export default class Buttons extends React.Component {
         { username: post.author },
       );
     }
-		let sendToAuthor = `Send to ${post.author}`;
+		//let sendToAuthor = `Send to ${post.author}`;
 
     let popoverMenu = [
-			<PopoverMenuItem key="sendMoney">
-				<Action className="send-money" onClick={handleTransferClick}>
-					<FormattedMessage id="sendmoneytoauthor" defaultMessage={sendToAuthor} />
-					<img src="/images/dollar.png" className="send-dollar on-right"/>
-				</Action>
-			</PopoverMenuItem>,
 			<PopoverMenuItem key="storyTopics">
 				<div className="Story__topics__list">
 					<span className="Story_topics__label">
@@ -485,7 +486,16 @@ export default class Buttons extends React.Component {
 							</a>
 						</BTooltip>
 					</div>
-				)}
+        )}
+        
+        <div className="button__group">
+          <BTooltip title= "Send">
+				    <a role ="presentation" onClick={this.handleTransferClick}>
+					    <i className="iconfont icon-Dollar"/>
+				    </a>
+          </BTooltip>
+			  </div>
+
 				{this.renderPostPopoverMenu()}
 				{/* <div className="button__group">
 				</div> */}

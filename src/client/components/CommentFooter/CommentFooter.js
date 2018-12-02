@@ -33,6 +33,7 @@ export default class CommentFooter extends React.Component {
     onDislikeClick: PropTypes.func,
     onReplyClick: PropTypes.func,
     onEditClick: PropTypes.func,
+    onTransferClick: PropTypes.func,
   };
 
   static defaultProps = {
@@ -47,6 +48,7 @@ export default class CommentFooter extends React.Component {
     onDislikeClick: () => {},
     onReplyClick: () => {},
     onEditClick: () => {},
+    onTransferClick: () => {},
   };
 
   state = {
@@ -91,6 +93,8 @@ export default class CommentFooter extends React.Component {
   };
 
   handleDislikeClick = () => this.props.onDislikeClick(this.props.comment.id);
+
+  handleTransferClick = () => this.props.onTransferClick(this.props.comment);
 
   handleSliderCancel = () => this.setState({ sliderVisible: false });
 
@@ -137,6 +141,7 @@ export default class CommentFooter extends React.Component {
           onDislikeClick={this.handleDislikeClick}
           onReplyClick={this.props.onReplyClick}
           onEditClick={this.props.onEditClick}
+          onTransferClick={this.handleTransferClick}
         />
       );
     }

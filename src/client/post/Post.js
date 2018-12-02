@@ -184,7 +184,9 @@ export default class Post extends React.Component {
                 <VisibilitySensor onChange={this.handleCommentsVisibility} />
                 {!isBannedPost(content) && (
                   <div id="comments">
-                    <Comments show={this.state.commentsVisible} post={content} />
+                    <Comments 
+                      show={this.state.commentsVisible} 
+                      post={content} />
                   </div>
                 )}
               </div>

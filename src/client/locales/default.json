@@ -107,7 +107,7 @@
   "to_error_empty": "Recipient is required.",
   "to_error_not_found_username": "Couldn't find user with name {username}.",
   "amount": "Amount",
-  "amount_placeholder": "How much do you want to send",
+  "amount_placeholder": "Transfer Amount:",
   "amount_error_empty": "Amount is required.",
   "amount_error_format": "Incorrect format. Use dot as decimal separator and at most 3 decimal places.",
   "amount_error_zero": "Amount has to be higher than 0.",
