@@ -11,13 +11,14 @@ const isWallet = (match, location) => location.pathname.match(/wallet/);
 const isHot = (match, location) => location.pathname.match(/hot/);
 const isReplies = (match, location) => location.pathname.match(/replies/);
 const isPics = (match, location) => location.pathname.match(/pics/);
+const isFeed = (match, location) => location.pathname.match(/feed/);
 
 const Sidenav = ({ username }) =>
 	<ul className="Sidenav">
 		<li>
-			<NavLink to="/" activeClassName="Sidenav__item--active" isActive={function(){return false}}>
-				<i className="iconfont icon-homepage" />
-				<FormattedMessage id="home" defaultMessage="Home" />
+			<NavLink to="/trending" activeClassName="Sidenav__item--active" exact isActive={isTrending}>
+				<i className="iconfont icon-headlines" />
+				<FormattedMessage id="trending" defaultMessage="Trending" />
 			</NavLink>
 		</li>
 		<li>
@@ -26,12 +27,15 @@ const Sidenav = ({ username }) =>
 				<FormattedMessage id="hot" defaultMessage="Hot" />
 			</NavLink>
 		</li>
+
+		{ username ? (
 		<li>
-			<NavLink to="/trending" activeClassName="Sidenav__item--active" exact isActive={isTrending}>
-				<i className="iconfont icon-headlines" />
-				<FormattedMessage id="trending" defaultMessage="Trending" />
+			<NavLink to="/feed" activeClassName="Sidenav__item--active" exact isActive={isFeed}>
+				<i className="iconfont icon-homepage" />
+				<FormattedMessage id="home" defaultMessage="Feed" />
 			</NavLink>
 		</li>
+		) : null}
 		<li>
 			<NavLink to="/created" activeClassName="Sidenav__item--active" exact isActive={isNew}>
 				<i className="iconfont icon-clock" />
@@ -45,7 +49,7 @@ const Sidenav = ({ username }) =>
 			</NavLink>
 		</li> 
 		<li>
-			<NavLink to="/pics" activeClassName="Sidenav__item--active" isActive={isPics}>
+			<NavLink to="/trending/pics" activeClassName="Sidenav__item--active" exact isActive={isPics}>
 				<i className="iconfont icon-picture" />
 				<FormattedMessage id="pics" defaultMessage="Pictures" />
 			</NavLink>
