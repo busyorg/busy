@@ -242,6 +242,9 @@ class Topnav extends React.Component {
                   <PopoverMenuItem key="hot">
                     <FormattedMessage id="hot" defaultMessage="Hot" />
                   </PopoverMenuItem>
+                  <PopoverMenuItem key="feed">
+                    <FormattedMessage id="feed" defaultMessage="Feed" />
+                  </PopoverMenuItem>
                   <PopoverMenuItem key="replies">
                     <FormattedMessage id="replies" defaultMessage="Replies" />
                   </PopoverMenuItem>
