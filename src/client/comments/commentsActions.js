@@ -27,13 +27,13 @@ export const reloadExistingComment = createAction(RELOAD_EXISTING_COMMENT, undef
 const getRootCommentsList = apiRes =>
   Object.keys(apiRes.content)
     .filter(commentKey => apiRes.content[commentKey].depth === 1)
-    .map(commentKey => apiRes.content[commentKey].id);
+    .map(commentKey => apiRes.content[commentKey].post_id);
 
 const getCommentsChildrenLists = apiRes => {
   const listsById = {};
   Object.keys(apiRes.content).forEach(commentKey => {
-    listsById[apiRes.content[commentKey].id] = apiRes.content[commentKey].replies.map(
-      childKey => apiRes.content[childKey].id,
+    listsById[apiRes.content[commentKey].post_id] = apiRes.content[commentKey].replies.map(
+      childKey => apiRes.content[childKey].post_id,
     );
   });
 

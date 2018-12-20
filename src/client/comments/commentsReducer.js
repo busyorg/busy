@@ -31,7 +31,7 @@ const mapCommentsBasedOnId = (data, action) => {
     ) {
       comment.focus = true;
     }
-    commentsList[data[key].id] = comment;
+    commentsList[data[key].post_id] = comment;
   });
   return commentsList;
 };
