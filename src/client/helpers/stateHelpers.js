@@ -143,3 +143,4 @@ export const createAsyncActionType = type => ({
 });
 
 export const getUserDetailsKey = username => `user-${username}`;
+export const getPostKey = post => `${post.author}/${post.permlink}`;
