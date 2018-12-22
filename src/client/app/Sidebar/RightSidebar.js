@@ -76,7 +76,6 @@ export default class RightSidebar extends React.Component {
           <Route path="/@:name/transfers" render={() => <WalletSidebar />} />
           <Route path="/trending/:tag" component={FeedSidebar} />
           <Route path="/created/:tag" component={FeedSidebar} />
-          <Route path="/active/:tag" component={FeedSidebar} />
           <Route path="/hot/:tag" component={FeedSidebar} />
           <Route path="/promoted/:tag" component={FeedSidebar} />
           <Route
