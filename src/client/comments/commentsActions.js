@@ -3,6 +3,7 @@ import { createCommentPermlink, getBodyPatchIfSmaller } from '../vendor/steemitH
 import { notify } from '../app/Notification/notificationActions';
 import { jsonParse } from '../helpers/formatter';
 import { createPostMetadata } from '../helpers/postHelpers';
+import { getPostKey } from '../helpers/stateHelpers';
 
 export const GET_COMMENTS = 'GET_COMMENTS';
 export const GET_COMMENTS_START = 'GET_COMMENTS_START';
@@ -21,19 +22,19 @@ export const LIKE_COMMENT_ERROR = '@comments/LIKE_COMMENT_ERROR';
 
 export const RELOAD_EXISTING_COMMENT = '@comments/RELOAD_EXISTING_COMMENT';
 export const reloadExistingComment = createAction(RELOAD_EXISTING_COMMENT, undefined, data => ({
-  commentId: data.id,
+  commentId: getPostKey(data),
 }));
 
 const getRootCommentsList = apiRes =>
   Object.keys(apiRes.content)
     .filter(commentKey => apiRes.content[commentKey].depth === 1)
-    .map(commentKey => apiRes.content[commentKey].post_id);
+    .map(commentKey => getPostKey(apiRes.content[commentKey]));
 
 const getCommentsChildrenLists = apiRes => {
   const listsById = {};
   Object.keys(apiRes.content).forEach(commentKey => {
-    listsById[apiRes.content[commentKey].post_id] = apiRes.content[commentKey].replies.map(
-      childKey => apiRes.content[childKey].post_id,
+    listsById[getPostKey(apiRes.content[commentKey])] = apiRes.content[commentKey].replies.map(
+      childKey => getPostKey(apiRes.content[childKey]),
     );
   });
 
