@@ -1,4 +1,4 @@
-import { calculateVoteValue } from '../vendor/steemitHelpers';
+import { calculateVoteValue, calculateVotingPower } from '../vendor/steemitHelpers';
 
 export const getUserRank = vests => {
   let rank = 'Plankton';
@@ -41,7 +41,7 @@ export const getVoteValue = (user, recentClaims, rewardBalance, rate, weight = 1
     parseFloat(recentClaims),
     parseFloat(rewardBalance),
     rate,
-    user.voting_power,
+    calculateVotingPower(user) * 10000,
     weight,
   );
 
