@@ -122,9 +122,8 @@ function link(state, child) {
     state.links.add(url);
     if (state.mutate) {
       // If this link is not relative, http, or https -- add https.
-      if (!/^[\w.-]+:(\/\/)?/.test(url)) {
-        child.setAttribute('href', `https://${url}`);
-      }
+      if (/^\//.test(url)) child.setAttribute('href', `https://busy.org${url}`);
+      else if (!/^[\w.-]+:(\/\/)?/.test(url)) child.setAttribute('href', `https://${url}`);
     }
   }
 }
