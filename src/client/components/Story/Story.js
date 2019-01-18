@@ -275,7 +275,7 @@ class Story extends React.Component {
 
     let rebloggedUI = null;
 
-    if (post.first_reblogged_by) {
+    if (post.reblogged_by) {
       rebloggedUI = (
         <div className="Story__reblog">
           <i className="iconfont icon-share1" />
@@ -284,8 +284,8 @@ class Story extends React.Component {
             defaultMessage="{username} reblogged"
             values={{
               username: (
-                <Link to={`/@${post.first_reblogged_by}`}>
-                  <span className="username">{post.first_reblogged_by}</span>
+                <Link to={`/@${post.reblogged_by[0]}`}>
+                  <span className="username">{post.reblogged_by[0]}</span>
                 </Link>
               ),
             }}
