@@ -8,6 +8,4 @@ export const categoryRegex = /\/([^/]+)/;
 
 export const rewriteRegex = /"https?:\/\/(?:www)?steemit\.com(\/((([\w-]+\/)?@[\w.-]+\/[\w-]+)|(@[\w.-]+(\/(comments|followers|followed|reblogs|transfers|activity))?)|((trending|created|active|hot|promoted)(\/[\w-]+)?))?)?"/g;
 
-export const ownUrl = /^(localhost|busy\.org|staging\.busy\.org|busy-master-pr-\d+\.herokuapp.com)$/;
-
 export default null;
