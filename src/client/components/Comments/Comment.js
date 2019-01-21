@@ -33,7 +33,6 @@ class Comment extends React.Component {
     sort: PropTypes.oneOf(['BEST', 'NEWEST', 'OLDEST', 'AUTHOR_REPUTATION']),
     rewardFund: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
-    rewriteLinks: PropTypes.bool,
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
     rootPostAuthor: PropTypes.string,
     commentsChildren: PropTypes.shape(),
@@ -53,7 +52,6 @@ class Comment extends React.Component {
   static defaultProps = {
     sort: 'BEST',
     sliderMode: 'auto',
-    rewriteLinks: false,
     rootPostAuthor: undefined,
     commentsChildren: undefined,
     pendingVotes: [],
@@ -221,7 +219,6 @@ class Comment extends React.Component {
       sliderMode,
       rewardFund,
       defaultVotePercent,
-      rewriteLinks,
     } = this.props;
     const { showHiddenComment } = this.state;
     const anchorId = `@${comment.author}/${comment.permlink}`;
@@ -251,7 +248,7 @@ class Comment extends React.Component {
           <FormattedMessage id="comment_collapsed" defaultMessage="Comment collapsed" />
         </div>
       ) : (
-        <BodyContainer rewriteLinks={rewriteLinks} body={comment.body} />
+        <BodyContainer body={comment.body} />
       );
     }
 
@@ -362,7 +359,6 @@ class Comment extends React.Component {
                   rewardFund={rewardFund}
                   sliderMode={sliderMode}
                   defaultVotePercent={defaultVotePercent}
-                  rewriteLinks={rewriteLinks}
                   onLikeClick={this.props.onLikeClick}
                   onDislikeClick={this.props.onDislikeClick}
                   onSendComment={this.props.onSendComment}
