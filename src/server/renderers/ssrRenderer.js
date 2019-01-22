@@ -12,7 +12,7 @@ export default function renderSsrPage(store, html, assets, template, noindex) {
 
   let scripts = `<script>window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState)
     .replace(/\u2028/g, '\\n')
-    .replace(/</g, '\\u003c')}</script>`;
+    .replace(/</g, '\\u003c')};</script>`;
 
   _.forEach(assets, asset => {
     if (asset.css) header += `<link rel="stylesheet" href="${asset.css}" />`;
