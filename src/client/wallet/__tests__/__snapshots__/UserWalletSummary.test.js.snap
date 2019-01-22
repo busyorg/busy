@@ -82,7 +82,31 @@ ShallowWrapper {
               <FormattedNumber
                 value={0}
               />
-               SP 
+              <BTooltip
+                title={
+                  <span>
+                    <FormattedMessage
+                      defaultMessage="The next power down is scheduled to happen on "
+                      id="steem_power_pending_withdrawal_tooltip"
+                      values={Object {}}
+                    />
+                    <FormattedDate
+                      value="undefinedZ"
+                    />
+                     
+                    <FormattedTime
+                      value="undefinedZ"
+                    />
+                  </span>
+                }
+              >
+                <span>
+                   - 
+                  <FormattedNumber
+                    value={NaN}
+                  />
+                </span>
+              </BTooltip>
               <BTooltip
                 title={
                   <span>
@@ -95,13 +119,14 @@ ShallowWrapper {
                 }
               >
                 <span>
-                  (
+                   (
                   <FormattedNumber
                     value={NaN}
                   />
-                   SP)
+                  )
                 </span>
               </BTooltip>
+               SP
             </span>
           </div>
         </div>,
@@ -334,7 +359,31 @@ ShallowWrapper {
                 <FormattedNumber
                   value={0}
                 />
-                 SP 
+                <BTooltip
+                  title={
+                    <span>
+                      <FormattedMessage
+                        defaultMessage="The next power down is scheduled to happen on "
+                        id="steem_power_pending_withdrawal_tooltip"
+                        values={Object {}}
+                      />
+                      <FormattedDate
+                        value="undefinedZ"
+                      />
+                       
+                      <FormattedTime
+                        value="undefinedZ"
+                      />
+                    </span>
+                  }
+                >
+                  <span>
+                     - 
+                    <FormattedNumber
+                      value={NaN}
+                    />
+                  </span>
+                </BTooltip>
                 <BTooltip
                   title={
                     <span>
@@ -347,13 +396,14 @@ ShallowWrapper {
                   }
                 >
                   <span>
-                    (
+                     (
                     <FormattedNumber
                       value={NaN}
                     />
-                     SP)
+                    )
                   </span>
                 </BTooltip>
+                 SP
               </span>
             </div>,
           ],
@@ -409,7 +459,31 @@ ShallowWrapper {
                 <FormattedNumber
                   value={0}
                 />
-                 SP 
+                <BTooltip
+                  title={
+                    <span>
+                      <FormattedMessage
+                        defaultMessage="The next power down is scheduled to happen on "
+                        id="steem_power_pending_withdrawal_tooltip"
+                        values={Object {}}
+                      />
+                      <FormattedDate
+                        value="undefinedZ"
+                      />
+                       
+                      <FormattedTime
+                        value="undefinedZ"
+                      />
+                    </span>
+                  }
+                >
+                  <span>
+                     - 
+                    <FormattedNumber
+                      value={NaN}
+                    />
+                  </span>
+                </BTooltip>
                 <BTooltip
                   title={
                     <span>
@@ -422,13 +496,14 @@ ShallowWrapper {
                   }
                 >
                   <span>
-                    (
+                     (
                     <FormattedNumber
                       value={NaN}
                     />
-                     SP)
+                    )
                   </span>
                 </BTooltip>
+                 SP
               </span>,
               "className": "UserWalletSummary__value",
             },
@@ -442,7 +517,31 @@ ShallowWrapper {
                   <FormattedNumber
                     value={0}
                   />,
-                  " SP ",
+                  <BTooltip
+                    title={
+                      <span>
+                        <FormattedMessage
+                          defaultMessage="The next power down is scheduled to happen on "
+                          id="steem_power_pending_withdrawal_tooltip"
+                          values={Object {}}
+                        />
+                        <FormattedDate
+                          value="undefinedZ"
+                        />
+                         
+                        <FormattedTime
+                          value="undefinedZ"
+                        />
+                      </span>
+                    }
+                  >
+                    <span>
+                       - 
+                      <FormattedNumber
+                        value={NaN}
+                      />
+                    </span>
+                  </BTooltip>,
                   <BTooltip
                     title={
                       <span>
@@ -455,13 +554,14 @@ ShallowWrapper {
                     }
                   >
                     <span>
-                      (
+                       (
                       <FormattedNumber
                         value={NaN}
                       />
-                       SP)
+                      )
                     </span>
                   </BTooltip>,
+                  " SP",
                 ],
               },
               "ref": null,
@@ -477,18 +577,75 @@ ShallowWrapper {
                   "rendered": null,
                   "type": [Function],
                 },
-                " SP ",
                 Object {
                   "instance": null,
                   "key": undefined,
                   "nodeType": "class",
                   "props": Object {
                     "children": <span>
-                      (
+                       - 
                       <FormattedNumber
                         value={NaN}
                       />
-                       SP)
+                    </span>,
+                    "title": <span>
+                      <FormattedMessage
+                        defaultMessage="The next power down is scheduled to happen on "
+                        id="steem_power_pending_withdrawal_tooltip"
+                        values={Object {}}
+                      />
+                      <FormattedDate
+                        value="undefinedZ"
+                      />
+                       
+                      <FormattedTime
+                        value="undefinedZ"
+                      />
+                    </span>,
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": Array [
+                        " - ",
+                        <FormattedNumber
+                          value={NaN}
+                        />,
+                      ],
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      " - ",
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "value": NaN,
+                        },
+                        "ref": null,
+                        "rendered": null,
+                        "type": [Function],
+                      },
+                    ],
+                    "type": "span",
+                  },
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": <span>
+                       (
+                      <FormattedNumber
+                        value={NaN}
+                      />
+                      )
                     </span>,
                     "title": <span>
                       <FormattedMessage
@@ -505,16 +662,16 @@ ShallowWrapper {
                     "nodeType": "host",
                     "props": Object {
                       "children": Array [
-                        "(",
+                        " (",
                         <FormattedNumber
                           value={NaN}
                         />,
-                        " SP)",
+                        ")",
                       ],
                     },
                     "ref": null,
                     "rendered": Array [
-                      "(",
+                      " (",
                       Object {
                         "instance": null,
                         "key": undefined,
@@ -526,12 +683,13 @@ ShallowWrapper {
                         "rendered": null,
                         "type": [Function],
                       },
-                      " SP)",
+                      ")",
                     ],
                     "type": "span",
                   },
                   "type": [Function],
                 },
+                " SP",
               ],
               "type": "span",
             },
@@ -958,7 +1116,31 @@ ShallowWrapper {
                 <FormattedNumber
                   value={0}
                 />
-                 SP 
+                <BTooltip
+                  title={
+                    <span>
+                      <FormattedMessage
+                        defaultMessage="The next power down is scheduled to happen on "
+                        id="steem_power_pending_withdrawal_tooltip"
+                        values={Object {}}
+                      />
+                      <FormattedDate
+                        value="undefinedZ"
+                      />
+                       
+                      <FormattedTime
+                        value="undefinedZ"
+                      />
+                    </span>
+                  }
+                >
+                  <span>
+                     - 
+                    <FormattedNumber
+                      value={NaN}
+                    />
+                  </span>
+                </BTooltip>
                 <BTooltip
                   title={
                     <span>
@@ -971,13 +1153,14 @@ ShallowWrapper {
                   }
                 >
                   <span>
-                    (
+                     (
                     <FormattedNumber
                       value={NaN}
                     />
-                     SP)
+                    )
                   </span>
                 </BTooltip>
+                 SP
               </span>
             </div>
           </div>,
@@ -1210,7 +1393,31 @@ ShallowWrapper {
                   <FormattedNumber
                     value={0}
                   />
-                   SP 
+                  <BTooltip
+                    title={
+                      <span>
+                        <FormattedMessage
+                          defaultMessage="The next power down is scheduled to happen on "
+                          id="steem_power_pending_withdrawal_tooltip"
+                          values={Object {}}
+                        />
+                        <FormattedDate
+                          value="undefinedZ"
+                        />
+                         
+                        <FormattedTime
+                          value="undefinedZ"
+                        />
+                      </span>
+                    }
+                  >
+                    <span>
+                       - 
+                      <FormattedNumber
+                        value={NaN}
+                      />
+                    </span>
+                  </BTooltip>
                   <BTooltip
                     title={
                       <span>
@@ -1223,13 +1430,14 @@ ShallowWrapper {
                     }
                   >
                     <span>
-                      (
+                       (
                       <FormattedNumber
                         value={NaN}
                       />
-                       SP)
+                      )
                     </span>
                   </BTooltip>
+                   SP
                 </span>
               </div>,
             ],
@@ -1285,7 +1493,31 @@ ShallowWrapper {
                   <FormattedNumber
                     value={0}
                   />
-                   SP 
+                  <BTooltip
+                    title={
+                      <span>
+                        <FormattedMessage
+                          defaultMessage="The next power down is scheduled to happen on "
+                          id="steem_power_pending_withdrawal_tooltip"
+                          values={Object {}}
+                        />
+                        <FormattedDate
+                          value="undefinedZ"
+                        />
+                         
+                        <FormattedTime
+                          value="undefinedZ"
+                        />
+                      </span>
+                    }
+                  >
+                    <span>
+                       - 
+                      <FormattedNumber
+                        value={NaN}
+                      />
+                    </span>
+                  </BTooltip>
                   <BTooltip
                     title={
                       <span>
@@ -1298,13 +1530,14 @@ ShallowWrapper {
                     }
                   >
                     <span>
-                      (
+                       (
                       <FormattedNumber
                         value={NaN}
                       />
-                       SP)
+                      )
                     </span>
                   </BTooltip>
+                   SP
                 </span>,
                 "className": "UserWalletSummary__value",
               },
@@ -1318,7 +1551,31 @@ ShallowWrapper {
                     <FormattedNumber
                       value={0}
                     />,
-                    " SP ",
+                    <BTooltip
+                      title={
+                        <span>
+                          <FormattedMessage
+                            defaultMessage="The next power down is scheduled to happen on "
+                            id="steem_power_pending_withdrawal_tooltip"
+                            values={Object {}}
+                          />
+                          <FormattedDate
+                            value="undefinedZ"
+                          />
+                           
+                          <FormattedTime
+                            value="undefinedZ"
+                          />
+                        </span>
+                      }
+                    >
+                      <span>
+                         - 
+                        <FormattedNumber
+                          value={NaN}
+                        />
+                      </span>
+                    </BTooltip>,
                     <BTooltip
                       title={
                         <span>
@@ -1331,13 +1588,14 @@ ShallowWrapper {
                       }
                     >
                       <span>
-                        (
+                         (
                         <FormattedNumber
                           value={NaN}
                         />
-                         SP)
+                        )
                       </span>
                     </BTooltip>,
+                    " SP",
                   ],
                 },
                 "ref": null,
@@ -1353,18 +1611,75 @@ ShallowWrapper {
                     "rendered": null,
                     "type": [Function],
                   },
-                  " SP ",
                   Object {
                     "instance": null,
                     "key": undefined,
                     "nodeType": "class",
                     "props": Object {
                       "children": <span>
-                        (
+                         - 
                         <FormattedNumber
                           value={NaN}
                         />
-                         SP)
+                      </span>,
+                      "title": <span>
+                        <FormattedMessage
+                          defaultMessage="The next power down is scheduled to happen on "
+                          id="steem_power_pending_withdrawal_tooltip"
+                          values={Object {}}
+                        />
+                        <FormattedDate
+                          value="undefinedZ"
+                        />
+                         
+                        <FormattedTime
+                          value="undefinedZ"
+                        />
+                      </span>,
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          " - ",
+                          <FormattedNumber
+                            value={NaN}
+                          />,
+                        ],
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        " - ",
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "class",
+                          "props": Object {
+                            "value": NaN,
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": [Function],
+                        },
+                      ],
+                      "type": "span",
+                    },
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "children": <span>
+                         (
+                        <FormattedNumber
+                          value={NaN}
+                        />
+                        )
                       </span>,
                       "title": <span>
                         <FormattedMessage
@@ -1381,16 +1696,16 @@ ShallowWrapper {
                       "nodeType": "host",
                       "props": Object {
                         "children": Array [
-                          "(",
+                          " (",
                           <FormattedNumber
                             value={NaN}
                           />,
-                          " SP)",
+                          ")",
                         ],
                       },
                       "ref": null,
                       "rendered": Array [
-                        "(",
+                        " (",
                         Object {
                           "instance": null,
                           "key": undefined,
@@ -1402,12 +1717,13 @@ ShallowWrapper {
                           "rendered": null,
                           "type": [Function],
                         },
-                        " SP)",
+                        ")",
                       ],
                       "type": "span",
                     },
                     "type": [Function],
                   },
+                  " SP",
                 ],
                 "type": "span",
               },
