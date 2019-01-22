@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { usernameURLRegex } from '../../helpers/regexHelpers';
+import { getPostKey } from '../../helpers/stateHelpers';
 import formatter from '../../helpers/steemitFormatter';
 import Loading from '../../components/Icon/Loading';
 import steemAPI from '../../steemAPI';
@@ -102,10 +103,10 @@ class PostRecommendation extends Component {
 
     return filteredRecommendedPosts.map(post => (
       <PostRecommendationLink
+        key={getPostKey(post)}
         post={post}
         navigateToPost={this.navigateToPost}
         navigateToPostComments={this.navigateToPostComments}
-        key={post.id}
       />
     ));
   };

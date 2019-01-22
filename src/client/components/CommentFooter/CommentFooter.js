@@ -25,7 +25,7 @@ export default class CommentFooter extends React.Component {
     replying: PropTypes.bool,
     pendingVotes: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number,
+        id: PropTypes.string,
         percent: PropTypes.number,
       }),
     ),

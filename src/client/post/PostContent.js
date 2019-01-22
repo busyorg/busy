@@ -21,7 +21,6 @@ import {
   getVotingPower,
   getRewardFund,
   getVotePercent,
-  getRewriteLinks,
   getAppUrl,
 } from '../reducers';
 import { editPost } from './Write/editorActions';
@@ -51,7 +50,6 @@ import DMCARemovedMessage from '../components/Story/DMCARemovedMessage';
     rewardFund: getRewardFund(state),
     defaultVotePercent: getVotePercent(state),
     appUrl: getAppUrl(state),
-    rewriteLinks: getRewriteLinks(state),
   }),
   {
     editPost,
@@ -78,7 +76,6 @@ class PostContent extends React.Component {
     saving: PropTypes.bool.isRequired,
     rewardFund: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
-    rewriteLinks: PropTypes.bool.isRequired,
     appUrl: PropTypes.string.isRequired,
     bookmarks: PropTypes.shape(),
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
@@ -175,7 +172,6 @@ class PostContent extends React.Component {
       sliderMode,
       rewardFund,
       defaultVotePercent,
-      rewriteLinks,
       appUrl,
     } = this.props;
 
@@ -257,7 +253,6 @@ class PostContent extends React.Component {
           ownPost={author === user.name}
           sliderMode={sliderMode}
           defaultVotePercent={defaultVotePercent}
-          rewriteLinks={rewriteLinks}
           onLikeClick={this.handleLikeClick}
           onReportClick={this.handleReportClick}
           onShareClick={this.handleShareClick}
