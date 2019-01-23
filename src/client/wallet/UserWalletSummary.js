@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { FormattedMessage, FormattedNumber, FormattedDate, FormattedTime } from 'react-intl';
 import formatter from '../helpers/steemitFormatter';
-import { calculateTotalDelegatedSP, calculateEstAccountValue } from '../vendor/steemitHelpers';
+import {
+  calculateTotalDelegatedSP,
+  calculateEstAccountValue,
+  calculatePendingWithdrawalSP,
+} from '../vendor/steemitHelpers';
 import BTooltip from '../components/BTooltip';
 import Loading from '../components/Icon/Loading';
 import USDDisplay from '../components/Utils/USDDisplay';
@@ -28,11 +32,43 @@ const getFormattedTotalDelegatedSP = (user, totalVestingShares, totalVestingFund
         }
       >
         <span>
-          {totalDelegatedSP > 0 ? '(+' : '('}
+          {totalDelegatedSP > 0 ? ' (+' : ' ('}
           <FormattedNumber
             value={calculateTotalDelegatedSP(user, totalVestingShares, totalVestingFundSteem)}
           />
-          {' SP)'}
+          {')'}
+        </span>
+      </BTooltip>
+    );
+  }
+
+  return null;
+};
+
+const getFormattedPendingWithdrawalSP = (user, totalVestingShares, totalVestingFundSteem) => {
+  const pendingWithdrawalSP = calculatePendingWithdrawalSP(
+    user,
+    totalVestingShares,
+    totalVestingFundSteem,
+  );
+
+  if (pendingWithdrawalSP !== 0) {
+    return (
+      <BTooltip
+        title={
+          <span>
+            <FormattedMessage
+              id="steem_power_pending_withdrawal_tooltip"
+              defaultMessage="The next power down is scheduled to happen on "
+            />
+            <FormattedDate value={`${user.next_vesting_withdrawal}Z`} />{' '}
+            <FormattedTime value={`${user.next_vesting_withdrawal}Z`} />
+          </span>
+        }
+      >
+        <span>
+          {' - '}
+          <FormattedNumber value={pendingWithdrawalSP} />
         </span>
       </BTooltip>
     );
@@ -87,8 +123,9 @@ const UserWalletSummary = ({
                 ),
               )}
             />
-            {' SP '}
+            {getFormattedPendingWithdrawalSP(user, totalVestingShares, totalVestingFundSteem)}
             {getFormattedTotalDelegatedSP(user, totalVestingShares, totalVestingFundSteem)}
+            {' SP'}
           </span>
         )}
       </div>
