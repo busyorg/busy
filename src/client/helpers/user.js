@@ -32,7 +32,10 @@ export const getTotalShares = user =>
   parseFloat(user.vesting_shares) +
   parseFloat(user.received_vesting_shares) -
   parseFloat(user.delegated_vesting_shares) -
-  parseFloat(user.vesting_withdraw_rate);
+  Math.min(
+    parseFloat(user.vesting_withdraw_rate),
+    (parseFloat(user.to_withdraw) - parseFloat(user.withdrawn)) / 100000,
+  );
 
 export const getHasDefaultSlider = user => getTotalShares(user) >= 10000000;
 
