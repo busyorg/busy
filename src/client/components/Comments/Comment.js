@@ -33,13 +33,12 @@ class Comment extends React.Component {
     sort: PropTypes.oneOf(['BEST', 'NEWEST', 'OLDEST', 'AUTHOR_REPUTATION']),
     rewardFund: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
-    rewriteLinks: PropTypes.bool,
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
     rootPostAuthor: PropTypes.string,
     commentsChildren: PropTypes.shape(),
     pendingVotes: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number,
+        id: PropTypes.string,
         percent: PropTypes.number,
       }),
     ),
@@ -53,7 +52,6 @@ class Comment extends React.Component {
   static defaultProps = {
     sort: 'BEST',
     sliderMode: 'auto',
-    rewriteLinks: false,
     rootPostAuthor: undefined,
     commentsChildren: undefined,
     pendingVotes: [],
@@ -221,13 +219,12 @@ class Comment extends React.Component {
       sliderMode,
       rewardFund,
       defaultVotePercent,
-      rewriteLinks,
     } = this.props;
     const { showHiddenComment } = this.state;
     const anchorId = `@${comment.author}/${comment.permlink}`;
     const anchorLink = `${comment.url.slice(0, comment.url.indexOf('#'))}#${anchorId}`;
 
-    const editable = comment.author === user.name && comment.cashout_time !== '1969-12-31T23:59:59';
+    const editable = comment.author === user.name;
     const commentAuthorReputation = formatter.reputation(comment.author_reputation);
     const showCommentContent = commentAuthorReputation >= 0 || showHiddenComment;
 
@@ -251,7 +248,7 @@ class Comment extends React.Component {
           <FormattedMessage id="comment_collapsed" defaultMessage="Comment collapsed" />
         </div>
       ) : (
-        <BodyContainer rewriteLinks={rewriteLinks} body={comment.body} />
+        <BodyContainer body={comment.body} />
       );
     }
 
@@ -362,7 +359,6 @@ class Comment extends React.Component {
                   rewardFund={rewardFund}
                   sliderMode={sliderMode}
                   defaultVotePercent={defaultVotePercent}
-                  rewriteLinks={rewriteLinks}
                   onLikeClick={this.props.onLikeClick}
                   onDislikeClick={this.props.onDislikeClick}
                   onSendComment={this.props.onSendComment}

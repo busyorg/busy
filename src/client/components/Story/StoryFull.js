@@ -45,7 +45,6 @@ class StoryFull extends React.Component {
     defaultVotePercent: PropTypes.number.isRequired,
     onActionInitiated: PropTypes.func.isRequired,
     signature: PropTypes.string,
-    rewriteLinks: PropTypes.bool,
     pendingLike: PropTypes.bool,
     pendingFlag: PropTypes.bool,
     pendingFollow: PropTypes.bool,
@@ -64,7 +63,6 @@ class StoryFull extends React.Component {
 
   static defaultProps = {
     signature: null,
-    rewriteLinks: false,
     pendingLike: false,
     pendingFlag: false,
     pendingFollow: false,
@@ -188,7 +186,6 @@ class StoryFull extends React.Component {
       post,
       postState,
       signature,
-      rewriteLinks,
       pendingLike,
       pendingFlag,
       pendingFollow,
@@ -278,7 +275,7 @@ class StoryFull extends React.Component {
 
     let popoverMenu = [];
 
-    if (ownPost && post.cashout_time !== '1969-12-31T23:59:59') {
+    if (ownPost) {
       popoverMenu = [
         ...popoverMenu,
         <PopoverMenuItem key="edit">
@@ -339,12 +336,7 @@ class StoryFull extends React.Component {
           onClick={this.handleContentClick}
         >
           {this.renderDtubeEmbedPlayer()}
-          <BodyContainer
-            full
-            rewriteLinks={rewriteLinks}
-            body={signedBody}
-            json_metadata={post.json_metadata}
-          />
+          <BodyContainer full body={signedBody} json_metadata={post.json_metadata} />
         </div>
       );
     }
