@@ -59,10 +59,12 @@ const getFormattedPendingWithdrawalSP = (user, totalVestingShares, totalVestingF
           <span>
             <FormattedMessage
               id="steem_power_pending_withdrawal_tooltip"
-              defaultMessage="The next power down is scheduled to happen on "
+              defaultMessage="The next power down is scheduled to happen on {date} {time}"
+              values={{
+                date: <FormattedDate value={`${user.next_vesting_withdrawal}Z`} />,
+                time: <FormattedTime value={`${user.next_vesting_withdrawal}Z`} />,
+              }}
             />
-            <FormattedDate value={`${user.next_vesting_withdrawal}Z`} />{' '}
-            <FormattedTime value={`${user.next_vesting_withdrawal}Z`} />
           </span>
         }
       >

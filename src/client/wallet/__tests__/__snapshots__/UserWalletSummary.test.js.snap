@@ -86,16 +86,18 @@ ShallowWrapper {
                 title={
                   <span>
                     <FormattedMessage
-                      defaultMessage="The next power down is scheduled to happen on "
+                      defaultMessage="The next power down is scheduled to happen on {date} {time}"
                       id="steem_power_pending_withdrawal_tooltip"
-                      values={Object {}}
-                    />
-                    <FormattedDate
-                      value="undefinedZ"
-                    />
-                     
-                    <FormattedTime
-                      value="undefinedZ"
+                      values={
+                        Object {
+                          "date": <FormattedDate
+                            value="undefinedZ"
+                          />,
+                          "time": <FormattedTime
+                            value="undefinedZ"
+                          />,
+                        }
+                      }
                     />
                   </span>
                 }
@@ -363,16 +365,18 @@ ShallowWrapper {
                   title={
                     <span>
                       <FormattedMessage
-                        defaultMessage="The next power down is scheduled to happen on "
+                        defaultMessage="The next power down is scheduled to happen on {date} {time}"
                         id="steem_power_pending_withdrawal_tooltip"
-                        values={Object {}}
-                      />
-                      <FormattedDate
-                        value="undefinedZ"
-                      />
-                       
-                      <FormattedTime
-                        value="undefinedZ"
+                        values={
+                          Object {
+                            "date": <FormattedDate
+                              value="undefinedZ"
+                            />,
+                            "time": <FormattedTime
+                              value="undefinedZ"
+                            />,
+                          }
+                        }
                       />
                     </span>
                   }
@@ -463,16 +467,18 @@ ShallowWrapper {
                   title={
                     <span>
                       <FormattedMessage
-                        defaultMessage="The next power down is scheduled to happen on "
+                        defaultMessage="The next power down is scheduled to happen on {date} {time}"
                         id="steem_power_pending_withdrawal_tooltip"
-                        values={Object {}}
-                      />
-                      <FormattedDate
-                        value="undefinedZ"
-                      />
-                       
-                      <FormattedTime
-                        value="undefinedZ"
+                        values={
+                          Object {
+                            "date": <FormattedDate
+                              value="undefinedZ"
+                            />,
+                            "time": <FormattedTime
+                              value="undefinedZ"
+                            />,
+                          }
+                        }
                       />
                     </span>
                   }
@@ -521,16 +527,18 @@ ShallowWrapper {
                     title={
                       <span>
                         <FormattedMessage
-                          defaultMessage="The next power down is scheduled to happen on "
+                          defaultMessage="The next power down is scheduled to happen on {date} {time}"
                           id="steem_power_pending_withdrawal_tooltip"
-                          values={Object {}}
-                        />
-                        <FormattedDate
-                          value="undefinedZ"
-                        />
-                         
-                        <FormattedTime
-                          value="undefinedZ"
+                          values={
+                            Object {
+                              "date": <FormattedDate
+                                value="undefinedZ"
+                              />,
+                              "time": <FormattedTime
+                                value="undefinedZ"
+                              />,
+                            }
+                          }
                         />
                       </span>
                     }
@@ -590,16 +598,18 @@ ShallowWrapper {
                     </span>,
                     "title": <span>
                       <FormattedMessage
-                        defaultMessage="The next power down is scheduled to happen on "
+                        defaultMessage="The next power down is scheduled to happen on {date} {time}"
                         id="steem_power_pending_withdrawal_tooltip"
-                        values={Object {}}
-                      />
-                      <FormattedDate
-                        value="undefinedZ"
-                      />
-                       
-                      <FormattedTime
-                        value="undefinedZ"
+                        values={
+                          Object {
+                            "date": <FormattedDate
+                              value="undefinedZ"
+                            />,
+                            "time": <FormattedTime
+                              value="undefinedZ"
+                            />,
+                          }
+                        }
                       />
                     </span>,
                   },
@@ -1120,16 +1130,18 @@ ShallowWrapper {
                   title={
                     <span>
                       <FormattedMessage
-                        defaultMessage="The next power down is scheduled to happen on "
+                        defaultMessage="The next power down is scheduled to happen on {date} {time}"
                         id="steem_power_pending_withdrawal_tooltip"
-                        values={Object {}}
-                      />
-                      <FormattedDate
-                        value="undefinedZ"
-                      />
-                       
-                      <FormattedTime
-                        value="undefinedZ"
+                        values={
+                          Object {
+                            "date": <FormattedDate
+                              value="undefinedZ"
+                            />,
+                            "time": <FormattedTime
+                              value="undefinedZ"
+                            />,
+                          }
+                        }
                       />
                     </span>
                   }
@@ -1397,16 +1409,18 @@ ShallowWrapper {
                     title={
                       <span>
                         <FormattedMessage
-                          defaultMessage="The next power down is scheduled to happen on "
+                          defaultMessage="The next power down is scheduled to happen on {date} {time}"
                           id="steem_power_pending_withdrawal_tooltip"
-                          values={Object {}}
-                        />
-                        <FormattedDate
-                          value="undefinedZ"
-                        />
-                         
-                        <FormattedTime
-                          value="undefinedZ"
+                          values={
+                            Object {
+                              "date": <FormattedDate
+                                value="undefinedZ"
+                              />,
+                              "time": <FormattedTime
+                                value="undefinedZ"
+                              />,
+                            }
+                          }
                         />
                       </span>
                     }
@@ -1497,16 +1511,18 @@ ShallowWrapper {
                     title={
                       <span>
                         <FormattedMessage
-                          defaultMessage="The next power down is scheduled to happen on "
+                          defaultMessage="The next power down is scheduled to happen on {date} {time}"
                           id="steem_power_pending_withdrawal_tooltip"
-                          values={Object {}}
-                        />
-                        <FormattedDate
-                          value="undefinedZ"
-                        />
-                         
-                        <FormattedTime
-                          value="undefinedZ"
+                          values={
+                            Object {
+                              "date": <FormattedDate
+                                value="undefinedZ"
+                              />,
+                              "time": <FormattedTime
+                                value="undefinedZ"
+                              />,
+                            }
+                          }
                         />
                       </span>
                     }
@@ -1555,16 +1571,18 @@ ShallowWrapper {
                       title={
                         <span>
                           <FormattedMessage
-                            defaultMessage="The next power down is scheduled to happen on "
+                            defaultMessage="The next power down is scheduled to happen on {date} {time}"
                             id="steem_power_pending_withdrawal_tooltip"
-                            values={Object {}}
-                          />
-                          <FormattedDate
-                            value="undefinedZ"
-                          />
-                           
-                          <FormattedTime
-                            value="undefinedZ"
+                            values={
+                              Object {
+                                "date": <FormattedDate
+                                  value="undefinedZ"
+                                />,
+                                "time": <FormattedTime
+                                  value="undefinedZ"
+                                />,
+                              }
+                            }
                           />
                         </span>
                       }
@@ -1624,16 +1642,18 @@ ShallowWrapper {
                       </span>,
                       "title": <span>
                         <FormattedMessage
-                          defaultMessage="The next power down is scheduled to happen on "
+                          defaultMessage="The next power down is scheduled to happen on {date} {time}"
                           id="steem_power_pending_withdrawal_tooltip"
-                          values={Object {}}
-                        />
-                        <FormattedDate
-                          value="undefinedZ"
-                        />
-                         
-                        <FormattedTime
-                          value="undefinedZ"
+                          values={
+                            Object {
+                              "date": <FormattedDate
+                                value="undefinedZ"
+                              />,
+                              "time": <FormattedTime
+                                value="undefinedZ"
+                              />,
+                            }
+                          }
                         />
                       </span>,
                     },
