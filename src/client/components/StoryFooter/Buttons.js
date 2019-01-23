@@ -246,7 +246,7 @@ export default class Buttons extends React.Component {
       parseFloat(post.curator_payout_value);
     const voteRshares = post.active_votes.reduce((a, b) => a + parseFloat(b.rshares), 0);
     const ratio = (voteRshares === 0 ? 0 : totalPayout / voteRshares);
-    
+
     const upVotesPreview = take(upVotes, 10).map(vote => (
       <p key={vote.voter}>
         <Link to={`/@${vote.voter}`}>{vote.voter}</Link>
