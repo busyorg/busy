@@ -194,7 +194,14 @@ export const calculateTotalDelegatedSP = (user, totalVestingShares, totalVesting
 
 export const calculatePendingWithdrawalSP = (user, totalVestingShares, totalVestingFundSteem) => {
   return parseFloat(
-    formatter.vestToSteem(user.vesting_withdraw_rate, totalVestingShares, totalVestingFundSteem),
+    formatter.vestToSteem(
+      Math.min(
+        parseFloat(user.vesting_withdraw_rate),
+        (parseFloat(user.to_withdraw) - parseFloat(user.withdrawn)) / 100000,
+      ),
+      totalVestingShares,
+      totalVestingFundSteem,
+    ),
   );
 };
 
