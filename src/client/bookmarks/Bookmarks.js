@@ -36,7 +36,7 @@ export default class Bookmarks extends React.Component {
     feed: PropTypes.shape().isRequired,
     showPostModal: PropTypes.func.isRequired,
     reloading: PropTypes.bool,
-    pendingBookmarks: PropTypes.arrayOf(PropTypes.number),
+    pendingBookmarks: PropTypes.arrayOf(PropTypes.string),
     getBookmarks: PropTypes.func,
     reload: PropTypes.func,
   };
