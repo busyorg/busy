@@ -58,7 +58,7 @@ const UserHeader = ({
                   })}
                 >
                   <Action onClick={onTransferClick}>
-                    <FormattedMessage id="tranfer" defaultMessage="Transfer" />
+                    <FormattedMessage id="transfer" defaultMessage="Transfer" />
                   </Action>
                 </div>
               )}
