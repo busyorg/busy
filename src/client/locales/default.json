@@ -248,6 +248,7 @@
   "steem_dollar": "Steem Dollar",
   "steem_power": "Steem Power",
   "steem_power_delegated_to_account_tooltip": "Steem Power delegated to this account",
+  "steem_power_pending_withdrawal_tooltip": "The next power down is scheduled to happen on {date} {time}",
   "savings": "Savings",
   "est_account_value": "Est. Account Value",
   "transferred_to": "Transferred to {username}",
