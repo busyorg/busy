@@ -179,6 +179,7 @@ class Write extends React.Component {
       body: form.body,
       title: form.title,
       reward: form.reward,
+      beneficiary: form.beneficiary,
       upvote: form.upvote,
       lastUpdated: Date.now(),
     };

@@ -14,6 +14,7 @@ import withEditor from './withEditor';
 import EditorInput from './EditorInput';
 import { remarkable } from '../Story/Body';
 import BodyContainer from '../../containers/Story/BodyContainer';
+import { BENEFICIARY_PERCENT } from '../../helpers/constants';
 import './Editor.less';
 
 @injectIntl
@@ -352,6 +353,19 @@ class Editor extends React.Component {
                 <FormattedMessage id="reward_option_0" defaultMessage="Declined" />
               </Select.Option>
             </Select>,
+          )}
+        </Form.Item>
+        <Form.Item>
+          {getFieldDecorator('beneficiary', { valuePropName: 'checked', initialValue: true })(
+            <Checkbox onChange={this.onUpdate} disabled={isUpdating}>
+              <FormattedMessage
+                id="add_busy_beneficiary"
+                defaultMessage="Share {share}% of this post rewards with Busy"
+                values={{
+                  share: BENEFICIARY_PERCENT / 100,
+                }}
+              />
+            </Checkbox>,
           )}
         </Form.Item>
         <Form.Item className={classNames({ Editor__hidden: isUpdating })}>

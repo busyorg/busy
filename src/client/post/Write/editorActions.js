@@ -2,6 +2,11 @@ import assert from 'assert';
 import Cookie from 'js-cookie';
 import { push } from 'react-router-redux';
 import { createAction } from 'redux-actions';
+import {
+  BENEFICIARY_ACCOUNT,
+  BENEFICIARY_PERCENT,
+  REFERRAL_PERCENT,
+} from '../../helpers/constants';
 import { addDraftMetadata, deleteDraftMetadata } from '../../helpers/metadata';
 import { jsonParse } from '../../helpers/formatter';
 import { rewardsValues } from '../../../common/constants/rewards';
@@ -91,6 +96,7 @@ const broadcastComment = (
   body,
   jsonMetadata,
   reward,
+  beneficiary,
   upvote,
   permlink,
   referral,
@@ -126,20 +132,21 @@ const broadcastComment = (
     commentOptionsConfig.percent_steem_dollars = 0;
   }
 
-  if (referral && referral !== authUsername) {
-    commentOptionsConfig.extensions = [
-      [
-        0,
-        {
-          beneficiaries: [{ account: referral, weight: 1000 }],
-        },
-      ],
-    ];
+  const beneficiaries = [];
+
+  if (beneficiary) {
+    beneficiaries.push({ account: BENEFICIARY_ACCOUNT, weight: BENEFICIARY_PERCENT });
   }
 
-  if (reward === rewardsValues.none || reward === rewardsValues.all || referral) {
-    operations.push(['comment_options', commentOptionsConfig]);
+  if (referral && referral !== authUsername) {
+    beneficiaries.push({ account: referral, weight: REFERRAL_PERCENT });
   }
+
+  if (beneficiaries.length !== 0) {
+    commentOptionsConfig.extensions = [[0, { beneficiaries }]];
+  }
+
+  operations.push(['comment_options', commentOptionsConfig]);
 
   if (upvote) {
     operations.push([
@@ -170,6 +177,7 @@ export function createPost(postData) {
       body,
       jsonMetadata,
       reward,
+      beneficiary,
       upvote,
       draftId,
       isUpdating,
@@ -205,6 +213,7 @@ export function createPost(postData) {
             newBody,
             jsonMetadata,
             !isUpdating && reward,
+            beneficiary,
             !isUpdating && upvote,
             permlink,
             referral,
