@@ -80,6 +80,7 @@ class Write extends React.Component {
       initialTopics: [],
       initialBody: '',
       initialReward: this.props.rewardSetting,
+      initialBeneficiary: true,
       initialUpvote: this.props.upvoteSetting,
       initialUpdatedDate: Date.now(),
       isUpdating: false,
@@ -87,7 +88,8 @@ class Write extends React.Component {
     };
   }
 
-  componentDidMount() {
+  // NOTE: To be replaced with getDerivedStateFromProps or refactored entirely after React 16.3
+  componentWillMount() {
     this.props.newPost();
     const { draftPosts, draftId } = this.props;
     const draftPost = draftPosts[draftId];
@@ -106,12 +108,13 @@ class Write extends React.Component {
         this.originalBody = draftPost.originalBody;
       }
 
-      // eslint-disable-next-line
       this.setState({
         initialTitle: draftPost.title || '',
         initialTopics: tags || [],
         initialBody: draftPost.body || '',
         initialReward: draftPost.reward,
+        initialBeneficiary:
+          typeof draftPost.beneficiary !== 'undefined' ? draftPost.beneficiary : true,
         initialUpvote: draftPost.upvote,
         initialUpdatedDate: draftPost.lastUpdated || Date.now(),
         isUpdating: draftPost.isUpdating || false,
@@ -135,22 +138,29 @@ class Write extends React.Component {
         initialTopics: [],
         initialBody: '',
         initialReward: rewardsValues.half,
+        initialBeneficiary: true,
         initialUpvote: nextProps.upvoteSetting,
         initialUpdatedDate: Date.now(),
         isUpdating: false,
         showModalDelete: false,
       });
     } else if (differentDraft) {
-      const { draftPosts, draftId } = nextProps;
+      const { draftPosts, draftId, upvoteSetting } = nextProps;
       const draftPost = _.get(draftPosts, draftId, {});
       const initialTitle = _.get(draftPost, 'title', '');
       const initialBody = _.get(draftPost, 'body', '');
       const initialTopics = _.get(draftPost, 'jsonMetadata.tags', []);
+      const initialReward = _.get(draftPost, 'reward', rewardsValues.half);
+      const initialBeneficiary = _.get(draftPost, 'beneficiary', true);
+      const initialUpvote = _.get(draftPost, 'upvote', upvoteSetting);
       this.draftId = draftId;
       this.setState({
         initialTitle,
         initialBody,
         initialTopics,
+        initialReward,
+        initialBeneficiary,
+        initialUpvote,
       });
     }
   }
@@ -227,7 +237,14 @@ class Write extends React.Component {
   }, 2000);
 
   render() {
-    const { initialTitle, initialTopics, initialBody, initialReward, initialUpvote } = this.state;
+    const {
+      initialTitle,
+      initialTopics,
+      initialBody,
+      initialReward,
+      initialBeneficiary,
+      initialUpvote,
+    } = this.state;
     const { loading, saving, draftId } = this.props;
 
     return (
@@ -246,6 +263,7 @@ class Write extends React.Component {
               topics={initialTopics}
               body={initialBody}
               reward={initialReward}
+              beneficiary={initialBeneficiary}
               upvote={initialUpvote}
               draftId={draftId}
               loading={loading}

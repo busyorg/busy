@@ -29,6 +29,7 @@ class Editor extends React.Component {
     topics: PropTypes.arrayOf(PropTypes.string),
     body: PropTypes.string,
     reward: PropTypes.string,
+    beneficiary: PropTypes.bool,
     upvote: PropTypes.bool,
     loading: PropTypes.bool,
     isUpdating: PropTypes.bool,
@@ -47,6 +48,7 @@ class Editor extends React.Component {
     topics: [],
     body: '',
     reward: rewardsValues.half,
+    beneficiary: true,
     upvote: true,
     recentTopics: [],
     popularTopics: [],
@@ -93,14 +95,14 @@ class Editor extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { title, topics, body, reward, upvote, draftId } = this.props;
+    const { title, topics, body, reward, beneficiary, upvote, draftId } = this.props;
     if (
-      title !== nextProps.title ||
-      !_.isEqual(topics, nextProps.topics) ||
-      body !== nextProps.body ||
-      reward !== nextProps.reward ||
-      upvote !== nextProps.upvote ||
-      (draftId && nextProps.draftId === null)
+      (title !== nextProps.title ||
+        !_.isEqual(topics, nextProps.topics) ||
+        body !== nextProps.body ||
+        reward !== nextProps.reward ||
+        beneficiary !== nextProps.beneficiary,
+      upvote !== nextProps.upvote || (draftId && nextProps.draftId === null))
     ) {
       this.setValues(nextProps);
     }
@@ -127,6 +129,7 @@ class Editor extends React.Component {
       topics: post.topics,
       body: post.body,
       reward,
+      beneficiary: post.beneficiary,
       upvote: post.upvote,
     });
 
