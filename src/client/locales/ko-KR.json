@@ -247,6 +247,7 @@
   "steem_dollar": "스팀 달러",
   "steem_power": "스팀 파워",
   "steem_power_delegated_to_account_tooltip": "이 계정에 임대된 스팀 파워",
+  "steem_power_pending_withdrawal_tooltip": "다음 파워 다운: {date} {time}",
   "savings": "안전금고",
   "est_account_value": "추정 자산 가치",
   "transferred_to": "{username} 에게 송금 완료",
