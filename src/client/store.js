@@ -3,7 +3,6 @@ import thunk from 'redux-thunk';
 import { applyMiddleware, createStore, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import steemAPI from './steemAPI';
-import createBusyAPI from '../common/services/createBusyAPI';
 import history from './history';
 import errorMiddleware from './helpers/errorMiddleware';
 import createReducer from './reducers';
@@ -25,7 +24,6 @@ export default steemConnectAPI => {
     thunk.withExtraArgument({
       steemAPI,
       steemConnectAPI,
-      busyAPI: createBusyAPI(),
     }),
     routerMiddleware(history),
   ];
