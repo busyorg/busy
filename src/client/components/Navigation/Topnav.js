@@ -7,12 +7,20 @@ import { connect } from 'react-redux';
 import { Menu, Input, AutoComplete } from 'antd';
 import classNames from 'classnames';
 import { searchAutoComplete } from '../../search/searchActions';
-import { getAutoCompleteSearchResults } from '../../reducers';
+import { getUpdatedSCUserMetadata } from '../../auth/authActions';
+import {
+  getAutoCompleteSearchResults,
+  getNotifications,
+  getAuthenticatedUserSCMetaData,
+  getIsLoadingNotifications,
+} from '../../reducers';
 import SteemConnect from '../../steemConnectAPI';
+import { PARSED_NOTIFICATIONS } from '../../../common/constants/notifications';
 import BTooltip from '../BTooltip';
 import Avatar from '../Avatar';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import Popover from '../Popover';
+import Notifications from './Notifications/Notifications';
 import LanguageSettings from './LanguageSettings';
 import './Topnav.less';
 
@@ -21,9 +29,13 @@ import './Topnav.less';
 @connect(
   state => ({
     autoCompleteSearchResults: getAutoCompleteSearchResults(state),
+    notifications: getNotifications(state),
+    userSCMetaData: getAuthenticatedUserSCMetaData(state),
+    loadingNotifications: getIsLoadingNotifications(state),
   }),
   {
     searchAutoComplete,
+    getUpdatedSCUserMetadata,
   },
 )
 class Topnav extends React.Component {
@@ -33,14 +45,21 @@ class Topnav extends React.Component {
     location: PropTypes.shape().isRequired,
     history: PropTypes.shape().isRequired,
     username: PropTypes.string,
+    notifications: PropTypes.arrayOf(PropTypes.shape()),
     searchAutoComplete: PropTypes.func.isRequired,
+    getUpdatedSCUserMetadata: PropTypes.func.isRequired,
     onMenuItemClick: PropTypes.func,
+    userSCMetaData: PropTypes.shape(),
+    loadingNotifications: PropTypes.bool,
   };
 
   static defaultProps = {
     autoCompleteSearchResults: [],
+    notifications: [],
     username: undefined,
     onMenuItemClick: () => {},
+    userSCMetaData: {},
+    loadingNotifications: false,
   };
 
   static handleScrollToTop() {
@@ -129,8 +148,21 @@ class Topnav extends React.Component {
   };
 
   menuForLoggedIn = () => {
-    const { intl, username } = this.props;
-    const { searchBarActive, popoverVisible } = this.state;
+    const { intl, username, notifications, userSCMetaData, loadingNotifications } = this.props;
+    const { searchBarActive, notificationsPopoverVisible, popoverVisible } = this.state;
+    const lastSeenTimestamp = _.get(userSCMetaData, 'notifications_last_timestamp');
+    const notificationsCount = _.isUndefined(lastSeenTimestamp)
+      ? _.size(notifications)
+      : _.size(
+          _.filter(
+            notifications,
+            notification =>
+              lastSeenTimestamp < notification.timestamp &&
+              _.includes(PARSED_NOTIFICATIONS, notification.type),
+          ),
+        );
+    const displayBadge = notificationsCount > 0;
+    const notificationsCountDisplay = notificationsCount > 99 ? '99+' : notificationsCount;
     return (
       <div
         className={classNames('Topnav__menu-container', {
@@ -147,6 +179,41 @@ class Topnav extends React.Component {
               <Link to="/editor" className="Topnav__link Topnav__link--action">
                 <i className="iconfont icon-write" />
               </Link>
+            </BTooltip>
+          </Menu.Item>
+          <Menu.Item key="notifications" className="Topnav__item--badge">
+            <BTooltip
+              placement="bottom"
+              title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}
+              overlayClassName="Topnav__notifications-tooltip"
+              mouseEnterDelay={1}
+            >
+              <Popover
+                placement="bottomRight"
+                trigger="click"
+                content={
+                  <Notifications
+                    notifications={notifications}
+                    onNotificationClick={this.handleCloseNotificationsPopover}
+                    currentAuthUsername={username}
+                    lastSeenTimestamp={lastSeenTimestamp}
+                    loadingNotifications={loadingNotifications}
+                    getUpdatedSCUserMetadata={this.props.getUpdatedSCUserMetadata}
+                  />
+                }
+                visible={notificationsPopoverVisible}
+                onVisibleChange={this.handleNotificationsPopoverVisibleChange}
+                overlayClassName="Notifications__popover-overlay"
+                title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}
+              >
+                <a className="Topnav__link Topnav__link--light Topnav__link--action">
+                  {displayBadge ? (
+                    <div className="Topnav__notifications-count">{notificationsCountDisplay}</div>
+                  ) : (
+                    <i className="iconfont icon-remind" />
+                  )}
+                </a>
+              </Popover>
             </BTooltip>
           </Menu.Item>
           <Menu.Item key="user" className="Topnav__item-user">
