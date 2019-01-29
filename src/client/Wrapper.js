@@ -19,8 +19,8 @@ import {
   getUseBeta,
   getNightmode,
 } from './reducers';
-import { login, logout } from './auth/authActions';
-import { getFollowing } from './user/userActions';
+import { login, logout, busyLogin } from './auth/authActions';
+import { getFollowing, getNotifications } from './user/userActions';
 import {
   getRate,
   getRewardFund,
@@ -51,9 +51,11 @@ import BBackTop from './components/BBackTop';
     login,
     logout,
     getFollowing,
+    getNotifications,
     getRate,
     getRewardFund,
     getTrendingTopics,
+    busyLogin,
     getRebloggedList: reblogActions.getRebloggedList,
     setUsedLocale,
   },
@@ -74,7 +76,9 @@ export default class Wrapper extends React.PureComponent {
     getRebloggedList: PropTypes.func,
     getRate: PropTypes.func,
     getTrendingTopics: PropTypes.func,
+    getNotifications: PropTypes.func,
     setUsedLocale: PropTypes.func,
+    busyLogin: PropTypes.func,
     nightmode: PropTypes.bool,
   };
 
@@ -89,7 +93,9 @@ export default class Wrapper extends React.PureComponent {
     getRebloggedList: () => {},
     getRate: () => {},
     getTrendingTopics: () => {},
+    getNotifications: () => {},
     setUsedLocale: () => {},
+    busyLogin: () => {},
     nightmode: false,
   };
 
@@ -132,6 +138,8 @@ export default class Wrapper extends React.PureComponent {
   componentDidMount() {
     this.props.login().then(() => {
       this.props.getFollowing();
+      this.props.getNotifications();
+      this.props.busyLogin();
     });
 
     this.props.getRewardFund();
