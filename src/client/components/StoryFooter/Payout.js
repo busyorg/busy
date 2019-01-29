@@ -13,29 +13,27 @@ const Payout = ({ intl, post }) => {
   const payoutValue = payout.cashoutInTime ? payout.potentialPayout : payout.pastPayouts;
 
   return (
-    payoutValue >= 0.005 && (
-      <span className="Payout">
-        <BTooltip title={<PayoutDetail post={post} />}>
-          <span
-            className={classNames({
-              'Payout--rejected': payout.isPayoutDeclined,
-            })}
-          >
-            <USDDisplay value={payoutValue} />
-          </span>
+    <span className="Payout">
+      <BTooltip title={<PayoutDetail post={post} />}>
+        <span
+          className={classNames({
+            'Payout--rejected': payout.isPayoutDeclined,
+          })}
+        >
+          <USDDisplay value={payoutValue} />
+        </span>
+      </BTooltip>
+      {post.percent_steem_dollars === 0 && (
+        <BTooltip
+          title={intl.formatMessage({
+            id: 'reward_option_100',
+            defaultMessage: '100% Steem Power',
+          })}
+        >
+          <i className="iconfont icon-flashlight" />
         </BTooltip>
-        {post.percent_steem_dollars === 0 && (
-          <BTooltip
-            title={intl.formatMessage({
-              id: 'reward_option_100',
-              defaultMessage: '100% Steem Power',
-            })}
-          >
-            <i className="iconfont icon-flashlight" />
-          </BTooltip>
-        )}
-      </span>
-    )
+      )}
+    </span>
   );
 };
 
