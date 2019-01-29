@@ -5,7 +5,7 @@ import { FormattedNumber } from 'react-intl';
 const USDDisplay = ({ value }) => {
   const negative = value.toFixed(2) < 0;
   const absValue = Math.abs(value);
-  const precision = absValue < 0.02 && absValue > 0 ? 3 : 2;
+  const precision = absValue < 0.02 && value > 0 ? 3 : 2;
   return (
     <span>
       {negative && '-'}

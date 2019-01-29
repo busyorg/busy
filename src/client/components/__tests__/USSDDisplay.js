@@ -25,4 +25,9 @@ describe('<USSDDisplay />', () => {
     const wrapper = getWrapper(-0.001);
     expect(wrapper.text()).toEqual('$0.00');
   });
+
+  it('handle small numebrs < $0.02', () => {
+    const wrapper = getWrapper(0.017);
+    expect(wrapper.text()).toEqual('$0.017');
+  });
 });
