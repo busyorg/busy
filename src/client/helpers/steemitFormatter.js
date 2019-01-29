@@ -61,7 +61,7 @@ const createFormatter = api => {
     if (!vesting_steem || !feed_price) {
       if (!gprops || !feed_price) {
         promises.push(
-          api.sendAsync('get-state', [`/@${username}`]).then(data => {
+          api.sendAsync('get_state', [`/@${username}`]).then(data => {
             gprops = data.props;
             feed_price = data.feed_price;
             vesting_steem = vestingSteem(account, gprops);
