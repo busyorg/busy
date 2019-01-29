@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { FormattedNumber } from 'react-intl';
 
 const USDDisplay = ({ value }) => {
-  const negative = value.toFixed(2) < 0;
+  const negative = value < 0;
   const absValue = Math.abs(value);
+  // 0.02 is dust payout threshold (STEEM_MIN_PAYOUT_SBD)
   const precision = absValue < 0.02 && value > 0 ? 3 : 2;
   return (
     <span>
