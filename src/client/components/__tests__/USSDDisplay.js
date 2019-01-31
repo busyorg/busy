@@ -26,8 +26,18 @@ describe('<USSDDisplay />', () => {
     expect(wrapper.text()).toEqual('-$1.33');
   });
 
-  it('handle small negative numbers properly. negative numbers always have 2-digit precision', () => {
+  it('handle small negative numbers properly.', () => {
     const wrapper = getWrapper(-0.001);
-    expect(wrapper.text()).toEqual('-$0.00');
+    expect(wrapper.text()).toEqual('-$0.001');
+  });
+
+  it('handle zero properly.', () => {
+    const wrapper = getWrapper(0);
+    expect(wrapper.text()).toEqual('$0.00');
+  });
+
+  it('handle negative zero properly.', () => {
+    const wrapper = getWrapper(-0);
+    expect(wrapper.text()).toEqual('$0.00');
   });
 });
