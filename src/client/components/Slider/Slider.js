@@ -8,7 +8,6 @@ import './Slider.less';
 @injectIntl
 export default class Slider extends React.Component {
   static propTypes = {
-    intl: PropTypes.shape().isRequired,
     value: PropTypes.number,
     voteWorth: PropTypes.number,
     onChange: PropTypes.func,
@@ -46,12 +45,6 @@ export default class Slider extends React.Component {
 
   getCurrentValue = () => this.props.voteWorth;
 
-  getCurrentFormattedValue = () =>
-    this.props.intl.formatNumber(this.getCurrentValue(), {
-      style: 'currency',
-      currency: 'USD',
-    });
-
   handleChange = value => {
     this.setState({ value }, () => {
       this.props.onChange(value);
@@ -87,9 +80,7 @@ export default class Slider extends React.Component {
               id="like_slider_info"
               defaultMessage="Your vote will be worth {amount}."
               values={{
-                amount: (
-                  <span className="Slider__info__amount">{this.getCurrentFormattedValue()}</span>
-                ),
+                amount: <USDDisplay value={this.getCurrentValue()} />,
               }}
             />
           </h3>
