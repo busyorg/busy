@@ -316,7 +316,7 @@
   "nsfw_posts": "Posts NSFW",
   "display_nsfw_posts_details": "Vous pouvez définir tous les posts taggés avec NSFW comme étant visibles par défaut.",
   "display_nsfw_posts": "Afficher les posts NSFW",
-  "nightmode": "Nightmode",
+  "nightmode": "Mode nuit",
   "nightmode_details": "You can enable this option for a more eye-friendly experience at night.",
   "use_nightmode": "Use Nightmode",
   "rewrite_links": "Réécrire le lien",
