@@ -11,12 +11,14 @@ export default class Slider extends React.Component {
     value: PropTypes.number,
     voteWorth: PropTypes.number,
     onChange: PropTypes.func,
+    headerMessage: PropTypes.string,
   };
 
   static defaultProps = {
     value: 100,
     voteWorth: 0,
     onChange: () => {},
+    headerMessage: '',
   };
 
   state = {
@@ -65,10 +67,12 @@ export default class Slider extends React.Component {
   );
 
   render() {
+    const { headerMessage } = this.props;
     const { value } = this.state;
 
     return (
       <div className="Slider">
+        {headerMessage && <h3 className="Slider__headerMessage">{headerMessage}</h3>}
         <RawSlider
           initialValue={value}
           onChange={this.handleChange}

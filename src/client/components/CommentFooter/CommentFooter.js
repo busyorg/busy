@@ -145,7 +145,7 @@ export default class CommentFooter extends React.Component {
       replying,
       pendingVotes,
     } = this.props;
-    const { sliderVisible } = this.state;
+    const { sliderVisible, sliderMode } = this.state;
 
     let actionPanel = null;
     if (sliderVisible) {
@@ -170,11 +170,13 @@ export default class CommentFooter extends React.Component {
       );
     }
 
+    const sliderHeaderMessage = sliderMode === 'like' ? 'Like Power' : 'Dislike Power';
     return (
       <div className="CommentFooter">
         {actionPanel}
         {sliderVisible && (
           <Slider
+            headerMessage={sliderHeaderMessage}
             value={this.state.sliderValue}
             voteWorth={this.state.voteWorth}
             onChange={this.handleSliderChange}
