@@ -54,6 +54,7 @@ export default class CommentFooter extends React.Component {
     sliderValue: 100,
     voteWorth: 0,
     replyFormVisible: false,
+    sliderMode: null,
   };
 
   componentWillMount() {
@@ -77,20 +78,39 @@ export default class CommentFooter extends React.Component {
     const { sliderMode, user, comment } = this.props;
     if (sliderMode === 'on' || (sliderMode === 'auto' && getHasDefaultSlider(user))) {
       if (!this.state.sliderVisible) {
-        this.setState(prevState => ({ sliderVisible: !prevState.sliderVisible }));
+        this.setState(prevState => ({
+          sliderVisible: !prevState.sliderVisible,
+          sliderMode: 'like',
+        }));
       }
     } else {
       this.props.onLikeClick(comment.id);
     }
   };
 
-  handleLikeConfirm = () => {
-    this.setState({ sliderVisible: false }, () => {
-      this.props.onLikeClick(this.props.comment.id, this.state.sliderValue * 100);
-    });
+  handleDislikeClick = () => {
+    const { sliderMode, user, comment } = this.props;
+    if (sliderMode === 'on' || (sliderMode === 'auto' && getHasDefaultSlider(user))) {
+      if (!this.state.sliderVisible) {
+        this.setState(prevState => ({
+          sliderVisible: !prevState.sliderVisible,
+          sliderMode: 'dislike',
+        }));
+      }
+    } else {
+      this.props.onDislikeClick(comment.id);
+    }
   };
 
-  handleDislikeClick = () => this.props.onDislikeClick(this.props.comment.id);
+  handleSliderConfirm = () => {
+    this.setState({ sliderVisible: false }, () => {
+      if (this.state.sliderMode === 'like') {
+        this.props.onLikeClick(this.props.comment.id, this.state.sliderValue * 100);
+      } else if (this.state.sliderMode === 'dislike') {
+        this.props.onDislikeClick(this.props.comment.id, -this.state.sliderValue * 100);
+      }
+    });
+  };
 
   handleSliderCancel = () => this.setState({ sliderVisible: false });
 
@@ -121,7 +141,7 @@ export default class CommentFooter extends React.Component {
     let actionPanel = null;
     if (sliderVisible) {
       actionPanel = (
-        <Confirmation onConfirm={this.handleLikeConfirm} onCancel={this.handleSliderCancel} />
+        <Confirmation onConfirm={this.handleSliderConfirm} onCancel={this.handleSliderCancel} />
       );
     } else {
       actionPanel = (

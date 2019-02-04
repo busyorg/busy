@@ -125,7 +125,7 @@ export default class Comments extends React.Component {
     }
   };
 
-  handleDislikeClick = id => {
+  handleDislikeClick = (id, weight = -10000) => {
     const { commentsList, pendingVotes, user } = this.props;
     if (pendingVotes[id]) return;
 
@@ -134,7 +134,7 @@ export default class Comments extends React.Component {
     if (userVote.percent < 0) {
       this.props.voteComment(id, 0, 'dislike');
     } else {
-      this.props.voteComment(id, -10000, 'dislike');
+      this.props.voteComment(id, weight, 'dislike');
     }
   };
 
