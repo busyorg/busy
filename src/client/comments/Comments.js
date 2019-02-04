@@ -126,15 +126,17 @@ export default class Comments extends React.Component {
   };
 
   handleDislikeClick = (id, weight = -10000) => {
-    const { commentsList, pendingVotes, user } = this.props;
+    const { commentsList, sliderMode, pendingVotes, user, defaultVotePercent } = this.props;
     if (pendingVotes[id]) return;
 
     const userVote = find(commentsList[id].active_votes, { voter: user.name }) || {};
 
-    if (userVote.percent < 0) {
+    if (sliderMode === 'on' || (sliderMode === 'auto' && getHasDefaultSlider(user))) {
+      this.props.voteComment(id, weight, 'dislike');
+    } else if (userVote.percent < 0) {
       this.props.voteComment(id, 0, 'dislike');
     } else {
-      this.props.voteComment(id, weight, 'dislike');
+      this.props.voteComment(id, -defaultVotePercent, 'dislike');
     }
   };
 
