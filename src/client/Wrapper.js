@@ -27,6 +27,7 @@ import {
   getTrendingTopics,
   setUsedLocale,
   setAppUrl,
+  initBusyPlatform,
 } from './app/appActions';
 import * as reblogActions from './app/Reblog/reblogActions';
 import Redirect from './components/Utils/Redirect';
@@ -34,7 +35,9 @@ import NotificationPopup from './notifications/NotificationPopup';
 import Topnav from './components/Navigation/Topnav';
 import Transfer from './wallet/Transfer';
 import PowerUpOrDown from './wallet/PowerUpOrDown';
+import _ from 'lodash';
 import BBackTop from './components/BBackTop';
+import platformClient from './platformClient';
 
 @withRouter
 @connect(
@@ -55,6 +58,7 @@ import BBackTop from './components/BBackTop';
     getRate,
     getRewardFund,
     getTrendingTopics,
+    initBusyPlatform,
     busyLogin,
     getRebloggedList: reblogActions.getRebloggedList,
     setUsedLocale,
@@ -130,17 +134,35 @@ export default class Wrapper extends React.PureComponent {
 
   constructor(props) {
     super(props);
-
+    this.state = {
+      isPlatform: { initialState: 'LOLL' },
+    };
     this.loadLocale = this.loadLocale.bind(this);
     this.handleMenuItemClick = this.handleMenuItemClick.bind(this);
   }
 
   componentDidMount() {
-    this.props.login().then(() => {
-      this.props.getFollowing();
-      this.props.getNotifications();
-      this.props.busyLogin();
-    });
+    platformClient
+      .call('ping', [])
+      .then(response => {
+        if (response) {
+          this.setState({ isPlatform: response });
+        }
+        console.log('BUSY PING', { response });
+        if (response && response.pong) {
+          this.props.initBusyPlatform();
+        } else {
+          this.props.login().then(() => {
+            this.props.getFollowing();
+            this.props.getNotifications();
+            this.props.busyLogin();
+          });
+        }
+      })
+      .catch(error => {
+        console.log('busy-error');
+        console.log(error);
+      });
 
     this.props.getRewardFund();
     this.props.getRebloggedList();
@@ -213,15 +235,19 @@ export default class Wrapper extends React.PureComponent {
   }
 
   render() {
-    const { user, usedLocale, translations } = this.props;
+    const { user, usedLocale, translations, isPlatform } = this.props;
 
     const language = findLanguage(usedLocale);
+    const platformDisplay = _.attempt(JSON.stringify, isPlatform);
 
     return (
       <IntlProvider key={language.id} locale={language.localeData} messages={translations}>
         <LocaleProvider locale={enUS}>
           <Layout data-dir={language && language.rtl ? 'rtl' : 'ltr'}>
             <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 1050 }}>
+              <div id="BUSY_TEST_PLATFORM">
+                {_.isError(platformDisplay) ? 'ERROR' : JSON.stringify(isPlatform) + ' NO ERRORS'}
+              </div>
               <Topnav username={user.name} onMenuItemClick={this.handleMenuItemClick} />
             </Layout.Header>
             <div className="content">

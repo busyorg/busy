@@ -8,6 +8,7 @@ import { getCryptoPriceIncreaseDetails } from '../helpers/cryptosHelper';
 const initialState = {
   isFetching: false,
   isLoaded: false,
+  isPlatform: false,
   rate: 0,
   trendingTopicsLoading: false,
   trendingTopics: [],
@@ -134,6 +135,11 @@ export default (state = initialState, action) => {
         ...state,
         showPostModal: false,
       };
+    case appTypes.INIT_BUSY_PLATFORM:
+      return {
+        ...state,
+        isPlatform: true,
+      };
     default:
       return state;
   }
@@ -151,3 +157,4 @@ export const getTranslations = state => state.translations;
 export const getCryptosPriceHistory = state => state.cryptosPriceHistory;
 export const getShowPostModal = state => state.showPostModal;
 export const getCurrentShownPost = state => state.currentShownPost;
+export const getIsPlatform = state => state.isPlatform;

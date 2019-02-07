@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch';
 import _ from 'lodash';
 import { createAction } from 'redux-actions';
 import { createAsyncActionType } from '../helpers/stateHelpers';
+import platformClient from '../platformClient';
 
 export const GET_TRENDING_TOPICS = '@app/GET_TRENDING_TOPICS';
 export const GET_TRENDING_TOPICS_START = '@app/GET_TRENDING_TOPICS_START';
@@ -93,3 +94,11 @@ export const HIDE_POST_MODAL = '@app/HIDE_POST_MODAL';
 
 export const showPostModal = createAction(SHOW_POST_MODAL);
 export const hidePostModal = createAction(HIDE_POST_MODAL);
+
+export const INIT_BUSY_PLATFORM = '@app/initBusyPlatform';
+export const initBusyPlatform = () => dispatch => {
+  dispatch({ type: INIT_BUSY_PLATFORM });
+  platformClient.call('get_steem_user').then(response => {
+    console.log({ response });
+  });
+};

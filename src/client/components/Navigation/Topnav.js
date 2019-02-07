@@ -13,6 +13,7 @@ import {
   getNotifications,
   getAuthenticatedUserSCMetaData,
   getIsLoadingNotifications,
+  getIsPlatform
 } from '../../reducers';
 import SteemConnect from '../../steemConnectAPI';
 import { PARSED_NOTIFICATIONS } from '../../../common/constants/notifications';
@@ -32,6 +33,7 @@ import './Topnav.less';
     notifications: getNotifications(state),
     userSCMetaData: getAuthenticatedUserSCMetaData(state),
     loadingNotifications: getIsLoadingNotifications(state),
+    isPlatform: getIsPlatform(state)
   }),
   {
     searchAutoComplete,

@@ -77,6 +77,7 @@ export const getTranslations = state => fromApp.getTranslations(state.app);
 export const getCryptosPriceHistory = state => fromApp.getCryptosPriceHistory(state.app);
 export const getShowPostModal = state => fromApp.getShowPostModal(state.app);
 export const getCurrentShownPost = state => fromApp.getCurrentShownPost(state.app);
+export const getIsPlatform = state => fromApp.getIsPlatform(state.app);
 
 export const getFeed = state => fromFeed.getFeed(state.feed);
 

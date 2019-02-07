@@ -54,6 +54,7 @@
     "cheerio": "^1.0.0-rc.2",
     "classnames": "^2.2.5",
     "cookie-parser": "^1.4.3",
+    "cors": "^2.8.5",
     "cross-env": "^5.0.5",
     "debug": "~2.2.0",
     "diff-match-patch": "^1.0.0",

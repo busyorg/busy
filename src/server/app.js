@@ -6,6 +6,7 @@ import paths from '../../scripts/paths';
 import createSsrHandler from './handlers/createSsrHandler';
 import createAmpHandler from './handlers/createAmpHandler';
 import steemAPI from './steemAPI';
+import cors from 'cors';
 
 const indexPath = `${paths.templates}/index.hbs`;
 const indexHtml = fs.readFileSync(indexPath, 'utf-8');
@@ -24,6 +25,7 @@ const app = express();
 
 const IS_DEV = process.env.NODE_ENV === 'development';
 
+app.use(cors());
 app.use(cookieParser());
 
 if (IS_DEV) {
