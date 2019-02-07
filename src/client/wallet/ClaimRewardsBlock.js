@@ -55,12 +55,12 @@ class ClaimRewardsBlock extends Component {
           loading: false,
           rewardClaimed: true,
         });
-        this.props.getUserAccountHistory(name).then(() => this.props.reload());
       } else {
         this.setState({
           loading: false,
         });
       }
+      this.props.getUserAccountHistory(name).then(() => this.props.reload());
     });
   };
 
