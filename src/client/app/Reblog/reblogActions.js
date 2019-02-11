@@ -7,7 +7,9 @@ export const REBLOG_POST_SUCCESS = '@reblog/REBLOG_POST_SUCCESS';
 export const REBLOG_POST_ERROR = '@reblog/REBLOG_POST_ERROR';
 
 export const GET_REBLOGGED_LIST = '@reblog/GET_REBLOGGED_LIST';
+export const CLEAR_REBLOGGED_LIST = '@reblog/CLEAR_REBLOGGED_LIST';
 const getRebloggedListAction = createAction(GET_REBLOGGED_LIST);
+export const clearRebloggedList = createAction(CLEAR_REBLOGGED_LIST);
 
 // We need to use the store, because at this time there is no way to receive user's reblogs via SteemConnect API
 const storePostId = (postId, username) => {

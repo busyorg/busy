@@ -4,6 +4,7 @@ import { getAuthenticatedUserName, getIsAuthenticated, getIsLoaded } from '../re
 import { createAsyncActionType } from '../helpers/stateHelpers';
 import { addNewNotification } from '../app/appActions';
 import { getFollowing } from '../user/userActions';
+import { clearRebloggedList } from '../app/Reblog/reblogActions';
 import { BUSY_API_TYPES } from '../../common/constants/notifications';
 
 export const LOGIN = '@auth/LOGIN';
@@ -64,6 +65,8 @@ export const logout = () => (dispatch, getState, { steemConnectAPI }) => {
   dispatch({
     type: LOGOUT,
   });
+
+  dispatch(clearRebloggedList());
 };
 
 export const getUpdatedSCUserMetadata = () => (dispatch, getState, { steemConnectAPI }) =>
