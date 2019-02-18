@@ -100,7 +100,7 @@
   "write_post": "글쓰기",
   "write_quick_post": "빠른 글쓰기",
   "transfer": "송금하기",
-  "transfer_modal_title": "자금 송금하기",
+  "transfer_modal_title": "송금하기",
   "transfer_modal_info": "아래 버튼을 클릭하면 거래 완료를 위해 SteemConnect로 리다이렉트됩니다.",
   "to": "받는 사람",
   "to_placeholder": "수취인 이름",
