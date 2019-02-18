@@ -97,7 +97,6 @@ const broadcastComment = (
   jsonMetadata,
   reward,
   beneficiary,
-  upvote,
   permlink,
   referral,
   authUsername,
@@ -148,18 +147,6 @@ const broadcastComment = (
 
   operations.push(['comment_options', commentOptionsConfig]);
 
-  if (upvote) {
-    operations.push([
-      'vote',
-      {
-        voter: author,
-        author,
-        permlink,
-        weight: 10000,
-      },
-    ]);
-  }
-
   return steemConnectAPI.broadcast(operations);
 };
 
@@ -178,7 +165,6 @@ export function createPost(postData) {
       jsonMetadata,
       reward,
       beneficiary,
-      upvote,
       draftId,
       isUpdating,
     } = postData;
@@ -189,7 +175,7 @@ export function createPost(postData) {
     const authUser = state.auth.user;
     const newBody = isUpdating ? getBodyPatchIfSmaller(postData.originalBody, body) : body;
 
-    dispatch(saveSettings({ upvoteSetting: upvote, rewardSetting: reward }));
+    dispatch(saveSettings({ rewardSetting: reward }));
 
     let referral;
     if (Cookie.get('referral')) {
@@ -214,7 +200,6 @@ export function createPost(postData) {
             jsonMetadata,
             !isUpdating && reward,
             beneficiary,
-            !isUpdating && upvote,
             permlink,
             referral,
             authUser.name,

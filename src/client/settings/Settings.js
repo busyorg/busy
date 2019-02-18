@@ -14,7 +14,6 @@ import {
   getNightmode,
   getRewriteLinks,
   getUseBeta,
-  getUpvoteSetting,
   getExitPageSetting,
 } from '../reducers';
 import { saveSettings } from './settingsActions';
@@ -44,7 +43,6 @@ import packageJson from '../../../package.json';
     rewriteLinks: getRewriteLinks(state),
     useBeta: getUseBeta(state),
     loading: getIsSettingsLoading(state),
-    upvoteSetting: getUpvoteSetting(state),
     exitPageSetting: getExitPageSetting(state),
   }),
   { reload, saveSettings, notify },
@@ -64,7 +62,6 @@ export default class Settings extends React.Component {
     reload: PropTypes.func,
     saveSettings: PropTypes.func,
     notify: PropTypes.func,
-    upvoteSetting: PropTypes.bool,
     exitPageSetting: PropTypes.bool,
   };
 
@@ -78,17 +75,11 @@ export default class Settings extends React.Component {
     nightmode: false,
     rewriteLinks: false,
     useBeta: false,
-    upvoteSetting: true,
     exitPageSetting: true,
     reload: () => {},
     saveSettings: () => {},
     notify: () => {},
   };
-
-  constructor(props) {
-    super(props);
-    this.handleUpvoteSettingChange = this.handleUpvoteSettingChange.bind(this);
-  }
 
   state = {
     locale: 'auto',
@@ -109,7 +100,6 @@ export default class Settings extends React.Component {
       nightmode: this.props.nightmode,
       rewriteLinks: this.props.rewriteLinks,
       useBeta: this.props.useBeta,
-      upvoteSetting: this.props.upvoteSetting,
       exitPageSetting: this.props.exitPageSetting,
     });
   }
@@ -147,10 +137,6 @@ export default class Settings extends React.Component {
       this.setState({ useBeta: nextProps.useBeta });
     }
 
-    if (nextProps.upvoteSetting !== this.props.upvoteSetting) {
-      this.setState({ upvoteSetting: nextProps.upvoteSetting });
-    }
-
     if (nextProps.exitPageSetting !== this.props.exitPageSetting) {
       this.setState({ exitPageSetting: nextProps.exitPageSetting });
     }
@@ -166,7 +152,6 @@ export default class Settings extends React.Component {
         nightmode: this.state.nightmode,
         rewriteLinks: this.state.rewriteLinks,
         useBeta: this.state.useBeta,
-        upvoteSetting: this.state.upvoteSetting,
         exitPageSetting: this.state.exitPageSetting,
       })
       .then(() =>
@@ -186,10 +171,6 @@ export default class Settings extends React.Component {
   handleUseBetaChange = event => this.setState({ useBeta: event.target.checked });
   handleExitPageSettingChange = event => this.setState({ exitPageSetting: event.target.checked });
 
-  handleUpvoteSettingChange(event) {
-    this.setState({ upvoteSetting: event.target.checked });
-  }
-
   render() {
     const {
       intl,
@@ -207,7 +188,6 @@ export default class Settings extends React.Component {
       nightmode,
       rewriteLinks,
       useBeta,
-      upvoteSetting,
       exitPageSetting,
     } = this.state;
 
@@ -385,26 +365,6 @@ export default class Settings extends React.Component {
                   <div className="Settings__section__checkbox">
                     <Checkbox name="use_beta" checked={useBeta} onChange={this.handleUseBetaChange}>
                       <FormattedMessage id="use_beta" defaultMessage="Use Busy beta" />
-                    </Checkbox>
-                  </div>
-                </div>
-                <div className="Settings__section">
-                  <h3>
-                    <FormattedMessage id="upvote_setting" defaultMessage="Like my posts" />
-                  </h3>
-                  <p>
-                    <FormattedMessage
-                      id="upvote_setting_details"
-                      defaultMessage="Enable this option to automatically like your own posts."
-                    />
-                  </p>
-                  <div className="Settings__section__checkbox">
-                    <Checkbox
-                      name="upvote_setting"
-                      checked={upvoteSetting}
-                      onChange={this.handleUpvoteSettingChange}
-                    >
-                      <FormattedMessage id="upvote_setting" defaultMessage="Like my posts" />
                     </Checkbox>
                   </div>
                 </div>

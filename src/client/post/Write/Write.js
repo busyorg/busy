@@ -18,7 +18,6 @@ import {
   getDraftPosts,
   getIsEditorLoading,
   getIsEditorSaving,
-  getUpvoteSetting,
   getRewardSetting,
 } from '../../reducers';
 
@@ -35,7 +34,6 @@ import Affix from '../../components/Utils/Affix';
     loading: getIsEditorLoading(state),
     saving: getIsEditorSaving(state),
     draftId: new URLSearchParams(props.location.search).get('draft'),
-    upvoteSetting: getUpvoteSetting(state),
     rewardSetting: getRewardSetting(state),
   }),
   {
@@ -53,7 +51,6 @@ class Write extends React.Component {
     intl: PropTypes.shape().isRequired,
     saving: PropTypes.bool,
     draftId: PropTypes.string,
-    upvoteSetting: PropTypes.bool,
     rewardSetting: PropTypes.string,
     newPost: PropTypes.func,
     createPost: PropTypes.func,
@@ -64,7 +61,6 @@ class Write extends React.Component {
   static defaultProps = {
     saving: false,
     draftId: null,
-    upvoteSetting: true,
     rewardSetting: rewardsValues.half,
     newPost: () => {},
     createPost: () => {},
@@ -81,7 +77,6 @@ class Write extends React.Component {
       initialBody: '',
       initialReward: this.props.rewardSetting,
       initialBeneficiary: true,
-      initialUpvote: this.props.upvoteSetting,
       initialUpdatedDate: Date.now(),
       isUpdating: false,
       showModalDelete: false,
@@ -115,7 +110,6 @@ class Write extends React.Component {
         initialReward: draftPost.reward,
         initialBeneficiary:
           typeof draftPost.beneficiary !== 'undefined' ? draftPost.beneficiary : true,
-        initialUpvote: draftPost.upvote,
         initialUpdatedDate: draftPost.lastUpdated || Date.now(),
         isUpdating: draftPost.isUpdating || false,
       });
@@ -139,20 +133,18 @@ class Write extends React.Component {
         initialBody: '',
         initialReward: rewardsValues.half,
         initialBeneficiary: true,
-        initialUpvote: nextProps.upvoteSetting,
         initialUpdatedDate: Date.now(),
         isUpdating: false,
         showModalDelete: false,
       });
     } else if (differentDraft) {
-      const { draftPosts, draftId, upvoteSetting } = nextProps;
+      const { draftPosts, draftId } = nextProps;
       const draftPost = _.get(draftPosts, draftId, {});
       const initialTitle = _.get(draftPost, 'title', '');
       const initialBody = _.get(draftPost, 'body', '');
       const initialTopics = _.get(draftPost, 'jsonMetadata.tags', []);
       const initialReward = _.get(draftPost, 'reward', rewardsValues.half);
       const initialBeneficiary = _.get(draftPost, 'beneficiary', true);
-      const initialUpvote = _.get(draftPost, 'upvote', upvoteSetting);
       this.draftId = draftId;
       this.setState({
         initialTitle,
@@ -160,7 +152,6 @@ class Write extends React.Component {
         initialTopics,
         initialReward,
         initialBeneficiary,
-        initialUpvote,
       });
     }
   }
@@ -190,7 +181,6 @@ class Write extends React.Component {
       title: form.title,
       reward: form.reward,
       beneficiary: form.beneficiary,
-      upvote: form.upvote,
       lastUpdated: Date.now(),
     };
 
@@ -243,7 +233,6 @@ class Write extends React.Component {
       initialBody,
       initialReward,
       initialBeneficiary,
-      initialUpvote,
     } = this.state;
     const { loading, saving, draftId } = this.props;
 
@@ -264,7 +253,6 @@ class Write extends React.Component {
               body={initialBody}
               reward={initialReward}
               beneficiary={initialBeneficiary}
-              upvote={initialUpvote}
               draftId={draftId}
               loading={loading}
               isUpdating={this.state.isUpdating}
