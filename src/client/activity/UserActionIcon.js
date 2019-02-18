@@ -30,33 +30,37 @@ class UserActionIcon extends React.Component {
         }
         return null;
       case accountHistoryConstants.CUSTOM_JSON: {
-        const actionJSON = JSON.parse(actionDetails.json);
-        const customActionType = actionJSON[0];
-        const customActionDetails = actionJSON[1];
+        try {
+          const actionJSON = JSON.parse(actionDetails.json);
+          const customActionType = actionJSON[0];
+          const customActionDetails = actionJSON[1];
 
-        if (!_.includes(accountHistoryConstants.PARSED_CUSTOM_JSON_IDS, actionDetails.id)) {
-          return 'icon-document';
-        }
-        if (
-          customActionType === accountHistoryConstants.REBLOG &&
-          currentUsername === customActionDetails.account
-        ) {
-          return 'icon-share1';
-        } else if (
-          customActionType === accountHistoryConstants.FOLLOW &&
-          currentUsername === customActionDetails.follower
-        ) {
-          switch (customActionDetails.what[0]) {
-            case 'ignore':
-              return 'icon-delete_fill';
-            case 'blog':
-              return 'icon-addpeople_fill';
-            default:
-              return 'icon-addpeople';
+          if (!_.includes(accountHistoryConstants.PARSED_CUSTOM_JSON_IDS, actionDetails.id)) {
+            return 'icon-document';
           }
-        }
+          if (
+            customActionType === accountHistoryConstants.REBLOG &&
+            currentUsername === customActionDetails.account
+          ) {
+            return 'icon-share1';
+          } else if (
+            customActionType === accountHistoryConstants.FOLLOW &&
+            currentUsername === customActionDetails.follower
+          ) {
+            switch (customActionDetails.what[0]) {
+              case 'ignore':
+                return 'icon-delete_fill';
+              case 'blog':
+                return 'icon-addpeople_fill';
+              default:
+                return 'icon-addpeople';
+            }
+          }
 
-        return null;
+          return null;
+        } catch (err) {
+          return 'icon-barrage';
+        }
       }
       case accountHistoryConstants.AUTHOR_REWARD:
       case accountHistoryConstants.CURATION_REWARD:
@@ -84,17 +88,21 @@ class UserActionIcon extends React.Component {
       case accountHistoryConstants.COMMENT:
         return actionDetails.author;
       case accountHistoryConstants.CUSTOM_JSON: {
-        const actionJSON = JSON.parse(actionDetails.json);
-        const customActionType = actionJSON[0];
-        const customActionDetails = actionJSON[1];
+        try {
+          const actionJSON = JSON.parse(actionDetails.json);
+          const customActionType = actionJSON[0];
+          const customActionDetails = actionJSON[1];
 
-        if (customActionType === accountHistoryConstants.REBLOG) {
-          return customActionDetails.account;
-        } else if (customActionType === accountHistoryConstants.FOLLOW) {
-          return customActionDetails.follower;
+          if (customActionType === accountHistoryConstants.REBLOG) {
+            return customActionDetails.account;
+          } else if (customActionType === accountHistoryConstants.FOLLOW) {
+            return customActionDetails.follower;
+          }
+
+          return null;
+        } catch (err) {
+          return 'icon-barrage';
         }
-
-        return null;
       }
       case accountHistoryConstants.VOTE:
         return actionDetails.voter;
