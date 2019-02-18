@@ -1,3 +1,7 @@
+export const BENEFICIARY_ACCOUNT = 'busy.org';
+export const BENEFICIARY_PERCENT = 1000;
+export const REFERRAL_PERCENT = 1000;
+
 export const knownDomains = [
   'busy.org',
   'staging.busy.org',
