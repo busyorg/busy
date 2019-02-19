@@ -12,7 +12,6 @@ import { getAuthenticatedUserName } from '../reducers';
 import FacebookShare from '../components/Button/FacebookShare';
 import TwitterShare from '../components/Button/TwitterShare';
 import EmailShare from '../components/Button/EmailShare';
-import { REFERRAL_PERCENT } from '../helpers/constants';
 import './Invite.less';
 
 @requiresLogin
@@ -86,11 +85,7 @@ export default class Invite extends React.Component {
               <p className="Invite__description">
                 <FormattedMessage
                   id="invite_info"
-                  defaultMessage="Onboard new users on Busy.org today using the link below and get {percent}% of their rewards for {days} days."
-                  values={{
-                    percent: REFERRAL_PERCENT / 100,
-                    days: 30,
-                  }}
+                  defaultMessage="Onboard new users on Busy.org today using the link below and get 10% of their rewards for 30 days."
                 />
               </p>
               <div className="Invite__input-container">
