@@ -18,7 +18,6 @@ import {
   getDraftPosts,
   getIsEditorLoading,
   getIsEditorSaving,
-  getUpvoteSetting,
   getRewardSetting,
 } from '../../reducers';
 
@@ -35,7 +34,6 @@ import Affix from '../../components/Utils/Affix';
     loading: getIsEditorLoading(state),
     saving: getIsEditorSaving(state),
     draftId: new URLSearchParams(props.location.search).get('draft'),
-    upvoteSetting: getUpvoteSetting(state),
     rewardSetting: getRewardSetting(state),
   }),
   {
@@ -53,7 +51,6 @@ class Write extends React.Component {
     intl: PropTypes.shape().isRequired,
     saving: PropTypes.bool,
     draftId: PropTypes.string,
-    upvoteSetting: PropTypes.bool,
     rewardSetting: PropTypes.string,
     newPost: PropTypes.func,
     createPost: PropTypes.func,
@@ -64,7 +61,6 @@ class Write extends React.Component {
   static defaultProps = {
     saving: false,
     draftId: null,
-    upvoteSetting: true,
     rewardSetting: rewardsValues.half,
     newPost: () => {},
     createPost: () => {},
@@ -80,14 +76,15 @@ class Write extends React.Component {
       initialTopics: [],
       initialBody: '',
       initialReward: this.props.rewardSetting,
-      initialUpvote: this.props.upvoteSetting,
+      initialBeneficiary: true,
       initialUpdatedDate: Date.now(),
       isUpdating: false,
       showModalDelete: false,
     };
   }
 
-  componentDidMount() {
+  // NOTE: To be replaced with getDerivedStateFromProps or refactored entirely after React 16.3
+  componentWillMount() {
     this.props.newPost();
     const { draftPosts, draftId } = this.props;
     const draftPost = draftPosts[draftId];
@@ -106,13 +103,13 @@ class Write extends React.Component {
         this.originalBody = draftPost.originalBody;
       }
 
-      // eslint-disable-next-line
       this.setState({
         initialTitle: draftPost.title || '',
         initialTopics: tags || [],
         initialBody: draftPost.body || '',
         initialReward: draftPost.reward,
-        initialUpvote: draftPost.upvote,
+        initialBeneficiary:
+          typeof draftPost.beneficiary !== 'undefined' ? draftPost.beneficiary : true,
         initialUpdatedDate: draftPost.lastUpdated || Date.now(),
         isUpdating: draftPost.isUpdating || false,
       });
@@ -135,7 +132,7 @@ class Write extends React.Component {
         initialTopics: [],
         initialBody: '',
         initialReward: rewardsValues.half,
-        initialUpvote: nextProps.upvoteSetting,
+        initialBeneficiary: true,
         initialUpdatedDate: Date.now(),
         isUpdating: false,
         showModalDelete: false,
@@ -146,11 +143,15 @@ class Write extends React.Component {
       const initialTitle = _.get(draftPost, 'title', '');
       const initialBody = _.get(draftPost, 'body', '');
       const initialTopics = _.get(draftPost, 'jsonMetadata.tags', []);
+      const initialReward = _.get(draftPost, 'reward', rewardsValues.half);
+      const initialBeneficiary = _.get(draftPost, 'beneficiary', true);
       this.draftId = draftId;
       this.setState({
         initialTitle,
         initialBody,
         initialTopics,
+        initialReward,
+        initialBeneficiary,
       });
     }
   }
@@ -179,7 +180,7 @@ class Write extends React.Component {
       body: form.body,
       title: form.title,
       reward: form.reward,
-      upvote: form.upvote,
+      beneficiary: form.beneficiary,
       lastUpdated: Date.now(),
     };
 
@@ -226,7 +227,13 @@ class Write extends React.Component {
   }, 2000);
 
   render() {
-    const { initialTitle, initialTopics, initialBody, initialReward, initialUpvote } = this.state;
+    const {
+      initialTitle,
+      initialTopics,
+      initialBody,
+      initialReward,
+      initialBeneficiary,
+    } = this.state;
     const { loading, saving, draftId } = this.props;
 
     return (
@@ -245,7 +252,7 @@ class Write extends React.Component {
               topics={initialTopics}
               body={initialBody}
               reward={initialReward}
-              upvote={initialUpvote}
+              beneficiary={initialBeneficiary}
               draftId={draftId}
               loading={loading}
               isUpdating={this.state.isUpdating}

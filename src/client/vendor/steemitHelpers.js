@@ -192,6 +192,19 @@ export const calculateTotalDelegatedSP = (user, totalVestingShares, totalVesting
   return receivedSP - delegatedSP;
 };
 
+export const calculatePendingWithdrawalSP = (user, totalVestingShares, totalVestingFundSteem) => {
+  return parseFloat(
+    formatter.vestToSteem(
+      Math.min(
+        parseFloat(user.vesting_withdraw_rate),
+        (parseFloat(user.to_withdraw) - parseFloat(user.withdrawn)) / 100000,
+      ),
+      totalVestingShares,
+      totalVestingFundSteem,
+    ),
+  );
+};
+
 export const calculateVotingPower = user => {
   const secondsago = (new Date().getTime() - new Date(user.last_vote_time + 'Z').getTime()) / 1000;
   return Math.min(10000, user.voting_power + 10000 * secondsago / 432000) / 10000;

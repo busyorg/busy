@@ -16,13 +16,28 @@ describe('<USSDDisplay />', () => {
     expect(wrapper.text()).toEqual('$44.36');
   });
 
+  it('handle small positive numbers < $0.02 properly', () => {
+    const wrapper = getWrapper(0.017);
+    expect(wrapper.text()).toEqual('$0.017');
+  });
+
   it('handles negative values properly', () => {
     const wrapper = getWrapper(-1.33);
     expect(wrapper.text()).toEqual('-$1.33');
   });
 
-  it('skips - for number small negative numebrs', () => {
+  it('handle small negative numbers properly.', () => {
     const wrapper = getWrapper(-0.001);
+    expect(wrapper.text()).toEqual('-$0.001');
+  });
+
+  it('handle zero properly.', () => {
+    const wrapper = getWrapper(0);
+    expect(wrapper.text()).toEqual('$0.00');
+  });
+
+  it('handle negative zero properly.', () => {
+    const wrapper = getWrapper(-0);
     expect(wrapper.text()).toEqual('$0.00');
   });
 });

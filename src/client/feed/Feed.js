@@ -21,7 +21,7 @@ const Feed = ({ content, isFetching, hasMore, loadMoreContent, showPostModal }) 
 
 Feed.propTypes = {
   showPostModal: PropTypes.func,
-  content: PropTypes.arrayOf(PropTypes.number),
+  content: PropTypes.arrayOf(PropTypes.string),
   isFetching: PropTypes.bool,
   hasMore: PropTypes.bool,
   loadMoreContent: PropTypes.func,

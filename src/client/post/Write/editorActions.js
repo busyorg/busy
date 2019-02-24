@@ -2,6 +2,11 @@ import assert from 'assert';
 import Cookie from 'js-cookie';
 import { push } from 'react-router-redux';
 import { createAction } from 'redux-actions';
+import {
+  BENEFICIARY_ACCOUNT,
+  BENEFICIARY_PERCENT,
+  REFERRAL_PERCENT,
+} from '../../helpers/constants';
 import { addDraftMetadata, deleteDraftMetadata } from '../../helpers/metadata';
 import { jsonParse } from '../../helpers/formatter';
 import { rewardsValues } from '../../../common/constants/rewards';
@@ -84,6 +89,7 @@ const requiredFields = 'parentAuthor,parentPermlink,author,permlink,title,body,j
 
 const broadcastComment = (
   steemConnectAPI,
+  isUpdating,
   parentAuthor,
   parentPermlink,
   author,
@@ -91,7 +97,7 @@ const broadcastComment = (
   body,
   jsonMetadata,
   reward,
-  upvote,
+  beneficiary,
   permlink,
   referral,
   authUsername,
@@ -111,6 +117,8 @@ const broadcastComment = (
   ];
   operations.push(commentOp);
 
+  if (isUpdating) return steemConnectAPI.broadcast(operations);
+
   const commentOptionsConfig = {
     author,
     permlink,
@@ -126,32 +134,21 @@ const broadcastComment = (
     commentOptionsConfig.percent_steem_dollars = 0;
   }
 
+  const beneficiaries = [];
+
+  if (beneficiary) {
+    beneficiaries.push({ account: BENEFICIARY_ACCOUNT, weight: BENEFICIARY_PERCENT });
+  }
+
   if (referral && referral !== authUsername) {
-    commentOptionsConfig.extensions = [
-      [
-        0,
-        {
-          beneficiaries: [{ account: referral, weight: 1000 }],
-        },
-      ],
-    ];
+    beneficiaries.push({ account: referral, weight: REFERRAL_PERCENT });
   }
 
-  if (reward === rewardsValues.none || reward === rewardsValues.all || referral) {
-    operations.push(['comment_options', commentOptionsConfig]);
+  if (beneficiaries.length !== 0) {
+    commentOptionsConfig.extensions = [[0, { beneficiaries }]];
   }
 
-  if (upvote) {
-    operations.push([
-      'vote',
-      {
-        voter: author,
-        author,
-        permlink,
-        weight: 10000,
-      },
-    ]);
-  }
+  operations.push(['comment_options', commentOptionsConfig]);
 
   return steemConnectAPI.broadcast(operations);
 };
@@ -170,7 +167,7 @@ export function createPost(postData) {
       body,
       jsonMetadata,
       reward,
-      upvote,
+      beneficiary,
       draftId,
       isUpdating,
     } = postData;
@@ -181,7 +178,7 @@ export function createPost(postData) {
     const authUser = state.auth.user;
     const newBody = isUpdating ? getBodyPatchIfSmaller(postData.originalBody, body) : body;
 
-    dispatch(saveSettings({ upvoteSetting: upvote, rewardSetting: reward }));
+    dispatch(saveSettings({ rewardSetting: reward }));
 
     let referral;
     if (Cookie.get('referral')) {
@@ -198,14 +195,15 @@ export function createPost(postData) {
         promise: getPermLink.then(permlink =>
           broadcastComment(
             steemConnectAPI,
+            isUpdating,
             parentAuthor,
             parentPermlink,
             author,
             title,
             newBody,
             jsonMetadata,
-            !isUpdating && reward,
-            !isUpdating && upvote,
+            reward,
+            beneficiary,
             permlink,
             referral,
             authUser.name,

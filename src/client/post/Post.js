@@ -13,7 +13,6 @@ import {
   getIsPostLoaded,
   getIsPostFailed,
   getUser,
-  getIsAuthFetching,
 } from '../reducers';
 import { getContent } from './postActions';
 import { getAccount } from '../user/usersActions';
@@ -23,7 +22,7 @@ import Loading from '../components/Icon/Loading';
 import PostContent from './PostContent';
 import Affix from '../components/Utils/Affix';
 import HiddenPostMessage from './HiddenPostMessage';
-import PostRecommendation from '../components/Sidebar/PostRecommendation';
+import RightSidebar from '../app/Sidebar/RightSidebar';
 import CryptoTrendingCharts from '../components/Sidebar/CryptoTrendingCharts';
 import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 
@@ -31,7 +30,6 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
   (state, ownProps) => ({
     edited: getIsPostEdited(state, ownProps.match.params.permlink),
     content: getPostContent(state, ownProps.match.params.author, ownProps.match.params.permlink),
-    isAuthFetching: getIsAuthFetching(state),
     fetching: getIsPostFetching(
       state,
       ownProps.match.params.author,
@@ -45,7 +43,6 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 )
 export default class Post extends React.Component {
   static propTypes = {
-    isAuthFetching: PropTypes.bool.isRequired,
     match: PropTypes.shape().isRequired,
     user: PropTypes.shape(),
     edited: PropTypes.bool,
@@ -156,7 +153,7 @@ export default class Post extends React.Component {
   }
 
   render() {
-    const { content, fetching, loaded, failed, isAuthFetching, user } = this.props;
+    const { content, fetching, loaded, failed, user } = this.props;
 
     if (failed) return <Error404 />;
     if (fetching || !content) return <Loading />;
@@ -175,7 +172,7 @@ export default class Post extends React.Component {
             <Affix className="rightContainer" stickPosition={77}>
               <div className="right">
                 {loaded && this.renderCryptoTrendingCharts()}
-                <PostRecommendation isAuthFetching={isAuthFetching} />
+                <RightSidebar />
               </div>
             </Affix>
             {showPost ? (

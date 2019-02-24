@@ -15,7 +15,7 @@ function ReputationTag({ intl, reputation }) {
         { value: formattedReputation.toFixed(3) },
       )}
     >
-      <Tag>{formattedReputation.toFixed(0)}</Tag>
+      <Tag>{Math.floor(formattedReputation)}</Tag>
     </BTooltip>
   );
 }

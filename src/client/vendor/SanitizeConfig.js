@@ -1,6 +1,5 @@
 import sanitizeHtml from 'sanitize-html';
-import URL from 'url-parse';
-import { ownUrl } from '../helpers/regexHelpers';
+import url from 'url';
 import { knownDomains } from '../helpers/constants';
 
 /**
@@ -63,7 +62,13 @@ export const allowedTags = `
   .split(/,\s*/);
 
 // Medium insert plugin uses: div, figure, figcaption, iframe
-export default ({ large = true, noImage = false, sanitizeErrors = [], secureLinks = false }) => ({
+export default ({
+  large = true,
+  noImage = false,
+  sanitizeErrors = [],
+  appUrl,
+  secureLinks = false,
+}) => ({
   allowedTags,
   // figure, figcaption,
 
@@ -167,15 +172,20 @@ export default ({ large = true, noImage = false, sanitizeErrors = [], secureLink
       href = href.trim();
       const attys = {};
 
-      const url = new URL(href);
-      const hostname = url.hostname || 'localhost';
+      const linkUrl = url.parse(href);
+      const linkWebsiteUrl = url.format({
+        protocol: linkUrl.protocol,
+        host: linkUrl.host,
+      });
 
-      if (['https', 'http'].indexOf(url.protocol) || !hostname.match(ownUrl)) {
+      const internalLink = href.indexOf('/') === 0 || appUrl === linkWebsiteUrl;
+
+      if (!internalLink) {
         attys.target = '_blank';
-      }
 
-      if (secureLinks && knownDomains.indexOf(hostname) === -1) {
-        href = `/exit?url=${encodeURIComponent(href)}`;
+        if (secureLinks && knownDomains.indexOf(linkUrl.hostname) === -1) {
+          href = `/exit?url=${encodeURIComponent(href)}`;
+        }
       }
 
       attys.href = href;

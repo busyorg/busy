@@ -64,6 +64,7 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
   parsedBody = sanitizeHtml(
     parsedBody,
     sanitizeConfig({
+      appUrl: options.appUrl,
       secureLinks: options.secureLinks,
     }),
   );
@@ -98,27 +99,28 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
 
 const Body = props => {
   const options = {
+    appUrl: props.appUrl,
     rewriteLinks: props.rewriteLinks,
     secureLinks: props.exitPageSetting,
   };
+
   const htmlSections = getHtml(props.body, props.jsonMetadata, 'Object', options);
   return <div className={classNames('Body', { 'Body--full': props.full })}>{htmlSections}</div>;
 };
 
 Body.propTypes = {
+  appUrl: PropTypes.string.isRequired,
+  rewriteLinks: PropTypes.bool.isRequired,
+  exitPageSetting: PropTypes.bool.isRequired,
   body: PropTypes.string,
   jsonMetadata: PropTypes.string,
   full: PropTypes.bool,
-  rewriteLinks: PropTypes.bool,
-  exitPageSetting: PropTypes.bool,
 };
 
 Body.defaultProps = {
   body: '',
   jsonMetadata: '',
   full: false,
-  rewriteLinks: false,
-  exitPageSetting: true,
 };
 
 export default Body;

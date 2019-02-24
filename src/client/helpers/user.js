@@ -1,4 +1,4 @@
-import { calculateVoteValue } from '../vendor/steemitHelpers';
+import { calculateVoteValue, calculateVotingPower } from '../vendor/steemitHelpers';
 
 export const getUserRank = vests => {
   let rank = 'Plankton';
@@ -30,8 +30,12 @@ export const getUserRankKey = vests => {
 
 export const getTotalShares = user =>
   parseFloat(user.vesting_shares) +
-  parseFloat(user.received_vesting_shares) +
-  -parseFloat(user.delegated_vesting_shares);
+  parseFloat(user.received_vesting_shares) -
+  parseFloat(user.delegated_vesting_shares) -
+  Math.min(
+    parseFloat(user.vesting_withdraw_rate),
+    (parseFloat(user.to_withdraw) - parseFloat(user.withdrawn)) / 100000,
+  );
 
 export const getHasDefaultSlider = user => getTotalShares(user) >= 10000000;
 
@@ -41,7 +45,7 @@ export const getVoteValue = (user, recentClaims, rewardBalance, rate, weight = 1
     parseFloat(recentClaims),
     parseFloat(rewardBalance),
     rate,
-    user.voting_power,
+    calculateVotingPower(user) * 10000,
     weight,
   );
 

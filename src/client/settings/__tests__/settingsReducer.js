@@ -13,7 +13,6 @@ describe('settingsReducer', () => {
     showNSFWPosts: false,
     nightmode: false,
     rewriteLinks: false,
-    upvoteSetting: true,
     exitPageSetting: true,
     rewardSetting: rewardsValues.half,
     useBeta: false,
@@ -88,7 +87,6 @@ describe('settingsReducer', () => {
         showNSFWPosts: true,
         nightmode: true,
         rewriteLinks: true,
-        upvoteSetting: true,
         exitPageSetting: true,
         rewardSetting: rewardsValues.half,
       },
@@ -103,7 +101,6 @@ describe('settingsReducer', () => {
       ...stateBefore,
       locale: 'fr',
       votingPower: 'off',
-      upvoteSetting: true,
       rewardSetting: rewardsValues.half,
     };
     const action = {
@@ -113,7 +110,6 @@ describe('settingsReducer', () => {
           settings: {
             locale: 'fr',
             votingPower: 'off',
-            upvoteSetting: true,
             rewardSetting: rewardsValues.half,
           },
         },
@@ -129,7 +125,6 @@ describe('settingsReducer', () => {
       ...stateBefore,
       locale: 'fr',
       votingPower: 'off',
-      upvoteSetting: false,
       rewardSetting: rewardsValues.none,
     };
     const action = {
@@ -139,7 +134,6 @@ describe('settingsReducer', () => {
           settings: {
             locale: 'fr',
             votingPower: 'off',
-            upvoteSetting: false,
             rewardSetting: rewardsValues.none,
           },
         },
@@ -179,7 +173,6 @@ describe('settingsReducer', () => {
           settings: {
             locale: 'fr',
             votingPower: 'off',
-            upvoteSetting: true,
             rewardSetting: rewardsValues.half,
           },
         },
@@ -195,7 +188,6 @@ describe('settingsReducer', () => {
       ...stateBefore,
       locale: 'fr',
       votingPower: 'off',
-      upvoteSetting: false,
       rewardSetting: rewardsValues.all,
     };
     const action = {
@@ -205,7 +197,6 @@ describe('settingsReducer', () => {
           settings: {
             locale: 'fr',
             votingPower: 'off',
-            upvoteSetting: false,
             rewardSetting: rewardsValues.all,
           },
         },

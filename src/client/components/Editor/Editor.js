@@ -14,6 +14,7 @@ import withEditor from './withEditor';
 import EditorInput from './EditorInput';
 import { remarkable } from '../Story/Body';
 import BodyContainer from '../../containers/Story/BodyContainer';
+import { BENEFICIARY_PERCENT } from '../../helpers/constants';
 import './Editor.less';
 
 @injectIntl
@@ -28,7 +29,7 @@ class Editor extends React.Component {
     topics: PropTypes.arrayOf(PropTypes.string),
     body: PropTypes.string,
     reward: PropTypes.string,
-    upvote: PropTypes.bool,
+    beneficiary: PropTypes.bool,
     loading: PropTypes.bool,
     isUpdating: PropTypes.bool,
     saving: PropTypes.bool,
@@ -46,7 +47,7 @@ class Editor extends React.Component {
     topics: [],
     body: '',
     reward: rewardsValues.half,
-    upvote: true,
+    beneficiary: true,
     recentTopics: [],
     popularTopics: [],
     loading: false,
@@ -92,13 +93,13 @@ class Editor extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { title, topics, body, reward, upvote, draftId } = this.props;
+    const { title, topics, body, reward, beneficiary, draftId } = this.props;
     if (
       title !== nextProps.title ||
       !_.isEqual(topics, nextProps.topics) ||
       body !== nextProps.body ||
       reward !== nextProps.reward ||
-      upvote !== nextProps.upvote ||
+      beneficiary !== nextProps.beneficiary ||
       (draftId && nextProps.draftId === null)
     ) {
       this.setValues(nextProps);
@@ -126,7 +127,7 @@ class Editor extends React.Component {
       topics: post.topics,
       body: post.body,
       reward,
-      upvote: post.upvote,
+      beneficiary: post.beneficiary,
     });
 
     this.setBodyAndRender(post.body);
@@ -354,10 +355,16 @@ class Editor extends React.Component {
             </Select>,
           )}
         </Form.Item>
-        <Form.Item className={classNames({ Editor__hidden: isUpdating })}>
-          {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: true })(
+        <Form.Item>
+          {getFieldDecorator('beneficiary', { valuePropName: 'checked', initialValue: true })(
             <Checkbox onChange={this.onUpdate} disabled={isUpdating}>
-              <FormattedMessage id="like_post" defaultMessage="Like this post" />
+              <FormattedMessage
+                id="add_busy_beneficiary"
+                defaultMessage="Share {share}% of this post rewards with Busy"
+                values={{
+                  share: BENEFICIARY_PERCENT / 100,
+                }}
+              />
             </Checkbox>,
           )}
         </Form.Item>
