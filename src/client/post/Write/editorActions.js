@@ -89,6 +89,7 @@ const requiredFields = 'parentAuthor,parentPermlink,author,permlink,title,body,j
 
 const broadcastComment = (
   steemConnectAPI,
+  isUpdating,
   parentAuthor,
   parentPermlink,
   author,
@@ -115,6 +116,8 @@ const broadcastComment = (
     },
   ];
   operations.push(commentOp);
+
+  if (isUpdating) return steemConnectAPI.broadcast(operations);
 
   const commentOptionsConfig = {
     author,
@@ -192,13 +195,14 @@ export function createPost(postData) {
         promise: getPermLink.then(permlink =>
           broadcastComment(
             steemConnectAPI,
+            isUpdating,
             parentAuthor,
             parentPermlink,
             author,
             title,
             newBody,
             jsonMetadata,
-            !isUpdating && reward,
+            reward,
             beneficiary,
             permlink,
             referral,
