@@ -30,7 +30,6 @@ class Editor extends React.Component {
     body: PropTypes.string,
     reward: PropTypes.string,
     beneficiary: PropTypes.bool,
-    upvote: PropTypes.bool,
     loading: PropTypes.bool,
     isUpdating: PropTypes.bool,
     saving: PropTypes.bool,
@@ -49,7 +48,6 @@ class Editor extends React.Component {
     body: '',
     reward: rewardsValues.half,
     beneficiary: true,
-    upvote: true,
     recentTopics: [],
     popularTopics: [],
     loading: false,
@@ -95,14 +93,14 @@ class Editor extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { title, topics, body, reward, beneficiary, upvote, draftId } = this.props;
+    const { title, topics, body, reward, beneficiary, draftId } = this.props;
     if (
-      (title !== nextProps.title ||
-        !_.isEqual(topics, nextProps.topics) ||
-        body !== nextProps.body ||
-        reward !== nextProps.reward ||
-        beneficiary !== nextProps.beneficiary,
-      upvote !== nextProps.upvote || (draftId && nextProps.draftId === null))
+      title !== nextProps.title ||
+      !_.isEqual(topics, nextProps.topics) ||
+      body !== nextProps.body ||
+      reward !== nextProps.reward ||
+      beneficiary !== nextProps.beneficiary ||
+      (draftId && nextProps.draftId === null)
     ) {
       this.setValues(nextProps);
     }
@@ -130,7 +128,6 @@ class Editor extends React.Component {
       body: post.body,
       reward,
       beneficiary: post.beneficiary,
-      upvote: post.upvote,
     });
 
     this.setBodyAndRender(post.body);
@@ -368,13 +365,6 @@ class Editor extends React.Component {
                   share: BENEFICIARY_PERCENT / 100,
                 }}
               />
-            </Checkbox>,
-          )}
-        </Form.Item>
-        <Form.Item className={classNames({ Editor__hidden: isUpdating })}>
-          {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: true })(
-            <Checkbox onChange={this.onUpdate} disabled={isUpdating}>
-              <FormattedMessage id="like_post" defaultMessage="Like this post" />
             </Checkbox>,
           )}
         </Form.Item>
