@@ -10,7 +10,6 @@ const initialState = {
   nightmode: false,
   rewriteLinks: false,
   loading: false,
-  upvoteSetting: true,
   exitPageSetting: true,
   rewardSetting: rewardsValues.half,
   useBeta: false,
@@ -29,7 +28,6 @@ const settings = (state = initialState, action) => {
           showNSFWPosts,
           nightmode,
           rewriteLinks,
-          upvoteSetting,
           exitPageSetting,
           rewardSetting,
           useBeta,
@@ -43,8 +41,6 @@ const settings = (state = initialState, action) => {
           nightmode: nightmode || initialState.nightmode,
           rewriteLinks:
             typeof rewriteLinks === 'boolean' ? rewriteLinks : initialState.rewriteLinks,
-          upvoteSetting:
-            typeof upvoteSetting === 'boolean' ? upvoteSetting : initialState.upvoteSetting,
           exitPageSetting:
             typeof exitPageSetting === 'boolean' ? exitPageSetting : initialState.exitPageSetting,
           rewardSetting: rewardSetting || initialState.rewardSetting,
@@ -67,7 +63,6 @@ const settings = (state = initialState, action) => {
         showNSFWPosts: action.payload.showNSFWPosts,
         nightmode: action.payload.nightmode,
         rewriteLinks: action.payload.rewriteLinks,
-        upvoteSetting: action.payload.upvoteSetting,
         exitPageSetting: action.payload.exitPageSetting,
         rewardSetting: action.payload.rewardSetting,
         useBeta: !!action.payload.useBeta,
@@ -96,7 +91,6 @@ export const getVotePercent = state => state.votePercent;
 export const getShowNSFWPosts = state => state.showNSFWPosts;
 export const getNightmode = state => state.nightmode;
 export const getRewriteLinks = state => !!state.rewriteLinks;
-export const getUpvoteSetting = state => state.upvoteSetting;
 export const getExitPageSetting = state => state.exitPageSetting;
 export const getRewardSetting = state => state.rewardSetting;
 export const getUseBeta = state => state.useBeta;
