@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import find from 'lodash/find';
-import { getHasDefaultSlider, getVoteValue } from '../../helpers/user';
+import { getVoteValue } from '../../helpers/user';
 import Slider from '../Slider/Slider';
 import Buttons from './Buttons';
 import Confirmation from './Confirmation';
@@ -19,7 +19,7 @@ export default class CommentFooter extends React.Component {
     rewardFund: PropTypes.shape().isRequired,
     rate: PropTypes.number.isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
-    sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
+    sliderMode: PropTypes.oneOf(['on', 'off']),
     editable: PropTypes.bool,
     editing: PropTypes.bool,
     replying: PropTypes.bool,
@@ -38,7 +38,7 @@ export default class CommentFooter extends React.Component {
   static defaultProps = {
     pendingLike: false,
     ownPost: false,
-    sliderMode: 'auto',
+    sliderMode: 'on',
     editable: false,
     editing: false,
     replying: false,
@@ -75,8 +75,8 @@ export default class CommentFooter extends React.Component {
   }
 
   handleLikeClick = () => {
-    const { sliderMode, user, comment } = this.props;
-    if (sliderMode === 'on' || (sliderMode === 'auto' && getHasDefaultSlider(user))) {
+    const { sliderMode, comment } = this.props;
+    if (sliderMode === 'on') {
       if (!this.state.sliderVisible) {
         this.setState(prevState => ({
           sliderVisible: !prevState.sliderVisible,
@@ -89,16 +89,11 @@ export default class CommentFooter extends React.Component {
   };
 
   handleDislikeClick = () => {
-    const { sliderMode, user, comment } = this.props;
-    if (sliderMode === 'on' || (sliderMode === 'auto' && getHasDefaultSlider(user))) {
-      if (!this.state.sliderVisible) {
-        this.setState(prevState => ({
-          sliderVisible: !prevState.sliderVisible,
-          sliderMode: 'dislike',
-        }));
-      }
-    } else {
-      this.props.onDislikeClick(comment.id);
+    if (!this.state.sliderVisible) {
+      this.setState(prevState => ({
+        sliderVisible: !prevState.sliderVisible,
+        sliderMode: 'dislike',
+      }));
     }
   };
 

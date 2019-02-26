@@ -7,7 +7,7 @@ import { rewardsValues } from '../../../common/constants/rewards';
 describe('settingsReducer', () => {
   const initialState = {
     locale: 'auto',
-    votingPower: 'auto',
+    votingPower: 'on',
     votePercent: 10000,
     loading: false,
     showNSFWPosts: false,
@@ -226,7 +226,7 @@ describe('settingsReducer', () => {
 describe('settingsReducer selectors', () => {
   const stateVar1 = {
     locale: 'auto',
-    votingPower: 'auto',
+    votingPower: 'on',
     loading: false,
   };
 
@@ -242,7 +242,7 @@ describe('settingsReducer selectors', () => {
   });
 
   it('should return voting power', () => {
-    expect(getVotingPower(stateVar1)).to.equal('auto');
+    expect(getVotingPower(stateVar1)).to.equal('on');
     expect(getVotingPower(stateVar2)).to.equal('off');
   });
 
