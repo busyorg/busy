@@ -355,19 +355,21 @@ class Editor extends React.Component {
             </Select>,
           )}
         </Form.Item>
-        <Form.Item>
-          {getFieldDecorator('beneficiary', { valuePropName: 'checked', initialValue: true })(
-            <Checkbox onChange={this.onUpdate} disabled={isUpdating}>
-              <FormattedMessage
-                id="add_busy_beneficiary"
-                defaultMessage="Share {share}% of this post rewards with Busy"
-                values={{
-                  share: BENEFICIARY_PERCENT / 100,
-                }}
-              />
-            </Checkbox>,
-          )}
-        </Form.Item>
+        {!isUpdating && ( // don't show for editing
+          <Form.Item>
+            {getFieldDecorator('beneficiary', { valuePropName: 'checked', initialValue: true })(
+              <Checkbox onChange={this.onUpdate} disabled={isUpdating}>
+                <FormattedMessage
+                  id="add_busy_beneficiary"
+                  defaultMessage="Share {share}% of this post rewards with Busy"
+                  values={{
+                    share: BENEFICIARY_PERCENT / 100,
+                  }}
+                />
+              </Checkbox>,
+            )}
+          </Form.Item>
+        )}
         <div className="Editor__bottom">
           <span className="Editor__bottom__info">
             <i className="iconfont icon-markdown" />{' '}
