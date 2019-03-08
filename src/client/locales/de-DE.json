@@ -41,7 +41,7 @@
   "notification_reply_username_post": "{username} hat auf deinen Beitrag {post} geantwortet.",
   "notification_reply_username_comment": "{username} antwortete auf deinen Kommentar",
   "notification_approved_witness": "{username} hat für dich als Witness gestimmt",
-  "notification_unapproved_witness": "{username} unapproved your witness",
+  "notification_unapproved_witness": "{username} hat für dich als Witness gestimmt",
   "notification_transfer_username_amount": "{username} hat dir {amount} gesendet.",
   "notification_reblogged_username_post": "{username} reblogged your post",
   "notification_upvoted_username_post": "{username} gefällt dein Beitrag",
