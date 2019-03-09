@@ -263,7 +263,7 @@
   "market": "Markt",
   "page_exit": "Moment!",
   "page_exit_message": "Warning: this link might be unsafe, please double check the link before you proceed.",
-  "page_exit_go": "Visit this website",
+  "page_exit_go": "Besuchen sie diese Website",
   "page_not_found": "Die Seite wurde nicht gefunden",
   "page_not_found_message": "Oops! Es scheint Sie sind einem ungültigen Link gefolgt.",
   "page_forbidden": "Diese Seite benötigt Authentifizierung",
@@ -354,7 +354,7 @@
   "hero_banner_title_1": "Write and publish a post on Steem",
   "hero_banner_title_2": "The community upvotes your post",
   "hero_banner_title_3": "Earn rewards in Steem",
-  "amount_currency": "{amount} {currency}",
+  "amount_currency": "{amount}{currency}",
   "save_draft_error": "Couldn't save this draft. Make sure you are connected to the internet and don't have too much drafts already",
   "draft_save_auth_error": "Couldn't save this draft, because you are logged out. Please backup your post and log in again.",
   "version": "Version: {version}"
