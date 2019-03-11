@@ -7,7 +7,7 @@
 import embedjs from 'embedjs';
 import slice from 'lodash/slice';
 import xmldom from 'xmldom';
-import linksRe from './steemitLinks';
+import linksRe, { any as linksAny } from './steemitLinks';
 import { validateAccountName } from './ChainValidation';
 import { getProxyImageURL } from '../helpers/image';
 
@@ -246,7 +246,8 @@ function linkify(content, mutate, hashtags, usertags, images, links) {
     },
   );
 
-  content = content.replace(linksRe.any, ln => {
+  content = content.replace(linksAny('gi'), ln => {
+    console.log(ln);
     if (linksRe.image.test(ln)) {
       if (images) images.add(ln);
       return `<img src="${ln}" />`;
