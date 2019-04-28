@@ -320,7 +320,7 @@
   "nightmode_details": "You can enable this option for a more eye-friendly experience at night.",
   "use_nightmode": "Käytä yötilaa",
   "rewrite_links": "Rewrite links",
-  "rewrite_links_details": "You can enable this option to replace Steemit.com links with Busy.org links.",
+  "rewrite_links_details": "Voit ottaa tämän vaihtoehdon käyttöön Steemit.com-linkkien korvaamiseksi Busy.org-linkeillä.",
   "use_beta": "Use Busy beta",
   "use_beta_details": "You can enable this option to use Busy beta by default.",
   "enable_exit_page": "Enable exit page",
