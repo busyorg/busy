@@ -12,6 +12,11 @@ const reblogReducer = (state = initialState, action) => {
         ...state,
         rebloggedList: action.payload,
       };
+    case reblogActions.CLEAR_REBLOGGED_LIST:
+      return {
+        ...state,
+        rebloggedList: [],
+      };
     case reblogActions.REBLOG_POST_START:
       return {
         ...state,

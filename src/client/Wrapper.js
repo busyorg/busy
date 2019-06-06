@@ -140,10 +140,10 @@ export default class Wrapper extends React.PureComponent {
       this.props.getFollowing();
       this.props.getNotifications();
       this.props.busyLogin();
+      this.props.getRebloggedList();
     });
 
     this.props.getRewardFund();
-    this.props.getRebloggedList();
     this.props.getRate();
     this.props.getTrendingTopics();
   }
