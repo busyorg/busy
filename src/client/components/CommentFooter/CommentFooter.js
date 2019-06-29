@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import find from 'lodash/find';
-import { getHasDefaultSlider, getVoteValue } from '../../helpers/user';
+import { getVoteValue } from '../../helpers/user';
 import Slider from '../Slider/Slider';
 import Buttons from './Buttons';
 import Confirmation from './Confirmation';
@@ -19,7 +19,7 @@ export default class CommentFooter extends React.Component {
     rewardFund: PropTypes.shape().isRequired,
     rate: PropTypes.number.isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
-    sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
+    sliderMode: PropTypes.oneOf(['on', 'off']),
     editable: PropTypes.bool,
     editing: PropTypes.bool,
     replying: PropTypes.bool,
@@ -38,7 +38,7 @@ export default class CommentFooter extends React.Component {
   static defaultProps = {
     pendingLike: false,
     ownPost: false,
-    sliderMode: 'auto',
+    sliderMode: 'on',
     editable: false,
     editing: false,
     replying: false,
@@ -54,6 +54,7 @@ export default class CommentFooter extends React.Component {
     sliderValue: 100,
     voteWorth: 0,
     replyFormVisible: false,
+    sliderMode: null,
   };
 
   componentWillMount() {
@@ -74,23 +75,37 @@ export default class CommentFooter extends React.Component {
   }
 
   handleLikeClick = () => {
-    const { sliderMode, user, comment } = this.props;
-    if (sliderMode === 'on' || (sliderMode === 'auto' && getHasDefaultSlider(user))) {
+    const { sliderMode, comment } = this.props;
+    if (sliderMode === 'on') {
       if (!this.state.sliderVisible) {
-        this.setState(prevState => ({ sliderVisible: !prevState.sliderVisible }));
+        this.setState(prevState => ({
+          sliderVisible: !prevState.sliderVisible,
+          sliderMode: 'like',
+        }));
       }
     } else {
       this.props.onLikeClick(comment.id);
     }
   };
 
-  handleLikeConfirm = () => {
-    this.setState({ sliderVisible: false }, () => {
-      this.props.onLikeClick(this.props.comment.id, this.state.sliderValue * 100);
-    });
+  handleDislikeClick = () => {
+    if (!this.state.sliderVisible) {
+      this.setState(prevState => ({
+        sliderVisible: !prevState.sliderVisible,
+        sliderMode: 'dislike',
+      }));
+    }
   };
 
-  handleDislikeClick = () => this.props.onDislikeClick(this.props.comment.id);
+  handleSliderConfirm = () => {
+    this.setState({ sliderVisible: false }, () => {
+      if (this.state.sliderMode === 'like') {
+        this.props.onLikeClick(this.props.comment.id, this.state.sliderValue * 100);
+      } else if (this.state.sliderMode === 'dislike') {
+        this.props.onDislikeClick(this.props.comment.id, -this.state.sliderValue * 100);
+      }
+    });
+  };
 
   handleSliderCancel = () => this.setState({ sliderVisible: false });
 
@@ -116,12 +131,12 @@ export default class CommentFooter extends React.Component {
       replying,
       pendingVotes,
     } = this.props;
-    const { sliderVisible } = this.state;
+    const { sliderVisible, sliderMode } = this.state;
 
     let actionPanel = null;
     if (sliderVisible) {
       actionPanel = (
-        <Confirmation onConfirm={this.handleLikeConfirm} onCancel={this.handleSliderCancel} />
+        <Confirmation onConfirm={this.handleSliderConfirm} onCancel={this.handleSliderCancel} />
       );
     } else {
       actionPanel = (
@@ -141,11 +156,13 @@ export default class CommentFooter extends React.Component {
       );
     }
 
+    const sliderHeaderMessage = sliderMode === 'like' ? 'Like Power' : 'Dislike Power';
     return (
       <div className="CommentFooter">
         {actionPanel}
         {sliderVisible && (
           <Slider
+            headerMessage={sliderHeaderMessage}
             value={this.state.sliderValue}
             voteWorth={this.state.voteWorth}
             onChange={this.handleSliderChange}

@@ -11,7 +11,6 @@ import {
 import { Link, withRouter } from 'react-router-dom';
 import { Tag } from 'antd';
 import formatter from '../../helpers/steemitFormatter';
-import { getHasDefaultSlider } from '../../helpers/user';
 import {
   isPostDeleted,
   isPostTaggedNSFW,
@@ -50,7 +49,7 @@ class Story extends React.Component {
     pendingBookmark: PropTypes.bool,
     saving: PropTypes.bool,
     ownPost: PropTypes.bool,
-    sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
+    sliderMode: PropTypes.oneOf(['on', 'off']),
     history: PropTypes.shape(),
     showPostModal: PropTypes.func,
     votePost: PropTypes.func,
@@ -69,7 +68,7 @@ class Story extends React.Component {
     pendingBookmark: false,
     saving: false,
     ownPost: false,
-    sliderMode: 'auto',
+    sliderMode: 'on',
     history: {},
     showPostModal: () => {},
     votePost: () => {},
@@ -122,8 +121,8 @@ class Story extends React.Component {
   }
 
   handleLikeClick(post, postState, weight = 10000) {
-    const { sliderMode, user, defaultVotePercent } = this.props;
-    if (sliderMode === 'on' || (sliderMode === 'auto' && getHasDefaultSlider(user))) {
+    const { sliderMode, defaultVotePercent } = this.props;
+    if (sliderMode === 'on') {
       this.props.votePost(post.id, post.author, post.permlink, weight);
     } else if (postState.isLiked) {
       this.props.votePost(post.id, post.author, post.permlink, 0);

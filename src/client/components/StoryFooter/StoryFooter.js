@@ -6,7 +6,7 @@ import Slider from '../Slider/Slider';
 import Payout from './Payout';
 import Buttons from './Buttons';
 import Confirmation from './Confirmation';
-import { getHasDefaultSlider, getVoteValue } from '../../helpers/user';
+import { getVoteValue } from '../../helpers/user';
 import { getRate } from '../../reducers';
 import './StoryFooter.less';
 
@@ -22,7 +22,7 @@ class StoryFooter extends React.Component {
     rate: PropTypes.number.isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
     ownPost: PropTypes.bool,
-    sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
+    sliderMode: PropTypes.oneOf(['on', 'off']),
     pendingLike: PropTypes.bool,
     pendingFlag: PropTypes.bool,
     pendingFollow: PropTypes.bool,
@@ -41,7 +41,7 @@ class StoryFooter extends React.Component {
     pendingFollow: false,
     pendingBookmark: false,
     saving: false,
-    sliderMode: 'auto',
+    sliderMode: 'on',
     onLikeClick: () => {},
     onShareClick: () => {},
     onEditClick: () => {},
@@ -72,8 +72,8 @@ class StoryFooter extends React.Component {
   }
 
   handleLikeClick = () => {
-    const { sliderMode, user } = this.props;
-    if (sliderMode === 'on' || (sliderMode === 'auto' && getHasDefaultSlider(user))) {
+    const { sliderMode } = this.props;
+    if (sliderMode === 'on') {
       if (!this.state.sliderVisible) {
         this.setState(prevState => ({ sliderVisible: !prevState.sliderVisible }));
       }
