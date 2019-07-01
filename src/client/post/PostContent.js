@@ -156,6 +156,25 @@ class PostContent extends React.Component {
     return this.props.push(`${post.url}-edit`);
   };
 
+  generateCanonicalUrl = (postMetaData, canonicalHost, content) => {
+    let host = canonicalHost;
+
+    if (postMetaData) {
+      if (postMetaData.canonical_url && typeof postMetaData.canonical_url === 'string') {
+        const urlTester = new RegExp(/^https?:\/\//);
+        if (urlTester.test(postMetaData.canonical_url)) {
+          return postMetaData.canonical_url;
+        }
+      }
+
+      if (postMetaData.app.indexOf('steemit') === 0) {
+        host = 'https://steemit.com';
+      }
+    }
+
+    return `${host}${dropCategory(content.url)}`;
+  };
+
   render() {
     const {
       user,
@@ -179,11 +198,6 @@ class PostContent extends React.Component {
 
     const postMetaData = jsonParse(content.json_metadata);
     const busyHost = appUrl || 'https://busy.org';
-    let canonicalHost = busyHost;
-
-    if (postMetaData && _.indexOf(postMetaData.app, 'steemit') === 0) {
-      canonicalHost = 'https://steemit.com';
-    }
 
     const userVote = _.find(content.active_votes, { voter: user.name }) || {};
 
@@ -212,7 +226,7 @@ class PostContent extends React.Component {
     const bodyText = sanitize(htmlBody, { allowedTags: [] });
     const desc = `${_.truncate(bodyText, { length: 143 })} by ${author}`;
     const image = postMetaImage || getAvatarURL(author) || '/images/logo.png';
-    const canonicalUrl = `${canonicalHost}${dropCategory(content.url)}`;
+    const canonicalUrl = this.generateCanonicalUrl(postMetaData, busyHost, content);
     const url = `${busyHost}${dropCategory(content.url)}`;
     const ampUrl = `${url}/amp`;
     const metaTitle = `${title} - Busy`;
