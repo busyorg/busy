@@ -318,7 +318,7 @@
   "display_nsfw_posts": "Отображать NSFW контент",
   "nightmode": "Ночной режим",
   "nightmode_details": "Вы можете включить эту функцию для более приятного просмотра ночью.",
-  "use_nightmode": "Использовать ночной режим",
+  "use_nightmode": "Use Nightmode",
   "rewrite_links": "Переписать ссылки",
   "rewrite_links_details": "Можно включить этот параметр, чтобы заменить ссылки Steemit.com на ссылки Busy.org.",
   "use_beta": "Использовать Busy beta",
