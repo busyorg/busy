@@ -207,7 +207,7 @@
   "reward_option_50": "50% SBD і 50% SP",
   "reward_option_0": "Відмова від винагороди",
   "recommended_posts": "Рекомендовані пости",
-  "add_busy_beneficiary": "Share {share}% of this post rewards with Busy",
+  "add_busy_beneficiary": "{share}",
   "saving": "Збереження...",
   "post_send": "Опублікувати",
   "post_update_send": "Оновити пост",
