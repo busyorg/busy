@@ -247,7 +247,6 @@ function linkify(content, mutate, hashtags, usertags, images, links) {
   );
 
   content = content.replace(linksAny('gi'), ln => {
-    console.log(ln);
     if (linksRe.image.test(ln)) {
       if (images) images.add(ln);
       return `<img src="${ln}" />`;
