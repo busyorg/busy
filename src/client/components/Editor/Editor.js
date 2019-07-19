@@ -14,7 +14,7 @@ import withEditor from './withEditor';
 import EditorInput from './EditorInput';
 import { remarkable } from '../Story/Body';
 import BodyContainer from '../../containers/Story/BodyContainer';
-import { BENEFICIARY_PERCENT } from '../../helpers/constants';
+import { BENEFICIARY_PERCENT, MAX_TAG } from '../../helpers/constants';
 import './Editor.less';
 
 @injectIntl
@@ -141,12 +141,17 @@ class Editor extends React.Component {
   }
 
   checkTopics = intl => (rule, value, callback) => {
-    if (!value || value.length < 1 || value.length > 5) {
+    if (!value || value.length < 1 || value.length > MAX_TAG) {
       callback(
-        intl.formatMessage({
-          id: 'topics_error_count',
-          defaultMessage: 'You have to add 1 to 5 topics.',
-        }),
+        intl.formatMessage(
+          {
+            id: 'topics_error_max_tag',
+            defaultMessage: 'You have to add 1 to {max_tag} topics.',
+          },
+          {
+            max_tag: MAX_TAG,
+          },
+        ),
       );
     }
 
