@@ -78,6 +78,7 @@ Busy is an MIT-licensed open source project. It's an independent project with it
 [@pharesim](https://busy.org/@pharesim)
 [@buzzbeergeek](https://busy.org/@buzzbeergeek)
 [@timcliff](https://busy.org/@timcliff)
+[@blockchainstudio](https://busy.org/@blockchainstudio)
 
 ## Partners
 
