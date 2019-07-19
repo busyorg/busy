@@ -1,6 +1,7 @@
 export const BENEFICIARY_ACCOUNT = 'busy.org';
 export const BENEFICIARY_PERCENT = 1000;
 export const REFERRAL_PERCENT = 1000;
+export const MAX_TAG = 12; // to support SCOT tokens. but some Steem API may not work properly for more than 5 tags.
 
 export const knownDomains = [
   'busy.org',
