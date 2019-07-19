@@ -21,6 +21,7 @@ import {
   getLoadingMoreUsersAccountHistory,
   getUserHasMoreAccountHistory,
   getCryptosPriceHistory,
+  getRate,
 } from '../reducers';
 import {
   getGlobalProperties,
@@ -51,6 +52,7 @@ import { getAccount } from './usersActions';
         : getUser(state, ownProps.match.params.name).name,
     ),
     cryptosPriceHistory: getCryptosPriceHistory(state),
+    rate: getRate(state),
   }),
   {
     getGlobalProperties,
@@ -78,6 +80,7 @@ class Wallet extends Component {
     userHasMoreActions: PropTypes.bool.isRequired,
     isCurrentUser: PropTypes.bool,
     authenticatedUserName: PropTypes.string,
+    rate: PropTypes.number.isRequired,
   };
 
   static defaultProps = {
@@ -123,6 +126,7 @@ class Wallet extends Component {
       userHasMoreActions,
       usersAccountHistory,
       cryptosPriceHistory,
+      rate,
     } = this.props;
     const userKey = getUserDetailsKey(user.name);
     const transactions = _.get(usersTransactions, userKey, []);
@@ -137,7 +141,11 @@ class Wallet extends Component {
       `${SBD.symbol}.priceDetails.currentUSDPrice`,
       null,
     );
-    const steemRateLoading = _.isNull(currentSteemRate) || _.isNull(currentSBDRate);
+    // cryptosPriceHistory doesn't support SBD prices anymore.
+    // But just in case it may support again, try it first and then use feed rate.
+    const steemRateLoading =
+      _.isNull(currentSteemRate) || (_.isNull(currentSBDRate) && _.isNull(rate));
+    const sbdRate = currentSBDRate || rate;
 
     return (
       <div>
@@ -148,7 +156,7 @@ class Wallet extends Component {
           totalVestingFundSteem={totalVestingFundSteem}
           loadingGlobalProperties={loadingGlobalProperties}
           steemRate={currentSteemRate}
-          sbdRate={currentSBDRate}
+          sbdRate={sbdRate}
           steemRateLoading={steemRateLoading}
         />
         {transactions.length === 0 && usersAccountHistoryLoading ? (
