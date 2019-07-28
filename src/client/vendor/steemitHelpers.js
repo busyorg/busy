@@ -81,7 +81,8 @@ export const calculatePayout = post => {
     payoutDetails.maxAcceptedPayout = max_payout;
   }
 
-  if (total_author_payout > 0) {
+  // payout should be used instead of total_author_payout for 100% beneficiary case (e.g., @finex)
+  if (payout > 0) {
     payoutDetails.pastPayouts = total_author_payout + total_curator_payout;
     payoutDetails.authorPayouts = total_author_payout;
     payoutDetails.curatorPayouts = total_curator_payout;
