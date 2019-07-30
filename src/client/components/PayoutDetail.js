@@ -39,7 +39,7 @@ const getBeneficiariesPercent = user => {
   return <FormattedNumber value={_.isNan(weight) ? 0 : weight} style="percent" />;
 };
 
-const getBeneficaries = post => {
+const getBeneficiaries = post => {
   const beneficiaries = _.get(post, 'beneficiaries', []);
 
   if (_.isEmpty(beneficiaries)) return null;
@@ -65,7 +65,7 @@ const PayoutDetail = ({ intl, post }) => {
     beneficiariesPayouts,
     totalPastPayouts,
   } = calculatePayout(post);
-  const beneficaries = getBeneficaries(post);
+  const beneficiaries = getBeneficiaries(post);
 
   if (isPayoutDeclined) {
     return <FormattedMessage id="payout_declined" defaultMessage="Payout declined" />;
@@ -92,8 +92,8 @@ const PayoutDetail = ({ intl, post }) => {
             defaultMessage="Potential Payout: {amount}"
             amount={potentialPayout}
           />
-          <FormattedMessage id="beneficiaries" defaultMessage="Beneficiaries" />
-          {beneficaries}
+          {beneficiaries && <FormattedMessage id="beneficiaries" defaultMessage="Beneficiaries" />}
+          {beneficiaries}
           <FormattedMessage
             id="payout_will_release_in_time"
             defaultMessage="Will release {time}"
@@ -107,12 +107,14 @@ const PayoutDetail = ({ intl, post }) => {
             defaultMessage="Total Past Payouts: {amount}"
             amount={totalPastPayouts}
           />
-          <AmountWithLabel
-            id="payout_beneficiaries_payout_amount"
-            defaultMessage="Beneficiaries payout: {amount}"
-            amount={beneficiariesPayouts}
-          />
-          {beneficaries}
+          {beneficiaries && (
+            <AmountWithLabel
+              id="payout_beneficiaries_payout_amount"
+              defaultMessage="Beneficiaries payout: {amount}"
+              amount={beneficiariesPayouts}
+            />
+          )}
+          {beneficiaries}
           <AmountWithLabel
             id="payout_author_payout_amount"
             defaultMessage="Author Payout: {amount}"
