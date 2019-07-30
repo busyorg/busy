@@ -46,7 +46,6 @@ const getBeneficaries = post => {
 
   return _.map(beneficiaries, user => (
     <p key={user.account}>
-      {' - '}
       <Link to={`/@${user.account}`}>{user.account}</Link>{' '}
       <span style={{ opacity: '0.5' }}>{getBeneficiariesPercent(user)}</span>
     </p>
@@ -60,10 +59,9 @@ const PayoutDetail = ({ intl, post }) => {
     promotionCost,
     cashoutInTime,
     isPayoutDeclined,
+    pastPayouts,
     authorPayouts,
     curatorPayouts,
-    beneficiariesPayouts,
-    totalPastPayouts,
   } = calculatePayout(post);
   const beneficaries = getBeneficaries(post);
 
@@ -92,7 +90,6 @@ const PayoutDetail = ({ intl, post }) => {
             defaultMessage="Potential Payout: {amount}"
             amount={potentialPayout}
           />
-          <FormattedMessage id="beneficiaries" defaultMessage="Beneficiaries" />
           {beneficaries}
           <FormattedMessage
             id="payout_will_release_in_time"
@@ -105,12 +102,7 @@ const PayoutDetail = ({ intl, post }) => {
           <AmountWithLabel
             id="payout_total_past_payout_amount"
             defaultMessage="Total Past Payouts: {amount}"
-            amount={totalPastPayouts}
-          />
-          <AmountWithLabel
-            id="payout_beneficiaries_payout_amount"
-            defaultMessage="Beneficiaries payout: {amount}"
-            amount={beneficiariesPayouts}
+            amount={pastPayouts}
           />
           {beneficaries}
           <AmountWithLabel

@@ -10,9 +10,7 @@ import './Payout.less';
 
 const Payout = ({ intl, post }) => {
   const payout = calculatePayout(post);
-
-  // to support estimated total past payout including beneficiaires: https://github.com/busyorg/busy/issues/2220
-  const payoutValue = payout.cashoutInTime ? payout.potentialPayout : payout.totalPastPayouts;
+  const payoutValue = payout.cashoutInTime ? payout.potentialPayout : payout.pastPayouts;
 
   return (
     <span className="Payout">
