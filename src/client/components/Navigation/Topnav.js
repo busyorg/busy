@@ -150,7 +150,14 @@ class Topnav extends React.Component {
   menuForLoggedIn = () => {
     const { intl, username, notifications, userSCMetaData, loadingNotifications } = this.props;
     const { searchBarActive, notificationsPopoverVisible, popoverVisible } = this.state;
-    const lastSeenTimestamp = _.get(userSCMetaData, 'notifications_last_timestamp');
+    let lastSeenTimestamp;
+    try {
+      lastSeenTimestamp = JSON.parse(localStorage.getItem('user_metadata'))
+        .notifications_last_timestamp;
+    } catch (error) {
+      lastSeenTimestamp = _.get(userSCMetaData, 'notifications_last_timestamp');
+    }
+
     const notificationsCount = _.isUndefined(lastSeenTimestamp)
       ? _.size(notifications)
       : _.size(

@@ -5,6 +5,7 @@ import { createAsyncActionType } from '../helpers/stateHelpers';
 import { addNewNotification } from '../app/appActions';
 import { getFollowing } from '../user/userActions';
 import { BUSY_API_TYPES } from '../../common/constants/notifications';
+import { getMetadata } from '../helpers/metadata';
 
 export const LOGIN = '@auth/LOGIN';
 export const LOGIN_START = '@auth/LOGIN_START';
@@ -49,11 +50,12 @@ export const login = () => (dispatch, getState, { steemConnectAPI }) => {
 
 export const getCurrentUserFollowing = () => dispatch => dispatch(getFollowing());
 
-export const reload = () => (dispatch, getState, { steemConnectAPI }) =>
+export const reload = () => dispatch =>
   dispatch({
     type: RELOAD,
     payload: {
-      promise: steemConnectAPI.me(),
+      // promise: steemConnectAPI.me(),
+      promise: getMetadata(),
     },
   });
 
@@ -66,11 +68,12 @@ export const logout = () => (dispatch, getState, { steemConnectAPI }) => {
   });
 };
 
-export const getUpdatedSCUserMetadata = () => (dispatch, getState, { steemConnectAPI }) =>
+export const getUpdatedSCUserMetadata = () => dispatch =>
   dispatch({
     type: UPDATE_SC2_USER_METADATA.ACTION,
     payload: {
-      promise: steemConnectAPI.me(),
+      // promise: steemConnectAPI.me(),
+      promise: getMetadata(),
     },
   });
 
