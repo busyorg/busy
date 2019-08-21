@@ -1,25 +1,31 @@
 import omit from 'lodash/omit';
 import SteemConnect from '../steemConnectAPI';
+import { USER_METADATA_KEY } from './constants';
 
 // sc2 metadata support discontinuation preparation
 // const getMetadata = () => SteemConnect.me().then(resp => resp.user_metadata);
-export const getMetadata = () =>
-  SteemConnect.me().then(resp => {
-    const localMetadata = JSON.parse(localStorage.getItem('user_metadata'));
-    if (localMetadata) {
-      return Promise.resolve(localMetadata);
-    }
+// note that using Promise in some place is just to provide backward compatibility to old codes. refactoring is needed later.
+export const getMetadata = () => {
+  const localMetadata = JSON.parse(localStorage.getItem(USER_METADATA_KEY));
+  if (localMetadata) {
+    return Promise.resolve(localMetadata);
+  }
 
+  let promise;
+  SteemConnect.me().then(resp => {
     try {
-      localStorage.setItem('user_metadata', JSON.stringify(resp.user_metadata));
-      return resp.user_metadata;
+      localStorage.setItem(USER_METADATA_KEY, JSON.stringify(resp.user_metadata));
+      promise = resp.user_metadata;
     } catch (err) {
-      return Promise.reject(new Error(err));
+      promise = Promise.reject(new Error(err));
     }
   });
 
+  return promise;
+};
+
 export const updateUserMetadata = metadata => {
-  localStorage.setItem('user_metadata', JSON.stringify(metadata));
+  localStorage.setItem(USER_METADATA_KEY, JSON.stringify(metadata));
   return Promise.resolve(metadata);
 };
 
