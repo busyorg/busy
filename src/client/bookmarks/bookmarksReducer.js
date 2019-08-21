@@ -1,5 +1,6 @@
 import * as authActions from '../auth/authActions';
 import * as bookmarksActions from './bookmarksActions';
+import { USER_METADATA_KEY } from '../helpers/constants';
 
 const initialState = {
   list: {},
@@ -31,7 +32,15 @@ const bookmarks = (state = initialState, action) => {
         pendingBookmarks: state.pendingBookmarks.filter(bookmark => bookmark !== action.meta.id),
       };
     default:
-      return state;
+      try {
+        return {
+          ...state,
+          list: JSON.parse(localStorage.getItem(USER_METADATA_KEY)).bookmarks || state.list,
+        };
+      } catch (error) {
+        // this is due to localStorage hasn't been ready. Can be ignored.
+        return state;
+      }
   }
 };
 
