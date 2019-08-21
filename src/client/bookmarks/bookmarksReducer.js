@@ -10,11 +10,15 @@ const initialState = {
 const bookmarks = (state = initialState, action) => {
   switch (action.type) {
     case authActions.LOGIN_SUCCESS:
-      if (action.meta && action.meta.refresh) return state;
-      return {
-        ...state,
-        list: action.payload.user_metadata.bookmarks || initialState.list,
-      };
+      try {
+        return {
+          ...state,
+          list: JSON.parse(localStorage.getItem(USER_METADATA_KEY)).bookmarks || state.list,
+        };
+      } catch (error) {
+        // this is due to localStorage hasn't been ready. Can be ignored.
+        return state;
+      }
     case bookmarksActions.TOGGLE_BOOKMARK_START:
       return {
         ...state,
@@ -32,15 +36,7 @@ const bookmarks = (state = initialState, action) => {
         pendingBookmarks: state.pendingBookmarks.filter(bookmark => bookmark !== action.meta.id),
       };
     default:
-      try {
-        return {
-          ...state,
-          list: JSON.parse(localStorage.getItem(USER_METADATA_KEY)).bookmarks || state.list,
-        };
-      } catch (error) {
-        // this is due to localStorage hasn't been ready. Can be ignored.
-        return state;
-      }
+      return state;
   }
 };
 
