@@ -23,6 +23,7 @@ import Popover from '../Popover';
 import Notifications from './Notifications/Notifications';
 import LanguageSettings from './LanguageSettings';
 import './Topnav.less';
+import { USER_METADATA_KEY } from '../../helpers/constants';
 
 @injectIntl
 @withRouter
@@ -152,7 +153,7 @@ class Topnav extends React.Component {
     const { searchBarActive, notificationsPopoverVisible, popoverVisible } = this.state;
     let lastSeenTimestamp;
     try {
-      lastSeenTimestamp = JSON.parse(localStorage.getItem('user_metadata'))
+      lastSeenTimestamp = JSON.parse(localStorage.getItem(USER_METADATA_KEY))
         .notifications_last_timestamp;
     } catch (error) {
       lastSeenTimestamp = _.get(userSCMetaData, 'notifications_last_timestamp');
