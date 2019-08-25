@@ -1,38 +1,12 @@
 import omit from 'lodash/omit';
 import SteemConnect from '../steemConnectAPI';
-import { USER_METADATA_KEY } from './constants';
 
-// sc2 metadata support discontinuation preparation
-// const getMetadata = () => SteemConnect.me().then(resp => resp.user_metadata);
-// note that using Promise in some place is just to provide backward compatibility to old codes. refactoring is needed later.
-export const getMetadata = () => {
-  const localMetadata = JSON.parse(localStorage.getItem(USER_METADATA_KEY));
-  if (localMetadata) {
-    return Promise.resolve(localMetadata);
-  }
-
-  let promise;
-  SteemConnect.me().then(resp => {
-    try {
-      localStorage.setItem(USER_METADATA_KEY, JSON.stringify(resp.user_metadata));
-      promise = resp.user_metadata;
-    } catch (err) {
-      promise = Promise.reject(new Error(err));
-    }
-  });
-
-  return promise;
-};
-
-export const updateUserMetadata = metadata => {
-  localStorage.setItem(USER_METADATA_KEY, JSON.stringify(metadata));
-  return Promise.resolve(metadata);
-};
+const getMetadata = () => SteemConnect.me().then(resp => resp.user_metadata);
 
 export const saveSettingsMetadata = settings =>
   getMetadata()
     .then(metadata =>
-      updateUserMetadata({
+      SteemConnect.updateUserMetadata({
         ...metadata,
         settings: {
           ...metadata.settings,
@@ -40,12 +14,22 @@ export const saveSettingsMetadata = settings =>
         },
       }),
     )
-    .then(resp => resp.settings);
+    .then(resp => resp.user_metadata.settings);
+
+export const setLocaleMetadata = locale =>
+  getMetadata()
+    .then(metadata =>
+      SteemConnect.updateUserMetadata({
+        ...metadata,
+        locale,
+      }),
+    )
+    .then(resp => resp.user_metadata.locale);
 
 export const addDraftMetadata = draft =>
   getMetadata()
     .then(metadata =>
-      updateUserMetadata({
+      SteemConnect.updateUserMetadata({
         ...metadata,
         drafts: {
           ...metadata.drafts,
@@ -53,22 +37,22 @@ export const addDraftMetadata = draft =>
         },
       }),
     )
-    .then(resp => resp.drafts[draft.id]);
+    .then(resp => resp.user_metadata.drafts[draft.id]);
 
 export const deleteDraftMetadata = draftIds =>
   getMetadata()
     .then(metadata =>
-      updateUserMetadata({
+      SteemConnect.updateUserMetadata({
         ...metadata,
         drafts: omit(metadata.drafts, draftIds),
       }),
     )
-    .then(resp => resp.drafts);
+    .then(resp => resp.user_metadata.drafts);
 
 export const toggleBookmarkMetadata = (id, author, permlink) =>
   getMetadata()
     .then(metadata =>
-      updateUserMetadata({
+      SteemConnect.updateUserMetadata({
         ...metadata,
         bookmarks:
           metadata.bookmarks && metadata.bookmarks[id]
@@ -76,16 +60,16 @@ export const toggleBookmarkMetadata = (id, author, permlink) =>
             : { ...metadata.bookmarks, [id]: { id, author, permlink } },
       }),
     )
-    .then(resp => resp.bookmarks);
+    .then(resp => resp.user_metadata.bookmarks);
 
 export const saveNotificationsLastTimestamp = lastTimestamp =>
   getMetadata()
     .then(metadata =>
-      updateUserMetadata({
+      SteemConnect.updateUserMetadata({
         ...metadata,
         notifications_last_timestamp: lastTimestamp,
       }),
     )
-    .then(resp => resp.notifications_last_timestamp);
+    .then(resp => resp.user_metadata.notifications_last_timestamp);
 
 export default getMetadata;

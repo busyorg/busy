@@ -68,7 +68,7 @@ export default class Settings extends React.Component {
   static defaultProps = {
     reloading: false,
     locale: 'auto',
-    votingPower: 'on',
+    votingPower: 'auto',
     votePercent: 10000,
     loading: false,
     showNSFWPosts: false,
@@ -83,7 +83,7 @@ export default class Settings extends React.Component {
 
   state = {
     locale: 'auto',
-    votingPower: 'on',
+    votingPower: 'auto',
     votePercent: 10000,
     showNSFWPosts: false,
     nightmode: false,

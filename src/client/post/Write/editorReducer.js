@@ -1,7 +1,6 @@
 import * as authActions from '../../auth/authActions';
 import * as editorActions from './editorActions';
 import * as postActions from '../postActions';
-import { USER_METADATA_KEY } from '../../helpers/constants';
 
 const defaultState = {
   loading: false,
@@ -31,16 +30,11 @@ const editor = (state = defaultState, action) => {
         editedPosts: state.editedPosts.filter(post => post !== action.payload),
       };
     case authActions.LOGIN_SUCCESS:
-      try {
-        return {
-          ...state,
-          draftPosts:
-            JSON.parse(localStorage.getItem(USER_METADATA_KEY)).drafts || defaultState.draftPosts,
-        };
-      } catch (error) {
-        // this is due to localStorage hasn't been ready. Can be ignored.
-        return state;
-      }
+      if (action.meta && action.meta.refresh) return state;
+      return {
+        ...state,
+        draftPosts: action.payload.user_metadata.drafts || defaultState.draftPosts,
+      };
     case editorActions.NEW_POST:
       return {
         ...state,

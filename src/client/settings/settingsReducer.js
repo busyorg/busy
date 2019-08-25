@@ -20,7 +20,7 @@ const settings = (state = initialState, action) => {
     case authTypes.LOGIN_SUCCESS:
     case authTypes.RELOAD_SUCCESS:
       if (action.meta && action.meta.refresh) return state;
-      if (action.payload && action.payload.settings) {
+      if (action.payload.user_metadata && action.payload.user_metadata.settings) {
         const {
           locale,
           votingPower,
@@ -31,7 +31,7 @@ const settings = (state = initialState, action) => {
           exitPageSetting,
           rewardSetting,
           useBeta,
-        } = action.payload.settings;
+        } = action.payload.user_metadata.settings;
         return {
           ...state,
           locale: locale || initialState.locale,

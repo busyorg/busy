@@ -23,7 +23,6 @@ import Popover from '../Popover';
 import Notifications from './Notifications/Notifications';
 import LanguageSettings from './LanguageSettings';
 import './Topnav.less';
-import { USER_METADATA_KEY } from '../../helpers/constants';
 
 @injectIntl
 @withRouter
@@ -151,14 +150,7 @@ class Topnav extends React.Component {
   menuForLoggedIn = () => {
     const { intl, username, notifications, userSCMetaData, loadingNotifications } = this.props;
     const { searchBarActive, notificationsPopoverVisible, popoverVisible } = this.state;
-    let lastSeenTimestamp;
-    try {
-      lastSeenTimestamp = JSON.parse(localStorage.getItem(USER_METADATA_KEY))
-        .notifications_last_timestamp;
-    } catch (error) {
-      lastSeenTimestamp = _.get(userSCMetaData, 'notifications_last_timestamp');
-    }
-
+    const lastSeenTimestamp = _.get(userSCMetaData, 'notifications_last_timestamp');
     const notificationsCount = _.isUndefined(lastSeenTimestamp)
       ? _.size(notifications)
       : _.size(
