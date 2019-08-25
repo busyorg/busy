@@ -19,7 +19,7 @@ import {
   getUseBeta,
   getNightmode,
 } from './reducers';
-import { login, logout, busyLogin } from './auth/authActions';
+import { login, logout, busyLogin, getUpdatedSCUserMetadata } from './auth/authActions';
 import { getFollowing, getNotifications } from './user/userActions';
 import {
   getRate,
@@ -58,6 +58,7 @@ import BBackTop from './components/BBackTop';
     busyLogin,
     getRebloggedList: reblogActions.getRebloggedList,
     setUsedLocale,
+    getUpdatedSCUserMetadata,
   },
 )
 export default class Wrapper extends React.PureComponent {
@@ -80,6 +81,7 @@ export default class Wrapper extends React.PureComponent {
     setUsedLocale: PropTypes.func,
     busyLogin: PropTypes.func,
     nightmode: PropTypes.bool,
+    getUpdatedSCUserMetadata: PropTypes.func,
   };
 
   static defaultProps = {
@@ -97,6 +99,7 @@ export default class Wrapper extends React.PureComponent {
     setUsedLocale: () => {},
     busyLogin: () => {},
     nightmode: false,
+    getUpdatedSCUserMetadata: () => {},
   };
 
   static async fetchData({ store, req, res }) {
@@ -140,6 +143,7 @@ export default class Wrapper extends React.PureComponent {
       this.props.getFollowing();
       this.props.getNotifications();
       this.props.busyLogin();
+      this.props.getUpdatedSCUserMetadata();
     });
 
     this.props.getRewardFund();

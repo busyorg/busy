@@ -2,6 +2,7 @@ export const BENEFICIARY_ACCOUNT = 'busy.org';
 export const BENEFICIARY_PERCENT = 1000;
 export const REFERRAL_PERCENT = 1000;
 export const MAX_TAG = 12; // to support SCOT tokens. but some Steem API may not work properly for more than 5 tags.
+export const USER_METADATA_KEY = 'user_metadata'; // key for localStorage
 
 // to support total past payout including beneficiaires: https://github.com/busyorg/busy/issues/2220
 // Expected HF21 time: https://github.com/steemit/steem/blob/master/libraries/protocol/hardfork.d/0_21.hf

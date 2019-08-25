@@ -25,7 +25,7 @@ class Notifications extends React.Component {
     lastSeenTimestamp: PropTypes.number,
     currentAuthUsername: PropTypes.string,
     onNotificationClick: PropTypes.func,
-    getUpdatedSCUserMetadata: PropTypes.func,
+    // getUpdatedSCUserMetadata: PropTypes.func,
   };
 
   static defaultProps = {
@@ -34,7 +34,7 @@ class Notifications extends React.Component {
     lastSeenTimestamp: 0,
     currentAuthUsername: '',
     onNotificationClick: () => {},
-    getUpdatedSCUserMetadata: () => {},
+    // getUpdatedSCUserMetadata: () => {},
   };
 
   constructor(props) {
@@ -57,7 +57,9 @@ class Notifications extends React.Component {
     const timestamp = _.get(latestNotification, 'timestamp');
 
     if (timestamp > lastSeenTimestamp) {
-      saveNotificationsLastTimestamp(timestamp).then(() => this.props.getUpdatedSCUserMetadata());
+      // saveNotificationsLastTimestamp(timestamp).then(() => this.props.getUpdatedSCUserMetadata());
+      // lasttimestamp will be directly fetch from local storage, so no update is needed.
+      saveNotificationsLastTimestamp(timestamp);
     }
   }
 
@@ -77,7 +79,9 @@ class Notifications extends React.Component {
       const timestamp = _.get(latestNotification, 'timestamp');
 
       if (timestamp > nextProps.lastSeenTimestamp) {
-        saveNotificationsLastTimestamp(timestamp).then(() => this.props.getUpdatedSCUserMetadata());
+        // saveNotificationsLastTimestamp(timestamp).then(() => this.props.getUpdatedSCUserMetadata());
+        // lasttimestamp will be directly fetch from local storage, so no update is needed.
+        saveNotificationsLastTimestamp(timestamp);
       }
     }
   }
