@@ -16,8 +16,6 @@ export const knownDomains = [
   'steemit.com',
   'steem.io',
   'd.tube',
-  'dlive.io',
-  'utopian.io',
   'coinmarketcap.com',
   'youtube.com',
 ];
@@ -124,4 +122,5 @@ export const people = [
   'nanzo-scoop',
   'surfermarly',
   'blockchainstudio',
+  'steemfinex'
 ];
