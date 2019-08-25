@@ -7,7 +7,7 @@ import { rewardsValues } from '../../../common/constants/rewards';
 describe('settingsReducer', () => {
   const initialState = {
     locale: 'auto',
-    votingPower: 'auto',
+    votingPower: 'on',
     votePercent: 10000,
     loading: false,
     showNSFWPosts: false,

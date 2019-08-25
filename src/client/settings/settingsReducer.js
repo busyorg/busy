@@ -1,10 +1,11 @@
 import * as settingsTypes from './settingsActions';
 import * as authTypes from '../auth/authActions';
 import { rewardsValues } from '../../common/constants/rewards';
+import { USER_METADATA_KEY } from '../helpers/constants';
 
 const initialState = {
   locale: 'auto',
-  votingPower: 'auto',
+  votingPower: 'on', // due to initial voting setting loading problem, set to on.
   votePercent: 10000,
   showNSFWPosts: false,
   nightmode: false,
@@ -18,6 +19,37 @@ const initialState = {
 const settings = (state = initialState, action) => {
   switch (action.type) {
     case authTypes.LOGIN_SUCCESS:
+      try {
+        const {
+          locale,
+          votingPower,
+          votePercent,
+          showNSFWPosts,
+          nightmode,
+          rewriteLinks,
+          exitPageSetting,
+          rewardSetting,
+          useBeta,
+        } = JSON.parse(localStorage.getItem(USER_METADATA_KEY)).settings;
+        return {
+          ...state,
+          locale: locale || initialState.locale,
+          votingPower: votingPower || initialState.votingPower,
+          votePercent: votePercent || initialState.votePercent,
+          showNSFWPosts: showNSFWPosts || initialState.showNSFWPosts,
+          nightmode: nightmode || initialState.nightmode,
+          rewriteLinks:
+            typeof rewriteLinks === 'boolean' ? rewriteLinks : initialState.rewriteLinks,
+          exitPageSetting:
+            typeof exitPageSetting === 'boolean' ? exitPageSetting : initialState.exitPageSetting,
+          rewardSetting: rewardSetting || initialState.rewardSetting,
+          useBeta: typeof useBeta === 'boolean' ? useBeta : initialState.useBeta,
+        };
+      } catch (error) {
+        // this is due to localStorage hasn't been ready. Can be ignored. but reload is needed for VP settings.
+        console.log(error);
+        return state;
+      }
     case authTypes.RELOAD_SUCCESS:
       if (action.meta && action.meta.refresh) return state;
       if (action.payload && action.payload.settings) {
