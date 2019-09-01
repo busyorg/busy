@@ -122,5 +122,5 @@ export const people = [
   'nanzo-scoop',
   'surfermarly',
   'blockchainstudio',
-  'steemfinex'
+  'steemfinex',
 ];
