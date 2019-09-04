@@ -2,20 +2,41 @@ import omit from 'lodash/omit';
 import SteemConnect from '../steemConnectAPI';
 import { USER_METADATA_KEY } from './constants';
 
+const initialSetting = {
+  locale: 'auto',
+  votingPower: 'on',
+  votePercent: 10000,
+  showNSFWPosts: false,
+  nightmode: false,
+  rewriteLinks: false,
+  loading: false,
+  exitPageSetting: true,
+  rewardSetting: 50,
+  useBeta: false,
+};
+
 // sc2 metadata support discontinuation preparation
 // const getMetadata = () => SteemConnect.me().then(resp => resp.user_metadata);
 // note that using Promise in some place is just to provide backward compatibility to old codes. refactoring is needed later.
 export const getMetadata = () => {
-  const localMetadata = JSON.parse(localStorage.getItem(USER_METADATA_KEY));
+  let localMetadata = JSON.parse(localStorage.getItem(USER_METADATA_KEY));
   if (localMetadata) {
     return Promise.resolve(localMetadata);
   }
 
-  let promise;
+  let promise; // due to lint error
   SteemConnect.me().then(resp => {
     try {
-      localStorage.setItem(USER_METADATA_KEY, JSON.stringify(resp.user_metadata));
-      promise = resp.user_metadata;
+      if (resp.user_metadata) {
+        localStorage.setItem(USER_METADATA_KEY, JSON.stringify(resp.user_metadata));
+        promise = resp.user_metadata;
+      } else {
+        localMetadata = {
+          settings: initialSetting,
+        };
+        localStorage.setItem(USER_METADATA_KEY, JSON.stringify(localMetadata));
+        promise = Promise.resolve(localMetadata);
+      }
     } catch (err) {
       promise = Promise.reject(new Error(err));
     }
