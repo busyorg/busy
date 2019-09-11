@@ -420,7 +420,9 @@ class StoryFull extends React.Component {
               </PopoverMenu>
             }
           >
-            <i className="iconfont icon-more StoryFull__header__more" />
+            <button className="StoryFull__header__more" aria-label="More">
+              <i foscusable="false" className="iconfont icon-more" />
+            </button>
           </Popover>
         </div>
         <div className="StoryFull__content">{content}</div>
