@@ -4674,10 +4674,10 @@ highcharts@^6.0.0:
   version "6.0.4"
   resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-6.0.4.tgz#bb6956de2fbe24fa4b6141be7ceadc052ca2abf9"
 
-highcharts@^6.1.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-6.2.0.tgz#2a6d04652eb43c66f462ca7e2d2808f1f2782b61"
-  integrity sha512-A4E89MA+kto8giic7zyLU6ZxfXnVeCUlKOyzFsah3+n4BROx4bgonl92KIBtwLud/mIWir8ahqhuhe2by9LakQ==
+highcharts@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-9.0.0.tgz#2e5d382481f71c50ac7f086e7bdead394fab71d4"
+  integrity sha512-MJCtidFytGSQvsV3OEM+vFTLpjUcp7jmFpLn8h3oL4WKp0gxUOQg6Nw00sqMWGdiadst0gOZO4804zynTcYjZQ==
 
 history@^4.6.3, history@^4.7.2:
   version "4.7.2"

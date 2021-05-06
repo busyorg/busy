@@ -65,7 +65,7 @@
     "filesize": "^3.5.11",
     "handlebars": "^4.0.14",
     "handlebars-intl": "^1.1.2",
-    "highcharts": "^6.1.0",
+    "highcharts": "^9.0.0",
     "history": "^4.6.3",
     "identity-obj-proxy": "^3.0.0",
     "isomorphic-fetch": "^2.2.1",
