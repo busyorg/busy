@@ -107,7 +107,7 @@
     "redux-thunk": "^2.1.0",
     "remarkable": "1.7.1",
     "resize-observer-polyfill": "^1.4.2",
-    "sanitize-html": "1.15.0",
+    "sanitize-html": "2.3.2",
     "sc2-sdk": "^1.0.1",
     "secure-random": "^1.1.1",
     "speakingurl": "^11.0.0",
