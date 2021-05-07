@@ -63,7 +63,7 @@
     "embedjs": "^0.0.11",
     "express": "^4.15.4",
     "filesize": "^3.5.11",
-    "handlebars": "^4.0.14",
+    "handlebars": "^4.7.7",
     "handlebars-intl": "^1.1.2",
     "highcharts": "^6.1.0",
     "history": "^4.6.3",
