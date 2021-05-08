@@ -72,7 +72,7 @@
     "js-cookie": "^2.1.4",
     "js-yaml": "^3.13.1",
     "lightrpc": "0.0.1",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.21",
     "lodash-es": "^4.17.14",
     "lodash.merge": "^4.6.2",
     "lodash.template": "^4.5.0",
