@@ -78,7 +78,7 @@
     "lodash.template": "^4.5.0",
     "macaddress": "^0.2.9",
     "matchmedia": "^0.1.2",
-    "merge": "^1.2.1",
+    "merge": "^2.1.1",
     "npm-run-all": "^4.0.2",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
