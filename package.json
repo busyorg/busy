@@ -114,7 +114,7 @@
     "sshpk": "^1.13.2",
     "steemscript": "^1.0.1",
     "store": "^1.3.20",
-    "striptags": "^2.1.1",
+    "striptags": "^3.2.0",
     "text-ellipsis": "^1.0.3",
     "url-parse": "^1.4.3",
     "url-search-params-polyfill": "^2.0.0",
