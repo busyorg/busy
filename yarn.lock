@@ -7868,10 +7868,6 @@ querystringify@0.0.x:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-0.0.4.tgz#0cf7f84f9463ff0ae51c4c4b142d95be37724d9c"
 
-querystringify@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.0.0.tgz#fa3ed6e68eb15159457c89b37bc6472833195755"
-
 querystringify@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.1.1.tgz#60e5a5fd64a7f8bfa4d2ab2ed6fdf4c85bad154e"
@@ -10410,17 +10406,10 @@ url-parse@1.0.x:
     querystringify "0.0.x"
     requires-port "1.0.x"
 
-url-parse@^1.1.8:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.0.tgz#6bfdaad60098c7fe06f623e42b22de62de0d3d75"
-  dependencies:
-    querystringify "^2.0.0"
-    requires-port "^1.0.0"
-
-url-parse@^1.4.3:
-  version "1.4.7"
-  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.7.tgz#a8a83535e8c00a316e403a5db4ac1b9b853ae278"
-  integrity sha512-d3uaVyzDB9tQoSXFvuSUNFibTd9zxd2bkVrDRvF5TmvWWQwqE4lgYJ5m+x1DbecWkw+LK4RNl2CU1hHuOKPVlg==
+url-parse@^1.1.8, url-parse@^1.5.8:
+  version "1.5.8"
+  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.5.8.tgz#3f8090e4d6f80053eb861ec496049849f700337e"
+  integrity sha512-9JZ5zDrn9wJoOy/t+rH00HHejbU8dq9VsOYVu272TYDrCiyVAgHKUSpPh3ruZIpv8PMVR+NXLZvfRPJv8xAcQw==
   dependencies:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
