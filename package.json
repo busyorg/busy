@@ -73,7 +73,7 @@
     "js-yaml": "^3.13.1",
     "lightrpc": "0.0.1",
     "lodash": "^4.17.13",
-    "lodash-es": "^4.17.14",
+    "lodash-es": "^4.17.21",
     "lodash.merge": "^4.6.2",
     "lodash.template": "^4.5.0",
     "macaddress": "^0.2.9",
